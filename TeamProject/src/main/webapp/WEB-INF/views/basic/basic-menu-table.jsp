@@ -41,9 +41,6 @@
                                         <div class="card-body">
                                             <div class="shop__sidebar__categories">
                                                 <ul class>
-                                                    <li><a href="basic-badge-button.jsp">basic-badge-button</a></li>
-                                                    <li><a href="basic-menu-table.jsp">basic-menu-table</a></li>
-                                                    <li><a href="basic-form.jsp">basic-form</a></li>
                                                     <li><a href="${pageContext.request.contextPath }/main/main">만들어진 페이지-메인(main)</a></li>
                                                     <li><a href="${pageContext.request.contextPath }/food/shop">만들어진 페이지-상품목록(shop)</a></li>
                                                     <li><a href="${pageContext.request.contextPath }/food/details">만들어진 페이지-상품정보(details)</a></li>
