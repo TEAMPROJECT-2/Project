@@ -23,6 +23,8 @@ public class MemberController {
 
 	//	가상주소 시작점 http://localhost:8080/myweb2/member/insert 
 	
+	//commit
+	
 	
 	@RequestMapping(value = "/basic/basic-badge-button", method = RequestMethod.GET)
 	public String basicBasicBadgeButton() {
