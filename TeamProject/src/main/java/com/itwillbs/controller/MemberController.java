@@ -24,6 +24,21 @@ public class MemberController {
 	//	가상주소 시작점 http://localhost:8080/myweb2/member/insert 
 	
 	
+	@RequestMapping(value = "/basic/basic-badge-button", method = RequestMethod.GET)
+	public String basicBasicBadgeButton() {
+		return "basic/basic-badge-button";
+	}
+	@RequestMapping(value = "/basic/basic-form", method = RequestMethod.GET)
+	public String basicBasicForm() {
+		return "basic/basic-form";
+	}
+	@RequestMapping(value = "/basic/basic-menu-table", method = RequestMethod.GET)
+	public String basicBasicMenuTable() {
+		return "basic/basic-menu-table";
+	}
+	
+	
+	
 	@RequestMapping(value = "/main/main", method = RequestMethod.GET)
 	public String indexMain() {
 		return "main/main";
