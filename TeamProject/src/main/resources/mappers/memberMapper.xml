@@ -5,34 +5,53 @@
   
 <mapper namespace="com.itwillbs.mappers.memberMapper">
 
-<!--<insert id="sql구문이름"> -->
-<!-- value(DTO 멤버변수) -->
+<!-- 회원가입 -->
 	<insert id="insertMember">
-		INSERT INTO MEMBERS(
-					ID, 
-					PASS, 
-					NAME, 
-					DATE	) 
+		INSERT INTO USER_INFO(
+					USER_ID, 
+					USER_PASS, 
+					USER_EMAIL, 
+					USER_GENDER, 
+					USER_ATHLETIC, 
+					USER_NICKNM, 
+					USER_PHONE, 
+					USER_ZIPCODE,
+					USER_ADDRESS, 
+					USER_DATE, 
+					POINT_NUM, 
+					MY_COUPON_NUM,
+					USER_RANK 
+					) 
 			VALUES(
-			  		#{id},
-			  		#{pass},
-			  		#{name},
-			  		#{date}
+			  		#{userId},
+			  		#{userPass},
+			  		#{userNm},
+			  		#{userEmail},
+			  		#{userGender},
+			  		#{userAthletic},
+			  		#{userNicknm},
+			  		#{userPhone},
+			  		#{userZipcode},
+			  		#{userAddress},
+			  		#{userDate},
+			  		#{pointNum},
+			  		#{myCouponNum},
+			  		#{userRank},
 			  		)
 			
 	</insert>
 	
 	<select id="userCheck" resultType="com.itwillbs.domain.MemberDTO">
 		SELECT * 
-		  FROM MEMBERS
-		 WHERE ID=#{id}
-		   AND PASS=#{pass}
+		  FROM USER_INFO
+		 WHERE USER_ID=#{userId}
+		   AND USER_PASS=#{userPass}
 	</select>
 
 	<select id="getMember" resultType="com.itwillbs.domain.MemberDTO">
 		SELECT * 
-		  FROM MEMBERS
-		 WHERE ID=#{id}
+		  FROM USER_INFO
+		 WHERE USER_ID=#{userId}
 	</select>
 
 </mapper>

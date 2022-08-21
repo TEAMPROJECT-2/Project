@@ -278,7 +278,11 @@
           <div class="col-12">
             <button class="btn btn-primary" type="submit">Submit form</button>
           </div>
+          </form>
+          </div>
         </div></div>
+        </article>
+        </section>
 
   
     <!-- Footer -->
