@@ -21,7 +21,61 @@ public class MemberController {
 	@Inject
 	private MemberService memberService;
 
-	//	가상주소 시작점 http://localhost:8080/myweb2/member/insert 
+	// 회원가입
+	@RequestMapping(value = "/member/insert", method = RequestMethod.GET)
+	public String insert() {
+		// 주소변경없이 이동
+		// WEB-INF/views/member/insertForm.jsp 이동
+		return "member/insertForm";
+	}
+	
+	@RequestMapping(value = "/member/insertPro", method = RequestMethod.POST)
+	public String insertPro(MemberDTO memberDTO) {
+		System.out.println("MemberController insertPro()");
+		// 메서드 호출
+		memberService.insertMember(memberDTO);
+		
+		// 주소변경 이동
+		return "redirect:/member/login";
+	}
+
+	// 로그인
+	@RequestMapping(value = "/member/login", method = RequestMethod.GET)
+	public String login() {
+		return "member/login";
+	}
+	
+	@RequestMapping(value = "/member/loginPro", method = RequestMethod.POST)
+	// jsp는 세션이 자동으로 만들어지지만 자바는 HttpSession으로 만들어야한다
+	public String loginPro(MemberDTO memberDTO, HttpSession session) {
+		System.out.println("MemberController loginPro()");
+		// 메서드 호출
+		MemberDTO memberDTO2=memberService.userCheck(memberDTO);
+		if(memberDTO2!=null) {
+			// 아이디 비밀번호가 일치하면 null 아닌 값이 들고오는
+			// 세션값 생성 "id", id
+			session.setAttribute("userId", memberDTO.getUserId());
+			
+			// member/main 이동
+			return "redirect:/member/main";
+		}else {
+			// null일 경우 아이디 비밀번호 틀림
+			// "틀림" 뒤로이동
+			// 주소변경없이 이동
+			// WEB-INF/views/member/msg.jsp 이동
+			return "/member/msg";
+		}
+	}
+	
+	// 로그아웃
+	@RequestMapping(value = "/member/logout", method = RequestMethod.GET)
+	public String logout(HttpSession session) {
+		// 세션값 초기화
+		session.invalidate();
+		// /member/main 이동
+		// 주소변경 이동
+		return "redirect:/member/main";
+	}
 	
 	
 	@RequestMapping(value = "/basic/basic-badge-button", method = RequestMethod.GET)
@@ -36,8 +90,6 @@ public class MemberController {
 	public String basicBasicMenuTable() {
 		return "basic/basic-menu-table";
 	}
-	
-	
 	
 	@RequestMapping(value = "/main/main", method = RequestMethod.GET)
 	public String indexMain() {
@@ -106,7 +158,6 @@ public class MemberController {
 	}
 	
 	
-	
 	@RequestMapping(value = "/order/cart", method = RequestMethod.GET)
 	public String orderCart() {
 		return "order/cart";
@@ -116,65 +167,13 @@ public class MemberController {
 		return "order/checkout";
 	}
 	
-	
-	
-	
-	
-	
-	
-	@RequestMapping(value = "/member/insertPro", method = RequestMethod.POST)
-	public String insertPro(MemberDTO memberDTO) {
-		System.out.println("MemberController insertPro()");
-		// 회원가입
-		// 메서드 호출
-		memberService.insertMember(memberDTO);
-		
-		// 주소변경 이동
-		return "redirect:/member/login";
-	}
-	
-	@RequestMapping(value = "/member/login", method = RequestMethod.GET)
-	public String login() {
-		return "member/loginForm";
-	}
-	
-	@RequestMapping(value = "/member/loginPro", method = RequestMethod.POST)
-	// jsp는 세션이 자동으로 만들어지지만 자바는 HttpSession으로 만들어야한다
-	public String loginPro(MemberDTO memberDTO, HttpSession session) {
-		System.out.println("MemberController loginPro()");
-		// 메서드 호출
-		MemberDTO memberDTO2=memberService.userCheck(memberDTO);
-		if(memberDTO2!=null) {
-			// 아이디 비밀번호가 일치하면 null 아닌 값이 들고오는
-			// 세션값 생성 "id", id
-			session.setAttribute("id", memberDTO.getId());
-			
-			// member/main 이동
-			return "redirect:/member/main";
-		}else {
-			// null일 경우 아이디 비밀번호 틀림
-			// "틀림" 뒤로이동
-			// 주소변경없이 이동
-			// WEB-INF/views/member/msg.jsp 이동
-			return "/member/msg";
-		}
-	}
+
 	//	가상주소 시작점 http://localhost:8080/myweb2/member/main
 	@RequestMapping(value = "/member/main", method = RequestMethod.GET)
 	public String main() {
 		// 주소변경없이 이동
 		// WEB-INF/views/member/insertForm.jsp 이동
 		return "member/main";
-	}
-	
-	//	가상주소 시작점 http://localhost:8080/myweb2/member/logout
-	@RequestMapping(value = "/member/logout", method = RequestMethod.GET)
-	public String logout(HttpSession session) {
-		// 세션값 초기화
-		session.invalidate();
-		// /member/main 이동
-		// 주소변경 이동
-		return "redirect:/member/main";
 	}
 	
 	//	가상주소 시작점 http://localhost:8080/myweb2/member/logout

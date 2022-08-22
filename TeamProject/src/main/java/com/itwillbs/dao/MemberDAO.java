@@ -8,5 +8,5 @@ public interface MemberDAO {
 	
 	public MemberDTO userCheck(MemberDTO memberDTO);
 
-	public MemberDTO getMember(String id);
+	public MemberDTO getMember(String userId);
 }
