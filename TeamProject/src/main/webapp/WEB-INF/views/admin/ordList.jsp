@@ -59,7 +59,7 @@
                         <th>상품코드</th>
                         <th>구입날짜</th>
                         <th>주문수량</th>
-                       
+                        <th>주문상태</th>
                       </tr>
                     </thead>
                     <tbody class="table-border-bottom-0">
@@ -68,7 +68,10 @@
                         <td>kim</td>
                         <td>shake0001</td>
                         <td>22-02-13</td>
-                        <td><span class="badge bg-label-info me-1">배송완료</span></td>
+                        <td>1개</td>
+<!--                         <td><span class="badge bg-label-info me-1">배송완료</span></td> -->
+                        <td><span class="badge bg-label-warning me-1">배송중</span></td>
+<!--                         <td><span class="badge bg-label-danger me-1">배송완료</span></td> -->
                       </tr>
                       
                       <tr>
@@ -76,9 +79,53 @@
                         <td>lee</td>
                         <td>shake0003</td>
                         <td>22-02-20</td>
-                        <td><span class="badge bg-label-info me-1">환불요청</span></td>
+                        <td>2개</td>
+                        <td><span class="badge bg-label-danger me-1">미배송</span></td>
                       </tr>
                       
+                      <tr>
+                        <td>1235</td>
+                        <td>lee</td>
+                        <td>shake0003</td>
+                        <td>22-02-20</td>
+                        <td>2개</td>
+                        <td><span class="badge bg-label-info me-1">배송완료</span></td>
+                      </tr>
+                    
+                    
+                    <h5 class="card-header">Segmented buttons</h5>
+                        <div class="card-body demo-vertical-spacing demo-only-element">
+                          <div class="input-group">
+                            <button type="button" class="btn btn-outline-primary">Action</button>
+                            <button
+                              type="button"
+                              class="btn btn-outline-primary dropdown-toggle dropdown-toggle-split"
+                              data-bs-toggle="dropdown"
+                              aria-expanded="false"
+                            >
+                              <span class="visually-hidden">Toggle Dropdown</span>
+                            </button>
+                            <ul class="dropdown-menu">
+                              <li><a class="dropdown-item" href="javascript:void(0);">Action</a></li>
+                              <li><a class="dropdown-item" href="javascript:void(0);">Another action</a></li>
+                              <li><a class="dropdown-item" href="javascript:void(0);">Something else here</a></li>
+                              <li>
+                                <hr class="dropdown-divider" />
+                              </li>
+                              <li><a class="dropdown-item" href="javascript:void(0);">Separated link</a></li>
+                            </ul>
+                            <input
+                              type="text"
+                              class="form-control"
+                              aria-label="Text input with segmented dropdown button"
+                            />
+                          </div>
+                    	</div>
+                    
+                    
+                    
+                    
+                    
                     
                     </tbody>
                   </table>

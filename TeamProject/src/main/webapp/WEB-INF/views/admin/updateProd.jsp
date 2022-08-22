@@ -57,10 +57,13 @@
                     <div class="card-body">
                       <form>
                       <div class="mb-3">
-                          <label class="form-label" for="basic-default-fullname">상품번호(수정불가)</label>
+                          <label class="form-label" for="basic-default-fullname">상품구분ID(수정불가)</label>
                           <input type="text" class="form-control" id="basic-default-fullname" placeholder="John Doe" />
                         </div>
-                        
+                      <div class="mb-3">
+                          <label class="form-label" for="basic-default-fullname">상품코드(수정불가)</label>
+                          <input type="text" class="form-control" id="basic-default-fullname" placeholder="John Doe" />
+                        </div>  
                         <label class="form-label" for="basic-default-fullname">상품분류</label>
                           <div class="form-check mt-3">
                             <input

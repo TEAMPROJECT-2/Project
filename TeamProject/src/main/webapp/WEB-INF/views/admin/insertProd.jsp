@@ -38,11 +38,8 @@
                 <div class="col-md-12">
                   <ul class="nav nav-pills flex-column flex-md-row mb-3">
                     <li class="nav-item">
-                      <a class="nav-link" href="${pageContext.request.contextPath }/admin/updateProd"
-                        ><i class="bx bx-user me-1"></i>상품수정 </a
-                      >
-                   
-                    
+                      <a class="nav-link" href="${pageContext.request.contextPath }/admin/updateProd">
+                        <i class="bx bx-user me-1"></i>상품신규등록 </a>
                   </ul>
 <!--  화면줄였을때 버티컬 및 큰화면에서는 시작 매뉴끝                  -->
                   
@@ -51,13 +48,17 @@
                  <div class="col-xl">
                   <div class="card mb-4">
                     <div class="card-header d-flex justify-content-between align-items-center">
-                      <h5 class="mb-0">상품수정</h5>
+                      <h5 class="mb-0">상품신규등록</h5>
                       <small class="text-muted float-end"></small>
                     </div>
                     <div class="card-body">
                       <form>
                       <div class="mb-3">
-                          <label class="form-label" for="basic-default-fullname">상품번호(수정불가)</label>
+                          <label class="form-label" for="basic-default-fullname">상품구분ID</label>
+                          <input type="text" class="form-control" id="basic-default-fullname" placeholder="John Doe" />
+                        </div>
+                      <div class="mb-3">
+                          <label class="form-label" for="basic-default-fullname">상품코드</label>
                           <input type="text" class="form-control" id="basic-default-fullname" placeholder="John Doe" />
                         </div>
                         

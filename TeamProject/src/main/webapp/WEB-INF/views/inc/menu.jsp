@@ -45,7 +45,7 @@
         <a href="#"><img src="${pageContext.request.contextPath }/resources/img/icon/heart.png" alt=""></a>
         
        <!-- todo 페이지를 못찾음-->
-        <a href="${pageContext.request.contextPath }/mypage/cart"><img src="${pageContext.request.contextPath }/resources/img/icon/cart.png" alt=""></a>
+        <a href="${pageContext.request.contextPath }/order/cart"><img src="${pageContext.request.contextPath }/resources/img/icon/cart.png" alt=""></a>
         
         
         <div class="price">0 포인트</div>
