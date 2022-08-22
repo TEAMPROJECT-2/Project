@@ -71,6 +71,7 @@
             <a href="${pageContext.request.contextPath }/basic/basic-badge-button">꾸밈버튼종류</a>
             <a href="${pageContext.request.contextPath }/basic/basic-form">꾸밈폼종류</a>
             <a href="${pageContext.request.contextPath }/basic/basic-menu-table">꾸밈테이블종류</a></p>
+            
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-5">
@@ -78,6 +79,8 @@
                         <div class="header__top__links">
                             <a href="#">로그인</a>
                             <a href="#">회원가입</a>
+                            <a href="${pageContext.request.contextPath }/admin/adminMain">업체페이지</a>
+                            
                         </div>
                         <div class="header__top__hover">
                         </div>
