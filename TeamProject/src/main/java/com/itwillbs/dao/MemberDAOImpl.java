@@ -26,6 +26,8 @@ public class MemberDAOImpl implements MemberDAO{
 	@Override
 	public MemberDTO userCheck(MemberDTO memberDTO) {
 		System.out.println("MemberDAOImpl userCheck()");
+		System.out.println(memberDTO.getUserId());
+		System.out.println(memberDTO.getUserPass());
 		// 하나만 선택할 떄는 selectOne
 		return sqlSession.selectOne(namespace+".userCheck", memberDTO);
 	}

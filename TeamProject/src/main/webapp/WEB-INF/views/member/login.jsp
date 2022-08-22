@@ -54,13 +54,13 @@
                      <label for="userId">
                         ID
                      </label>
-                        <input type="text" id="userId" placeholder="ID">
+                        <input type="text" id="userId" name="userId" placeholder="ID">
                     </div>
                     <div class="checkout__input">
                   	 <label for="userPass">
                         비밀번호
                      </label>
-                        <input type="password" id="userPass" placeholder="비밀번호">
+                        <input type="password" id="userPass" name="userPass" placeholder="비밀번호">
                     </div>
 				     <button type="submit" class="site-btn w-100 btn-lg">로그인</button><br>
 				  </form>

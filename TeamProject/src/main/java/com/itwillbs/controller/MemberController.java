@@ -50,7 +50,9 @@ public class MemberController {
 	public String loginPro(MemberDTO memberDTO, HttpSession session) {
 		System.out.println("MemberController loginPro()");
 		// 메서드 호출
+		System.out.println(memberDTO.getUserId());
 		MemberDTO memberDTO2=memberService.userCheck(memberDTO);
+//		System.out.println("memberDTO2" + memberDTO2.getUserId());
 		if(memberDTO2!=null) {
 			// 아이디 비밀번호가 일치하면 null 아닌 값이 들고오는
 			// 세션값 생성 "id", id
