@@ -62,20 +62,20 @@
                         <label class="form-label" for="basic-default-fullname">상품분류</label>
                           <div class="form-check mt-3">
                             <input
-                              name="default-radio-1"
+                              name="prodLType"
                               class="form-check-input"
                               type="radio"
-                              value=""
+                              value="식품"
                               id="defaultRadio1"
                             />
                             <label class="form-check-label" for="defaultRadio1"> 식품 </label>
                           </div>
                           <div class="form-check">
                             <input
-                              name="default-radio-1"
+                              name="prodLType"
                               class="form-check-input"
                               type="radio"
-                              value=""
+                              value="기구"
                               id="defaultRadio2"
                               checked
                             />
@@ -96,6 +96,7 @@
                           <label class="form-label" for="basic-default-message">상품상세설명</label>
                           <textarea
                             id="basic-default-message"
+                            name="ProdLDetail"
                             class="form-control"
                             placeholder="Hi, Do you have a moment to talk Joe?"
                           ></textarea>

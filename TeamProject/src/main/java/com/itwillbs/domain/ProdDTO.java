@@ -11,7 +11,7 @@ public class ProdDTO {
     private Timestamp prodLUpdate;
     private String prodLCompNm;
     private String prodLProdImg;
-	
+	private String ProdLDetail; 
     
     public String getProdLNum() {
 		return prodLNum;
@@ -54,6 +54,12 @@ public class ProdDTO {
 	}
 	public void setProdLProdImg(String prodLProdImg) {
 		this.prodLProdImg = prodLProdImg;
+	}
+	public String getProdLDetail() {
+		return ProdLDetail;
+	}
+	public void setProdLDetail(String prodLDetail) {
+		ProdLDetail = prodLDetail;
 	} 
     
     

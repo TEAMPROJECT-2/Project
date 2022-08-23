@@ -14,7 +14,8 @@
             ,PROD_L_PRICE
             ,PROD_L_UPDATE
             ,PROD_L_COMPNM
-            ,PROD_L_PRODIMG) 
+            ,PROD_L_PRODIMG
+            ,PROD_L_DETAIL) 
 			VALUES(
 			  		#{prodLNum},
 			  		#{prodLType},
@@ -22,7 +23,8 @@
 			  		#{prodLPrice},
 			  		#{prodLUpdate},
 			  		#{prodLCompNm},
-			  		#{prodLProdImg}
+			  		#{prodLProdImg},
+			  		#{ProdLDetail}
 			  		)
 			
 	</insert>
