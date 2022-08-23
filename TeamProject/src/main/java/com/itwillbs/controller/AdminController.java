@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.itwillbs.domain.MemberDTO;
 import com.itwillbs.domain.ProdDTO;
+import com.itwillbs.domain.ProdStockDTO;
 import com.itwillbs.service.AdminService;
 import com.itwillbs.service.MemberService;
 
@@ -32,10 +33,11 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value = "/admin/insertProdPro", method = RequestMethod.POST)
-	public String insertPro(ProdDTO prodDTO) {
+	public String insertPro(ProdDTO prodDTO,ProdStockDTO proStockDTO) {
 		System.out.println("MemberController insertProProd()");
 		// 메서드 호출
-		adminService.insertProd(prodDTO);
+		proStockDTO.setProdSPnum(prodDTO.getProdLNum()); 
+		adminService.insertProd(prodDTO,proStockDTO);
 		
 		// 주소변경 이동
 		return "redirect:/admin/insertProd";

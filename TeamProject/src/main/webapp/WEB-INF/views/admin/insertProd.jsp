@@ -90,7 +90,10 @@
                           <label class="form-label" for="basic-default-company"  >가격</label>
                           <input type="text" class="form-control" id="basic-default-company" name="prodLPrice" placeholder="ACME Inc." />
                         </div>
-                        
+                        <div class="mb-3">
+                          <label class="form-label" for="basic-default-company"  >수량</label>
+                          <input type="text" class="form-control" id="basic-default-company" name="prodSCount" placeholder="ACME Inc." />
+                        </div>
                         
                         <div class="mb-3">
                           <label class="form-label" for="basic-default-message">상품상세설명</label>
