@@ -1,8 +1,8 @@
-package com.itwillbs.service;
+package com.itwillbs.dao;
 
 import com.itwillbs.domain.ProdDTO;
 
-public interface AdminService {
+public interface AdminDAO {
 
 	public void insertProd(ProdDTO prodDTO);
 

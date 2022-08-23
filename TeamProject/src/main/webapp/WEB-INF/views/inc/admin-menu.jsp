@@ -100,14 +100,9 @@
                 <div data-i18n="Basic">주문목록</div>
               </a>
             </li>
+            
             <li class="menu-item">
-              <a href="${pageContext.request.contextPath }/member/cards-basic" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-collection"></i>
-                <div data-i18n="Basic">배송관리</div>
-              </a>
-            </li>
-            <li class="menu-item">
-              <a href="${pageContext.request.contextPath }/member/cards-basic" class="menu-link">
+              <a href="${pageContext.request.contextPath }/admin/prodRefund" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-collection"></i>
                 <div data-i18n="Basic">환불관리</div>
               </a>

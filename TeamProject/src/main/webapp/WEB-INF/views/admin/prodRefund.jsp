@@ -38,85 +38,90 @@
                 <div class="col-md-12">
                   <ul class="nav nav-pills flex-column flex-md-row mb-3">
                     <li class="nav-item">
-                      <a class="nav-link" href="${pageContext.request.contextPath }/admin/updateProd">
-                        <i class="bx bx-user me-1"></i>상품신규등록 </a>
+                      <a class="nav-link" href="${pageContext.request.contextPath }/admin/updateProd"
+                        ><i class="bx bx-user me-1"></i>주문목록 </a
+                      >
+                   
+                    
                   </ul>
 <!--  화면줄였을때 버티컬 및 큰화면에서는 시작 매뉴끝                  -->
                   
                   
                   
-                 <div class="col-xl">
-                  <div class="card mb-4">
-                    <div class="card-header d-flex justify-content-between align-items-center">
-                      <h5 class="mb-0">상품신규등록</h5>
-                      <small class="text-muted float-end"></small>
-                    </div>
-                    <div class="card-body">
-                      <form action="<%=request.getContextPath() %>/admin/insertProdPro" method="post">
-                      <div class="mb-3">
-                          <label class="form-label" for="basic-default-fullname">상품번호</label>
-                          <input type="text" class="form-control" id="basic-default-fullname" name="prodLNum" placeholder="John Doe" />
-                        </div>
+                <div class="card">
+                <h5 class="card-header">주문목록</h5>
+                <div class="table-responsive text-nowrap">
+                  <table class="table table-striped">
+                    <thead>
+                      <tr>
+                        <th>주문번호</th>
+                        <th>고객아이디</th>
+                        <th>상품번호</th>
+                        <th>구입날짜</th>
+                        <th>주문수량</th>
+                        <th>환불상태</th>
+                      </tr>
+                    </thead>
+                    <tbody class="table-border-bottom-0">
+                    
                       
-                        
-                        <label class="form-label" for="basic-default-fullname">상품분류</label>
-                          <div class="form-check mt-3">
+                      <tr>
+                        <td>1235</td>
+                        <td>lee</td>
+                        <td>shake0003</td>
+                        <td>22-02-20</td>
+                        <td>2개</td>
+                        <td><span class="badge bg-label-danger me-1">환불요청</span></td>
+                      </tr>
+                      
+                      <tr>
+                        <td>1235</td>
+                        <td>lee</td>
+                        <td>shake0003</td>
+                        <td>22-02-20</td>
+                        <td>2개</td>
+                        <td><span class="badge bg-label-info me-1">환불완료</span></td>
+                      </tr>
+                    
+                    
+                    <h5 class="card-header">Segmented buttons</h5>
+                        <div class="card-body demo-vertical-spacing demo-only-element">
+                          <div class="input-group">
+                            <button type="button" class="btn btn-outline-primary">Action</button>
+                            <button
+                              type="button"
+                              class="btn btn-outline-primary dropdown-toggle dropdown-toggle-split"
+                              data-bs-toggle="dropdown"
+                              aria-expanded="false"
+                            >
+                              <span class="visually-hidden">Toggle Dropdown</span>
+                            </button>
+                            <ul class="dropdown-menu">
+                              <li><a class="dropdown-item" href="javascript:void(0);">Action</a></li>
+                              <li><a class="dropdown-item" href="javascript:void(0);">Another action</a></li>
+                              <li><a class="dropdown-item" href="javascript:void(0);">Something else here</a></li>
+                              <li>
+                                <hr class="dropdown-divider" />
+                              </li>
+                              <li><a class="dropdown-item" href="javascript:void(0);">Separated link</a></li>
+                            </ul>
                             <input
-                              name="default-radio-1"
-                              class="form-check-input"
-                              type="radio"
-                              value=""
-                              id="defaultRadio1"
+                              type="text"
+                              class="form-control"
+                              aria-label="Text input with segmented dropdown button"
                             />
-                            <label class="form-check-label" for="defaultRadio1"> 식품 </label>
                           </div>
-                          <div class="form-check">
-                            <input
-                              name="default-radio-1"
-                              class="form-check-input"
-                              type="radio"
-                              value=""
-                              id="defaultRadio2"
-                              checked
-                            />
-                            <label class="form-check-label" for="defaultRadio2"> 기구 </label>
-                          </div>
-                                        	                      
-                        <div class="mb-3">
-                          <label class="form-label" for="basic-default-fullname"  >상품명</label>
-                          <input type="text" class="form-control" id="basic-default-fullname" name="prodLNm" placeholder="John Doe" />
-                        </div>
-                        <div class="mb-3">
-                          <label class="form-label" for="basic-default-company"  >가격</label>
-                          <input type="text" class="form-control" id="basic-default-company" name="prodLPrice" placeholder="ACME Inc." />
-                        </div>
-                        
-                        
-                        <div class="mb-3">
-                          <label class="form-label" for="basic-default-message">상품상세설명</label>
-                          <textarea
-                            id="basic-default-message"
-                            class="form-control"
-                            placeholder="Hi, Do you have a moment to talk Joe?"
-                          ></textarea>
-                        </div>
-                        <div class="card">
-                    <label class="form-label" for="basic-default-message">상품사진 첨부</label>
-                    <div class="card-body">
-                      <div class="mb-3">
-                        <label for="formFile" class="form-label">상품사진 선택</label>
-                        <input class="form-control" type="file" id="formFile" />
-                      </div>
-                      
-                      
-                    </div>
-                  </div>
-                        <button type="submit" class="btn btn-primary">등록</button>
-                         <button type="submit" class="btn btn-primary">취소</button>
-                      </form>
-                    </div>
-                  </div>
+                    	</div>
+                    
+                    
+                    
+                    
+                    
+                    
+                    </tbody>
+                  </table>
                 </div>
+              </div>
                 
                 
                 

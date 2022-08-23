@@ -54,7 +54,7 @@
                   <table class="table table-striped">
                     <thead>
                       <tr>
-                        <th>상품구분ID</th>
+                        <th>상품번호</th>
                         <th>상품이름</th>
                         <th>가격</th>
                         <th>재고수량</th>

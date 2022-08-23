@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.itwillbs.mappers.adminMapper">
+
+<!-- 회원가입 -->
+	<insert id="insertProd">
+		INSERT INTO PRODUCT_LIST
+			( PROD_L_NUM
+			,PROD_L_TYPE
+            ,PROD_L_NM
+            ,PROD_L_PRICE
+            ,PROD_L_UPDATE
+            ,PROD_L_COMPNM
+            ,PROD_L_PRODIMG) 
+			VALUES(
+			  		#{prodLNum},
+			  		#{prodLType},
+			  		#{prodLNm},
+			  		#{prodLPrice},
+			  		#{prodLUpdate},
+			  		#{prodLCompNm},
+			  		#{prodLProdImg}
+			  		)
+			
+	</insert>
+	
+	
+
+</mapper>
