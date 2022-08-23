@@ -4,19 +4,17 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.itwillbs.domain.MemberDTO;
 import com.itwillbs.service.MemberService;
-import com.itwillbs.service.MemberServiceImpl;
 
 @Controller
 public class MemberController {
-	
-	// 멤버변수 (부모인터페이스변수) 객체생성 자동화 됨=> @Service MemberServiceImpl 찾아감 
+
+	// 멤버변수 (부모인터페이스변수) 객체생성 자동화 됨=> @Service MemberServiceImpl 찾아감
 //	MemberService memberService=new MemberServiceImpl();
 	@Inject
 	private MemberService memberService;
@@ -28,13 +26,13 @@ public class MemberController {
 		// WEB-INF/views/member/insertForm.jsp 이동
 		return "member/insertForm";
 	}
-	
+
 	@RequestMapping(value = "/member/insertPro", method = RequestMethod.POST)
 	public String insertPro(MemberDTO memberDTO) {
 		System.out.println("MemberController insertPro()");
 		// 메서드 호출
 		memberService.insertMember(memberDTO);
-		
+
 		// 주소변경 이동
 		return "redirect:/member/login";
 	}
@@ -44,31 +42,28 @@ public class MemberController {
 	public String login() {
 		return "member/login";
 	}
-	
+
 	@RequestMapping(value = "/member/loginPro", method = RequestMethod.POST)
 	// jsp는 세션이 자동으로 만들어지지만 자바는 HttpSession으로 만들어야한다
 	public String loginPro(MemberDTO memberDTO, HttpSession session) {
 		System.out.println("MemberController loginPro()");
 		// 메서드 호출
-		System.out.println(memberDTO.getUserId());
 		MemberDTO memberDTO2=memberService.userCheck(memberDTO);
-//		System.out.println("memberDTO2" + memberDTO2.getUserId());
 		if(memberDTO2!=null) {
 			// 아이디 비밀번호가 일치하면 null 아닌 값이 들고오는
 			// 세션값 생성 "id", id
 			session.setAttribute("userId", memberDTO.getUserId());
-			
-			// member/main 이동
-			return "redirect:/member/main";
+
+			// main/main 이동
+			return "redirect:/main/main";
 		}else {
 			// null일 경우 아이디 비밀번호 틀림
-			// "틀림" 뒤로이동
 			// 주소변경없이 이동
 			// WEB-INF/views/member/msg.jsp 이동
 			return "/member/msg";
 		}
 	}
-	
+
 	// 로그아웃
 	@RequestMapping(value = "/member/logout", method = RequestMethod.GET)
 	public String logout(HttpSession session) {
@@ -76,10 +71,10 @@ public class MemberController {
 		session.invalidate();
 		// /member/main 이동
 		// 주소변경 이동
-		return "redirect:/member/main";
+		return "redirect:/main/main";
 	}
-	
-	
+
+
 	@RequestMapping(value = "/basic/basic-badge-button", method = RequestMethod.GET)
 	public String basicBasicBadgeButton() {
 		return "basic/basic-badge-button";
@@ -92,7 +87,7 @@ public class MemberController {
 	public String basicBasicMenuTable() {
 		return "basic/basic-menu-table";
 	}
-	
+
 	@RequestMapping(value = "/main/main", method = RequestMethod.GET)
 	public String indexMain() {
 		return "main/main";
@@ -105,7 +100,7 @@ public class MemberController {
 	public String productDetail() {
 		return "product/details";
 	}
-	
+
 	@RequestMapping(value = "/food/shop", method = RequestMethod.GET)
 	public String foodShop() {
 		return "food/shop";
@@ -158,8 +153,8 @@ public class MemberController {
 	public String memberUiPagination() {
 		return "member/ui-pagination";
 	}
-	
-	
+
+
 	@RequestMapping(value = "/order/cart", method = RequestMethod.GET)
 	public String orderCart() {
 		return "order/cart";
@@ -168,31 +163,22 @@ public class MemberController {
 	public String orderCheckout() {
 		return "order/checkout";
 	}
-	
 
-	//	가상주소 시작점 http://localhost:8080/myweb2/member/main
-	@RequestMapping(value = "/member/main", method = RequestMethod.GET)
-	public String main() {
-		// 주소변경없이 이동
-		// WEB-INF/views/member/insertForm.jsp 이동
-		return "member/main";
-	}
-	
-	//	가상주소 시작점 http://localhost:8080/myweb2/member/logout
+
 	@RequestMapping(value = "/member/info", method = RequestMethod.GET)
 	public String info(HttpSession session, Model model) {
 //		// 세션값 가져오기
-		String id=(String)session.getAttribute("id");
+		String userId=(String)session.getAttribute("userId");
 		// id에 대한 정보를 디비에 가져오기
-		MemberDTO memberDTO = memberService.getMember(id);
+		MemberDTO memberDTO = memberService.getMember(userId);
 		// 가져온 정보를 담아 info.jsp 이동
 		model.addAttribute("",memberDTO);
-		
+
 //		// 주소변경없이 이동
 		// WEB-INF/views/member/info.jsp 이동
 		return "member/info";
 	}
-	
-	
-	
+
+
+
 }

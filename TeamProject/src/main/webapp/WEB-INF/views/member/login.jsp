@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    
+
 </head>
 <body>
 <!-- 메뉴단 -->
@@ -25,7 +25,7 @@
             </div>
         </div>
     </section>
-    
+
 	<!--  내용 -->
     <section class="contact spad">
         <div class="container">
@@ -45,7 +45,7 @@
                         </ul>
                     </div>
                 </div>
-                
+
                 <div class="col-lg-6 col-md-6">
                 <div class="checkout__order">
 				<main class="form-signin ">
@@ -71,7 +71,7 @@
         </div>
     </section>
     <!-- Contact Section End -->
-  
+
     <!-- Footer -->
     <jsp:include page="../inc/footer.jsp"/>
 </body>

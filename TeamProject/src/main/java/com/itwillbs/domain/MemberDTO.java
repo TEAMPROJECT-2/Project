@@ -3,7 +3,7 @@ package com.itwillbs.domain;
 import java.sql.Timestamp;
 
 public class MemberDTO {
-	
+
 	private String userId;
 	private String userPass;
 	private String userNm;
@@ -18,9 +18,9 @@ public class MemberDTO {
 	private int pointNum;
 	private int myCouponNum;
 	private String userRank;
-	
-	
-	
+
+
+
 	public String getUserId() {
 		return userId;
 	}
@@ -105,6 +105,6 @@ public class MemberDTO {
 	public void setUserRank(String userRank) {
 		this.userRank = userRank;
 	}
-	
-	
+
+
 }

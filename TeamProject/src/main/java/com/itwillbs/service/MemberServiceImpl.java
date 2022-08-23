@@ -4,8 +4,6 @@ import java.sql.Timestamp;
 
 import javax.inject.Inject;
 
-import org.apache.ibatis.reflection.SystemMetaObject;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import com.itwillbs.dao.MemberDAO;
@@ -16,7 +14,7 @@ public class MemberServiceImpl implements MemberService{
 
 	@Inject
 	private MemberDAO memberDAO;
-	
+
 	@Override
 	public void insertMember(MemberDTO memberDTO) {
 		// 날짜설정
@@ -40,7 +38,7 @@ public class MemberServiceImpl implements MemberService{
 		System.out.println("MemberServiceImpl getMember()");
 		return memberDAO.getMember(userId);
 	}
-	
-	
+
+
 
 }

@@ -12,10 +12,10 @@ public class MemberDAOImpl implements MemberDAO{
 
 	@Inject
 	private SqlSession sqlSession;
-	
+
 	private static final String namespace="com.itwillbs.mappers.memberMapper";
-	
-	
+
+
 	@Override
 	public void insertMember(MemberDTO memberDTO) {
 		System.out.println("MemberDAOImpl insertMember()");
@@ -28,6 +28,8 @@ public class MemberDAOImpl implements MemberDAO{
 		System.out.println("MemberDAOImpl userCheck()");
 		System.out.println(memberDTO.getUserId());
 		System.out.println(memberDTO.getUserPass());
+		MemberDTO m=sqlSession.selectOne(namespace+".userCheck", memberDTO);
+		System.out.println(m);
 		// 하나만 선택할 떄는 selectOne
 		return sqlSession.selectOne(namespace+".userCheck", memberDTO);
 	}
@@ -37,7 +39,7 @@ public class MemberDAOImpl implements MemberDAO{
 		System.out.println("MemberDAOImpl getMember()");
 		return sqlSession.selectOne(namespace+".getMember", userId);
 	}
-	
-	
+
+
 
 }
