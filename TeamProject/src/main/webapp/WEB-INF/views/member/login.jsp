@@ -49,7 +49,7 @@
                 <div class="col-lg-6 col-md-6">
                 <div class="checkout__order">
 				<main class="form-signin ">
-				  <form action="<%=request.getContextPath() %>/member/loginPro" method="post">
+				  <form action="${pageContext.request.contextPath }/member/loginPro" method="post">
                     <div class="checkout__input">
                      <label for="userId">
                         ID

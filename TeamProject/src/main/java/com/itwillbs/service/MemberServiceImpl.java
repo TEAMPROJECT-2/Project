@@ -12,6 +12,7 @@ import com.itwillbs.domain.MemberDTO;
 @Service
 public class MemberServiceImpl implements MemberService{
 
+	//멤버변수 (부모인터페이스변수) 객체생성 자동화 됨 => @Repository MemberDAOImpl 찾아감
 	@Inject
 	private MemberDAO memberDAO;
 

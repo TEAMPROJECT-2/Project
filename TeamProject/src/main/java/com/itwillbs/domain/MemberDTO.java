@@ -105,6 +105,13 @@ public class MemberDTO {
 	public void setUserRank(String userRank) {
 		this.userRank = userRank;
 	}
-
+	@Override
+	public String toString() {
+		return "MemberDTO [userId=" + userId + ", userPass=" + userPass + ", userNm=" + userNm + ", userEmail="
+				+ userEmail + ", userGender=" + userGender + ", userAthletic=" + userAthletic + ", userNicknm="
+				+ userNicknm + ", userPhone=" + userPhone + ", userZipcode=" + userZipcode + ", userAddress="
+				+ userAddress + ", userDate=" + userDate + ", pointNum=" + pointNum + ", myCouponNum=" + myCouponNum
+				+ ", userRank=" + userRank + "]";
+	}
 
 }

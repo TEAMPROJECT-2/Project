@@ -4,7 +4,7 @@
   Author: Colorib
   Author URI: https://www.colorib.com/
   Version: 1.0
-  Created: Colorib 
+  Created: Colorib
 ******************************************************************/
 
 /*------------------------------------------------------------------
@@ -2212,7 +2212,7 @@ ol {
 	padding-bottom: 0;
 }
 
-.counter .container {
+.counter .container .container2 {
 	border-bottom: 1px solid #e5e5e5;
 	padding-bottom: 70px;
 }
@@ -3369,6 +3369,9 @@ ol {
 	.container {
 		max-width: 1170px;
 	}
+	.container2 {
+		max-width: 960px;
+	}
 }
 
 /* Medium Device = 1200px */
@@ -3651,6 +3654,9 @@ ol {
 		display: none;
 	}
 	.header .container {
+		position: relative;
+	}
+	.header .container2 {
 		position: relative;
 	}
 	.header__menu {

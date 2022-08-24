@@ -29,7 +29,6 @@ public class MemberController {
 
 	@RequestMapping(value = "/member/insertPro", method = RequestMethod.POST)
 	public String insertPro(MemberDTO memberDTO) {
-		System.out.println("MemberController insertPro()");
 		// 메서드 호출
 		memberService.insertMember(memberDTO);
 
@@ -46,7 +45,6 @@ public class MemberController {
 	@RequestMapping(value = "/member/loginPro", method = RequestMethod.POST)
 	// jsp는 세션이 자동으로 만들어지지만 자바는 HttpSession으로 만들어야한다
 	public String loginPro(MemberDTO memberDTO, HttpSession session) {
-		System.out.println("MemberController loginPro()");
 		// 메서드 호출
 		MemberDTO memberDTO2=memberService.userCheck(memberDTO);
 		if(memberDTO2!=null) {
@@ -74,6 +72,10 @@ public class MemberController {
 		return "redirect:/main/main";
 	}
 
+	@RequestMapping(value = "/member/mypage", method = RequestMethod.GET)
+	public String memberMypage() {
+		return "member/mypage";
+	}
 
 	@RequestMapping(value = "/basic/basic-badge-button", method = RequestMethod.GET)
 	public String basicBasicBadgeButton() {
@@ -136,10 +138,6 @@ public class MemberController {
 	@RequestMapping(value = "/member/forms-input-groups", method = RequestMethod.GET)
 	public String memberFormInputGroups() {
 		return "member/forms-input-groups";
-	}
-	@RequestMapping(value = "/member/mypage", method = RequestMethod.GET)
-	public String memberMypage() {
-		return "member/mypage";
 	}
 	@RequestMapping(value = "/member/tables", method = RequestMethod.GET)
 	public String memberTables() {
