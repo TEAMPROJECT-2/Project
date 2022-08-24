@@ -65,12 +65,11 @@
             <div class="row">
                 <div class="col-lg-6 col-md-7">
                     <div class="header__top__left">
-                        <p>운동에 대한 어쩌구 장바구니/포인트관리 같은 거 있어도 될 듯
-                        <a href="${pageContext.request.contextPath }/member/account-connections">마이페이지</a><br>
-                        
-            <a href="${pageContext.request.contextPath }/basic/basic-badge-button">꾸밈버튼종류</a>
-            <a href="${pageContext.request.contextPath }/basic/basic-form">꾸밈폼종류</a>
-            <a href="${pageContext.request.contextPath }/basic/basic-menu-table">꾸밈테이블종류</a></p>
+                        <p>장바구니/포인트관리 같은 거 있어도 될 듯
+                        <a href="${pageContext.request.contextPath }/member/account-connections">마이페이지</a>
+			            <a href="${pageContext.request.contextPath }/basic/basic-badge-button">버튼</a>
+			            <a href="${pageContext.request.contextPath }/basic/basic-form">폼</a>
+			            <a href="${pageContext.request.contextPath }/basic/basic-menu-table">테이블</a></p>
             
                     </div>
                 </div>

@@ -321,12 +321,12 @@ ol {
 }
 
 .header__top {
-	background: #2F57DB;
+	background: #ffffff;
 	padding: 10px 0;
 }
 
 .header__top__left p {
-	color: #ffffff;
+	color: #5c616b;
 	margin-bottom: 0;
 }
 
@@ -340,7 +340,7 @@ ol {
 }
 
 .header__top__links a {
-	color: #ffffff;
+	color: #5c616b;
 	font-size: 13px;
 	text-transform: uppercase;
 	letter-spacing: 2px;
