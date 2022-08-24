@@ -50,6 +50,34 @@
                   
                 <div class="card">
                 <h5 class="card-header">상품목록</h5>
+                <form> 
+                <table class="table table-striped">        
+                 <tbody class="table-border-bottom-0"> 
+                  <tr>  
+                  	 <td></td> 
+                     <td class="mb-3">
+                        <select id="defaultSelect" class="form-select">
+                          <option>재고상태 선택</option>
+                          <option value="1">양호</option>
+                          <option value="2">품절임박</option>
+                          <option value="3">품절</option>
+                        </select>
+                     </td>
+                     <td colspan="2" class="input-group input-group-merge">
+                        <span class="input-group-text" id="basic-addon-search31"><i class="bx bx-search"></i></span>
+                        <input
+                          type="text"
+                          class="form-control"
+                          placeholder="검색..."
+                          aria-label="Search..."
+                          aria-describedby="basic-addon-search31"/>
+                	</td>
+                	<td><button type="submit" class="btn btn-primary">검색</button> </td>
+                  </tr>
+                 </tbody>  
+               </table> 
+               </form> 
+                
                 <div class="table-responsive text-nowrap">
                   <table class="table table-striped">
                     <thead>

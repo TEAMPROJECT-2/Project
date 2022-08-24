@@ -31,15 +31,15 @@
 <!-- 화면줄였을때 버티컬 메뉴 및 큰화면에서는 시작 -->
             <div class="container-xxl flex-grow-1 container-p-y">
               <h4 class="fw-bold py-3 mb-4">
-                <span class="text-muted fw-light">상품관리 </span> 
+                <span class="text-muted fw-light">상품삭제 </span> 
               </h4>
 
               <div class="row">
                 <div class="col-md-12">
                   <ul class="nav nav-pills flex-column flex-md-row mb-3">
                     <li class="nav-item">
-                      <a class="nav-link" href="${pageContext.request.contextPath }/admin/updateProd"
-                        ><i class="bx bx-user me-1"></i>주문목록 </a
+                      <a class="nav-link" href="${pageContext.request.contextPath }/admin/deleteProd"
+                        ><i class="bx bx-user me-1"></i>상품삭제 </a
                       >
                    
                     
@@ -49,75 +49,60 @@
                   
                   
                 <div class="card">
-                <h5 class="card-header">주문목록</h5>
-                <form> 
-                <table class="table table-striped">        
-                 <tbody class="table-border-bottom-0"> 
-                  <tr>  
-                  	 <td></td> 
-                     <td class="mb-3">
-                        <select id="defaultSelect" class="form-select">
-                          <option>주문상태 선택</option>
-                          <option value="1">배송완료</option>
-                          <option value="2">배송중</option>
-                          <option value="3">미배송</option>
-                        </select>
-                     </td>
-                     <td colspan="2" class="input-group input-group-merge">
-                        <span class="input-group-text" id="basic-addon-search31"><i class="bx bx-search"></i></span>
-                        <input
-                          type="text"
-                          class="form-control"
-                          placeholder="검색..."
-                          aria-label="Search..."
-                          aria-describedby="basic-addon-search31"/>
-                	</td>
-                	<td><button type="submit" class="btn btn-primary">검색</button> </td>
-                  </tr>
-                 </tbody>  
-               </table> 
-               </form> 
+                <h5 class="card-header">상품목록</h5>
                 <div class="table-responsive text-nowrap">
                   <table class="table table-striped">
                     <thead>
                       <tr>
-                        <th>주문번호</th>
-                        <th>고객아이디</th>
-                        <th>상품코드</th>
-                        <th>구입날짜</th>
-                        <th>주문수량</th>
-                        <th>주문상태</th>
+                        <th>상품번호</th>
+                        <th>상품이름</th>
+                        <th>가격</th>
+                        <th>재고수량</th>
+                        <th>재고상태</th>
                       </tr>
                     </thead>
                     <tbody class="table-border-bottom-0">
                       <tr>
-                        <td>1234</td>
-                        <td>kim</td>
-                        <td>shake0001</td>
-                        <td>22-02-13</td>
-                        <td>1개</td>
-<!--                         <td><span class="badge bg-label-info me-1">배송완료</span></td> -->
-                        <td><span class="badge bg-label-warning me-1">배송중</span></td>
-<!--                         <td><span class="badge bg-label-danger me-1">배송완료</span></td> -->
+                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>shake상품구분</strong></td>
+                        <td>초코쉐이크-상품이름</td>
+                        <td>
+                          20000원-가격
+                        </td>
+                        <td>
+                          1000개-재고수량
+                        </td>
+                        
+                        <td><span class="badge bg-label-info me-1">양호</span></td>
+                       
                       </tr>
-                      
                       <tr>
-                        <td>1235</td>
-                        <td>lee</td>
-                        <td>shake0003</td>
-                        <td>22-02-20</td>
-                        <td>2개</td>
-                        <td><span class="badge bg-label-danger me-1">미배송</span></td>
-                      </tr>
-                      
+                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>shake0023상품구분</strong></td>
+                        <td>밀크쉐이크-상품이름</td>
+                        <td>
+                          10000원-가격
+                        </td>
+                        <td>
+                          10개-재고수량
+                        </td>
+                        
+                        <td><span class="badge bg-label-warning me-1">품절임박</span></td>
+                       
+                      </tr>	
+                    
                       <tr>
-                        <td>1235</td>
-                        <td>lee</td>
-                        <td>shake0003</td>
-                        <td>22-02-20</td>
-                        <td>2개</td>
-                        <td><span class="badge bg-label-info me-1">배송완료</span></td>
-                      </tr>
+                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>shake0023상품구분</strong></td>
+                        <td>밀크쉐이크-상품이름</td>
+                        <td>
+                          10000원-가격
+                        </td>
+                        <td>
+                          10개-재고수량
+                        </td>
+                        
+                        <td><span class="badge bg-label-danger me-1">품절</span></td>
+                       
+                      </tr>	
+                    
                     
                     </tbody>
                   </table>

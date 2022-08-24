@@ -55,7 +55,7 @@
                       <form action="<%=request.getContextPath() %>/admin/insertProdPro" method="post">
                       <div class="mb-3">
                           <label class="form-label" for="basic-default-fullname">상품번호</label>
-                          <input type="text" class="form-control" id="basic-default-fullname" name="prodLNum" placeholder="John Doe" />
+                          <input type="text" class="form-control" id="basic-default-fullname" name="prodLNum" placeholder="상품번호 입력" />
                         </div>
                       
                         
@@ -84,15 +84,15 @@
                                         	                      
                         <div class="mb-3">
                           <label class="form-label" for="basic-default-fullname"  >상품명</label>
-                          <input type="text" class="form-control" id="basic-default-fullname" name="prodLNm" placeholder="John Doe" />
+                          <input type="text" class="form-control" id="basic-default-fullname" name="prodLNm" placeholder="상품명 입력" />
                         </div>
                         <div class="mb-3">
                           <label class="form-label" for="basic-default-company"  >가격</label>
-                          <input type="text" class="form-control" id="basic-default-company" name="prodLPrice" placeholder="ACME Inc." />
+                          <input type="text" class="form-control" id="basic-default-company" name="prodLPrice" placeholder="가격은 숫자만 입력" />
                         </div>
                         <div class="mb-3">
                           <label class="form-label" for="basic-default-company"  >수량</label>
-                          <input type="text" class="form-control" id="basic-default-company" name="prodSCount" placeholder="ACME Inc." />
+                          <input type="text" class="form-control" id="basic-default-company" name="prodSCount" placeholder="수량은 숫자만 입력" />
                         </div>
                         
                         <div class="mb-3">
@@ -101,7 +101,7 @@
                             id="basic-default-message"
                             name="ProdLDetail"
                             class="form-control"
-                            placeholder="Hi, Do you have a moment to talk Joe?"
+                            placeholder="상세상품설명 입력"
                           ></textarea>
                         </div>
                         <div class="card">

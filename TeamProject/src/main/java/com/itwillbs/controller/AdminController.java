@@ -42,7 +42,10 @@ public class AdminController {
 		// 주소변경 이동
 		return "redirect:/admin/insertProd";
 	}
-
+	@RequestMapping(value = "/admin/deleteProd", method = RequestMethod.GET)
+	public String adminDeleteProd() {
+		return "admin/deleteProd";
+	}
 	
 	@RequestMapping(value = "/admin/prodRefund", method = RequestMethod.GET)
 	public String adminProdRefund() {
@@ -60,4 +63,5 @@ public class AdminController {
 	public String adminOrdList() {
 		return "admin/ordList";
 	}
+	
 }
