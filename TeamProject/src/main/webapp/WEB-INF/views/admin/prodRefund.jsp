@@ -50,6 +50,32 @@
                   
                 <div class="card">
                 <h5 class="card-header">주문목록</h5>
+				<form> 
+                <table class="table table-striped">        
+                 <tbody class="table-border-bottom-0"> 
+                  <tr>  
+                  	 <td></td> 
+                     <td class="mb-3">
+                        <select id="defaultSelect" class="form-select">
+                          <option>환불상태 선택</option>
+                          <option value="1">환불요청</option>
+                          <option value="2">환불완료</option>
+                        </select>
+                     </td>
+                     <td colspan="2" class="input-group input-group-merge">
+                        <span class="input-group-text" id="basic-addon-search31"><i class="bx bx-search"></i></span>
+                        <input
+                          type="text"
+                          class="form-control"
+                          placeholder="검색..."
+                          aria-label="Search..."
+                          aria-describedby="basic-addon-search31"/>
+                	</td>
+                	<td><button type="submit" class="btn btn-primary">검색</button> </td>
+                  </tr>
+                 </tbody>  
+               </table> 
+               </form>                 
                 <div class="table-responsive text-nowrap">
                   <table class="table table-striped">
                     <thead>
@@ -82,42 +108,6 @@
                         <td>2개</td>
                         <td><span class="badge bg-label-info me-1">환불완료</span></td>
                       </tr>
-                    
-                    
-                    <h5 class="card-header">Segmented buttons</h5>
-                        <div class="card-body demo-vertical-spacing demo-only-element">
-                          <div class="input-group">
-                            <button type="button" class="btn btn-outline-primary">Action</button>
-                            <button
-                              type="button"
-                              class="btn btn-outline-primary dropdown-toggle dropdown-toggle-split"
-                              data-bs-toggle="dropdown"
-                              aria-expanded="false"
-                            >
-                              <span class="visually-hidden">Toggle Dropdown</span>
-                            </button>
-                            <ul class="dropdown-menu">
-                              <li><a class="dropdown-item" href="javascript:void(0);">Action</a></li>
-                              <li><a class="dropdown-item" href="javascript:void(0);">Another action</a></li>
-                              <li><a class="dropdown-item" href="javascript:void(0);">Something else here</a></li>
-                              <li>
-                                <hr class="dropdown-divider" />
-                              </li>
-                              <li><a class="dropdown-item" href="javascript:void(0);">Separated link</a></li>
-                            </ul>
-                            <input
-                              type="text"
-                              class="form-control"
-                              aria-label="Text input with segmented dropdown button"
-                            />
-                          </div>
-                    	</div>
-                    
-                    
-                    
-                    
-                    
-                    
                     </tbody>
                   </table>
                 </div>

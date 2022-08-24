@@ -38,11 +38,8 @@
                 <div class="col-md-12">
                   <ul class="nav nav-pills flex-column flex-md-row mb-3">
                     <li class="nav-item">
-                      <a class="nav-link" href="${pageContext.request.contextPath }/admin/updateProd"
-                        ><i class="bx bx-user me-1"></i>상품수정 </a
-                      >
-                   
-                    
+                      <a class="nav-link" href="${pageContext.request.contextPath }/admin/updateProd">
+                        <i class="bx bx-user me-1"></i>상품신규등록 </a>
                   </ul>
 <!--  화면줄였을때 버티컬 및 큰화면에서는 시작 매뉴끝                  -->
                   
@@ -51,36 +48,34 @@
                  <div class="col-xl">
                   <div class="card mb-4">
                     <div class="card-header d-flex justify-content-between align-items-center">
-                      <h5 class="mb-0">상품수정</h5>
+                      <h5 class="mb-0">상품신규등록</h5>
                       <small class="text-muted float-end"></small>
                     </div>
                     <div class="card-body">
-                      <form>
+                      <form action="<%=request.getContextPath() %>/admin/insertProdPro" method="post">
                       <div class="mb-3">
-                          <label class="form-label" for="basic-default-fullname">상품구분ID(수정불가)</label>
-                          <input type="text" class="form-control" id="basic-default-fullname" placeholder="John Doe" />
+                          <label class="form-label" for="basic-default-fullname">상품번호</label>
+                          <input type="text" class="form-control" id="basic-default-fullname" name="prodLNum" placeholder="상품번호 입력" />
                         </div>
-                      <div class="mb-3">
-                          <label class="form-label" for="basic-default-fullname">상품코드(수정불가)</label>
-                          <input type="text" class="form-control" id="basic-default-fullname" placeholder="John Doe" />
-                        </div>  
+                      
+                        
                         <label class="form-label" for="basic-default-fullname">상품분류</label>
                           <div class="form-check mt-3">
                             <input
-                              name="default-radio-1"
+                              name="prodLType"
                               class="form-check-input"
                               type="radio"
-                              value=""
+                              value="식품"
                               id="defaultRadio1"
                             />
-                            <label class="form-check-label" for="defaultRadio1"> 음식 </label>
+                            <label class="form-check-label" for="defaultRadio1"> 식품 </label>
                           </div>
                           <div class="form-check">
                             <input
-                              name="default-radio-1"
+                              name="prodLType"
                               class="form-check-input"
                               type="radio"
-                              value=""
+                              value="기구"
                               id="defaultRadio2"
                               checked
                             />
@@ -88,21 +83,25 @@
                           </div>
                                         	                      
                         <div class="mb-3">
-                          <label class="form-label" for="basic-default-fullname">상품명</label>
-                          <input type="text" class="form-control" id="basic-default-fullname" placeholder="John Doe" />
+                          <label class="form-label" for="basic-default-fullname"  >상품명</label>
+                          <input type="text" class="form-control" id="basic-default-fullname" name="prodLNm" placeholder="상품명 입력" />
                         </div>
                         <div class="mb-3">
-                          <label class="form-label" for="basic-default-company">가격</label>
-                          <input type="text" class="form-control" id="basic-default-company" placeholder="ACME Inc." />
+                          <label class="form-label" for="basic-default-company"  >가격</label>
+                          <input type="text" class="form-control" id="basic-default-company" name="prodLPrice" placeholder="가격은 숫자만 입력" />
                         </div>
-                        
+                        <div class="mb-3">
+                          <label class="form-label" for="basic-default-company"  >수량</label>
+                          <input type="text" class="form-control" id="basic-default-company" name="prodSCount" placeholder="수량은 숫자만 입력" />
+                        </div>
                         
                         <div class="mb-3">
                           <label class="form-label" for="basic-default-message">상품상세설명</label>
                           <textarea
                             id="basic-default-message"
+                            name="ProdLDetail"
                             class="form-control"
-                            placeholder="Hi, Do you have a moment to talk Joe?"
+                            placeholder="상세상품설명 입력"
                           ></textarea>
                         </div>
                         <div class="card">
@@ -116,8 +115,8 @@
                       
                     </div>
                   </div>
-                        <button type="submit" class="btn btn-primary">수정</button>
-                        <button type="submit" class="btn btn-primary">삭제</button>
+                        <button type="submit" class="btn btn-primary">등록</button>
+                         <button type="submit" class="btn btn-primary">취소</button>
                       </form>
                     </div>
                   </div>

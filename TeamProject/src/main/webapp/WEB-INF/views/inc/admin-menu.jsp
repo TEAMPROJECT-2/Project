@@ -81,6 +81,12 @@
               </a>
             </li>
             <li class="menu-item">
+              <a href="${pageContext.request.contextPath }/admin/deleteProd" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-collection"></i>
+                <div data-i18n="Basic">상품삭제</div>
+              </a>
+            </li>
+            <li class="menu-item">
               <a href="${pageContext.request.contextPath }/admin/updateProd" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-collection"></i>
                 <div data-i18n="Basic">상품수정</div>
