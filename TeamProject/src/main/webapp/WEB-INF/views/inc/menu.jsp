@@ -106,7 +106,7 @@
                         </li>
                         <li><a href="${pageContext.request.contextPath }/product/shop">용품</a></li>
                         <li><a href="${pageContext.request.contextPath }/food/shop">식품</a></li>
-                        <li><a href="../blog.html">커뮤니티</a></li>
+                        <li><a href="${pageContext.request.contextPath }/board/list">커뮤니티</a></li>
                         <li><a href="../contact.html">이벤트</a></li>
                     </ul>
                 </nav>
