@@ -42,6 +42,7 @@ public class MemberController {
 		return "member/login";
 	}
 
+
 	@RequestMapping(value = "/member/loginPro", method = RequestMethod.POST)
 	// jsp는 세션이 자동으로 만들어지지만 자바는 HttpSession으로 만들어야한다
 	public String loginPro(MemberDTO memberDTO, HttpSession session) {
