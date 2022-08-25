@@ -37,7 +37,6 @@ public class MemberDAOImpl implements MemberDAO{
 	@Override
 	public void insertComp(CompDTO compDTO) {
 		sqlSession.insert(namespace + ".insertComp", compDTO);
-
 	}
 
 	@Override
@@ -48,6 +47,21 @@ public class MemberDAOImpl implements MemberDAO{
 	@Override
 	public MemberDTO loginCheck(MemberDTO memberDTO) {
 		return sqlSession.selectOne(namespace+".loginCheck", memberDTO);
+	}
+
+	@Override
+	public int updateMailKey(MemberDTO memberDTO) throws Exception {
+		return sqlSession.update(namespace+".updateMailKey", memberDTO);
+	}
+
+	@Override
+	public int updateMailAuth(MemberDTO memberDTO) throws Exception {
+		return sqlSession.update(namespace+".updateMailAuth", memberDTO);
+	}
+
+	@Override
+	public int emailAuthFail(String userId) throws Exception {
+		return sqlSession.selectOne(namespace+".emailAuthFail", userId);
 	}
 
 
