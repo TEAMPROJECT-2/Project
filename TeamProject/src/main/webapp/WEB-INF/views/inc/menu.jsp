@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <head>
 	<meta charset="UTF-8">
@@ -34,7 +35,7 @@
     <div class="offcanvas__option">
         <div class="offcanvas__links">
 	        <a href="${pageContext.request.contextPath }/member/login">로그인</a>
-	        <a href="${pageContext.request.contextPath }/member/insert">회원가입</a>
+	        <a href="${pageContext.request.contextPath }/member/join">회원가입</a>
 
         </div>
         <div class="offcanvas__top__hover">
@@ -63,6 +64,7 @@
                 <div class="col-lg-6 col-md-7">
                     <div class="header__top__left">
                         <p>장바구니/포인트관리 같은 거 있어도 될 듯
+
                         <a href="${pageContext.request.contextPath }/member/account-connections">마이페이지</a>
 			            <a href="${pageContext.request.contextPath }/basic/basic-badge-button">버튼</a>
 			            <a href="${pageContext.request.contextPath }/basic/basic-form">폼</a>
@@ -73,10 +75,35 @@
                 <div class="col-lg-6 col-md-5">
                     <div class="header__top__right">
                         <div class="header__top__links">
-                            <a href="${pageContext.request.contextPath }/member/login">로그인</a>
-                            <a href="${pageContext.request.contextPath }/member/insert">회원가입</a>
-                            <a href="${pageContext.request.contextPath }/admin/adminMain">업체페이지</a>
 
+                        	<c:if test="${(empty sessionScope.userId )}">
+								<!-- sessionScope 아이디가 비어있는 경우 로그인 / 회원가입 -->
+								<a href="${pageContext.request.contextPath }/member/login">로그인</a>
+								<a href="${pageContext.request.contextPath }/member/join">회원가입</a>
+							</c:if>
+
+							<c:if test="${ !(empty sessionScope.userId )}">
+								<!-- sessionScope 아이디가 admin이 아닐 경우 환영글 / 로그아웃 -->
+								<script type="text/javascript" src="${pageContext.request.contextPath }/resources/js/jquery-3.6.0.js"></script>
+								${sessionScope.userId }님 환영합니다!
+								<a href="${pageContext.request.contextPath }/member/logout">로그아웃</a>
+							</c:if>
+
+                           	<c:if test="${ !(empty sessionScope.userId )}">
+								<!-- sessionScope 아이디가 admin이 아닐 경우 마이페이지 -->
+								<c:if test="${sessionScope.userId ne 'admin'}">
+									<a href="${pageContext.request.contextPath }/user/mypage">마이페이지</a>
+									<a href="${pageContext.request.contextPath }/comp/compMain">업체페이지</a>
+								</c:if>
+							</c:if>
+
+                            <!-- 비어있는 경우가 아닌 경우 == 스코프가 비어있지 않으면 if문이 동작 조건연산자 -->
+							<c:if test="${ !(empty sessionScope.userId )}">
+								<!-- sessionScope 아이디가 admin일 경우 관리자페이지 -->
+								<c:if test="${sessionScope.userId eq 'admin'}">
+									<a href="${pageContext.request.contextPath }/member/list">관리자페이지</a>
+								</c:if>
+							</c:if>
                         </div>
                         <div class="header__top__hover">
                         </div>
@@ -85,6 +112,8 @@
             </div>
         </div>
     </div>
+
+    <!-- 하단메뉴단 -->
     <div class="container">
         <div class="row">
             <div class="col-lg-3 col-md-3">
@@ -97,8 +126,6 @@
                     <ul>
                         <li class="active"><a href="#">운동하기</a>
                                <ul class="dropdown">
-                                <li><a href="../about.html">1:1 매칭</a></li>
-                                <li><a href="../shop-details.html">운동 기록</a></li>
                                 <li><a href="../shopping-cart.html">메뉴1</a></li>
                                 <li><a href="../checkout.html">메뉴2</a></li>
                                 <li><a href="../blog-details.html">메뉴3</a></li>

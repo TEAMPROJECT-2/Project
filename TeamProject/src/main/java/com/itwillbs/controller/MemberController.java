@@ -20,14 +20,14 @@ public class MemberController {
 	private MemberService memberService;
 
 	// 회원가입
-	@RequestMapping(value = "/member/insert", method = RequestMethod.GET)
+	@RequestMapping(value = "/member/join", method = RequestMethod.GET)
 	public String insert() {
 		// 주소변경없이 이동
 		// WEB-INF/views/member/insertForm.jsp 이동
-		return "member/insertForm";
+		return "member/insertUserForm";
 	}
 
-	@RequestMapping(value = "/member/insertPro", method = RequestMethod.POST)
+	@RequestMapping(value = "/member/joinMemPro", method = RequestMethod.POST)
 	public String insertPro(MemberDTO memberDTO) {
 		// 메서드 호출
 		memberService.insertMember(memberDTO);

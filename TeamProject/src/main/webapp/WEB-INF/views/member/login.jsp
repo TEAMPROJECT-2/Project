@@ -56,6 +56,7 @@
 			        </nav>
 			        	<div class="tab-content" id="nav-tabContent">
 						<!-- 회원 로그인 -->
+
          					 <div class="tab-pane fade show active" id="user-insert" role="tabpanel" aria-labelledby="user-insert-tab">
 				                <div class="checkout__order">
 								<main class="form-signin ">
@@ -76,6 +77,9 @@
 								  </form>
 								</main>
 								</div>
+
+
+
 				         	</div>
 				         	<!-- 업체 로그인 -->
          					 <div class="tab-pane fade" id="comp-insert" role="tabpanel" aria-labelledby="comp-insert-tab">
