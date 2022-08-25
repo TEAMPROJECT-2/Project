@@ -1,5 +1,6 @@
 package com.itwillbs.dao;
 
+import com.itwillbs.domain.CompDTO;
 import com.itwillbs.domain.MemberDTO;
 
 public interface MemberDAO {
@@ -9,4 +10,10 @@ public interface MemberDAO {
 	public MemberDTO userCheck(MemberDTO memberDTO);
 
 	public MemberDTO getMember(String userId);
+
+	public void insertComp(CompDTO compDTO);
+
+	public CompDTO compCheck(CompDTO compDTO);
+
+	public MemberDTO loginCheck(MemberDTO memberDTO);
 }

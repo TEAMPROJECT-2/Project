@@ -73,6 +73,8 @@
 				                     </label>
 				                        <input type="password" id="userPass" name="userPass" placeholder="비밀번호">
 				                    </div>
+				                     <input type="hidden" name="userType" placeholder="멤버 타입">
+				                     <input type="hidden" name="userLastDate" placeholder="마지막 로그인 날짜">
 								     <button type="submit" class="site-btn w-100 btn-lg">로그인</button><br>
 								  </form>
 								</main>
@@ -85,19 +87,20 @@
          					 <div class="tab-pane fade" id="comp-insert" role="tabpanel" aria-labelledby="comp-insert-tab">
 				                <div class="checkout__order">
 								<main class="form-signin ">
-								  <form action="${pageContext.request.contextPath }/member/loginPro" method="post">
+								  <form action="${pageContext.request.contextPath }/member/loginCompPro" method="post">
 				                    <div class="checkout__input">
-				                     <label for="userId">
+				                     <label for="compId">
 				                        업체 ID
 				                     </label>
-				                        <input type="text" id="compId" name="compId" placeholder="ID">
+				                        <input type="text" id="compId" name="compId" placeholder="업체 ID">
 				                    </div>
 				                    <div class="checkout__input">
-				                  	 <label for="userPass">
+				                  	 <label for="compPass">
 				                        비밀번호
 				                     </label>
 				                        <input type="password" id="compPass" name="compPass" placeholder="비밀번호">
 				                    </div>
+				                     <input type="hidden" name="compType" placeholder="멤버 타입">
 								     <button type="submit" class="site-btn w-100 btn-lg">로그인</button><br>
 								  </form>
 								</main>

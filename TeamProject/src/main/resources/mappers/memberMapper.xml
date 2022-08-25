@@ -5,10 +5,11 @@
 
 <mapper namespace="com.itwillbs.mappers.memberMapper">
 
-<!-- 회원가입 -->
+<!-- 회원가입(유저) -->
 	<insert id="insertMember">
 		INSERT INTO USER_INFO(
-					USER_ID
+					USER_INFO_NUM
+				   ,USER_ID
 				   ,USER_PASS
 				   ,USER_NM
 				   ,USER_EMAIL
@@ -18,13 +19,18 @@
 				   ,USER_PHONE
 				   ,USER_ZIPCODE
 				   ,USER_ADDRESS
+				   ,USER_ADDRESS_DETAILS
 				   ,USER_DATE
 				   ,POINT_NUM
 				   ,MY_COUPON_NUM
 				   ,USER_RANK
+				   ,USER_TYPE
+             	   ,USER_STATUS
+            	   ,USER_LAST_DATE
 					)
 			VALUES(
-			  		#{userId}
+				    #{userInfoNum}
+			  	   ,#{userId}
 				   ,#{userPass}
 				   ,#{userNm}
 				   ,#{userEmail}
@@ -34,13 +40,19 @@
 				   ,#{userPhone}
 				   ,#{userZipcode}
 				   ,#{userAddress}
+				   ,#{userAddressDetails}
 				   ,#{userDate}
 				   ,#{pointNum}
 				   ,#{myCouponNum}
 				   ,#{userRank}
+				   ,#{userType}
+				   ,#{userStatus}
+				   ,#{userLastDate}
 			  		)
 	</insert>
 
+
+<!-- 로그인(유저) -->
 	<select id="userCheck" resultType="com.itwillbs.domain.MemberDTO">
 		SELECT *
 		  FROM USER_INFO
@@ -48,10 +60,56 @@
 		   AND USER_PASS=#{userPass}
 	</select>
 
+	<select id="loginCheck" resultType="com.itwillbs.domain.MemberDTO">
+		UPDATE USER_INFO
+		   SET USER_LAST_DATE=#{userLastDate}
+	</select>
+
+
+
+<!-- (유저) -->
 	<select id="getMember" resultType="com.itwillbs.domain.MemberDTO">
 		SELECT *
 		  FROM USER_INFO
 		 WHERE USER_ID=#{userId}
+	</select>
+
+<!-- 회원가입(업체) -->
+	<insert id="insertComp">
+	INSERT INTO  COMPANY_INFO(
+				 COMPANY_INFO_NUM
+				,COMP_ID
+	            ,COMP_PASS
+	            ,COMP_EMAIL
+	            ,COMP_REG_NUM
+	            ,COMP_ZIPCODE
+	            ,COMP_ADDRESS
+				,COMP_ADDRESS_DETAILS
+	            ,COMP_PHONE
+	            ,COMP_TYPE
+	            ,COMP_DATE
+				)
+		VALUES(
+		  		#{COMPANY_INFO_NUM}
+			   ,#{COMP_ID}
+			   ,#{COMP_PASS}
+			   ,#{COMP_EMAIL}
+			   ,#{COMP_REG_NUM}
+			   ,#{COMP_ZIPCODE}
+			   ,#{COMP_ADDRESS}
+			   ,#{COMP_ADDRESS_DETAILS}
+			   ,#{COMP_PHONE}
+			   ,#{COMP_TYPE}
+			   ,#{COMP_DATE}
+		  		)
+	</insert>
+
+	<!-- 로그인(업체) -->
+	<select id="compCheck" resultType="com.itwillbs.domain.CompDTO">
+		SELECT *
+		  FROM COMPANY_INFO
+		 WHERE COMP_ID=#{compId}
+		   AND COMP_PASS=#{compPass}
 	</select>
 
 </mapper>

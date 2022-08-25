@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.itwillbs.domain.CompDTO;
 import com.itwillbs.domain.MemberDTO;
 import com.itwillbs.service.MemberService;
 
@@ -15,11 +16,11 @@ import com.itwillbs.service.MemberService;
 public class MemberController {
 
 	// 멤버변수 (부모인터페이스변수) 객체생성 자동화 됨=> @Service MemberServiceImpl 찾아감
-//	MemberService memberService=new MemberServiceImpl();
+	//	MemberService memberService=new MemberServiceImpl();
 	@Inject
 	private MemberService memberService;
 
-	// 회원가입
+	// 회원가입(유저)
 	@RequestMapping(value = "/member/join", method = RequestMethod.GET)
 	public String insert() {
 		// 주소변경없이 이동
@@ -36,12 +37,28 @@ public class MemberController {
 		return "redirect:/member/login";
 	}
 
-	// 로그인
+	// 회원가입(업체)
+	@RequestMapping(value = "/member/joinComp", method = RequestMethod.GET)
+	public String insertComp() {
+		// 주소변경없이 이동
+		// WEB-INF/views/member/insertForm.jsp 이동
+		return "member/insertUserForm";
+	}
+
+	@RequestMapping(value = "/member/joinCompPro", method = RequestMethod.POST)
+	public String insertCompPro(CompDTO compDTO) {
+		// 메서드 호출
+		memberService.insertComp(compDTO);
+
+		// 주소변경 이동
+		return "redirect:/member/login";
+	}
+
+	// 로그인(유저)
 	@RequestMapping(value = "/member/login", method = RequestMethod.GET)
 	public String login() {
 		return "member/login";
 	}
-
 
 	@RequestMapping(value = "/member/loginPro", method = RequestMethod.POST)
 	// jsp는 세션이 자동으로 만들어지지만 자바는 HttpSession으로 만들어야한다
@@ -52,6 +69,27 @@ public class MemberController {
 			// 아이디 비밀번호가 일치하면 null 아닌 값이 들고오는
 			// 세션값 생성 "id", id
 			session.setAttribute("userId", memberDTO.getUserId());
+
+			// main/main 이동
+			return "redirect:/main/main";
+		}else {
+			// null일 경우 아이디 비밀번호 틀림
+			// 주소변경없이 이동
+			// WEB-INF/views/member/msg.jsp 이동
+			return "/member/msg";
+		}
+	}
+
+	// 로그인(업체)
+	@RequestMapping(value = "/member/loginCompPro", method = RequestMethod.POST)
+	// jsp는 세션이 자동으로 만들어지지만 자바는 HttpSession으로 만들어야한다
+	public String loginCompPro(CompDTO compDTO, HttpSession session) {
+		// 메서드 호출
+		CompDTO compDTO2=memberService.compCheck(compDTO);
+		if(compDTO2!=null) {
+			// 아이디 비밀번호가 일치하면 null 아닌 값이 들고오는
+			// 세션값 생성 "id", id
+			session.setAttribute("userId", compDTO.getCompId());
 
 			// main/main 이동
 			return "redirect:/main/main";

@@ -14,11 +14,14 @@ public class MemberDTO {
 	private String userPhone;
 	private String userZipcode;
 	private String userAddress;
+	private String userAddressDatails;
 	private Timestamp userDate;
 	private int pointNum;
 	private int myCouponNum;
 	private String userRank;
-
+	private int userType;
+	private int userStatus;
+	private Timestamp userLastDate;
 
 
 	public String getUserId() {
@@ -81,6 +84,12 @@ public class MemberDTO {
 	public void setUserAddress(String userAddress) {
 		this.userAddress = userAddress;
 	}
+	public String getUserAddressDatails() {
+		return userAddressDatails;
+	}
+	public void setUserAddressDatails(String userAddressDatails) {
+		this.userAddressDatails = userAddressDatails;
+	}
 	public Timestamp getUserDate() {
 		return userDate;
 	}
@@ -105,13 +114,34 @@ public class MemberDTO {
 	public void setUserRank(String userRank) {
 		this.userRank = userRank;
 	}
+	public int getUserType() {
+		return userType;
+	}
+	public void setUserType(int userType) {
+		this.userType = userType;
+	}
+	public int getUserStatus() {
+		return userStatus;
+	}
+	public void setUserStatus(int userStatus) {
+		this.userStatus = userStatus;
+	}
+	public Timestamp getUserLastDate() {
+		return userLastDate;
+	}
+	public void setUserLastDate(Timestamp userLastDate) {
+		this.userLastDate = userLastDate;
+	}
+
 	@Override
 	public String toString() {
 		return "MemberDTO [userId=" + userId + ", userPass=" + userPass + ", userNm=" + userNm + ", userEmail="
 				+ userEmail + ", userGender=" + userGender + ", userAthletic=" + userAthletic + ", userNicknm="
 				+ userNicknm + ", userPhone=" + userPhone + ", userZipcode=" + userZipcode + ", userAddress="
-				+ userAddress + ", userDate=" + userDate + ", pointNum=" + pointNum + ", myCouponNum=" + myCouponNum
-				+ ", userRank=" + userRank + "]";
+				+ userAddress + ", userAddressDatails=" + userAddressDatails + ", userDate=" + userDate + ", pointNum="
+				+ pointNum + ", myCouponNum=" + myCouponNum + ", userRank=" + userRank + ", userType=" + userType
+				+ ", userStatus=" + userStatus + ", userLastDate=" + userLastDate + "]";
 	}
+
 
 }

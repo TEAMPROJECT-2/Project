@@ -1,5 +1,6 @@
 package com.itwillbs.service;
 
+import com.itwillbs.domain.CompDTO;
 import com.itwillbs.domain.MemberDTO;
 
 public interface MemberService {
@@ -9,4 +10,10 @@ public interface MemberService {
 	public MemberDTO userCheck(MemberDTO memberDTO);
 
 	public MemberDTO getMember(String userId);
+
+	public void insertComp(CompDTO compDTO);
+
+	public CompDTO compCheck(CompDTO compDTO);
+
+	MemberDTO loginCheck(MemberDTO memberDTO);
 }

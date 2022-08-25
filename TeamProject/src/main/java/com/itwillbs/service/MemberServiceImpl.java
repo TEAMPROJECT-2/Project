@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 
 import com.itwillbs.dao.MemberDAO;
+import com.itwillbs.domain.CompDTO;
 import com.itwillbs.domain.MemberDTO;
 
 @Service
@@ -20,24 +21,41 @@ public class MemberServiceImpl implements MemberService{
 	public void insertMember(MemberDTO memberDTO) {
 		// 날짜설정
 		memberDTO.setUserDate(new Timestamp(System.currentTimeMillis()));
-		System.out.println(memberDTO.getUserDate());
-		System.out.println("MemberServiceImpl insertMember()");
 		// 메서드 호출
 		memberDAO.insertMember(memberDTO);
 	}
 
 	@Override
 	public MemberDTO userCheck(MemberDTO memberDTO) {
-		System.out.println("MemberServiceImpl userCheck()");
-		System.out.println(memberDTO.getUserId());
-		System.out.println("memberDAO.userCheck(memberDTO) : "+memberDAO.userCheck(memberDTO));
 		return memberDAO.userCheck(memberDTO);
 	}
 
 	@Override
+	public MemberDTO loginCheck(MemberDTO memberDTO) {
+		// 마지막 날짜 업데이트
+		memberDTO.setUserLastDate(new Timestamp(System.currentTimeMillis()));
+		return memberDAO.loginCheck(memberDTO);
+	}
+
+	@Override
 	public MemberDTO getMember(String userId) {
-		System.out.println("MemberServiceImpl getMember()");
 		return memberDAO.getMember(userId);
+	}
+
+	@Override
+	public void insertComp(CompDTO compDTO) {
+		// 날짜설정
+		compDTO.setCompDate(new Timestamp(System.currentTimeMillis()));
+		System.out.println(compDTO.getCompDate());
+		System.out.println("MemberServiceImpl insertMember()");
+		// 메서드 호출
+		memberDAO.insertComp(compDTO);
+
+	}
+
+	@Override
+	public CompDTO compCheck(CompDTO compDTO) {
+		return memberDAO.compCheck(compDTO);
 	}
 
 
