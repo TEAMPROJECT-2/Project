@@ -15,20 +15,20 @@
       <section id="forms">
     	<h2 class="sticky-xl-top fw-bold pt-3 pt-xl-5 pb-2 pb-xl-3">회원가입</h2>
 
-        <form class=form-signin>
+        <form class=form-signin action="${pageContext.request.contextPath }/member/joinMemPro" method="post">
       <div>
         <div class="bd-example">
           <div class="form-floating mb-3">
-            <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com">
-            <label for="floatingInput">ID</label>
+            <input type="text" class="form-control" name=userId id="userId" placeholder="ID">
+            <label for="userId">ID</label>
           </div>
           <div class="form-floating mb-3">
-            <input type="email" class="form-control" id="floatingPassword" placeholder="Password">
-            <label for="floatingPassword">이메일 주소</label>
+            <input type="email" class="form-control" name=userEmail id="userEmail" placeholder="name@example.com">
+            <label for="userEmail">이메일 주소</label>
           </div>
           <div class="form-floating mb-3">
-            <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
-            <label for="floatingPassword">비밀번호</label>
+            <input type="password" class="form-control" name=userPass id="userPass" placeholder="Password">
+            <label for="userPass">비밀번호</label>
           </div>
         </div>
       </div>

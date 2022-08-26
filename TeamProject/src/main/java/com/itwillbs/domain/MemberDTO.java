@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 
 public class MemberDTO {
 
+	private int userInfoNum;
 	private String userId;
 	private String userPass;
 	private String userNm;
@@ -14,7 +15,7 @@ public class MemberDTO {
 	private String userPhone;
 	private String userZipcode;
 	private String userAddress;
-	private String userAddressDatails;
+	private String userAddressDetails;
 	private Timestamp userDate;
 	private int pointNum;
 	private int myCouponNum;
@@ -22,8 +23,16 @@ public class MemberDTO {
 	private int userType;
 	private int userStatus;
 	private Timestamp userLastDate;
+	private int userEmailAuth;
+	private String userEmailKey;
 
 
+	public int getUserInfoNum() {
+		return userInfoNum;
+	}
+	public void setUserInfoNum(int userInfoNum) {
+		this.userInfoNum = userInfoNum;
+	}
 	public String getUserId() {
 		return userId;
 	}
@@ -84,11 +93,11 @@ public class MemberDTO {
 	public void setUserAddress(String userAddress) {
 		this.userAddress = userAddress;
 	}
-	public String getUserAddressDatails() {
-		return userAddressDatails;
+	public String getuserAddressDetails() {
+		return userAddressDetails;
 	}
-	public void setUserAddressDatails(String userAddressDatails) {
-		this.userAddressDatails = userAddressDatails;
+	public void setuserAddressDetails(String userAddressDetails) {
+		this.userAddressDetails = userAddressDetails;
 	}
 	public Timestamp getUserDate() {
 		return userDate;
@@ -132,16 +141,29 @@ public class MemberDTO {
 	public void setUserLastDate(Timestamp userLastDate) {
 		this.userLastDate = userLastDate;
 	}
+	public int getUserEmailAuth() {
+		return userEmailAuth;
+	}
+	public void setUserEmailAuth(int userEmailAuth) {
+		this.userEmailAuth = userEmailAuth;
+	}
+	public String getUserEmailKey() {
+		return userEmailKey;
+	}
+	public void setUserEmailKey(String userEmailKey) {
+		this.userEmailKey = userEmailKey;
+	}
+
 
 	@Override
 	public String toString() {
-		return "MemberDTO [userId=" + userId + ", userPass=" + userPass + ", userNm=" + userNm + ", userEmail="
-				+ userEmail + ", userGender=" + userGender + ", userAthletic=" + userAthletic + ", userNicknm="
-				+ userNicknm + ", userPhone=" + userPhone + ", userZipcode=" + userZipcode + ", userAddress="
-				+ userAddress + ", userAddressDatails=" + userAddressDatails + ", userDate=" + userDate + ", pointNum="
-				+ pointNum + ", myCouponNum=" + myCouponNum + ", userRank=" + userRank + ", userType=" + userType
-				+ ", userStatus=" + userStatus + ", userLastDate=" + userLastDate + "]";
+		return "MemberDTO [userInfoNum=" + userInfoNum + ", userId=" + userId + ", userPass=" + userPass + ", userNm="
+				+ userNm + ", userEmail=" + userEmail + ", userGender=" + userGender + ", userAthletic=" + userAthletic
+				+ ", userNicknm=" + userNicknm + ", userPhone=" + userPhone + ", userZipcode=" + userZipcode
+				+ ", userAddress=" + userAddress + ", userAddressDetails=" + userAddressDetails + ", userDate="
+				+ userDate + ", pointNum=" + pointNum + ", myCouponNum=" + myCouponNum + ", userRank=" + userRank
+				+ ", userType=" + userType + ", userStatus=" + userStatus + ", userLastDate=" + userLastDate
+				+ ", userEmailAuth=" + userEmailAuth + ", userEmailKey=" + userEmailKey + "]";
 	}
-
 
 }

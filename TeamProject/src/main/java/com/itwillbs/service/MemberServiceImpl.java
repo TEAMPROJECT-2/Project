@@ -58,6 +58,24 @@ public class MemberServiceImpl implements MemberService{
 		return memberDAO.compCheck(compDTO);
 	}
 
+	@Override
+	public int updateEmailKey(MemberDTO memberDTO) throws Exception {
+		System.out.println("MemberServiceImpl updateEmailKey()");
+		return memberDAO.updateEmailKey(memberDTO);
+	}
+
+	@Override
+	public int updateEmailAuth(MemberDTO memberDTO) throws Exception {
+		System.out.println("MemberServiceImpl updateEmailAuth()");
+		return memberDAO.updateEmailAuth(memberDTO);
+	}
+
+	@Override
+	public int emailAuthFail(String userId) throws Exception {
+		System.out.println("MemberServiceImpl emailAuthFail()");
+		return memberDAO.emailAuthFail(userId);
+	}
+
 
 
 }

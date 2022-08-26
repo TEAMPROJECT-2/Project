@@ -3,6 +3,8 @@ package com.itwillbs.controller;
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.itwillbs.domain.CompDTO;
 import com.itwillbs.domain.MemberDTO;
+import com.itwillbs.mail.MailUtils;
+import com.itwillbs.mail.TempKey;
 import com.itwillbs.service.MemberService;
 
 @Controller
@@ -19,6 +23,8 @@ public class MemberController {
 	//	MemberService memberService=new MemberServiceImpl();
 	@Inject
 	private MemberService memberService;
+	@Autowired
+	JavaMailSender mailSender;
 
 	// 회원가입(유저)
 	@RequestMapping(value = "/member/join", method = RequestMethod.GET)
@@ -28,14 +34,52 @@ public class MemberController {
 		return "member/insertUserForm";
 	}
 
+	@RequestMapping(value = "registerEmail", method=RequestMethod.GET)
+	public String emailConfirm(String memberEmail, Model model) throws Exception {
+//		memberService.updateEmailAuth(memberEmail);
+		model.addAttribute("memberEmail", memberEmail);
+
+		return "/member/registerEmail ";
+	}
+
 	@RequestMapping(value = "/member/joinMemPro", method = RequestMethod.POST)
-	public String insertPro(MemberDTO memberDTO) {
-		// 메서드 호출
+	public String insertPro(MemberDTO memberDTO) throws Exception {
+
+		// 회원가입
 		memberService.insertMember(memberDTO);
+		memberService.updateEmailKey(memberDTO);
+
+		// 랜덤 문자열을 생성해서 mail_key 컬럼에 넣어주기
+        String emailKey = new TempKey().getKey(50,false); // 랜덤키 길이 설정
+        memberDTO.setUserEmailKey(emailKey);
+
+        // 회원가입 완료하면 인증을 위한 이메일 발송
+		MailUtils sendMail = new MailUtils(mailSender);
+        sendMail.setSubject("운동운동 인증메일 입니다."); // 메일제목
+        sendMail.setText(
+                "<h1>운동운동 메일 인증</h1>" +
+                "<br>" + memberDTO.getUserId() + "님" +
+                "<br>운동운동에 오신 것을 환영합니다!" +
+                "<br>아래 [이메일 인증 확인]을 눌러주세요." +
+                "<br><a href='http://database-project.ck4uen3kgbhg.ap-northeast-2.rds.amazonaws.com:8080/member/registerEmail?email=" + memberDTO.getUserEmail() +
+                "&emailKey=" + emailKey +
+                "' target='_blank'>이메일 인증 확인</a>");
+        sendMail.setFrom("web.main.adm@gmail.com", "운동운동");
+        sendMail.setTo(memberDTO.getUserEmail());
+        sendMail.send();
 
 		// 주소변경 이동
 		return "redirect:/member/login";
 	}
+
+	// 이메일 인증 체크
+	@RequestMapping(value = "/member/registerEmail", method = RequestMethod.GET)
+	public String emailConfirm(MemberDTO memberDTO) throws Exception{
+	    memberService.updateEmailAuth(memberDTO);
+	    // 이메일 인증 성공 시
+	    return "/member/emailAuthSuccess";
+	}
+
 
 	// 회원가입(업체)
 	@RequestMapping(value = "/member/joinComp", method = RequestMethod.GET)

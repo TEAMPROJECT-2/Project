@@ -50,6 +50,24 @@ public class MemberDAOImpl implements MemberDAO{
 		return sqlSession.selectOne(namespace+".loginCheck", memberDTO);
 	}
 
+	@Override
+	public int updateEmailKey(MemberDTO memberDTO) throws Exception {
+		System.out.println("MemberDAOImpl() updateEmailKey");
+		return sqlSession.update(namespace + "updateEmailKey", memberDTO);
+	}
+
+	@Override
+	public int updateEmailAuth(MemberDTO memberDTO) throws Exception {
+		System.out.println("MemberDAOImpl() updateEmailAuth");
+		return sqlSession.update(namespace + "updateEmailAuth", memberDTO);
+	}
+
+	@Override
+	public int emailAuthFail(String userId) throws Exception {
+		System.out.println("MemberDAOImpl() emailAuthFail");
+		 return sqlSession.selectOne(namespace + "emailAuthFail", userId);
+	}
+
 
 
 }
