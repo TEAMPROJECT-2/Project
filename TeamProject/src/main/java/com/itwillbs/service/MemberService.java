@@ -16,10 +16,4 @@ public interface MemberService {
 	public CompDTO compCheck(CompDTO compDTO);
 
 	MemberDTO loginCheck(MemberDTO memberDTO);
-
-	int updateMailKey(MemberDTO memberDTO) throws Exception;
-
-	int updateMailAuth(MemberDTO memberDTO) throws Exception;
-
-	int emailAuthFail(String userId) throws Exception;
 }
