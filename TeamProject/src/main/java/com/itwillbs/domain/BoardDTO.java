@@ -4,56 +4,59 @@ import java.sql.Timestamp;
 
 public class BoardDTO {
 	
-	private int BOARD_NUM;
-	private String USER_NICKNM;
-	private String BOARD_SUBJECT;
-	private String BOARD_CONTENT;
-	private int BOARD_READCOUNT;
-	private Timestamp BOARD_DATE;
-	private String BOARD_FILE;
+	private int boardNum;
+	private String userNicknm;
+	private String boardSubject;
+	private String boardContent;
+	private int boardRecount;
+	private Timestamp boardDate;
+	private String boardFile;
 	
-	public int getBOARD_NUM() {
-		return BOARD_NUM;
+	public int getBoardNum() {
+		return boardNum;
 	}
-	public String getUSER_NICKNM() {
-		return USER_NICKNM;
+	public String getUserNicknm() {
+		return userNicknm;
 	}
-	public String getBOARD_SUBJECT() {
-		return BOARD_SUBJECT;
+	public String getBoardSubject() {
+		return boardSubject;
 	}
-	public String getBOARD_CONTENT() {
-		return BOARD_CONTENT;
+	public String getBoardContent() {
+		return boardContent;
 	}
-	public int getBOARD_READCOUNT() {
-		return BOARD_READCOUNT;
+	public int getBoardRecount() {
+		return boardRecount;
 	}
-	public Timestamp getBOARD_DATE() {
-		return BOARD_DATE;
+	public Timestamp getBoardDate() {
+		return boardDate;
 	}
-	public String getBOARD_FILE() {
-		return BOARD_FILE;
+	public String getBoardFile() {
+		return boardFile;
 	}
-	public void setBOARD_NUM(int bOARD_NUM) {
-		BOARD_NUM = bOARD_NUM;
+	public void setBoardNum(int boardNum) {
+		this.boardNum = boardNum;
 	}
-	public void setUSER_NICKNM(String uSER_NICKNM) {
-		USER_NICKNM = uSER_NICKNM;
+	public void setUserNicknm(String userNicknm) {
+		this.userNicknm = userNicknm;
 	}
-	public void setBOARD_SUBJECT(String bOARD_SUBJECT) {
-		BOARD_SUBJECT = bOARD_SUBJECT;
+	public void setBoardSubject(String boardSubject) {
+		this.boardSubject = boardSubject;
 	}
-	public void setBOARD_CONTENT(String bOARD_CONTENT) {
-		BOARD_CONTENT = bOARD_CONTENT;
+	public void setBoardContent(String boardContent) {
+		this.boardContent = boardContent;
 	}
-	public void setBOARD_READCOUNT(int bOARD_READCOUNT) {
-		BOARD_READCOUNT = bOARD_READCOUNT;
+	public void setBoardRecount(int boardRecount) {
+		this.boardRecount = boardRecount;
 	}
-	public void setBOARD_DATE(Timestamp bOARD_DATE) {
-		BOARD_DATE = bOARD_DATE;
+	public void setBoardDate(Timestamp boardDate) {
+		this.boardDate = boardDate;
 	}
-	public void setBOARD_FILE(String bOARD_FILE) {
-		BOARD_FILE = bOARD_FILE;
+	public void setBoardFile(String boardFile) {
+		this.boardFile = boardFile;
 	}
+	
+	
+	
 	
 	
 	

@@ -22,14 +22,14 @@ public class BoardServiceImpl implements BoardService{
 	public void insertBoard(BoardDTO boardDTO) {
 		//폼에서 가져온값 name pass subject content
 		// num,readcount,date
-		boardDTO.setBOARD_READCOUNT(0);
-		boardDTO.setBOARD_DATE(new Timestamp(System.currentTimeMillis()));
+		boardDTO.setBoardRecount(0);
+		boardDTO.setBoardDate(new Timestamp(System.currentTimeMillis()));
 		// num = max(num)+1
 		if(boardDAO.getMaxNum()==null) {
 			//게시판 글이 없음
-			boardDTO.setBOARD_NUM(1);
+			boardDTO.setBoardNum(1);
 		}else {
-			boardDTO.setBOARD_NUM(boardDAO.getMaxNum() + 1);
+			boardDTO.setBoardNum(boardDAO.getMaxNum() + 1);
 		}
 		
 		
@@ -54,6 +54,20 @@ public class BoardServiceImpl implements BoardService{
 	@Override
 	public int getBoardCount() {
 		return boardDAO.getBoardCount();
+	}
+	@Override
+	public BoardDTO getBoard(int boardNum) {
+		return boardDAO.getBoard(boardNum);
+	}
+
+	@Override
+	public BoardDTO numCheck(BoardDTO boardDTO) {
+		return boardDAO.numCheck(boardDTO);
+	}
+
+	@Override
+	public void updateBoard(BoardDTO boardDTO) {
+		boardDAO.updateBoard(boardDTO);
 	}
 
 }
