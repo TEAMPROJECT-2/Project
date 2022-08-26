@@ -27,6 +27,9 @@
 				   ,USER_TYPE
              	   ,USER_STATUS
             	   ,USER_LAST_DATE
+            	   ,USER_MAIL_AUTH
+            	   ,USER_MAIL_KEY
+
 					)
 			VALUES(
 				    #{userInfoNum}
@@ -48,6 +51,8 @@
 				   ,#{userType}
 				   ,#{userStatus}
 				   ,#{userLastDate}
+				   ,#{userMailAuth}
+				   ,#{userMailKey}
 			  		)
 	</insert>
 

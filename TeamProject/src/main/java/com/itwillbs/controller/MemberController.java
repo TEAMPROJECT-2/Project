@@ -89,7 +89,7 @@ public class MemberController {
 		if(compDTO2!=null) {
 			// 아이디 비밀번호가 일치하면 null 아닌 값이 들고오는
 			// 세션값 생성 "id", id
-			session.setAttribute("userId", compDTO.getCompId());
+			session.setAttribute("compId", compDTO.getCompId());
 
 			// main/main 이동
 			return "redirect:/main/main";

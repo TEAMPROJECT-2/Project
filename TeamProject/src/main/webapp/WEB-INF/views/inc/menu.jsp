@@ -76,25 +76,28 @@
                     <div class="header__top__right">
                         <div class="header__top__links">
 
-                        	<c:if test="${(empty sessionScope.userId )}">
+                        	<c:if test="${(empty sessionScope)}">
 								<!-- sessionScope 아이디가 비어있는 경우 로그인 / 회원가입 -->
 								<a href="${pageContext.request.contextPath }/member/login">로그인</a>
 								<a href="${pageContext.request.contextPath }/member/join">회원가입</a>
 							</c:if>
 
-							<c:if test="${ !(empty sessionScope.userId )}">
-								<!-- sessionScope 아이디가 admin이 아닐 경우 환영글 / 로그아웃 -->
+							<c:if test="${ !(empty sessionScope.userId)}">
+								<!-- sessionScope 아이디가 userId에 admin이 아닐 경우 환영글 / 로그아웃 -->
 								<script type="text/javascript" src="${pageContext.request.contextPath }/resources/js/jquery-3.6.0.js"></script>
 								${sessionScope.userId }님 환영합니다!
-								<a href="${pageContext.request.contextPath }/member/logout">로그아웃</a>
-							</c:if>
-
-                           	<c:if test="${ !(empty sessionScope.userId )}">
-								<!-- sessionScope 아이디가 admin이 아닐 경우 마이페이지 -->
 								<c:if test="${sessionScope.userId ne 'admin'}">
 									<a href="${pageContext.request.contextPath }/user/mypage">마이페이지</a>
-									<a href="${pageContext.request.contextPath }/comp/compMain">업체페이지</a>
+									<a href="${pageContext.request.contextPath }/member/logout">로그아웃</a>
 								</c:if>
+							</c:if>
+
+							<c:if test="${ !(empty sessionScope.compId )}">
+								<!-- sessionScope 아이디가 compId에 admin이 아닐 경우 마이페이지 -->
+								<script type="text/javascript" src="${pageContext.request.contextPath }/resources/js/jquery-3.6.0.js"></script>
+								${sessionScope.compId }님 환영합니다!
+									<a href="${pageContext.request.contextPath }/comp/compMain">업체페이지</a>
+									<a href="${pageContext.request.contextPath }/member/logout">로그아웃</a>
 							</c:if>
 
                             <!-- 비어있는 경우가 아닌 경우 == 스코프가 비어있지 않으면 if문이 동작 조건연산자 -->
@@ -102,6 +105,7 @@
 								<!-- sessionScope 아이디가 admin일 경우 관리자페이지 -->
 								<c:if test="${sessionScope.userId eq 'admin'}">
 									<a href="${pageContext.request.contextPath }/member/list">관리자페이지</a>
+									<a href="${pageContext.request.contextPath }/member/logout">로그아웃</a>
 								</c:if>
 							</c:if>
                         </div>
