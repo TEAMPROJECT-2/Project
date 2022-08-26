@@ -18,7 +18,7 @@ public class MemberDAOImpl implements MemberDAO{
 
 
 	@Override
-	public void insertMember(MemberDTO memberDTO) {
+	public void insertMember(MemberDTO memberDTO) throws Exception{
 		// 마이바티스 메서드 호출
 		sqlSession.insert(namespace + ".insertMember", memberDTO);
 	}
@@ -53,19 +53,19 @@ public class MemberDAOImpl implements MemberDAO{
 	@Override
 	public int updateEmailKey(MemberDTO memberDTO) throws Exception {
 		System.out.println("MemberDAOImpl() updateEmailKey");
-		return sqlSession.update(namespace + "updateEmailKey", memberDTO);
+		return sqlSession.update(namespace + ".updateEmailKey", memberDTO);
 	}
 
 	@Override
 	public int updateEmailAuth(MemberDTO memberDTO) throws Exception {
 		System.out.println("MemberDAOImpl() updateEmailAuth");
-		return sqlSession.update(namespace + "updateEmailAuth", memberDTO);
+		return sqlSession.update(namespace + ".updateEmailAuth", memberDTO);
 	}
 
 	@Override
 	public int emailAuthFail(String userId) throws Exception {
 		System.out.println("MemberDAOImpl() emailAuthFail");
-		 return sqlSession.selectOne(namespace + "emailAuthFail", userId);
+		 return sqlSession.selectOne(namespace + ".emailAuthFail", userId);
 	}
 
 

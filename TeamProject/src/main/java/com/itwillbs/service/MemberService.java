@@ -5,7 +5,7 @@ import com.itwillbs.domain.MemberDTO;
 
 public interface MemberService {
 	//추상메서드
-	public void insertMember(MemberDTO memberDTO);
+	public void insertMember(MemberDTO memberDTO) throws Exception;
 
 	public MemberDTO userCheck(MemberDTO memberDTO);
 

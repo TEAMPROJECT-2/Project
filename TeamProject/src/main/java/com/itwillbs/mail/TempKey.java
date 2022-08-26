@@ -6,6 +6,7 @@ public class TempKey{
 	private boolean lowerCheck;
 	private int size;
 
+	// 인증코드 부르기
 	public String getKey(int size, boolean lowerCheck) {
 		this.size = size;
 		this.lowerCheck = lowerCheck;

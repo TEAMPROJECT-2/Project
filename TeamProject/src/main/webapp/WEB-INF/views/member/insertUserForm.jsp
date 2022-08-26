@@ -30,6 +30,10 @@
             <input type="password" class="form-control" name=userPass id="userPass" placeholder="Password">
             <label for="userPass">비밀번호</label>
           </div>
+          <div class="form-floating mb-3">
+            <input type="password" class="form-control" name=userPass2 id="userPass2" placeholder="Password">
+            <label for="userPass2">비밀번호 확인</label>
+          </div>
         </div>
       </div>
             <div class="mb-3">
@@ -40,7 +44,7 @@
 
             </div>
           <div class="mb-3">
-            <button class="btn site-btn" type="submit">회원가입</button>
+            <button class="site-btn w-100 btn-lg" type="submit">회원가입</button>
           </div>
        	   </form>
 		</section>
