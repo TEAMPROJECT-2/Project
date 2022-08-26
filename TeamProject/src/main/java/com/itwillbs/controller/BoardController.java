@@ -31,22 +31,6 @@ public class BoardController {
 	private String uploadPath;
 	
 	//	가상주소 시작점 http://localhost:8080/myweb2/board/write 
-	@RequestMapping(value = "/board/write", method = RequestMethod.GET)
-	public String insert() {
-		// 주소변경없이 이동
-		// WEB-INF/views/board/writeForm.jsp 이동
-		return "/board/writeForm";
-	}
-	
-	//가상주소 시작점 http://localhost:8080/myweb2/board/writePro
-	@RequestMapping(value = "/board/writePro", method = RequestMethod.POST)
-	public String writePro(BoardDTO boardDTO) {
-		
-		boardService.insertBoard(boardDTO);
-		
-		// 주소변경하면서 이동 /board/list 이동
-		return "redirect:/board/list";
-	}
 	
 	//	가상주소 시작점 http://localhost:8080/myweb2/board/list
     //	가상주소 시작점 http://localhost:8080/myweb2/board/list?pageNum=2 
@@ -116,16 +100,79 @@ public class BoardController {
 		FileCopyUtils.copy(file.getBytes(), uploadFile);
 		
 		BoardDTO boardDTO=new BoardDTO();
-		boardDTO.setUSER_NICKNM(request.getParameter("USER_NICKNM"));
-		boardDTO.setBOARD_SUBJECT(request.getParameter("BOARD_SUBJECT"));
-		boardDTO.setBOARD_CONTENT(request.getParameter("BOARD_CONTENT"));
-		boardDTO.setBOARD_FILE(filename);
+		boardDTO.setUserNicknm(request.getParameter("userNicknm"));
+		boardDTO.setBoardSubject(request.getParameter("boardSubject"));
+		boardDTO.setBoardContent(request.getParameter("boardContent"));
+		boardDTO.setBoardFile(filename);
 		
 		boardService.insertBoard(boardDTO);
 		
 		// 주소변경하면서 이동 /board/list 이동
 		return "redirect:/board/list";
 	}
+//	가상주소 시작점 http://localhost:8080/myweb2/board/content?num=2
+	@RequestMapping(value = "/board/content", method = RequestMethod.GET)
+	public String content(HttpServletRequest request, Model model) {
+		//파라미터 가져오기
+		int boardNum=Integer.parseInt(request.getParameter("boardNum"));
+		// 디비에서 조회
+		BoardDTO boardDTO=boardService.getBoard(boardNum);
+		
+		// model에 데이터 저장
+		model.addAttribute("boardDTO", boardDTO);
+		
+		// 주소변경없이 이동
+		// WEB-INF/views/board/content.jsp 이동
+		return "/board/content";
+	}
+	
+	//	가상주소 시작점 http://localhost:8080/myweb2/board/update?num=2
+	@RequestMapping(value = "/board/update", method = RequestMethod.GET)
+	public String update(HttpServletRequest request, Model model) {
+		//파라미터 가져오기
+		int boardNum=Integer.parseInt(request.getParameter("boardNum"));
+		// 디비에서 조회
+		BoardDTO boardDTO=boardService.getBoard(boardNum);
+		
+		// model에 데이터 저장
+		model.addAttribute("boardDTO", boardDTO);
+		
+		// 주소변경없이 이동
+		// WEB-INF/views/board/updateForm.jsp 이동
+		return "/board/updateForm";
+	}
+	
+	//가상주소 시작점 http://localhost:8080/myweb2/board/updatePro
+	@RequestMapping(value = "/board/updatePro", method = RequestMethod.POST)
+	public String updatePro(BoardDTO boardDTO) {
+		//num pass 일치 확인
+		BoardDTO boardDTO2=boardService.numCheck(boardDTO);
+		if(boardDTO2!=null) {
+//			num pass 일치
+			boardService.updateBoard(boardDTO);
+			// 주소변경하면서 이동 /board/list 이동
+			return "redirect:/board/list";
+		}else {
+			//num pass 틀림
+			// "틀림" 뒤로이동
+			// 주소변경없이 이동
+			// WEB-INF/views/board/msg.jsp 이동
+			return "board/msg";
+		}
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 }

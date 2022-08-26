@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itwillbs.mappers.boardMapper">
+
+	<insert id="insertBoard">
+		insert into BOARD
+		(
+			 BOARD_NUM
+			,USER_NICKNM
+			,BOARD_SUBJECT
+			,BOARD_CONTENT
+			,BOARD_READCOUNT
+			,BOARD_DATE
+			,BOARD_FILE) 
+		values(
+		     #{boardNum}
+			,#{userNicknm}
+			,#{boardSubject}
+			,#{BOARD_CONTENT}
+			,#{boardContent}
+			,#{boardRecount}
+			,#{boardFile})
+	</insert>
+	
+	<select id="getMaxNum" resultType="java.lang.Integer">
+		SELECT MAX(BOARD_NUM) FROM BOARD
+	</select>
+	   
+	<select id="getBoardList" resultType="com.itwillbs.domain.BoardDTO">
+		SELECT * FROM BOARD ORDER BY BOARD_NUM DESC LIMIT #{startRow}, #{pageSize}
+	</select>
+	
+	<select id="getBoardCount" resultType="java.lang.Integer">
+		select count(*) from BOARD
+	</select>
+	
+	<select id="getBoard" resultType="com.itwillbs.domain.BoardDTO">
+		select * from BOARD where BOARD_NUM=#{boardNum}
+	</select>
+	
+	<select id="numCheck" resultType="com.itwillbs.domain.BoardDTO">
+		select * from BOARD where BOARD_NUM=#{boardNum} and USER_NICKNM=#{userNicknm}
+	</select>
+	
+	<update id="updateBoard">
+		update BOARD set BOARD_SUBJECT=#{boardSubject}, BOARD_CONTENT=#{boardContent} where BOARD_NUM=#{boardNum}
+	</update>
+	
+</mapper>
