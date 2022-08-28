@@ -73,8 +73,7 @@
 				                     </label>
 				                        <input type="password" id="userPass" name="userPass" placeholder="비밀번호">
 				                    </div>
-<%-- 				                     <input type="hidden" name="userType" value="${userType }" placeholder="멤버 타입"> --%>
-<%-- 				                     <input type="hidden" name="userLastDate" value="${userLastDate }" > --%>
+<%-- 				                     <input type="hidden" name="userLastDate" id="userLastDate" value="${userLastDate }" > --%>
 								     <button type="submit" class="site-btn w-100 btn-lg">로그인</button><br>
 								  </form>
 								</main>

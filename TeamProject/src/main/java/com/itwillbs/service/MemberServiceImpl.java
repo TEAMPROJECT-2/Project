@@ -20,6 +20,7 @@ public class MemberServiceImpl implements MemberService{
 
 	//멤버변수 (부모인터페이스변수) 객체생성 자동화 됨 => @Repository MemberDAOImpl 찾아감
 	@Inject
+	@Autowired
 	private MemberDAO memberDAO;
 	@Autowired
 	private JavaMailSender mailSender;
@@ -31,8 +32,8 @@ public class MemberServiceImpl implements MemberService{
 		memberDTO.setUserDate(new Timestamp(System.currentTimeMillis()));
 
         // 랜덤 문자열을 생성해서 userEmailKey 컬럼에 넣어주기
-        String mailKey = new TempKey().getKey(50,false); // 랜덤키 길이 설정
-        memberDTO.setUserEmailKey(mailKey);
+        String userEmailKey = new TempKey().getKey(49,false); // 랜덤키 길이 설정
+        memberDTO.setUserEmailKey(userEmailKey);
 
         // 회원가입
         memberDAO.insertMember(memberDTO);
@@ -43,17 +44,14 @@ public class MemberServiceImpl implements MemberService{
         sendMail.setSubject("운동운동 인증메일 입니다.");
         sendMail.setText(
                 "<h1>운동운동 메일인증</h1>" +
-                "<br>운동운동에 오신것을 환영합니다!" +
+                "<br/>"+memberDTO.getUserId()+"님 운동운동에 오신 것을 환영합니다!" +
                 "<br>아래 [이메일 인증 확인]을 눌러주세요." +
-                "<br><a href='http://localhost:8080/join/registerEmail?email=" + memberDTO.getUserEmail() +
-                "&mailKey=" + mailKey +
+                "<br><a href='${pageContext.request.contextPath}/member/joinSuccess?userEmail=" + memberDTO.getUserEmail() +
+                "&userEmailKey=" + userEmailKey +
                 "' target='_blank'>이메일 인증 확인</a>");
-        sendMail.setFrom("silhumlab.gmail.com", "운동운동");
+        sendMail.setFrom("web.main.adm.gmail.com", "운동운동");
         sendMail.setTo(memberDTO.getUserEmail());
         sendMail.send();
-        System.out.println(memberDTO.getUserEmail());
-        System.out.println(memberDTO.getUserId());
-
 
 	}
 

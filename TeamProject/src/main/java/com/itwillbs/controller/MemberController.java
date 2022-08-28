@@ -32,22 +32,30 @@ public class MemberController {
 		return "member/insertUserForm";
 	}
 
-
+	// 회원가입
 	@RequestMapping(value = "/member/joinMemPro", method = RequestMethod.POST)
-	public String insertPro(MemberDTO memberDTO) throws Exception {
+	public String insertPro(MemberDTO memberDTO, Model model) throws Exception {
 		// 회원가입
 		memberService.insertMember(memberDTO);
-
+		model.addAttribute("memberDTO",memberDTO);
 		// 주소변경 이동
-		return "redirect:/member/login";
+		return "redirect:/member/joinEmailCheck";
 	}
 
-	// 이메일 인증 체크
-	@RequestMapping(value = "/member/registerEmail", method = RequestMethod.GET)
-	public String emailConfirm(MemberDTO memberDTO) throws Exception{
-	    memberService.updateEmailAuth(memberDTO);
-	    // 이메일 인증 성공 시
-	    return "/member/emailAuthSuccess";
+	// 이메일 인증 요청
+	@RequestMapping(value = "/member/joinEmailCheck", method = RequestMethod.GET)
+	public String emailCheck(MemberDTO memberDTO, Model model) throws Exception{
+		model.addAttribute("memberDTO",memberDTO);
+
+		return "member/joinEmailCheck";
+	}
+
+	// 이메일 인증 완료
+	@RequestMapping(value = "/member/joinSuccess", method = RequestMethod.GET)
+	public String joinSuccess(MemberDTO memberDTO) throws Exception{
+		memberService.updateEmailAuth(memberDTO);
+		// 이메일 인증 성공 시
+		return "member/joinSuccess";
 	}
 
 
@@ -55,7 +63,6 @@ public class MemberController {
 	@RequestMapping(value = "/member/joinComp", method = RequestMethod.GET)
 	public String insertComp() {
 		// 주소변경없이 이동
-		// WEB-INF/views/member/insertForm.jsp 이동
 		return "member/insertUserForm";
 	}
 
@@ -76,22 +83,25 @@ public class MemberController {
 
 	@RequestMapping(value = "/member/loginPro", method = RequestMethod.POST)
 	// jsp는 세션이 자동으로 만들어지지만 자바는 HttpSession으로 만들어야한다
-	public String loginPro(MemberDTO memberDTO, HttpSession session) {
+	public String loginPro(MemberDTO memberDTO, HttpSession session) throws Exception {
 		// 메서드 호출
 		MemberDTO memberDTO2=memberService.userCheck(memberDTO);
-		if(memberDTO2!=null) {
-			// 아이디 비밀번호가 일치하면 null 아닌 값이 들고오는
-			// 세션값 생성 "id", id
-			session.setAttribute("userId", memberDTO.getUserId());
 
-			// main/main 이동
-			return "redirect:/main/main";
-		}else {
-			// null일 경우 아이디 비밀번호 틀림
-			// 주소변경없이 이동
-			// WEB-INF/views/member/msg.jsp 이동
+		// 아이디 비밀번호 일치하지 않으면 오류 메세지 출력
+		if(memberDTO2==null) {
 			return "/member/msg";
 		}
+
+        // 이메일 인증유무 확인 후 1이 아닌 경우, 인증확인 메세지
+        if (memberService.emailAuthFail(memberDTO.getUserId()) != 1) {
+            return "/member/emailAuthFail";
+        }
+
+        // 로그인 세션값 생성
+		session.setAttribute("userId", memberDTO.getUserId());
+
+		// main/main 이동
+		return "redirect:/main/main";
 	}
 
 	// 로그인(업체)
@@ -104,7 +114,7 @@ public class MemberController {
 			// 아이디 비밀번호가 일치하면 null 아닌 값이 들고오는
 			// 세션값 생성 "id", id
 			session.setAttribute("compId", compDTO.getCompId());
-
+			
 			// main/main 이동
 			return "redirect:/main/main";
 		}else {
@@ -223,7 +233,7 @@ public class MemberController {
 		// id에 대한 정보를 디비에 가져오기
 		MemberDTO memberDTO = memberService.getMember(userId);
 		// 가져온 정보를 담아 info.jsp 이동
-		model.addAttribute("",memberDTO);
+		model.addAttribute("memberDTO",memberDTO);
 
 //		// 주소변경없이 이동
 		// WEB-INF/views/member/info.jsp 이동

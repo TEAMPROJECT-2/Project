@@ -36,6 +36,7 @@
           </div>
         </div>
       </div>
+      <input type="hidden" name="userType" id="userType" value="1">
             <div class="mb-3">
               <input class="form-check-input is-invalid" type="checkbox" value="" id="invalidCheck3" required>
               <label class="form-check-label" for="invalidCheck3">

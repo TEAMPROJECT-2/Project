@@ -7,11 +7,11 @@
 </head>
 <body>
 	<script type="text/javascript">
-		var memberEmail = '${userEmail}';
 
-		alert(memberEmail + '님 회원가입을 축하합니다. 이제 로그인이 가능 합니다. 확인버튼을 누르면 로그인 페이지로 이동합니다.');
+		alert('${memberDTO.userId}님 이메일 인증이 완료되었습니다. \n 로그인 후 다양한 경험을 즐겨보세요!');
 
-		self.location = "/member/loginView";
+		location.href = "login";
 	</script>
+
 </body>
 </html>
