@@ -27,19 +27,19 @@ public class CompController {
 	public String compUpdateProd() {
 		return "comp/updateProd";
 	}
-	@RequestMapping(value = "/comp/insertProd", method = RequestMethod.GET)
+	@RequestMapping(value = "/comp/insertGoods", method = RequestMethod.GET)
 	public String compInsertProd() {
-		return "comp/insertProd";
+		return "comp/insertGoods";
 	}
 	
-	@RequestMapping(value = "/comp/insertProdPro", method = RequestMethod.POST)
-	public String insertPro(ProdDTO prodDTO,ProdStockDTO proStockDTO) {
+	@RequestMapping(value = "/comp/insertGoodsPro", method = RequestMethod.POST)
+	public String insertPro(ProdDTO prodDTO) {
 		// 메서드 호출
-		proStockDTO.setProdSPnum(prodDTO.getProdLNum()); 
-		compService.insertProd(prodDTO,proStockDTO);
+//		proStockDTO.setProdSPnum(prodDTO.getProdLNum()); 
+		compService.insertProd(prodDTO);
 		
 		// 주소변경 이동
-		return "redirect:/comp/insertProd";
+		return "redirect:/comp/insertGoods";
 	}
 	@RequestMapping(value = "/comp/deleteProd", method = RequestMethod.GET)
 	public String compDeleteProd() {
