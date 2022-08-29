@@ -6,28 +6,29 @@
 <!-- 부트스트랩 -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
-<script type="text/javascript" src="../script/jquery-3.6.0.js"></script>
+<script type="text/javascript"
+src="${pageContext.request.contextPath }/resources/js/jquery-3.6.0.js"></script>
 <script type="text/javascript">
-
-$(document).ready(function(){
-	$('#iddup').click(function(){
-//			alert("클릭");
-		$.ajax({
-			url:'${pageContext.request.contextPath }/member/iddup',
-			data:{'id':$('#id').val()},
-			success:function(rdata){
-				if(rdata=='iddup'){
-					rdata="아이디 중복";
-				}else{
-					rdata="아이디 사용가능";
+	$(document).ready(function(){
+		$('#idSearch').click(function(){
+			debugger;
+			$.ajax({
+				url:'${pageContext.request.contextPath }/member/idSearch',
+				data:{'userNm':$('#userNm').val(),'userEmail':$('#userEmail').val()},
+				success:function(rdata){
+					if(rdata=='idok'){
+						rdata="찾으시는 아이디는"+ ${userId}+" 입니다.";
+					}else{
+						rdata="데이터가 없습니다.";
+					}
+					$('#iddiv').html(rdata);
 				}
-				$('#iddiv').html(rdata);
-			}
+			});
 		});
 	});
-});
-
 </script>
+</head>
+<body>
 </head>
 <body>
 <!-- 메뉴단 -->
@@ -83,27 +84,26 @@ $(document).ready(function(){
          					 <div class="tab-pane fade show active" id="user-insert" role="tabpanel" aria-labelledby="user-insert-tab">
 				                <div class="checkout__order">
 								<main class="form-signin ">
-								  <form action="${pageContext.request.contextPath }/member/loginPro" method="post">
+								  <form method="post">
 				                    <div class="checkout__input">
-				                     <label for="userId">
-				                        ID
+				                     <label for="userNm">
+				                        이름
 				                     </label>
-				                        <input type="text" id="userId" name="userId" placeholder="ID">
+				                        <input type="text" id="userNm" name="userNm" placeholder="이름">
 				                    </div>
 				                    <div class="checkout__input">
-				                  	 <label for="userPass">
-				                        비밀번호
+				                  	 <label for="userEmail">
+				                        이메일
 				                     </label>
-				                        <input type="password" id="userPass" name="userPass" placeholder="비밀번호">
+				                        <input type="email" id="userEmail" name="userEmail" placeholder="이메일">
 				                    </div>
 <%-- 				                     <input type="hidden" name="userLastDate" id="userLastDate" value="${userLastDate }" > --%>
-								     <button type="submit" class="site-btn w-100 btn-lg">로그인</button><br>
+								     <input type="button" class="site-btn w-100 btn-lg" value="ID 찾기" id="idSearch"><br>
+								     <div id="iddiv"></div><br>
 								  </form>
 								  <div class= "text-center">
-								  	<a href="${pageContext.request.contextPath }/member/loginIdSearch" class="loginIdSearch">ID 찾기</a>
-								  	<a href="${pageContext.request.contextPath }/member/loginPassSearch" class="loginPassCheck">비밀번호 찾기</a>
+								  	<span></span>
 								  </div>
-								  <div id="idCheck"></div>
 								</main>
 								</div>
 

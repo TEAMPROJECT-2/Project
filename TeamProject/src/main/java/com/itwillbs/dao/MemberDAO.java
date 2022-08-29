@@ -1,5 +1,7 @@
 package com.itwillbs.dao;
 
+import java.util.List;
+
 import com.itwillbs.domain.CompDTO;
 import com.itwillbs.domain.MemberDTO;
 
@@ -22,4 +24,7 @@ public interface MemberDAO {
 	int updateEmailAuth(MemberDTO memberDTO) throws Exception;
 
 	int emailAuthFail(String userId) throws Exception;
+
+	List<MemberDTO> idSearch(MemberDTO memberDTO);
+
 }

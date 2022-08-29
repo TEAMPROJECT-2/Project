@@ -1,6 +1,7 @@
 package com.itwillbs.service;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -46,7 +47,7 @@ public class MemberServiceImpl implements MemberService{
                 "<h1>운동운동 메일인증</h1>" +
                 "<br/>"+memberDTO.getUserId()+"님 운동운동에 오신 것을 환영합니다!" +
                 "<br>아래 [이메일 인증 확인]을 눌러주세요." +
-                "<br><a href='${pageContext.request.contextPath}/member/joinSuccess?userEmail=" + memberDTO.getUserEmail() +
+                "<br><a href='http://localhost:8080/web/member/joinSuccess?userEmail=" + memberDTO.getUserEmail() +
                 "&userEmailKey=" + userEmailKey +
                 "' target='_blank'>이메일 인증 확인</a>");
         sendMail.setFrom("web.main.adm.gmail.com", "운동운동");
@@ -104,6 +105,12 @@ public class MemberServiceImpl implements MemberService{
 	public int emailAuthFail(String userId) throws Exception {
 		System.out.println("MemberServiceImpl emailAuthFail()");
 		return memberDAO.emailAuthFail(userId);
+	}
+
+	// 아이디 찾기
+	@Override
+	public List<MemberDTO> idSearch(MemberDTO memberDTO) {
+		return memberDAO.idSearch(memberDTO);
 	}
 
 

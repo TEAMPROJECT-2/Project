@@ -1,5 +1,7 @@
 package com.itwillbs.dao;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
@@ -66,6 +68,12 @@ public class MemberDAOImpl implements MemberDAO{
 	public int emailAuthFail(String userId) throws Exception {
 		System.out.println("MemberDAOImpl() emailAuthFail");
 		 return sqlSession.selectOne(namespace + ".emailAuthFail", userId);
+	}
+
+	@Override
+	public List<MemberDTO> idSearch(MemberDTO memberDTO) {
+		System.out.println("MemberDAOImpl() idSearch");
+		return sqlSession.selectList(namespace + ".idSearch", memberDTO);
 	}
 
 

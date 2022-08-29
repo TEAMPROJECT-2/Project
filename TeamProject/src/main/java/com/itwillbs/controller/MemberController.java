@@ -55,9 +55,39 @@ public class MemberController {
 	public String joinSuccess(MemberDTO memberDTO) throws Exception{
 		memberService.updateEmailAuth(memberDTO);
 		// 이메일 인증 성공 시
-		return "member/joinSuccess";
+		// 추가정보 입력 후 관심있는 운동에 대한 추천
+		return "redirect:/main/main";
 	}
 
+	// 아이디 찾기
+	@RequestMapping(value = "/member/loginIdSearch", method = RequestMethod.GET)
+	public String idSearch(MemberDTO memberDTO) throws Exception{
+		return "member/loginIdSearch";
+	}
+
+//	// 아이디 찾기
+//	@RequestMapping(value = "/member/loginIdSearchPro", method = RequestMethod.POST)
+//	public String idSearchPro(MemberDTO memberDTO) throws Exception{
+//		MemberDTO memberDTO2=memberService.idSearch(memberDTO);
+//
+//		// 아이디 이메일 일치하지 않으면 오류 메세지 출력
+//		if(memberDTO2==null) {
+//			return "/member/msg";
+//		}
+//
+//		// 아이디 이메일 일치하면
+//		System.out.println(memberDTO2.getUserId());
+//		return memberDTO2.getUserId();
+//	}
+
+//	// 아이디 찾기 Pro
+//	@RequestMapping(value = "/member/loginIdSearchPro", method = RequestMethod.GET)
+//	public String idCheckView(MemberDTO memberDTO) throws Exception{
+//		memberService.updateEmailAuth(memberDTO);
+//		// 이메일 인증 성공 시
+//		// 추가정보 입력 후 관심있는 운동에 대한 추천
+//		return "redirect:/main/main";
+//	}
 
 	// 회원가입(업체)
 	@RequestMapping(value = "/member/joinComp", method = RequestMethod.GET)
@@ -114,7 +144,7 @@ public class MemberController {
 			// 아이디 비밀번호가 일치하면 null 아닌 값이 들고오는
 			// 세션값 생성 "id", id
 			session.setAttribute("compId", compDTO.getCompId());
-			
+
 			// main/main 이동
 			return "redirect:/main/main";
 		}else {

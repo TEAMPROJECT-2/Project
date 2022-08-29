@@ -94,14 +94,21 @@
 		   SET USER_LAST_DATE=#{userLastDate}
 	</select>
 
-
-
-<!-- (유저) -->
+<!-- 유저 부르기 -->
 	<select id="getMember" resultType="com.itwillbs.domain.MemberDTO">
 		SELECT *
 		  FROM USER_INFO
 		 WHERE USER_ID=#{userId}
 	</select>
+
+<!-- 로그인 아이디 찾기(유저) -->
+	<select id="idSearch" resultType="com.itwillbs.domain.MemberDTO">
+		SELECT *
+		  FROM USER_INFO
+		 WHERE USER_NM=		#{userNm}
+		   AND USER_EMAIL=	#{userEmail}
+	</select>
+
 
 <!-- 회원가입(업체) -->
 	<insert id="insertComp">
