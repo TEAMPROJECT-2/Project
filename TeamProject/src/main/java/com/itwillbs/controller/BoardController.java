@@ -101,6 +101,7 @@ public class BoardController {
 		
 		BoardDTO boardDTO=new BoardDTO();
 		boardDTO.setUserNicknm(request.getParameter("userNicknm"));
+		boardDTO.setBoardPass(request.getParameter("boardPass"));
 		boardDTO.setBoardSubject(request.getParameter("boardSubject"));
 		boardDTO.setBoardContent(request.getParameter("boardContent"));
 		boardDTO.setBoardFile(filename);
@@ -144,12 +145,36 @@ public class BoardController {
 	
 	//가상주소 시작점 http://localhost:8080/myweb2/board/updatePro
 	@RequestMapping(value = "/board/updatePro", method = RequestMethod.POST)
-	public String updatePro(BoardDTO boardDTO) {
+	public String updatePro(HttpServletRequest request,MultipartFile file) throws Exception {
+		String filename = "";
+		if(file.isEmpty()) {
+			filename=request.getParameter("oldfile");
+		}else {
+			UUID uuid=UUID.randomUUID();
+			filename=uuid.toString()+"_"+file.getOriginalFilename();
+			
+			//업로드파일 file.getBytes() => upload/랜덤문자_파일이름 복사
+			File uploadFile=new File(uploadPath,filename);
+			
+			FileCopyUtils.copy(file.getBytes(), uploadFile);
+		}
+				
+				BoardDTO boardDTO=new BoardDTO();
+				boardDTO.setBoardNum(Integer.parseInt(request.getParameter("boardNum")));
+				boardDTO.setUserNicknm(request.getParameter("userNicknm"));
+				boardDTO.setBoardPass(request.getParameter("boardPass"));
+				boardDTO.setBoardSubject(request.getParameter("boardSubject"));
+				boardDTO.setBoardContent(request.getParameter("boardContent"));
+				boardDTO.setBoardFile(filename);
+				
+				
+		
 		//num pass 일치 확인
 		BoardDTO boardDTO2=boardService.numCheck(boardDTO);
 		if(boardDTO2!=null) {
 //			num pass 일치
 			boardService.updateBoard(boardDTO);
+			boardService.updateFile(boardDTO);
 			// 주소변경하면서 이동 /board/list 이동
 			return "redirect:/board/list";
 		}else {
@@ -160,11 +185,41 @@ public class BoardController {
 			return "board/msg";
 		}
 	}
+	@RequestMapping(value = "/board/delete", method = RequestMethod.GET)
+	public String delete(HttpServletRequest request, Model model) {
+		//파라미터 가져오기
+		int boardNum=Integer.parseInt(request.getParameter("boardNum"));
+		
+		// model에 데이터 저장
+		model.addAttribute("boardNum", boardNum);
+		
+		// 주소변경없이 이동
+		// WEB-INF/views/board/deleteForm.jsp 이동
+		return "/board/deleteForm";
+	}
+
+	
+	//가상주소 시작점 http://localhost:8080/myweb2/board/deletePro
+	@RequestMapping(value = "/board/deletePro", method = RequestMethod.POST)
+	public String deletePro(BoardDTO boardDTO) {
+		//num pass 일치 확인
+		BoardDTO boardDTO2=boardService.numCheck(boardDTO);
+		if(boardDTO2!=null) {
+//			num pass 일치
+			boardService.deleteBoard(boardDTO);
+			// 주소변경하면서 이동 /board/list 이동
+			return "redirect:/board/list";
+		}else {
+			//num pass 틀림
+			// "틀림" 뒤로이동
+			// 주소변경없이 이동
+			// WEB-INF/views/board/msg.jsp 이동
+			return "board/msg";
+	
+		}
 	
 	
-	
-	
-	
+	}
 	
 	
 	
