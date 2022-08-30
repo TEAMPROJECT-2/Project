@@ -34,7 +34,7 @@
 
 	<!-- 업로드 폴더 경로 src/main/webapp/resources/upload-->
 	<beans:bean id="uploadPath" class="java.lang.String">
-		<beans:constructor-arg value="D:\\Project\\TeamProject\\src\\main\\webapp\\resources\\upload"></beans:constructor-arg>
+		<beans:constructor-arg value="C:\\Users\\ITWILL\\git\\Project\\TeamProject\\src\\main\\webapp\\resources\\upload"></beans:constructor-arg>
 	</beans:bean>
 
 	<!-- 회원가입 메일 인증 -->

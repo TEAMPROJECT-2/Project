@@ -5,7 +5,8 @@
 <head>
 <!-- 부트스트랩 -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-
+</head>
+<body>
 </head>
 <body>
 <!-- 메뉴단 -->
@@ -35,8 +36,8 @@
                 <div class="col-lg-6 col-md-6">
                     <div class="contact__text">
                         <div class="section-title">
-                            <h2>로그인</h2>
-                            <p>계정 없으면 회원가입 어쩌구</p>
+                            <h2>비밀번호 찾기</h2>
+                            <p>회원가입 시 기입했던 아이디와 이메일을 적어주세요!</p>
                         </div>
                             <hr>
                         <ul>
@@ -56,32 +57,27 @@
 			          </div>
 			        </nav>
 			        	<div class="tab-content" id="nav-tabContent">
-						<!-- 회원 로그인 -->
 
+						<!-- ID 찾기 -->
          					 <div class="tab-pane fade show active" id="user-insert" role="tabpanel" aria-labelledby="user-insert-tab">
 				                <div class="checkout__order">
 								<main class="form-signin ">
-								  <form action="${pageContext.request.contextPath }/member/loginPro" method="post">
+								  <form method="post">
 				                    <div class="checkout__input">
 				                     <label for="userId">
-				                        ID
+				                        아이디
 				                     </label>
-				                        <input type="text" id="userId" name="userId" placeholder="ID">
+				                        <input type="text" id="userId" name="userId" placeholder="아이디">
 				                    </div>
 				                    <div class="checkout__input">
-				                  	 <label for="userPass">
-				                        비밀번호
+				                  	 <label for="userEmail">
+				                        이메일
 				                     </label>
-				                        <input type="password" id="userPass" name="userPass" placeholder="비밀번호">
+				                        <input type="email" id="userEmail" name="userEmail" placeholder="이메일">
 				                    </div>
 <%-- 				                     <input type="hidden" name="userLastDate" id="userLastDate" value="${userLastDate }" > --%>
-								     <button type="submit" class="site-btn w-100 btn-lg">로그인</button><br>
+								     <input type="button" class="site-btn w-100 btn-lg" value="비밀번호 찾기" id="searchPass"><br>
 								  </form>
-								  <div class= "text-center">
-								  	<a href="${pageContext.request.contextPath }/member/loginIdSearch" class="loginIdSearch">ID 찾기</a>
-								  	<a href="${pageContext.request.contextPath }/member/loginPassSearch" class="loginPassSearch">비밀번호 찾기</a>
-								  </div>
-								  <div id="idCheck"></div>
 								</main>
 								</div>
 

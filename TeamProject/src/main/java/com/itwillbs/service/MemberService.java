@@ -25,5 +25,5 @@ public interface MemberService {
 
 	int emailAuthFail(String userId) throws Exception;
 
-	MemberDTO idSearch(String userNm, String userEmail);
+	public MemberDTO idSearch(MemberDTO memberDTO);
 }

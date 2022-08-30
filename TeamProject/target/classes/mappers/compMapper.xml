@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.itwillbs.mappers.compMapper">
+
+<!-- 회원가입 -->
+	<insert id="insertProd">
+		INSERT INTO PRODUCT_LIST(
+				    NUM
+			       ,PROD_L_CODE
+			       ,PROD_L_TYPE
+			       ,PROD_L_OPTION1
+			       ,PROD_L_OPTION2
+			       ,PROD_L_PRODNM
+			       ,PROD_L_PRICE
+			       ,PROD_L_UPDATE
+<!-- 			       ,PROD_L_COMPNM -->
+			       ,PROD_L_MAINIMG
+			       ,PROD_L_SUBIMG
+			       ,PROD_L_DETAIL
+			       ,PROD_L_QUANTITY
+           		    )
+			 VALUES (
+			  		#{num}
+			       ,#{prodLCode}
+			       ,#{prodLType}
+			       ,#{prodLOption1}
+			       ,#{prodLOption2}
+			       ,#{prodLProdNm}
+			       ,#{prodLPrice}
+			       ,#{prodLUpdate}
+<!-- 			       ,#{prodLCompNm} -->
+			       ,#{prodLMainImg}
+			       ,#{prodLSubImg}
+			       ,#{prodLDetail}
+			       ,#{prodLQuantity}
+			  		)
+	</insert>
+
+	<insert id="insertProdStock">
+		INSERT INTO PRODUCT_STOCK(
+			   		NUM
+				   ,PROD_S_PNUM
+				   ,PROD_S_COUNT
+				    )
+			 VALUES (
+				    #{num}
+			       ,#{prodSPnum}
+			       ,#{prodSCount}
+			)
+
+	</insert>
+	<select id="getMaxNum" resultType="java.lang.Integer">
+		select max(num) from PRODUCT_STOCK
+	</select>
+
+</mapper>

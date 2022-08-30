@@ -49,7 +49,7 @@ public class AjaxController {
 		String userNm=request.getParameter("userNm");
 		String userEmail=request.getParameter("userEmail");
 //		아이디가 중복인지 아닌지를 멤버 DTO에 담아와서
-		List<MemberDTO> memberDTO2=memberService.idSearch(memberDTO);
+		MemberDTO memberDTO2=memberService.idSearch(memberDTO);
 
 		memberDTO.setUserEmail(userEmail);
 		memberDTO.setUserNm(userNm);
@@ -57,7 +57,7 @@ public class AjaxController {
 		String result="";
 		if(memberDTO2!=null) {
 			// 아이디 있으면 출력
-			result=memberDTO2.;
+			result=memberDTO2.toString();
 		}else {
 			// 아이디 없음, 정보가 없습니다.
 			result="idno";

@@ -1,14 +1,18 @@
 package com.itwillbs.controller;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.itwillbs.domain.CompDTO;
 import com.itwillbs.domain.MemberDTO;
@@ -61,8 +65,36 @@ public class MemberController {
 
 	// 아이디 찾기 페이지
 	@RequestMapping(value = "/member/loginIdSearch", method = RequestMethod.GET)
-	public String idSearch(MemberDTO memberDTO) throws Exception{
+	public String idSearch(MemberDTO memberDTO, Model model) throws Exception{
 		return "member/loginIdSearch";
+	}
+
+	// 아이디 찾기
+	@RequestMapping(value = "/member/idSearchPro", method = RequestMethod.POST)
+	public String idSearchPro(@ModelAttribute MemberDTO memberDTO, HttpServletResponse response) {
+		System.out.println("userNm의 이름="+memberDTO.getUserNm());
+		System.out.println("userEmail의 이메일="+memberDTO.getUserEmail());
+
+		MemberDTO memberDTO2=memberService.idSearch(memberDTO);
+
+		System.out.println("memberDTO2"+memberDTO2.getUserId()+memberDTO.getUserId());
+		if(memberService.idSearch(memberDTO)==null) {
+			return null;
+		}else {
+			return null;
+		}
+
+	}
+
+	// 비밀번호 찾기
+	@RequestMapping(value = "/member/loginPassSearch", method = RequestMethod.GET)
+	public String findPass() throws Exception{
+		return "member/loginPassSearch";
+	}
+
+	@RequestMapping(value = "/findpass", method = RequestMethod.POST)
+	public String findPassPro(@ModelAttribute MemberDTO memberDTO, HttpServletResponse response) throws Exception{
+		return "redirect:/main/main";
 	}
 
 //	// 아이디 찾기

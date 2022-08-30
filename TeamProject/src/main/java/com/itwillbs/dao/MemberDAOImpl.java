@@ -71,10 +71,11 @@ public class MemberDAOImpl implements MemberDAO{
 	}
 
 	@Override
-	public MemberDTO idSearch(String userNm, String userEmail) {
+	public MemberDTO idSearch(MemberDTO memberDTO) {
 		System.out.println("MemberDAOImpl() idSearch");
-		return sqlSession.select(namespace + ".emailAuthFail", userNm, userEmail);
+		return sqlSession.selectOne(namespace + ".idSearch", memberDTO);
 	}
+
 
 
 

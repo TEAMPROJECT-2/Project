@@ -5,6 +5,30 @@
 <head>
 <!-- 부트스트랩 -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+<!-- 아이디 중복검사 -->
+<script type="text/javascript" src="../script/jquery-3.6.0.js"></script>
+<script type="text/javascript">
+
+function checkId(){
+	// 아이디 값 저장
+	var userId = $('#userId').val();
+	$.ajax({
+		url:'${pageContext.request.contextPath }/member/iddup',
+		type: 'post',
+		data:{userId,userId},
+		success:function(rdata){
+			if(rdata==0){	// 사용 가능 아이디
+				rdata="아이디 중복";
+			}else{ 			// 중복 아이디
+				rdata="아이디 사용가능";
+			}
+			$('#iddiv').html(rdata);
+		}
+	});
+};
+
+</script>
 </head>
 <body class="bg-light">
 <!-- 메뉴단 -->
@@ -19,8 +43,9 @@
       <div>
         <div class="bd-example">
           <div class="form-floating mb-3">
-            <input type="text" class="form-control" name=userId id="userId" placeholder="ID">
+            <input type="text" class="form-control" name=userId id="userId" placeholder="ID" oninput="checkId()">
             <label for="userId">ID</label>
+            <span id="iddiv"></span>
           </div>
           <div class="form-floating mb-3">
             <input type="email" class="form-control" name=userEmail id="userEmail" placeholder="name@example.com">

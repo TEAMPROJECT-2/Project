@@ -108,9 +108,9 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public MemberDTO idSearch(String userNm, String userEmail) {
+	public MemberDTO idSearch(MemberDTO memberDTO) {
 		System.out.println("MemberServiceImpl idSearch()");
-		return memberDAO.idSearch(userNm,userEmail);
+		return memberDAO.idSearch(memberDTO);
 	}
 
 

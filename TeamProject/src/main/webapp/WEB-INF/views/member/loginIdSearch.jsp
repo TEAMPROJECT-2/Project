@@ -10,22 +10,40 @@
 src="${pageContext.request.contextPath }/resources/js/jquery-3.6.0.js"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
-		$('#idSearch').click(function(){
-			debugger;
+		$('#searchId').click(function(){
 			$.ajax({
-				url:'${pageContext.request.contextPath }/member/idSearch',
+				url:'${pageContext.request.contextPath }/member/idSearchPro',
+				type:'POST',
 				data:{'userNm':$('#userNm').val(),'userEmail':$('#userEmail').val()},
 				success:function(rdata){
-					if(rdata=='idok'){
+					if(rdata!=null){
 						rdata="찾으시는 아이디는"+ ${userId}+" 입니다.";
 					}else{
 						rdata="데이터가 없습니다.";
 					}
-					$('#iddiv').html(rdata);
+					$('#resultId').html(rdata);
 				}
 			});
 		});
 	});
+
+// 	$(document).ready(function(){
+// 		$('#searchId').click(function(){
+// alert("hi");
+// 		$.ajax({
+// 			url : "${pageContext.request.contextPath }/member/idSearch",
+// 			method : "post",
+// 			data : sendData,
+// 			dataType : "text",
+// 			success : function(text) {
+// 				if (text != null) {
+// 					$("#"resultId"").html("아이디 = "+text);
+// 				} else {
+// 					$("#"resultId"").html("해당정보가 없습니다.");
+// 				}
+// 			},
+// 		});
+// 	}
 </script>
 </head>
 <body>
@@ -79,8 +97,8 @@ src="${pageContext.request.contextPath }/resources/js/jquery-3.6.0.js"></script>
 			          </div>
 			        </nav>
 			        	<div class="tab-content" id="nav-tabContent">
-						<!-- 회원 로그인 -->
 
+						<!-- ID 찾기 -->
          					 <div class="tab-pane fade show active" id="user-insert" role="tabpanel" aria-labelledby="user-insert-tab">
 				                <div class="checkout__order">
 								<main class="form-signin ">
@@ -98,10 +116,9 @@ src="${pageContext.request.contextPath }/resources/js/jquery-3.6.0.js"></script>
 				                        <input type="email" id="userEmail" name="userEmail" placeholder="이메일">
 				                    </div>
 <%-- 				                     <input type="hidden" name="userLastDate" id="userLastDate" value="${userLastDate }" > --%>
-								     <input type="button" class="site-btn w-100 btn-lg" value="ID 찾기" id="idSearch"><br>
-								     <div id="iddiv"></div><br>
+								     <input type="button" class="site-btn w-100 btn-lg" value="ID 찾기" id="searchId"><br>
 								  </form>
-								  <div class= "text-center">
+								  <div id="resultId" class= "text-center">
 								  	<span></span>
 								  </div>
 								</main>
