@@ -46,6 +46,8 @@ ${boardDTO.boardFile }</a></td></tr>
 onclick="location.href='${pageContext.request.contextPath }/board/update?boardNum=${boardDTO.boardNum }'">
 <input type="button" value="글삭제" 
 onclick="location.href='${pageContext.request.contextPath }/board/delete?boardNum=${boardDTO.boardNum }'"></td></tr>
+<input type="button" value="좋아요"
+onclick="location.href='${pageContext.request.contextPath }/board/likePro?boardNum=${boardDTO.boardNum }'">
 </table>	
 <a href="${pageContext.request.contextPath }/board/list">글목록</a>
 <!-- Footer Section Begin -->

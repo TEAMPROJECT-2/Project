@@ -27,11 +27,12 @@
 <form action="${pageContext.request.contextPath }/board/fwritePro" method="post" 
 enctype="multipart/form-data">
 <table border="1">
-<tr><td>닉네임</td><td><input type="text" name="USER_NICKNM"></td></tr>
-<tr><td>제목</td><td><input type="text" name="BOARD_SUBJECT"></td></tr>
+<tr><td>닉네임</td><td><input type="text" name="userNicknm"></td></tr>
+<tr><td>제목</td><td><input type="text" name="boardSubject"></td></tr>
 <tr><td>파일</td><td><input type="file" name="file"></td></tr>
 <tr><td>내용</td>
-    <td><textarea name="BOARD_CONTENT" rows="10" cols="20"></textarea></td></tr>
+    <td><textarea name="boardContent" rows="10" cols="20"></textarea></td></tr>
+<tr><td>비밀번호</td><td><input type="password" name="boardPass"></td></tr>
 <tr><td colspan="2"><input type="submit" value="글쓰기"></td></tr>
 </table>
 <a href="${pageContext.request.contextPath }/board/list">글목록</a>

@@ -5,8 +5,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="css/bootstrap.css"> 
 <title>게시판</title>
 
+	
 </head>
 <body>
 <!-- 메뉴단 -->
@@ -27,18 +30,29 @@
             </div>
         </div>
         </section>
-<table border="1">
-<tr><td>번호</td><td>작성자</td><td>제목</td><td>등록일</td><td>조회수</td></tr>
+<table class="Table">
+<thead>
+	<tr>
+		<td>번호</td>
+		<td>작성자</td>
+		<td>제목</td>
+		<td>등록일</td>
+		<td>조회수</td>
+	</tr>
+</thead>
+<tbody>
 <c:forEach var="boardDTO" items="${boardList }">
-<tr><td>${boardDTO.boardNum }</td>
-	<td>${boardDTO.userNicknm}</td>
-	<td>
-	<a href="${pageContext.request.contextPath }/board/content?boardNum=${boardDTO.boardNum }">
-	${boardDTO.boardSubject }</a></td>
-	<td>${boardDTO.boardDate }</td>
-	<td>${boardDTO.boardRecount }</td>
+	<tr>
+		<td>${boardDTO.boardNum }</td>
+		<td>${boardDTO.userNicknm}</td>
+		<td>
+		<a href="${pageContext.request.contextPath }/board/content?boardNum=${boardDTO.boardNum }">
+		${boardDTO.boardSubject }</a></td>
+		<td>${boardDTO.boardDate }</td>
+		<td>${boardDTO.boardRecount }</td>
 	</tr>	
-</c:forEach>
+</c:forEach></tbody>
+
 </table>
 
 <c:if test="${pageDTO.startPage > pageDTO.pageBlock }">
@@ -54,12 +68,15 @@
 <a href="${pageContext.request.contextPath }
 /board/list?pageNum=${pageDTO.startPage + pageDTO.pageBlock}">Next</a>
 </c:if>
-<a href="${pageContext.request.contextPath }/board/fwrite">게시글 작성하기</a>
+
+<a href="${pageContext.request.contextPath }/board/fwrite"><button type="button" class="btn btn-primary">게시글 작성하기</button></a>
 
    
 
 
 <!-- Footer Section Begin -->
 <jsp:include page="../inc/footer.jsp"/>
+<script src="js/jquery-2.1.1.js"></script>
+<script src="js/bootstrap.js"></script>
 </body>
 </html>
