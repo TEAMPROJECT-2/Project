@@ -128,16 +128,16 @@
             <div class="col-lg-6 col-md-6">
                 <nav class="header__menu mobile-menu">
                     <ul>
-                        <li class="active"><a href="#">운동하기</a>
-                               <ul class="dropdown">
-                                <li><a href="../shopping-cart.html">메뉴1</a></li>
-                                <li><a href="../checkout.html">메뉴2</a></li>
-                                <li><a href="../blog-details.html">메뉴3</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="${pageContext.request.contextPath }/product/shop">용품</a></li>
+                        <li><a href="${pageContext.request.contextPath }/product/shop">운동용품</a></li>
                         <li><a href="${pageContext.request.contextPath }/food/shop">식품</a></li>
                         <li><a href="${pageContext.request.contextPath }/board/list">커뮤니티</a></li>
+<!--                         <li class="active"><a href="#">커뮤니티</a> -->
+<!--                                <ul class="dropdown"> -->
+<!--                                 <li><a href="../shopping-cart.html">게시판1</a></li> -->
+<!--                                 <li><a href="../checkout.html">게시판2</a></li> -->
+<!--                                 <li><a href="../blog-details.html">게시판2</a></li> -->
+<!--                             </ul> -->
+<!--                         </li> -->
                         <li><a href="../contact.html">이벤트</a></li>
                     </ul>
                 </nav>
