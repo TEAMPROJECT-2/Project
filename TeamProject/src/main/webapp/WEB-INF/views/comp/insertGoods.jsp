@@ -52,12 +52,37 @@
                       <small class="text-muted float-end"></small>
                     </div>
                     <div class="card-body">
-                      <form action="<%=request.getContextPath() %>/comp/insertGoodsPro" method="post">
-
+                      <form action="${pageContext.request.contextPath }/comp/insertGoodsPro" method="post" enctype="multipart/form-data">
+					 <label class="form-label" for="basic-default-fullname">제품타입</label>
+					 <div class="form-check mt-3">
+                            <input
+                              name="default-radio-1"
+                              class="form-check-input"
+                              type="radio"
+                              value="prod"
+                              id="defaultRadio1"
+                            />
+                            <label class="form-check-label" for="defaultRadio1"> 용품 </label>
+                          </div>
+                          <div class="form-check">
+                            <input
+                              name="default-radio-1"
+                              class="form-check-input"
+                              type="radio"
+                              value="food"
+                              id="defaultRadio2"
+                              checked
+                            />
+                            <label class="form-check-label" for="defaultRadio2"> 식품 </label>
+                          </div>
+<!--                      <div class="mb-3"> -->
+<!--                           <label class="form-label" for="basic-default-fullname">제품타입코드</label> -->
+<!--                           <input type="text" class="form-control" id="basic-default-fullname" name="prodLType" value="goods" readonly> -->
+<!--                      </div> -->
                      <div class="mb-3">
-                          <label class="form-label" for="basic-default-fullname">제품타입</label>
-                          <input type="text" class="form-control" id="basic-default-fullname" name="prodLType" value="goods" readonly>
-                     </div>
+                          <label class="form-label" for="basic-default-fullname">업체ID</label>
+                          <input type="text" class="form-control" id="basic-default-fullname" name="prodLCompNm" value="${sessionScope.compId }" readonly/>
+                    </div>
                      <div class="mb-3">
                           <label class="form-label" for="basic-default-fullname">제품코드</label>
                           <input type="text" class="form-control" id="basic-default-fullname" name="prodLCode" placeholder="제품코드 입력" />
@@ -67,35 +92,22 @@
                           <label class="form-label" for="basic-default-fullname"  >상품명</label>
                           <input type="text" class="form-control" id="basic-default-fullname" name="prodLProdNm" placeholder="상품명 입력" />
                     </div>
-
 					<div class="mb-3">
-                        <label for="defaultSelect" class="form-label">색상</label>
-                        <select id="defaultSelect" name="prodLOption1" class="form-select">
-                          <option>색선택</option>
-                          <option value="red">빨간색</option>
-                          <option value="orange">주황색</option>
-                          <option value="yellow">노란색</option>
-                          <option value="green">초록색</option>
-                          <option value="blue">파란색</option>
-                          <option value="Navy">남 색</option>
-                          <option value="purple">보라색</option>
-                          <option value="black">검은색</option>
-                          <option value="grey">회 색</option>
-                        </select>
-                      </div>
-
-					 <div class="mb-3">
-                        <label for="defaultSelect" class="form-label">사이즈</label>
-                        <select id="defaultSelect" name="prodLOption2" class="form-select">
-                          <option>사이즈선택</option>
-                          <option value="XS">XS</option>
-                          <option value="S">S</option>
-                          <option value="M">M</option>
-                          <option value="L">L</option>
-                          <option value="XL">XL</option>
-                          <option value="XXL">XXL</option>
-                        </select>
-                       </div>
+                          <label class="form-label" for="basic-default-fullname"  >옵션코드1</label>
+                          <input type="text" class="form-control" id="basic-default-fullname" name="prodLOption1" placeholder="상품명 입력" />
+                    </div>
+					<div class="mb-3">
+                          <label class="form-label" for="basic-default-fullname"  >옵션명1</label>
+                          <input type="text" class="form-control" id="basic-default-fullname" name="prodOptionNm1" placeholder="상품명 입력" />
+                    </div>
+					<div class="mb-3">
+                          <label class="form-label" for="basic-default-fullname"  >옵션코드2</label>
+                          <input type="text" class="form-control" id="basic-default-fullname" name="prodLOption2" placeholder="상품명 입력" />
+                    </div>
+					<div class="mb-3">
+                          <label class="form-label" for="basic-default-fullname"  >옵션명2</label>
+                          <input type="text" class="form-control" id="basic-default-fullname" name="prodOptionNm2" placeholder="상품명 입력" />
+                    </div>
 
 
                         <div class="mb-3">

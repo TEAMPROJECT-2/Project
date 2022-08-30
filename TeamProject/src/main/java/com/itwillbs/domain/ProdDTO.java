@@ -12,7 +12,7 @@ public class ProdDTO {
 	private String prodLProdNm;
 	private int prodLPrice;
 	private Timestamp prodLUpdate;
-	private String prodLCompnm;
+	private String prodLCompNm;
 	private String prodLMainImg;
 	private String prodLSubImg;
 	private String prodLDetail;
@@ -69,11 +69,24 @@ public class ProdDTO {
 	public void setProdLUpdate(Timestamp prodLUpdate) {
 		this.prodLUpdate = prodLUpdate;
 	}
-	public String getProdLCompnm() {
-		return prodLCompnm;
+
+	public String getProdLCompNm() {
+		return prodLCompNm;
 	}
-	public void setProdLCompnm(String prodLCompnm) {
-		this.prodLCompnm = prodLCompnm;
+	public void setProdLCompNm(String prodLCompNm) {
+		this.prodLCompNm = prodLCompNm;
+	}
+	public String getProdLMainImg() {
+		return prodLMainImg;
+	}
+	public void setProdLMainImg(String prodLMainImg) {
+		this.prodLMainImg = prodLMainImg;
+	}
+	public String getProdLSubImg() {
+		return prodLSubImg;
+	}
+	public void setProdLSubImg(String prodLSubImg) {
+		this.prodLSubImg = prodLSubImg;
 	}
 	public String getProdLMainimg() {
 		return prodLMainImg;

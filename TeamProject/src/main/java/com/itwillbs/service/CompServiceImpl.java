@@ -1,6 +1,7 @@
 package com.itwillbs.service;
 
 import java.sql.Timestamp;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -16,7 +17,7 @@ public class CompServiceImpl implements CompService {
 	private CompDAO compDAO;
 
 	@Override
-	public void insertProd(ProdDTO prodDTO) {
+	public void insertProd(ProdDTO prodDTO,Map<String, Object> opMap) {
 		prodDTO.setProdLUpdate(new Timestamp(System.currentTimeMillis()));
 		System.out.println("MemberServiceImpl insertMember()");
 		// 메서드 호출
@@ -27,7 +28,7 @@ public class CompServiceImpl implements CompService {
 //		}else {
 //			proStockDTO.setNum(compDAO.getMaxNum() + 1);
 //		}
-		compDAO.insertProd(prodDTO);
+		compDAO.insertProd(prodDTO,opMap);
 	}
-	
+
 }
