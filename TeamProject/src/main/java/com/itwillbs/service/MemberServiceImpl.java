@@ -107,11 +107,12 @@ public class MemberServiceImpl implements MemberService{
 		return memberDAO.emailAuthFail(userId);
 	}
 
-	// 아이디 찾기
 	@Override
-	public List<MemberDTO> idSearch(MemberDTO memberDTO) {
-		return memberDAO.idSearch(memberDTO);
+	public MemberDTO idSearch(String userNm, String userEmail) {
+		System.out.println("MemberServiceImpl idSearch()");
+		return memberDAO.idSearch(userNm,userEmail);
 	}
+
 
 
 

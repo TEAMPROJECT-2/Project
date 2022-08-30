@@ -25,6 +25,7 @@ public interface MemberDAO {
 
 	int emailAuthFail(String userId) throws Exception;
 
-	List<MemberDTO> idSearch(MemberDTO memberDTO);
+	MemberDTO idSearch(String userNm, String userEmail);
+
 
 }

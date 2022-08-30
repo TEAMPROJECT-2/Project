@@ -57,7 +57,7 @@ public class AjaxController {
 		String result="";
 		if(memberDTO2!=null) {
 			// 아이디 있으면 출력
-			result=memberDTO2.toString();
+			result=memberDTO2.;
 		}else {
 			// 아이디 없음, 정보가 없습니다.
 			result="idno";

@@ -59,7 +59,7 @@ public class MemberController {
 		return "redirect:/main/main";
 	}
 
-	// 아이디 찾기
+	// 아이디 찾기 페이지
 	@RequestMapping(value = "/member/loginIdSearch", method = RequestMethod.GET)
 	public String idSearch(MemberDTO memberDTO) throws Exception{
 		return "member/loginIdSearch";
