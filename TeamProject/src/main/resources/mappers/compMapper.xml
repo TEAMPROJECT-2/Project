@@ -8,7 +8,7 @@
 <!-- 회원가입 -->
 	<insert id="insertProd">
 		INSERT INTO PRODUCT_LIST(
-				    NUM
+				    PROD_L_NUM
 			       ,PROD_L_CODE
 			       ,PROD_L_TYPE
 			       ,PROD_L_OPTION1
@@ -16,7 +16,7 @@
 			       ,PROD_L_PRODNM
 			       ,PROD_L_PRICE
 			       ,PROD_L_UPDATE
-<!-- 			       ,PROD_L_COMPNM -->
+			       ,PROD_L_COMPNM
 			       ,PROD_L_MAINIMG
 			       ,PROD_L_SUBIMG
 			       ,PROD_L_DETAIL
@@ -31,13 +31,28 @@
 			       ,#{prodLProdNm}
 			       ,#{prodLPrice}
 			       ,#{prodLUpdate}
-<!-- 			       ,#{prodLCompNm} -->
+			       ,#{prodLCompNm}
 			       ,#{prodLMainImg}
 			       ,#{prodLSubImg}
 			       ,#{prodLDetail}
 			       ,#{prodLQuantity}
 			  		)
 	</insert>
+	<insert id="insertOp" parameterType="java.util.HashMap">
+     <if test="opList.size != 0">
+        insert into PROD_OPTION(
+                    PROD_OPTION_CODE
+			       ,PROD_OPTION_NM
+        )values
+        <foreach collection="opList" item="item" separator=",">
+        (
+            #{item.prodLOptionKey},
+            #{item.prodOptionNmKey}
+        )
+        </foreach>
+     </if>
+	</insert>
+
 
 	<insert id="insertProdStock">
 		INSERT INTO PRODUCT_STOCK(
