@@ -9,6 +9,7 @@
 		(
 			 BOARD_NUM
 			,USER_NICKNM
+			,BOARD_PASS
 			,BOARD_SUBJECT
 			,BOARD_CONTENT
 			,BOARD_READCOUNT
@@ -17,10 +18,11 @@
 		values(
 		     #{boardNum}
 			,#{userNicknm}
+			,#{boardPass}
 			,#{boardSubject}
-			,#{BOARD_CONTENT}
 			,#{boardContent}
 			,#{boardRecount}
+			,#{boardDate}
 			,#{boardFile})
 	</insert>
 	
@@ -41,11 +43,20 @@
 	</select>
 	
 	<select id="numCheck" resultType="com.itwillbs.domain.BoardDTO">
-		select * from BOARD where BOARD_NUM=#{boardNum} and USER_NICKNM=#{userNicknm}
+		select * from BOARD where BOARD_NUM=#{boardNum} and BOARD_PASS=#{boardPass}
 	</select>
 	
 	<update id="updateBoard">
 		update BOARD set BOARD_SUBJECT=#{boardSubject}, BOARD_CONTENT=#{boardContent} where BOARD_NUM=#{boardNum}
 	</update>
+	
+	<update id="updateFile">
+		update BOARD set BOARD_SUBJECT=#{boardSubject}, BOARD_CONTENT=#{boardContent}, BOARD_FILE=#{boardFile}where BOARD_NUM=#{boardNum}
+	</update>
+	
+	<delete id="deleteBoard">
+		delete from BOARD where BOARD_PASS=#{boardPass} and BOARD_NUM=#{boardNum}
+	</delete>
+	
 	
 </mapper>
