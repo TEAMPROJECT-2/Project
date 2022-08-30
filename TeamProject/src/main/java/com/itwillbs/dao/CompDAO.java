@@ -5,9 +5,8 @@ import com.itwillbs.domain.ProdStockDTO;
 
 public interface CompDAO {
 
-	public void insertProd(ProdDTO prodDTO,ProdStockDTO proStockDTO);
+	public void insertProd(ProdDTO prodDTO);
 
-	Integer getMaxNum();
 
 
 

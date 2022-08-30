@@ -16,18 +16,18 @@ public class CompServiceImpl implements CompService {
 	private CompDAO compDAO;
 
 	@Override
-	public void insertProd(ProdDTO prodDTO,ProdStockDTO proStockDTO) {
+	public void insertProd(ProdDTO prodDTO) {
 		prodDTO.setProdLUpdate(new Timestamp(System.currentTimeMillis()));
 		System.out.println("MemberServiceImpl insertMember()");
 		// 메서드 호출
 		// num = max(num)+1
-		if(compDAO.getMaxNum()==null) {
-			//게시판 글이 없음
-			proStockDTO.setNum(1);
-		}else {
-			proStockDTO.setNum(compDAO.getMaxNum() + 1);
-		}
-		compDAO.insertProd(prodDTO,proStockDTO);
+//		if(compDAO.getMaxNum()==null) {
+//			//게시판 글이 없음
+//			proStockDTO.setNum(1);
+//		}else {
+//			proStockDTO.setNum(compDAO.getMaxNum() + 1);
+//		}
+		compDAO.insertProd(prodDTO);
 	}
 	
 }

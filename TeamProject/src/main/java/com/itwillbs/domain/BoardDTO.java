@@ -6,17 +6,22 @@ public class BoardDTO {
 	
 	private int boardNum;
 	private String userNicknm;
+	private String boardPass;
 	private String boardSubject;
 	private String boardContent;
 	private int boardRecount;
 	private Timestamp boardDate;
 	private String boardFile;
 	
+	
 	public int getBoardNum() {
 		return boardNum;
 	}
 	public String getUserNicknm() {
 		return userNicknm;
+	}
+	public String getBoardPass() {
+		return boardPass;
 	}
 	public String getBoardSubject() {
 		return boardSubject;
@@ -39,6 +44,9 @@ public class BoardDTO {
 	public void setUserNicknm(String userNicknm) {
 		this.userNicknm = userNicknm;
 	}
+	public void setBoardPass(String boardPass) {
+		this.boardPass = boardPass;
+	}
 	public void setBoardSubject(String boardSubject) {
 		this.boardSubject = boardSubject;
 	}
@@ -54,6 +62,13 @@ public class BoardDTO {
 	public void setBoardFile(String boardFile) {
 		this.boardFile = boardFile;
 	}
+	@Override
+	public String toString() {
+		return "BoardDTO [boardNum=" + boardNum + ", userNicknm=" + userNicknm + ", boardPass=" + boardPass
+				+ ", boardSubject=" + boardSubject + ", boardContent=" + boardContent + ", boardRecount=" + boardRecount
+				+ ", boardDate=" + boardDate + ", boardFile=" + boardFile + "]";
+	}
+	
 	
 	
 	

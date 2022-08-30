@@ -68,12 +68,33 @@
                 <div data-i18n="Basic">업체정보수정</div>
               </a>
             </li>
-		  	
+
 <!--             <li class="menu-header small text-uppercase"> -->
 <!--               <span class="menu-header-text">계정</span> -->
 <!--             </li> -->
 		<li class="menu-header small text-uppercase"><span class="menu-header-text">상품관리</span></li>
             <!-- Cards -->
+            <li class="menu-item">
+              <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bx bx-dock-top"></i>
+                <div data-i18n="Account Settings">신규등록</div>
+              </a>
+              <ul class="menu-sub">
+                <li class="menu-item">
+                  <a href="${pageContext.request.contextPath }/comp/insertGoods" class="menu-link">
+                    <div data-i18n="Account">용품 신규 등록</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="${pageContext.request.contextPath }/comp/insertFood" class="menu-link">
+                    <div data-i18n="Connections">식품 신규 등록</div>
+                  </a>
+                </li>
+              </ul>
+            </li>
+
+
+
             <li class="menu-item">
               <a href="${pageContext.request.contextPath }/comp/insertProd" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-collection"></i>
@@ -106,15 +127,15 @@
                 <div data-i18n="Basic">주문목록</div>
               </a>
             </li>
-            
+
             <li class="menu-item">
               <a href="${pageContext.request.contextPath }/comp/prodRefund" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-collection"></i>
                 <div data-i18n="Basic">환불관리</div>
               </a>
             </li>
-            
-            
+
+
 
             <!-- Components -->
             <li class="menu-header small text-uppercase"><span class="menu-header-text">Components</span></li>

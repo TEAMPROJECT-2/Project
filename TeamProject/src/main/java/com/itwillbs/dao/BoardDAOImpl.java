@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.itwillbs.domain.BoardDTO;
+import com.itwillbs.domain.LikeDTO;
 import com.itwillbs.domain.PageDTO;
 
 @Repository
@@ -45,12 +46,31 @@ public class BoardDAOImpl implements BoardDAO{
 
 	@Override
 	public BoardDTO numCheck(BoardDTO boardDTO) {
+		System.out.println(boardDTO.getBoardNum());
+		System.out.println(boardDTO.getUserNicknm());
 		return sqlSession.selectOne(namespace+".numCheck", boardDTO);
 	}
 
 	@Override
 	public void updateBoard(BoardDTO boardDTO) {
 		sqlSession.update(namespace+".updateBoard", boardDTO);
+	}
+
+	@Override
+	public void updateFile(BoardDTO boardDTO) {
+		sqlSession.update(namespace+".updateFile", boardDTO);
+		
+	}
+	
+	@Override
+	public void deleteBoard(BoardDTO boardDTO) {
+		sqlSession.delete(namespace+".deleteBoard", boardDTO);
+	}
+
+	@Override
+	public LikeDTO countLike(LikeDTO likeDTO) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(namespace+".countLike", likeDTO);
 	}
 
 }

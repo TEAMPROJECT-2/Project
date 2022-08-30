@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.itwillbs.domain.BoardDTO;
+import com.itwillbs.domain.LikeDTO;
 import com.itwillbs.domain.PageDTO;
 import com.itwillbs.service.BoardService;
 
@@ -220,7 +221,19 @@ public class BoardController {
 	
 	
 	}
-	
+	@RequestMapping(value = "/board/likePro", method = RequestMethod.POST)
+	public String likePro(HttpServletRequest request, Model model) {
+		
+		LikeDTO likeDTO=new LikeDTO();
+		likeDTO.setBoardNum(Integer.parseInt(request.getParameter("boardNum")));
+		likeDTO.setUserNum(Integer.parseInt(request.getParameter("userNum")));
+		likeDTO.setBoardNum(Integer.parseInt(request.getParameter("LikeNum")));
+		LikeDTO likeDTO2=boardService.countLike(likeDTO);
+		
+		
+		
+		return "redirect:/board/list";
+	}
 	
 	
 	

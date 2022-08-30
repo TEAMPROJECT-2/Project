@@ -17,18 +17,17 @@ public class CompDAOImpl implements CompDAO {
 	
 	private static final String namespace="com.itwillbs.mappers.compMapper";
 	@Override
-	public void insertProd(ProdDTO prodDTO,ProdStockDTO proStockDTO) {
+	public void insertProd(ProdDTO prodDTO) {
 		System.out.println("MemberDAOImpl insertProd()");
 		// 마이바티스 메서드 호출
 		sqlSession.insert(namespace + ".insertProd", prodDTO);
-		sqlSession.insert(namespace + ".insertProdStock", proStockDTO);
 		
 		
 	}
-	@Override
-	public Integer getMaxNum() {
-		return sqlSession.selectOne(namespace+".getMaxNum");
-	}
+//	@Override
+//	public Integer getMaxNum() {
+//		return sqlSession.selectOne(namespace+".getMaxNum");
+//	}
 	
 	
 }
