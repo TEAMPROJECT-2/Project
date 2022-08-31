@@ -3,54 +3,55 @@ package com.itwillbs.domain;
 import java.sql.Timestamp;
 
 public class PointDTO {
-	private int point_num;
-	private String user_id;
-	private int point_type;
-	private Timestamp point_date;
-	private int point_now;
-	private int point_used;
-	private int point_charge;
+	private int pointNum;
+	private String userId;
+	private int pointType;
+	private Timestamp pointDate;
+	private int pointNow;
+	private int pointUsed;
+	private int pointCharge;
+	public int getPointNum() {
+		return pointNum;
+	}
+	public void setPointNum(int pointNum) {
+		this.pointNum = pointNum;
+	}
+	public String getUserId() {
+		return userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+	public int getPointType() {
+		return pointType;
+	}
+	public void setPointType(int pointType) {
+		this.pointType = pointType;
+	}
+	public Timestamp getPointDate() {
+		return pointDate;
+	}
+	public void setPointDate(Timestamp pointDate) {
+		this.pointDate = pointDate;
+	}
+	public int getPointNow() {
+		return pointNow;
+	}
+	public void setPointNow(int pointNow) {
+		this.pointNow = pointNow;
+	}
+	public int getPointUsed() {
+		return pointUsed;
+	}
+	public void setPointUsed(int pointUsed) {
+		this.pointUsed = pointUsed;
+	}
+	public int getPointCharge() {
+		return pointCharge;
+	}
+	public void setPointCharge(int pointCharge) {
+		this.pointCharge = pointCharge;
+	}
 	
-	public int getPoint_num() {
-		return point_num;
-	}
-	public void setPoint_num(int point_num) {
-		this.point_num = point_num;
-	}
-	public String getUser_id() {
-		return user_id;
-	}
-	public void setUser_id(String user_id) {
-		this.user_id = user_id;
-	}
-	public int getPoint_type() {
-		return point_type;
-	}
-	public void setPoint_type(int point_type) {
-		this.point_type = point_type;
-	}
-	public Timestamp getPoint_date() {
-		return point_date;
-	}
-	public void setPoint_date(Timestamp point_date) {
-		this.point_date = point_date;
-	}
-	public int getPoint_now() {
-		return point_now;
-	}
-	public void setPoint_now(int point_now) {
-		this.point_now = point_now;
-	}
-	public int getPoint_used() {
-		return point_used;
-	}
-	public void setPoint_used(int point_used) {
-		this.point_used = point_used;
-	}
-	public int getPoint_charge() {
-		return point_charge;
-	}
-	public void setPoint_charge(int point_charge) {
-		this.point_charge = point_charge;
-	}
+	
 }
