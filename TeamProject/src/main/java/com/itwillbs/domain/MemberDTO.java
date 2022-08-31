@@ -23,6 +23,7 @@ public class MemberDTO {
 	private Timestamp userLastDate;
 	private int userEmailAuth;
 	private String userEmailKey;
+
 	public int getUserInfoNum() {
 		return userInfoNum;
 	}
@@ -151,9 +152,7 @@ public class MemberDTO {
 	}
 
 
-<<<<<<< HEAD
 
-=======
 	@Override
 	public String toString() {
 		return "MemberDTO [userInfoNum=" + userInfoNum + ", userId=" + userId + ", userPass=" + userPass + ", userNm="
@@ -163,7 +162,7 @@ public class MemberDTO {
 				+ userDate + ", userPoint=" + userPoint + ", myCouponNum=" + myCouponNum + ", userRank=" + userRank
 				+ ", userType=" + userType + ", userStatus=" + userStatus + ", userLastDate=" + userLastDate
 				+ ", userEmailAuth=" + userEmailAuth + ", userEmailKey=" + userEmailKey + "]";
-	}
->>>>>>> refs/remotes/origin/main
 
+
+}
 }
