@@ -1,9 +1,7 @@
 package com.itwillbs.domain;
 
 import java.sql.Timestamp;
-
 public class MemberDTO {
-
 	private int userInfoNum;
 	private String userId;
 	private String userPass;
@@ -17,7 +15,7 @@ public class MemberDTO {
 	private String userAddress;
 	private String userAddressDetails;
 	private Timestamp userDate;
-	private int pointNum;
+	private int userPoint;
 	private int myCouponNum;
 	private String userRank;
 	private int userType;
@@ -25,8 +23,6 @@ public class MemberDTO {
 	private Timestamp userLastDate;
 	private int userEmailAuth;
 	private String userEmailKey;
-
-
 	public int getUserInfoNum() {
 		return userInfoNum;
 	}
@@ -93,10 +89,10 @@ public class MemberDTO {
 	public void setUserAddress(String userAddress) {
 		this.userAddress = userAddress;
 	}
-	public String getuserAddressDetails() {
+	public String getUserAddressDetails() {
 		return userAddressDetails;
 	}
-	public void setuserAddressDetails(String userAddressDetails) {
+	public void setUserAddressDetails(String userAddressDetails) {
 		this.userAddressDetails = userAddressDetails;
 	}
 	public Timestamp getUserDate() {
@@ -105,11 +101,11 @@ public class MemberDTO {
 	public void setUserDate(Timestamp userDate) {
 		this.userDate = userDate;
 	}
-	public int getPointNum() {
-		return pointNum;
+	public int getUserPoint() {
+		return userPoint;
 	}
-	public void setPointNum(int pointNum) {
-		this.pointNum = pointNum;
+	public void setUserPoint(int userPoint) {
+		this.userPoint = userPoint;
 	}
 	public int getMyCouponNum() {
 		return myCouponNum;
@@ -155,15 +151,6 @@ public class MemberDTO {
 	}
 
 
-	@Override
-	public String toString() {
-		return "MemberDTO [userInfoNum=" + userInfoNum + ", userId=" + userId + ", userPass=" + userPass + ", userNm="
-				+ userNm + ", userEmail=" + userEmail + ", userGender=" + userGender + ", userAthletic=" + userAthletic
-				+ ", userNicknm=" + userNicknm + ", userPhone=" + userPhone + ", userZipcode=" + userZipcode
-				+ ", userAddress=" + userAddress + ", userAddressDetails=" + userAddressDetails + ", userDate="
-				+ userDate + ", pointNum=" + pointNum + ", myCouponNum=" + myCouponNum + ", userRank=" + userRank
-				+ ", userType=" + userType + ", userStatus=" + userStatus + ", userLastDate=" + userLastDate
-				+ ", userEmailAuth=" + userEmailAuth + ", userEmailKey=" + userEmailKey + "]";
-	}
+
 
 }

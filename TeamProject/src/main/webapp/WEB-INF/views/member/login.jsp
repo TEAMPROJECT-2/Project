@@ -35,16 +35,17 @@
                 <div class="col-lg-6 col-md-6">
                     <div class="contact__text">
                         <div class="section-title">
-                            <h2>로그인</h2>
-                            <p>계정 없으면 회원가입 어쩌구</p>
-                        </div>
-                            <hr>
+                            <h2>로그인</h2><br>
+                            <h5>회원가입 시 기입했던 ID와 이메일을 적어주세요!</h5>
+                        	<hr><br>
+                        	<h4>SNS 로그인</h4><br>
+                        	<p>카카오톡 네이버</p><br><br>
                         <ul>
-                            <li>
-                                <h4>SNS 로그인</h4>
-                                <p>네이버, 카카오톡 같은</p>
+                        	<li>
+                            	<button type="button" class="site-btn btn-lg w-100" onclick="location.href='${pageContext.request.contextPath }/member/join'">회원가입</button>
                             </li>
                         </ul>
+                        </div>
                     </div>
                 </div>
 
@@ -76,7 +77,7 @@
 				                    </div>
 <%-- 				                     <input type="hidden" name="userLastDate" id="userLastDate" value="${userLastDate }" > --%>
 								     <button type="submit" class="site-btn w-100 btn-lg">로그인</button><br>
-								  </form>
+								  </form><br>
 								  <div class= "text-center">
 								  	<a href="${pageContext.request.contextPath }/member/loginIdSearch" class="loginIdSearch">ID 찾기</a>
 								  	<a href="${pageContext.request.contextPath }/member/loginPassSearch" class="loginPassSearch">비밀번호 찾기</a>

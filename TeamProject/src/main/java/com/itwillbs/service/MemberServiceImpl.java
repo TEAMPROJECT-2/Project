@@ -28,6 +28,7 @@ public class MemberServiceImpl implements MemberService{
 
 	@Transactional
 	@Override
+	// 유저 회원가입
 	public void insertMember(MemberDTO memberDTO) throws Exception {
 		// 날짜설정
 		memberDTO.setUserDate(new Timestamp(System.currentTimeMillis()));
@@ -42,30 +43,17 @@ public class MemberServiceImpl implements MemberService{
 
         // 회원가입 완료하면 인증을 위한 이메일 발송
         MailUtils sendMail = new MailUtils(mailSender);
-        sendMail.setSubject("운동운동 인증메일 입니다.");
+        sendMail.setSubject("핏티드 인증코드 발송");
         sendMail.setText(
-                "<h1>운동운동 메일인증</h1>" +
-                "<br/>"+memberDTO.getUserId()+"님 운동운동에 오신 것을 환영합니다!" +
+                "<h1>핏티드 메일 인증</h1>" +
+                "<br/>"+memberDTO.getUserId()+"님 핏티드에 오신 것을 환영합니다!" +
                 "<br>아래 [이메일 인증 확인]을 눌러주세요." +
                 "<br><a href='http://localhost:8080/web/member/joinSuccess?userEmail=" + memberDTO.getUserEmail() +
                 "&userEmailKey=" + userEmailKey +
                 "' target='_blank'>이메일 인증 확인</a>");
-        sendMail.setFrom("web.main.adm.gmail.com", "운동운동");
+        sendMail.setFrom("web.main.adm.gmail.com", "핏티드");
         sendMail.setTo(memberDTO.getUserEmail());
         sendMail.send();
-
-	}
-
-	@Override
-	public MemberDTO userCheck(MemberDTO memberDTO) {
-		return memberDAO.userCheck(memberDTO);
-	}
-
-	@Override
-	public MemberDTO loginCheck(MemberDTO memberDTO) {
-		// 마지막 날짜 업데이트
-		memberDTO.setUserLastDate(new Timestamp(System.currentTimeMillis()));
-		return memberDAO.loginCheck(memberDTO);
 	}
 
 	@Override
@@ -74,44 +62,84 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
-	public void insertComp(CompDTO compDTO) {
-		// 날짜설정
-		compDTO.setCompDate(new Timestamp(System.currentTimeMillis()));
-		System.out.println(compDTO.getCompDate());
-		System.out.println("MemberServiceImpl insertMember()");
-		// 메서드 호출
-		memberDAO.insertComp(compDTO);
-
-	}
-
-	@Override
-	public CompDTO compCheck(CompDTO compDTO) {
-		return memberDAO.compCheck(compDTO);
-	}
-
-	@Override
 	public int updateEmailKey(MemberDTO memberDTO) throws Exception {
-		System.out.println("MemberServiceImpl updateEmailKey()");
 		return memberDAO.updateEmailKey(memberDTO);
 	}
 
 	@Override
 	public int updateEmailAuth(MemberDTO memberDTO) throws Exception {
-		System.out.println("MemberServiceImpl updateEmailAuth()");
 		return memberDAO.updateEmailAuth(memberDTO);
 	}
 
+	// 이메일 인증 확인
 	@Override
 	public int emailAuthFail(String userId) throws Exception {
-		System.out.println("MemberServiceImpl emailAuthFail()");
 		return memberDAO.emailAuthFail(userId);
 	}
 
 	@Override
-	public MemberDTO idSearch(MemberDTO memberDTO) {
-		System.out.println("MemberServiceImpl idSearch()");
+	public MemberDTO checkUserEmail(String userEmail) {
+		return memberDAO.checkUserEmail(userEmail);
+	}
+
+	// 유저 로그인
+	@Override
+	public MemberDTO userCheck(MemberDTO memberDTO) {
+		return memberDAO.userCheck(memberDTO);
+	}
+	@Override
+	public MemberDTO loginCheck(MemberDTO memberDTO) {
+		// 마지막 날짜 업데이트
+		memberDTO.setUserLastDate(new Timestamp(System.currentTimeMillis()));
+		return memberDAO.loginCheck(memberDTO);
+	}
+
+	// 업체 회원가입
+	@Override
+	public void insertComp(CompDTO compDTO) {
+		// 날짜설정
+		compDTO.setCompDate(new Timestamp(System.currentTimeMillis()));
+		// 메서드 호출
+		memberDAO.insertComp(compDTO);
+	}
+
+	// 업체 로그인
+	@Override
+	public CompDTO compCheck(CompDTO compDTO) {
+		return memberDAO.compCheck(compDTO);
+	}
+
+	// 아이디 찾기
+	@Override
+	public String idSearch(MemberDTO memberDTO) {
 		return memberDAO.idSearch(memberDTO);
 	}
+
+//	// 비밀번호 찾기
+//	@Override
+//	public void passSearch(MemberDTO memberDTO) {
+//
+//        // 랜덤 문자열을 생성해서 userEmailKey 컬럼에 넣어주기
+//        String userPassKey = new TempKey().getKey(8,false); // 랜덤키 길이 설정
+//        memberDTO.setUserEmailKey(userPassKey);
+//
+//        // 비밀번호 값 바뀌게
+//        memberDAO.updatePassKey(memberDTO);
+//
+//        // 회원가입 완료하면 인증을 위한 이메일 발송
+//        MailUtils sendMail = new MailUtils(mailSender);
+//        sendMail.setSubject("핏티드 임시 비밀번호 발송");
+//        sendMail.setText(
+//                "<h1>핏티드 메일 인증</h1>" +
+//                "<br/>"+memberDTO.getUserId()+"님 임시 비밀번호를 발송합니다." +
+//                "<br>임시 비밀번호로 로그인 후 비밀번호를 바꿔주세요!" +
+//                "<br><a href='http://localhost:8080/web/member/joinSuccess?userEmail=" + memberDTO.getUserEmail() +
+//                "&userEmailKey=" + userPassKey +
+//                "' target='_blank'>이메일 인증 확인</a>");
+//        sendMail.setFrom("web.main.adm.gmail.com", "핏티드");
+//        sendMail.setTo(memberDTO.getUserEmail());
+//        sendMail.send();
+//	}
 
 
 

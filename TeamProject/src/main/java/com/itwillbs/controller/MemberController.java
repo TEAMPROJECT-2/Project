@@ -23,26 +23,18 @@ import com.itwillbs.service.MemberService;
 @Controller
 public class MemberController {
 
-	// 멤버변수 (부모인터페이스변수) 객체생성 자동화 됨=> @Service MemberServiceImpl 찾아감
-	//	MemberService memberService=new MemberServiceImpl();
 	@Inject
 	private MemberService memberService;
 
 	// 회원가입(유저)
 	@RequestMapping(value = "/member/join", method = RequestMethod.GET)
 	public String insert() {
-		// 주소변경없이 이동
-		// WEB-INF/views/member/insertForm.jsp 이동
 		return "member/insertUserForm";
 	}
-
-	// 회원가입
 	@RequestMapping(value = "/member/joinMemPro", method = RequestMethod.POST)
 	public String insertPro(MemberDTO memberDTO, Model model) throws Exception {
-		// 회원가입
 		memberService.insertMember(memberDTO);
 		model.addAttribute("memberDTO",memberDTO);
-		// 주소변경 이동
 		return "redirect:/member/joinEmailCheck";
 	}
 
@@ -50,76 +42,15 @@ public class MemberController {
 	@RequestMapping(value = "/member/joinEmailCheck", method = RequestMethod.GET)
 	public String emailCheck(MemberDTO memberDTO, Model model) throws Exception{
 		model.addAttribute("memberDTO",memberDTO);
-
 		return "member/joinEmailCheck";
 	}
-
 	// 이메일 인증 완료
 	@RequestMapping(value = "/member/joinSuccess", method = RequestMethod.GET)
 	public String joinSuccess(MemberDTO memberDTO) throws Exception{
 		memberService.updateEmailAuth(memberDTO);
-		// 이메일 인증 성공 시
-		// 추가정보 입력 후 관심있는 운동에 대한 추천
+		// 이메일 인증 성공 시 추가정보 입력 후 관심있는 운동에 대한 추천
 		return "redirect:/main/main";
 	}
-
-	// 아이디 찾기 페이지
-	@RequestMapping(value = "/member/loginIdSearch", method = RequestMethod.GET)
-	public String idSearch(MemberDTO memberDTO, Model model) throws Exception{
-		return "member/loginIdSearch";
-	}
-
-	// 아이디 찾기
-	@RequestMapping(value = "/member/idSearchPro", method = RequestMethod.POST)
-	public String idSearchPro(@ModelAttribute MemberDTO memberDTO, HttpServletResponse response) {
-		System.out.println("userNm의 이름="+memberDTO.getUserNm());
-		System.out.println("userEmail의 이메일="+memberDTO.getUserEmail());
-
-		MemberDTO memberDTO2=memberService.idSearch(memberDTO);
-
-		System.out.println("memberDTO2"+memberDTO2.getUserId()+memberDTO.getUserId());
-		if(memberService.idSearch(memberDTO)==null) {
-			return null;
-		}else {
-			return null;
-		}
-
-	}
-
-	// 비밀번호 찾기
-	@RequestMapping(value = "/member/loginPassSearch", method = RequestMethod.GET)
-	public String findPass() throws Exception{
-		return "member/loginPassSearch";
-	}
-
-	@RequestMapping(value = "/findpass", method = RequestMethod.POST)
-	public String findPassPro(@ModelAttribute MemberDTO memberDTO, HttpServletResponse response) throws Exception{
-		return "redirect:/main/main";
-	}
-
-//	// 아이디 찾기
-//	@RequestMapping(value = "/member/loginIdSearchPro", method = RequestMethod.POST)
-//	public String idSearchPro(MemberDTO memberDTO) throws Exception{
-//		MemberDTO memberDTO2=memberService.idSearch(memberDTO);
-//
-//		// 아이디 이메일 일치하지 않으면 오류 메세지 출력
-//		if(memberDTO2==null) {
-//			return "/member/msg";
-//		}
-//
-//		// 아이디 이메일 일치하면
-//		System.out.println(memberDTO2.getUserId());
-//		return memberDTO2.getUserId();
-//	}
-
-//	// 아이디 찾기 Pro
-//	@RequestMapping(value = "/member/loginIdSearchPro", method = RequestMethod.GET)
-//	public String idCheckView(MemberDTO memberDTO) throws Exception{
-//		memberService.updateEmailAuth(memberDTO);
-//		// 이메일 인증 성공 시
-//		// 추가정보 입력 후 관심있는 운동에 대한 추천
-//		return "redirect:/main/main";
-//	}
 
 	// 회원가입(업체)
 	@RequestMapping(value = "/member/joinComp", method = RequestMethod.GET)
@@ -127,7 +58,6 @@ public class MemberController {
 		// 주소변경없이 이동
 		return "member/insertUserForm";
 	}
-
 	@RequestMapping(value = "/member/joinCompPro", method = RequestMethod.POST)
 	public String insertCompPro(CompDTO compDTO) {
 		// 메서드 호출
@@ -168,24 +98,49 @@ public class MemberController {
 
 	// 로그인(업체)
 	@RequestMapping(value = "/member/loginCompPro", method = RequestMethod.POST)
-	// jsp는 세션이 자동으로 만들어지지만 자바는 HttpSession으로 만들어야한다
 	public String loginCompPro(CompDTO compDTO, HttpSession session) {
-		// 메서드 호출
 		CompDTO compDTO2=memberService.compCheck(compDTO);
 		if(compDTO2!=null) {
-			// 아이디 비밀번호가 일치하면 null 아닌 값이 들고오는
-			// 세션값 생성 "id", id
 			session.setAttribute("compId", compDTO.getCompId());
 
-			// main/main 이동
 			return "redirect:/main/main";
 		}else {
-			// null일 경우 아이디 비밀번호 틀림
-			// 주소변경없이 이동
-			// WEB-INF/views/member/msg.jsp 이동
 			return "/member/msg";
 		}
 	}
+
+
+	// 아이디 찾기 페이지
+	@RequestMapping(value = "/member/loginIdSearch", method = RequestMethod.GET)
+	public String idSearch(MemberDTO memberDTO, Model model) throws Exception{
+		return "member/loginIdSearch";
+	}
+
+	// 아이디 찾기
+	@ResponseBody
+	@RequestMapping(value = "/member/idSearchPro", method = RequestMethod.POST)
+	public String idSearchPro(@ModelAttribute MemberDTO memberDTO, HttpServletResponse response) {
+		String result = "";
+		if(memberService.idSearch(memberDTO)==null) {	// 아이디가 널이 아닌 경우
+			result = "no";
+		}else {											// 아이디 있으면 아이디 출력
+			result = memberService.idSearch(memberDTO).substring
+					(0, memberService.idSearch(memberDTO).length() - 4)+"****";
+		}
+		return result;
+	}
+
+	// 비밀번호 찾기
+	@RequestMapping(value = "/member/loginPassSearch", method = RequestMethod.GET)
+	public String findPass() throws Exception{
+		return "member/loginPassSearch";
+	}
+	@RequestMapping(value = "/loginPassSearchPro", method = RequestMethod.POST)
+	public String loginPassSearchPro(@ModelAttribute MemberDTO memberDTO, HttpServletResponse response) throws Exception{
+		return "redirect:/main/main";
+	}
+
+
 
 	// 로그아웃
 	@RequestMapping(value = "/member/logout", method = RequestMethod.GET)

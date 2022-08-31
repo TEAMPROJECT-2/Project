@@ -7,25 +7,48 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
 <!-- 아이디 중복검사 -->
-<script type="text/javascript" src="../script/jquery-3.6.0.js"></script>
+<script type="text/javascript"
+src="${pageContext.request.contextPath }/resources/js/jquery-3.6.0.js"></script>
 <script type="text/javascript">
 
-function checkId(){
-	// 아이디 값 저장
-	var userId = $('#userId').val();
+// 아이디 중복 체크
+function uidCheck(){
+
 	$.ajax({
-		url:'${pageContext.request.contextPath }/member/iddup',
-		type: 'post',
-		data:{userId,userId},
+		url:'${pageContext.request.contextPath }/member/idDupCheck',
+		data:{'userId':$('#userId').val()},
+		type: 'POST',
 		success:function(rdata){
-			if(rdata==0){	// 사용 가능 아이디
-				rdata="아이디 중복";
-			}else{ 			// 중복 아이디
-				rdata="아이디 사용가능";
+			if(rdata=='iddup'){
+				$('#userId').addClass("is-invalid");
+				$('#userId').removeClass("is-valid");
+			}else{
+				$('#userId').addClass("is-valid");
+				$('#userId').removeClass("is-invalid");
 			}
-			$('#iddiv').html(rdata);
 		}
 	});
+
+};
+
+// 이메일 중복 체크
+function uemailCheck(){
+
+	$.ajax({
+		url:'${pageContext.request.contextPath }/member/mailDupCheck',
+		data:{'userEmail':$('#userEmail').val()},
+		type: 'POST',
+		success:function(rdata){
+			if(rdata=='emaildup'){
+				$('#userEmail').addClass("is-invalid");
+				$('#userEmail').removeClass("is-valid");
+			}else{
+				$('#userEmail').addClass("is-valid");
+				$('#userEmail').removeClass("is-invalid");
+			}
+		}
+	});
+
 };
 
 </script>
@@ -37,22 +60,21 @@ function checkId(){
 	<!--  내용 -->
     <div class="container-sm py-5 col-md-7 col-sm-6 text-center">
       <section id="forms">
-    	<h2 class="sticky-xl-top fw-bold pt-3 pt-xl-5 pb-2 pb-xl-3">회원가입</h2>
+    	<h2 class="fw-bold pt-3 pt-xl-5 pb-2 pb-xl-3">회원가입</h2>
 
         <form class=form-signin action="${pageContext.request.contextPath }/member/joinMemPro" method="post">
       <div>
         <div class="bd-example">
           <div class="form-floating mb-3">
-            <input type="text" class="form-control" name=userId id="userId" placeholder="ID" oninput="checkId()">
+            <input type="text" class="form-control" name="userId" id="userId" placeholder="ID" onkeyup="uidCheck(this.value)">
             <label for="userId">ID</label>
-            <span id="iddiv"></span>
           </div>
           <div class="form-floating mb-3">
-            <input type="email" class="form-control" name=userEmail id="userEmail" placeholder="name@example.com">
+            <input type="email" class="form-control" name="userEmail" id="userEmail" placeholder="name@example.com" onkeyup="uemailCheck(this.value)">
             <label for="userEmail">이메일 주소</label>
           </div>
           <div class="form-floating mb-3">
-            <input type="password" class="form-control" name=userPass id="userPass" placeholder="Password">
+            <input type="password" class="form-control" name="userPass" id="userPass" placeholder="Password">
             <label for="userPass">비밀번호</label>
           </div>
           <div class="form-floating mb-3">
