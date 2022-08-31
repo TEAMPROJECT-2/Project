@@ -17,7 +17,7 @@ public class MemberDTO {
 	private String userAddress;
 	private String userAddressDetails;
 	private Timestamp userDate;
-	private int pointNum;
+	private int userPoint;
 	private int myCouponNum;
 	private String userRank;
 	private int userType;
@@ -105,11 +105,11 @@ public class MemberDTO {
 	public void setUserDate(Timestamp userDate) {
 		this.userDate = userDate;
 	}
-	public int getPointNum() {
-		return pointNum;
+	public int getUserPoint() {
+		return userPoint;
 	}
-	public void setPointNum(int pointNum) {
-		this.pointNum = pointNum;
+	public void setUserPoint(int userPoint) {
+		this.userPoint = userPoint;
 	}
 	public int getMyCouponNum() {
 		return myCouponNum;
@@ -161,7 +161,7 @@ public class MemberDTO {
 				+ userNm + ", userEmail=" + userEmail + ", userGender=" + userGender + ", userAthletic=" + userAthletic
 				+ ", userNicknm=" + userNicknm + ", userPhone=" + userPhone + ", userZipcode=" + userZipcode
 				+ ", userAddress=" + userAddress + ", userAddressDetails=" + userAddressDetails + ", userDate="
-				+ userDate + ", pointNum=" + pointNum + ", myCouponNum=" + myCouponNum + ", userRank=" + userRank
+				+ userDate + ", userPoint=" + userPoint + ", myCouponNum=" + myCouponNum + ", userRank=" + userRank
 				+ ", userType=" + userType + ", userStatus=" + userStatus + ", userLastDate=" + userLastDate
 				+ ", userEmailAuth=" + userEmailAuth + ", userEmailKey=" + userEmailKey + "]";
 	}

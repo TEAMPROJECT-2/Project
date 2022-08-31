@@ -21,7 +21,7 @@
 				   ,USER_ADDRESS
 				   ,USER_ADDRESS_DETAILS
 				   ,USER_DATE
-				   ,POINT_NUM
+				   ,USER_POINT
 				   ,MY_COUPON_NUM
 				   ,USER_RANK
 				   ,USER_TYPE
@@ -45,7 +45,7 @@
 				   ,#{userAddress}
 				   ,#{userAddressDetails}
 				   ,#{userDate}
-				   ,#{pointNum}
+				   ,#{userPoint}
 				   ,#{myCouponNum}
 				   ,#{userRank}
 				   ,#{userType}
