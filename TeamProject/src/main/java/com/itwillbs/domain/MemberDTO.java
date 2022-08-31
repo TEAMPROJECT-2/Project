@@ -151,6 +151,19 @@ public class MemberDTO {
 	}
 
 
+<<<<<<< HEAD
 
+=======
+	@Override
+	public String toString() {
+		return "MemberDTO [userInfoNum=" + userInfoNum + ", userId=" + userId + ", userPass=" + userPass + ", userNm="
+				+ userNm + ", userEmail=" + userEmail + ", userGender=" + userGender + ", userAthletic=" + userAthletic
+				+ ", userNicknm=" + userNicknm + ", userPhone=" + userPhone + ", userZipcode=" + userZipcode
+				+ ", userAddress=" + userAddress + ", userAddressDetails=" + userAddressDetails + ", userDate="
+				+ userDate + ", userPoint=" + userPoint + ", myCouponNum=" + myCouponNum + ", userRank=" + userRank
+				+ ", userType=" + userType + ", userStatus=" + userStatus + ", userLastDate=" + userLastDate
+				+ ", userEmailAuth=" + userEmailAuth + ", userEmailKey=" + userEmailKey + "]";
+	}
+>>>>>>> refs/remotes/origin/main
 
 }
