@@ -8,7 +8,7 @@
 	<meta name="keywords" content="Male_Fashion, unica, creative, html">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<title>운동운동웹페이지</title>
+	<title>핏티드</title>
 
 	<!-- Google Font -->
 	<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&display=swap"
@@ -63,7 +63,7 @@
             <div class="row">
                 <div class="col-lg-6 col-md-7">
                     <div class="header__top__left">
-                        <p>장바구니/포인트관리 같은 거 있어도 될 듯
+                        <p>나에게 딱 맞는 운동 쇼핑몰 핏티드!
 
                         <a href="${pageContext.request.contextPath }/member/account-connections">마이페이지</a>
 			            <a href="${pageContext.request.contextPath }/basic/basic-badge-button">버튼</a>

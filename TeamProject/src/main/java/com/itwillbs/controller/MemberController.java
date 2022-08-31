@@ -48,8 +48,10 @@ public class MemberController {
 	@RequestMapping(value = "/member/joinSuccess", method = RequestMethod.GET)
 	public String joinSuccess(MemberDTO memberDTO) throws Exception{
 		memberService.updateEmailAuth(memberDTO);
+		System.out.println(memberService.updateEmailAuth(memberDTO));
+		System.out.println(memberDTO+"나");
 		// 이메일 인증 성공 시 추가정보 입력 후 관심있는 운동에 대한 추천
-		return "redirect:/main/main";
+		return "member/joinSuccess";
 	}
 
 	// 회원가입(업체)
@@ -72,7 +74,6 @@ public class MemberController {
 	public String login() {
 		return "member/login";
 	}
-
 	@RequestMapping(value = "/member/loginPro", method = RequestMethod.POST)
 	// jsp는 세션이 자동으로 만들어지지만 자바는 HttpSession으로 만들어야한다
 	public String loginPro(MemberDTO memberDTO, HttpSession session) throws Exception {
