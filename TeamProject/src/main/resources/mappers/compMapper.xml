@@ -23,37 +23,82 @@
 			       ,PROD_L_QUANTITY
            		    )
 			 VALUES (
-			  		#{num}
+
+		       FROM (SELECT IFNULL(MAX(CAST(PROD_L_NUM AS UNSIGNED)), 0) + 1 AS PROD_L_NUM
+				 	   FROM PROD_L_NUM) A)
 			       ,#{prodLCode}
 			       ,#{prodLType}
 			       ,#{prodLOption1}
 			       ,#{prodLOption2}
-			       ,#{prodLProdNm}
+			       ,#{prodLProdnm}
 			       ,#{prodLPrice}
 			       ,#{prodLUpdate}
-			       ,#{prodLCompNm}
-			       ,#{prodLMainImg}
-			       ,#{prodLSubImg}
+			       ,#{prodLCompnm}
+			       ,#{prodLMainimg}
+			       ,#{prodLSubimg}
 			       ,#{prodLDetail}
 			       ,#{prodLQuantity}
 			  		)
 	</insert>
+<!-- 	업체 신규등록시 옵션테이블 데이터 넣기 -->
 	<insert id="insertOp" parameterType="java.util.HashMap">
      <if test="opList.size != 0">
         insert into PROD_OPTION(
-                    PROD_OPTION_CODE
+        		   ,PROD_OPTION_NUM
+                   ,PROD_OPTION_CODE
 			       ,PROD_OPTION_NM
         )values
         <foreach collection="opList" item="item" separator=",">
         (
-            #{item.prodLOptionKey},
-            #{item.prodOptionNmKey}
+        	(SELECT PROD_OPTION_NUM
+		       FROM (SELECT IFNULL(MAX(CAST(PROD_OPTION_NUM AS UNSIGNED)), 0) + 1 AS PROD_OPTION_NUM
+				 	   FROM PROD_OPTION) A)
+            	  ,#{item.prodLOptionKey}
+            	  ,#{item.prodOptionNmKey}
         )
         </foreach>
      </if>
 	</insert>
+	<select id="getProd" resultType="com.itwillbs.domain.ProdDTO">
+		   SELECT	PROD_L_NUM
+			       ,PROD_L_CODE
+			       ,PROD_L_OPTION1
+			       ,PROD_L_OPTION2
+			       ,PROD_L_PRODNM
+			       ,PROD_L_PRICE
+			       ,PROD_L_QUANTITY
+		    FROM    PRODUCT_LIST
+<!-- 		   WHERE    PROD_L_COMPNM=#{delProdNum} -->
+		   WHERE    PROD_L_NUM=#{num}
+	</select>
+	<select id="getProdList" resultType="com.itwillbs.domain.ProdDTO">
+		   SELECT 	PROD_L_NUM
+			       ,PROD_L_CODE
+			       ,PROD_L_OPTION1
+			       ,PROD_L_OPTION2
+			       ,PROD_L_PRODNM
+			       ,PROD_L_PRICE
+			       ,PROD_L_QUANTITY
+		     FROM   PRODUCT_LIST
+<!-- 		    WHERE   PROD_L_COMPNM=#{prodLCompnm} -->
+		 ORDER BY   PROD_L_NUM
+       DESC LIMIT   #{startRow}
+                   ,#{pageSize}
+	</select>
+	<select id="getProdCount" resultType="java.lang.Integer">
+		   SELECT   COUNT(PROD_L_CODE)
+		     FROM   PRODUCT_LIST
+<!-- 		  	WHERE   PROD_L_COMPNM=#{delProdNum} -->
+	</select>
+
+	<delete id="deleteProd">
+	   DELETE FROM  PRODUCT_LIST
+	   	     WHERE  PROD_L_CODE=#{prodLCode}
+	</delete>
 
 
+
+<!-- 	todo -->
 	<insert id="insertProdStock">
 		INSERT INTO PRODUCT_STOCK(
 			   		NUM
@@ -67,8 +112,6 @@
 			)
 
 	</insert>
-	<select id="getMaxNum" resultType="java.lang.Integer">
-		select max(num) from PRODUCT_STOCK
-	</select>
+
 
 </mapper>
