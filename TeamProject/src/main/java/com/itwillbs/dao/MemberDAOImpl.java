@@ -87,6 +87,20 @@ public class MemberDAOImpl implements MemberDAO{
 		return sqlSession.selectOne(namespace + ".checkUserEmail", userEmail);
 	}
 
+	// 회원 정보 수정
+	@Override
+	public void modUser(MemberDTO memberDTO) {
+		sqlSession.update(namespace + ".modUser", memberDTO);
+
+	}
+
+	// 회원 탈퇴
+	@Override
+	public void delUser(MemberDTO memberDTO) {
+		sqlSession.delete(namespace + ".delUser", memberDTO);
+
+	}
+
 
 
 

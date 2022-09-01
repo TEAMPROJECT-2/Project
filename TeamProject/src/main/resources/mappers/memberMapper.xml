@@ -147,12 +147,30 @@
 		  		)
 	</insert>
 
-	<!-- 로그인(업체) -->
+<!-- 로그인(업체) -->
 	<select id="compCheck" resultType="com.itwillbs.domain.CompDTO">
 		SELECT *
 		  FROM COMPANY_INFO
 		 WHERE COMP_ID=#{compId}
 		   AND COMP_PASS=#{compPass}
 	</select>
+
+ <!-- 회원 정보 수정 -->
+<!-- 	<update id="modUser"> -->
+<!-- 		UPDATE USER_INFO SET -->
+<!-- 		<if test="userPass != null"> -->
+<!-- 				USER_PASS = #{userPass}, -->
+<!-- 		</if>	USER_EMAIL = #{userEmail}, -->
+
+<!-- 	</update> -->
+
+<!-- 회원 탈퇴 -->
+	<delete id="delUser">
+		DELETE FROM USER_INFO
+		 WHERE USER_ID		=#{userId}
+		   AND USER_PASS	=#{userPass}
+	</delete>
+
+
 
 </mapper>

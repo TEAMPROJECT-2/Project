@@ -27,6 +27,12 @@ public interface MemberDAO {
 	// 아이디 찾기
 	public String idSearch(MemberDTO memberDTO);
 
+	// 회원 정보 수정
+	public void modUser(MemberDTO memberDTO);
+
+	// 회원 탈퇴
+	public void delUser(MemberDTO memberDTO);
+
 
 
 

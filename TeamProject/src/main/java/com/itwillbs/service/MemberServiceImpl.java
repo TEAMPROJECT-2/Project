@@ -115,15 +115,17 @@ public class MemberServiceImpl implements MemberService{
 		return memberDAO.idSearch(memberDTO);
 	}
 
-//	// 회원 정보 수정
-//	@Override
-//	public void modUser(MemberDTO memberDTO) {
-//		memberDAO.modUser(memberDTO);
-//	}
-//	@Override
-//	public void delUser(MemberDTO memberDTO) {
-//		memberDAO.delUser(memberDTO);
-//	}
+	// 회원 정보 수정
+	@Override
+	public void modUser(MemberDTO memberDTO) {
+		memberDAO.modUser(memberDTO);
+	}
+
+	// 회원 탈퇴
+	@Override
+	public void delUser(MemberDTO memberDTO) {
+		memberDAO.delUser(memberDTO);
+	}
 
 
 //	// 비밀번호 찾기
