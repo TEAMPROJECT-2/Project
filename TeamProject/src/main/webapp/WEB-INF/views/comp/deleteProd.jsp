@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html
   lang="en"
@@ -11,6 +11,11 @@
   data-template="vertical-menu-template-free"
 >
   <head>
+  <script src="http://code.jquery.com/jquery-3.6.0.js"></script>
+  <script src="${pageContext.request.contextPath }/resources/js/deleteProd.js"></script>
+<!--   전체선택, 선택삭제 자바스크립트 -->
+
+
   </head>
 
   <body>
@@ -23,15 +28,15 @@
 <!-- 		큰화면 버티컬 시작-->
 		<jsp:include page="../inc/comp-menu.jsp"/>
 <!-- 		큰화면 버티컬 끝 -->
-           
-           
+
+
            <!-- Content wrapper -->
           <div class="content-wrapper">
             <!-- Content -->
 <!-- 화면줄였을때 버티컬 메뉴 및 큰화면에서는 시작 -->
             <div class="container-xxl flex-grow-1 container-p-y">
               <h4 class="fw-bold py-3 mb-4">
-                <span class="text-muted fw-light">상품삭제 </span> 
+                <span class="text-muted fw-light">상품삭제 </span>
               </h4>
 
               <div class="row">
@@ -41,20 +46,52 @@
                       <a class="nav-link" href="${pageContext.request.contextPath }/comp/deleteProd"
                         ><i class="bx bx-user me-1"></i>상품삭제 </a
                       >
-                   
-                    
+
+
                   </ul>
 <!--  화면줄였을때 버티컬 및 큰화면에서는 시작 매뉴끝                  -->
-                  
-                  
-                  
+
+
+
                 <div class="card">
                 <h5 class="card-header">상품목록</h5>
-                <div class="table-responsive text-nowrap">
-                  <table class="table table-striped">
+                <form>
+                <table class="table table-striped">
+                 <tbody class="table-border-bottom-0">
+                  <tr>
+                  	 <td></td>
+                     <td class="mb-3">
+                        <select id="defaultSelect" class="form-select">
+                          <option>재고상태 선택</option>
+                          <option value="1">양호</option>
+                          <option value="2">품절임박</option>
+                          <option value="3">품절</option>
+                        </select>
+                     </td>
+                     <td colspan="2" class="input-group input-group-merge">
+                        <span class="input-group-text" id="basic-addon-search31"><i class="bx bx-search"></i></span>
+                        <input
+                          type="text"
+                          class="form-control"
+                          placeholder="상품번호 검색"
+                          aria-label="Search..."
+                          aria-describedby="basic-addon-search31"/>
+                	</td>
+                	<td><button type="submit" class="btn btn-primary">검색</button> </td>
+                  </tr>
+                 </tbody>
+               </table>
+               </form>
+
+
+                <div class="table-responsive text-nowrap" id="Context">
+                 <form>
+                  <table class="table table-striped" >
                     <thead>
                       <tr>
-                        <th>상품번호</th>
+                        <th>&nbsp;&nbsp;<input class="form-check-input" type="checkbox" id="allCheck" name="allCheck" />&nbsp;&nbsp;&nbsp;&nbsp;전체선택 </th>
+                        <th>번호</th>
+                        <th>상품코드</th>
                         <th>상품이름</th>
                         <th>가격</th>
                         <th>재고수량</th>
@@ -62,56 +99,48 @@
                       </tr>
                     </thead>
                     <tbody class="table-border-bottom-0">
+					  <c:forEach var="prodDTO" items="${prodList }">
                       <tr>
-                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>shake상품구분</strong></td>
-                        <td>초코쉐이크-상품이름</td>
+                      	<td>&nbsp;&nbsp;&nbsp;&nbsp;<input class="form-check-input" type="checkbox" value="${prodDTO.prodLCode }" name="CheckRow" id="defaultCheck1" />
+                      	<label class="form-check-label" for="defaultCheck1"> 선택 </label></td>
+                        <td>${prodDTO.prodLNum }</td>
+                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>${prodDTO.prodLCode }</strong></td>
+                        <td>${prodDTO.prodLProdnm }</td>
                         <td>
-                          20000원-가격
+                          ${prodDTO.prodLPrice }
                         </td>
                         <td>
-                          1000개-재고수량
+                          ${prodDTO.prodLQuantity }
                         </td>
-                        
+
                         <td><span class="badge bg-label-info me-1">양호</span></td>
-                       
                       </tr>
-                      <tr>
-                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>shake0023상품구분</strong></td>
-                        <td>밀크쉐이크-상품이름</td>
-                        <td>
-                          10000원-가격
-                        </td>
-                        <td>
-                          10개-재고수량
-                        </td>
-                        
-                        <td><span class="badge bg-label-warning me-1">품절임박</span></td>
-                       
-                      </tr>	
-                    
-                      <tr>
-                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>shake0023상품구분</strong></td>
-                        <td>밀크쉐이크-상품이름</td>
-                        <td>
-                          10000원-가격
-                        </td>
-                        <td>
-                          10개-재고수량
-                        </td>
-                        
-                        <td><span class="badge bg-label-danger me-1">품절</span></td>
-                       
-                      </tr>	
-                    
-                    
+                      </c:forEach>
+
+					  <c:if test="${pageDTO.startPage > pageDTO.pageBlock }">
+						<a href="${pageContext.request.contextPath }
+							/board/list?pageNum=${pageDTO.startPage - pageDTO.pageBlock}">Prev</a>
+					  </c:if>
+
+						<c:forEach var="i" begin="${pageDTO.startPage }" end="${pageDTO.endPage }" step="1">
+						<a href="${pageContext.request.contextPath }/comp/deleteProd?pageNum=${i}">${i}</a>
+						</c:forEach>
+
+					  <c:if test="${pageDTO.endPage < pageDTO.pageCount }">
+						<a href="${pageContext.request.contextPath }
+						 /comp/deleteProd?pageNum=${pageDTO.startPage + pageDTO.pageBlock}">Next</a>
+					  </c:if>
                     </tbody>
                   </table>
+
+                  <button type="submit" class="btn btn-primary" onclick="deleteValue();">선택삭제</button>
+                 </form>
                 </div>
               </div>
-                
-                
-                
-                
+
+
+
+
                 </div>
               </div>
             </div>
@@ -180,7 +209,7 @@
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
-    
+
     <!-- Footer Section Begin -->
     <jsp:include page="../inc/footer.jsp"/>
 </body>
