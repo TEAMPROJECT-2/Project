@@ -142,7 +142,6 @@ public class MemberController {
 	}
 
 
-
 	// 로그아웃
 	@RequestMapping(value = "/member/logout", method = RequestMethod.GET)
 	public String logout(HttpSession session) {
@@ -153,10 +152,19 @@ public class MemberController {
 		return "redirect:/main/main";
 	}
 
+	// 마이페이지
 	@RequestMapping(value = "/member/mypage", method = RequestMethod.GET)
-	public String memberMypage() {
-		return "member/mypage";
+	public String mypage() {
+		return "user/mypage";
 	}
+
+	// 회원정보수정
+	@RequestMapping(value = "/member/modify", method = RequestMethod.GET)
+	public String Modify() {
+		return "user/userModify";
+	}
+
+
 
 	@RequestMapping(value = "/basic/basic-badge-button", method = RequestMethod.GET)
 	public String basicBasicBadgeButton() {
@@ -187,35 +195,35 @@ public class MemberController {
 
 	@RequestMapping(value = "/member/cards-basic", method = RequestMethod.GET)
 	public String memberCardsBasic() {
-		return "member/cards-basic";
+		return "basic/cards-basic";
 	}
 	@RequestMapping(value = "/member/form-layouts-horizontal", method = RequestMethod.GET)
 	public String memberFormLayoutsHorizontal() {
-		return "member/form-layouts-horizontal";
+		return "basic/form-layouts-horizontal";
 	}
 	@RequestMapping(value = "/member/form-layouts-vertical", method = RequestMethod.GET)
 	public String memberFormLayoutsVertical() {
-		return "member/form-layouts-vertical";
+		return "basic/form-layouts-vertical";
 	}
 	@RequestMapping(value = "/member/forms-basic-inputs", method = RequestMethod.GET)
 	public String memberFormBasicInputs() {
-		return "member/forms-basic-inputs";
+		return "basic/forms-basic-inputs";
 	}
 	@RequestMapping(value = "/member/forms-input-groups", method = RequestMethod.GET)
 	public String memberFormInputGroups() {
-		return "member/forms-input-groups";
+		return "basic/forms-input-groups";
 	}
 	@RequestMapping(value = "/member/tables", method = RequestMethod.GET)
 	public String memberTables() {
-		return "member/tables";
+		return "basic/tables";
 	}
 	@RequestMapping(value = "/member/ui-buttons", method = RequestMethod.GET)
 	public String memberUiButtons() {
-		return "member/ui-buttons";
+		return "basic/ui-buttons";
 	}
 	@RequestMapping(value = "/member/ui-pagination", method = RequestMethod.GET)
 	public String memberUiPagination() {
-		return "member/ui-pagination";
+		return "basic/ui-pagination";
 	}
 
 

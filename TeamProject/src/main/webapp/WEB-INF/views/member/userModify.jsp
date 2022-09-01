@@ -44,7 +44,7 @@
 
                     <hr class="my-0" />
                     <div class="card-body">
-                      <form id="formAccountSettings" method="POST" onsubmit="return false">
+                      <form id="formAccountSettings" action="${pageContext.request.contextPath}/member/joinMemPro" method="POST" onsubmit="return false">
                         <div class="row">
                           <div class="mb-3 col-md-6">
                             <label for="userNm" class="form-label">이름</label>

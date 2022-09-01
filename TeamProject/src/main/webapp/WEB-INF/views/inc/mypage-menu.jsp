@@ -57,7 +57,7 @@
           <ul class="menu-inner py-1">
             <!-- Dashboard -->
             <li class="menu-item active">
-              <a href="${pageContext.request.contextPath }/user/mypage" class="menu-link">
+              <a href="${pageContext.request.contextPath }/member/mypage" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
                 <div data-i18n="Analytics">마이페이지</div>
               </a>
@@ -73,12 +73,12 @@
               </a>
               <ul class="menu-sub">
                 <li class="menu-item">
-                  <a href="${pageContext.request.contextPath }/user/modify" class="menu-link">
+                  <a href="${pageContext.request.contextPath }/member/modify" class="menu-link">
                     <div data-i18n="Account">계정 정보</div>
                   </a>
                 </li>
                 <li class="menu-item">
-                  <a href="${pageContext.request.contextPath }/user/userConnection" class="menu-link">
+                  <a href="${pageContext.request.contextPath }/member/userConnection" class="menu-link">
                     <div data-i18n="Connections">연결</div>
                   </a>
                 </li>

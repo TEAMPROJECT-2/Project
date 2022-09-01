@@ -190,7 +190,7 @@
           >
             <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
               <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
-                <i class="bx bx-menu bx-sm"><span>마이페이지 메뉴</span></i>
+                <i class="bx bx-menu"><span>업체 페이지 메뉴</span></i>
               </a>
             </div>
 
