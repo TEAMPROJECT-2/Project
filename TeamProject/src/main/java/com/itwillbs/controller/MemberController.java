@@ -132,11 +132,11 @@ public class MemberController {
 	}
 
 	// 비밀번호 찾기
-	@RequestMapping(value = "/member/loginPassSearch", method = RequestMethod.GET)
+	@RequestMapping(value = "/member/passSearch", method = RequestMethod.GET)
 	public String findPass() throws Exception{
-		return "member/loginPassSearch";
+		return "member/passSearch";
 	}
-	@RequestMapping(value = "/loginPassSearchPro", method = RequestMethod.POST)
+	@RequestMapping(value = "/passSearchPro", method = RequestMethod.POST)
 	public String loginPassSearchPro(@ModelAttribute MemberDTO memberDTO, HttpServletResponse response) throws Exception{
 		return "redirect:/main/main";
 	}
@@ -192,14 +192,7 @@ public class MemberController {
 	public String foodDetail() {
 		return "food/details";
 	}
-	@RequestMapping(value = "/member/account-connections", method = RequestMethod.GET)
-	public String memberAccountConnections() {
-		return "member/account-connections";
-	}
-	@RequestMapping(value = "/member/account-modiify", method = RequestMethod.GET)
-	public String memberAccountModiify() {
-		return "member/account-modiify";
-	}
+
 	@RequestMapping(value = "/member/cards-basic", method = RequestMethod.GET)
 	public String memberCardsBasic() {
 		return "member/cards-basic";
