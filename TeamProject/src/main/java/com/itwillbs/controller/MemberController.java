@@ -175,14 +175,6 @@ public class MemberController {
 	public String indexMain() {
 		return "main/main";
 	}
-	@RequestMapping(value = "/product/shop", method = RequestMethod.GET)
-	public String productShop() {
-		return "product/shop";
-	}
-	@RequestMapping(value = "/product/details", method = RequestMethod.GET)
-	public String productDetail() {
-		return "product/details";
-	}
 
 	@RequestMapping(value = "/food/shop", method = RequestMethod.GET)
 	public String foodShop() {

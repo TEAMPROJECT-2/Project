@@ -2,28 +2,27 @@ package com.itwillbs.domain;
 
 import java.sql.Timestamp;
 
-public class ProdDTO {
+public class ProdDTO extends PageDTO {
 
-	private int num;
+	private int prodLNum;
 	private String prodLCode;
 	private String prodLType;
 	private String prodLOption1;
 	private String prodLOption2;
-	private String prodLProdNm;
+	private String prodLProdnm;
 	private int prodLPrice;
 	private Timestamp prodLUpdate;
-	private String prodLCompNm;
-	private String prodLMainImg;
-	private String prodLSubImg;
+	private String prodLCompnm;
+	private String prodLMainimg;
+	private String prodLSubimg;
 	private String prodLDetail;
 	private int prodLQuantity;
 
-
-	public int getNum() {
-		return num;
+	public int getProdLNum() {
+		return prodLNum;
 	}
-	public void setNum(int num) {
-		this.num = num;
+	public void setProdLNum(int prodLNum) {
+		this.prodLNum = prodLNum;
 	}
 	public String getProdLCode() {
 		return prodLCode;
@@ -37,7 +36,6 @@ public class ProdDTO {
 	public void setProdLType(String prodLType) {
 		this.prodLType = prodLType;
 	}
-
 	public String getProdLOption1() {
 		return prodLOption1;
 	}
@@ -50,11 +48,11 @@ public class ProdDTO {
 	public void setProdLOption2(String prodLOption2) {
 		this.prodLOption2 = prodLOption2;
 	}
-	public String getProdLProdNm() {
-		return prodLProdNm;
+	public String getProdLProdnm() {
+		return prodLProdnm;
 	}
-	public void setProdLProdNm(String prodLProdNm) {
-		this.prodLProdNm = prodLProdNm;
+	public void setProdLProdnm(String prodLProdnm) {
+		this.prodLProdnm = prodLProdnm;
 	}
 	public int getProdLPrice() {
 		return prodLPrice;
@@ -62,43 +60,29 @@ public class ProdDTO {
 	public void setProdLPrice(int prodLPrice) {
 		this.prodLPrice = prodLPrice;
 	}
-
 	public Timestamp getProdLUpdate() {
 		return prodLUpdate;
 	}
 	public void setProdLUpdate(Timestamp prodLUpdate) {
 		this.prodLUpdate = prodLUpdate;
 	}
-
-	public String getProdLCompNm() {
-		return prodLCompNm;
+	public String getProdLCompnm() {
+		return prodLCompnm;
 	}
-	public void setProdLCompNm(String prodLCompNm) {
-		this.prodLCompNm = prodLCompNm;
-	}
-	public String getProdLMainImg() {
-		return prodLMainImg;
-	}
-	public void setProdLMainImg(String prodLMainImg) {
-		this.prodLMainImg = prodLMainImg;
-	}
-	public String getProdLSubImg() {
-		return prodLSubImg;
-	}
-	public void setProdLSubImg(String prodLSubImg) {
-		this.prodLSubImg = prodLSubImg;
+	public void setProdLCompnm(String prodLCompnm) {
+		this.prodLCompnm = prodLCompnm;
 	}
 	public String getProdLMainimg() {
-		return prodLMainImg;
+		return prodLMainimg;
 	}
 	public void setProdLMainimg(String prodLMainimg) {
-		this.prodLMainImg = prodLMainimg;
+		this.prodLMainimg = prodLMainimg;
 	}
 	public String getProdLSubimg() {
-		return prodLSubImg;
+		return prodLSubimg;
 	}
 	public void setProdLSubimg(String prodLSubimg) {
-		this.prodLSubImg = prodLSubimg;
+		this.prodLSubimg = prodLSubimg;
 	}
 	public String getProdLDetail() {
 		return prodLDetail;
@@ -112,15 +96,5 @@ public class ProdDTO {
 	public void setProdLQuantity(int prodLQuantity) {
 		this.prodLQuantity = prodLQuantity;
 	}
-
-
-
-
-
-
-
-
-
-
 
 }
