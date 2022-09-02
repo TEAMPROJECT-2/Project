@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.itwillbs.mappers.orderMapper">
+	
+	<insert id="insertAddress">
+		INSERT INTO ORDER_BOARD(
+					ORD_USER_NM
+				   ,ORD_GET_ADDRESS
+				   ,ORD_GET_ADDRESS2
+				   ,ORD_GET_ADDRESS3
+				   ,ORD_USER_PHONE
+				   
+				   )
+			VALUES(
+					#{ordUserNm}
+				   ,#{ordGetAddress}
+				   ,#{ordGetAddress2}
+				   ,#{ordGetAddress3}
+				   ,#{ordUserPhone}
+				    )
+	</insert>
+	
+	<select id="updateAddress" resultType="com.itwillbs.domain.MemberDTO">
+		UPDATE USER_INFO
+		   SET USER_ADDRESS			=#{userAddress}
+		      ,USER_ADDRESS_DETAILS	=#{userAddressDetails}
+		      ,USER_ZIPCODE 		=#{userZipcode}
+		      ,USER_NM 				=#{userNm}
+		      ,USER_PHONE 			=#{userPhone}
+	 	 WHERE USER_ID				=#{userId}
+		   
+	</select>
+	
+	
+	
+
+</mapper>
