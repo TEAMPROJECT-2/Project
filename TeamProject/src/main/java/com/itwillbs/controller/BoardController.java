@@ -13,11 +13,13 @@ import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.itwillbs.domain.BoardDTO;
 import com.itwillbs.domain.LikeDTO;
 import com.itwillbs.domain.PageDTO;
+import com.itwillbs.domain.ReplyDTO;
 import com.itwillbs.service.BoardService;
 
 @Controller
@@ -202,8 +204,11 @@ public class BoardController {
 	
 	//가상주소 시작점 http://localhost:8080/myweb2/board/deletePro
 	@RequestMapping(value = "/board/deletePro", method = RequestMethod.POST)
-	public String deletePro(BoardDTO boardDTO) {
+	public String deletePro(HttpServletRequest request) {
 		//num pass 일치 확인
+		BoardDTO boardDTO=new BoardDTO();
+		boardDTO.setBoardNum(Integer.parseInt(request.getParameter("boardNum")));
+		boardDTO.setBoardPass(request.getParameter("boardPass"));
 		BoardDTO boardDTO2=boardService.numCheck(boardDTO);
 		if(boardDTO2!=null) {
 //			num pass 일치
@@ -221,23 +226,6 @@ public class BoardController {
 	
 	
 	}
-	@RequestMapping(value = "/board/likePro", method = RequestMethod.POST)
-	public String likePro(HttpServletRequest request, Model model) {
-		
-		LikeDTO likeDTO=new LikeDTO();
-		likeDTO.setBoardNum(Integer.parseInt(request.getParameter("boardNum")));
-		likeDTO.setUserNum(Integer.parseInt(request.getParameter("userNum")));
-		likeDTO.setBoardNum(Integer.parseInt(request.getParameter("LikeNum")));
-		LikeDTO likeDTO2=boardService.countLike(likeDTO);
-		
-		
-		
-		return "redirect:/board/list";
-	}
-	
-	
-	
-	
 	
 	
 	

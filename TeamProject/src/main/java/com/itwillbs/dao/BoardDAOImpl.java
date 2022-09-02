@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.itwillbs.domain.BoardDTO;
 import com.itwillbs.domain.LikeDTO;
 import com.itwillbs.domain.PageDTO;
+import com.itwillbs.domain.ReplyDTO;
 
 @Repository
 public class BoardDAOImpl implements BoardDAO{
@@ -46,8 +47,7 @@ public class BoardDAOImpl implements BoardDAO{
 
 	@Override
 	public BoardDTO numCheck(BoardDTO boardDTO) {
-		System.out.println(boardDTO.getBoardNum());
-		System.out.println(boardDTO.getUserNicknm());
+		
 		return sqlSession.selectOne(namespace+".numCheck", boardDTO);
 	}
 
@@ -64,13 +64,54 @@ public class BoardDAOImpl implements BoardDAO{
 	
 	@Override
 	public void deleteBoard(BoardDTO boardDTO) {
+		
 		sqlSession.delete(namespace+".deleteBoard", boardDTO);
 	}
 
 	@Override
-	public LikeDTO countLike(LikeDTO likeDTO) {
-		// TODO Auto-generated method stub
-		return sqlSession.selectOne(namespace+".countLike", likeDTO);
+	public void updateLike(LikeDTO likeDTO) {
+		sqlSession.update(namespace+".updateLike", likeDTO);
+		
 	}
+
+	@Override
+	public void updateLikeCancel(LikeDTO likeDTO) {
+		sqlSession.update(namespace+".updateLikeCancel", likeDTO);
+		
+	}
+
+	@Override
+	public void insertLike(LikeDTO likeDTO) {
+		sqlSession.insert(namespace+".insertLike", likeDTO);
+		
+	}
+
+	@Override
+	public void deleteLike(LikeDTO likeDTO) {
+		sqlSession.delete(namespace+".deleteLike", likeDTO);
+		
+	}
+
+	@Override
+	public int likeCheck(LikeDTO likeDTO) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(namespace+".likeCheck", likeDTO);
+	}
+
+	@Override
+	public void updateLikeCheck(LikeDTO likeDTO) {
+		sqlSession.update(namespace+".updateLikeCheck", likeDTO);
+		
+	}
+
+	@Override
+	public void updateLikeCheckCancel(LikeDTO likeDTO) {
+		sqlSession.update(namespace+".updateBoard", likeDTO);
+		
+	}
+
+
+
+
 
 }

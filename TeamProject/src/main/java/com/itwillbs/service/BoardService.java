@@ -5,6 +5,7 @@ import java.util.List;
 import com.itwillbs.domain.BoardDTO;
 import com.itwillbs.domain.LikeDTO;
 import com.itwillbs.domain.PageDTO;
+import com.itwillbs.domain.ReplyDTO;
 
 public interface BoardService {
 	//추상메서드
@@ -26,5 +27,21 @@ public interface BoardService {
 	
 	void deleteBoard(BoardDTO boardDTO);
 
-	LikeDTO countLike(LikeDTO likeDTO);
+	void insertLike(LikeDTO likeDTO);
+
+	void updateLike(LikeDTO likeDTO);
+
+	void updateLikeCheck(LikeDTO likeDTO);
+
+	void updateLikeCheckCancel(LikeDTO likeDTO);
+
+	void updateLikeCancel(LikeDTO likeDTO);
+
+	void deleteLike(LikeDTO likeDTO);
+
+	int likeCheck(LikeDTO likeDTO);
+
+
+	
+
 }

@@ -11,6 +11,7 @@ import com.itwillbs.dao.BoardDAO;
 import com.itwillbs.domain.BoardDTO;
 import com.itwillbs.domain.LikeDTO;
 import com.itwillbs.domain.PageDTO;
+import com.itwillbs.domain.ReplyDTO;
 
 @Service
 public class BoardServiceImpl implements BoardService{
@@ -83,12 +84,46 @@ public class BoardServiceImpl implements BoardService{
 	public void deleteBoard(BoardDTO boardDTO) {
 		boardDAO.deleteBoard(boardDTO);
 	}
-
+	
+	//like
 	@Override
-	public LikeDTO countLike(LikeDTO likeDTO) {
-		
-		return likeDAO.countLike(likeDTO);
+	public void updateLike(LikeDTO likeDTO){
+		boardDAO.updateLike(likeDTO);
+	}
+	
+	@Override
+	public void updateLikeCancel(LikeDTO likeDTO){
+		boardDAO.updateLikeCancel(likeDTO);
 	}
 
+	
+	@Override
+	public void insertLike(LikeDTO likeDTO){
+		boardDAO.insertLike(likeDTO);
+	}
+	
+	@Override
+	public void deleteLike(LikeDTO likeDTO){
+		boardDAO.deleteLike(likeDTO);
+	}
+	
+	@Override
+	public int likeCheck(LikeDTO likeDTO) {
+		return boardDAO.likeCheck(likeDTO);
+	}
+	
+	@Override
+	public void updateLikeCheck(LikeDTO likeDTO){
+		boardDAO.updateLikeCheck(likeDTO);
+	}
+	
+	@Override
+	public void updateLikeCheckCancel(LikeDTO likeDTO){
+		boardDAO.updateLikeCheckCancel(likeDTO);
+	}
+
+	
+	
+	
 
 }
