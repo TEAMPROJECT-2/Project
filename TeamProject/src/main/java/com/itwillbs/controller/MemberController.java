@@ -155,15 +155,32 @@ public class MemberController {
 	// 마이페이지
 	@RequestMapping(value = "/member/mypage", method = RequestMethod.GET)
 	public String mypage() {
-		return "user/mypage";
+		return "member/mypage";
 	}
 
-	// 회원정보수정
+	// 마이페이지 - 회원정보수정
 	@RequestMapping(value = "/member/modify", method = RequestMethod.GET)
 	public String Modify() {
-		return "user/userModify";
+		return "member/userModify";
 	}
 
+	// 마이페이지 - 회원연결정보
+	@RequestMapping(value = "/member/connection", method = RequestMethod.GET)
+	public String connection() {
+		return "member/userConnection";
+	}
+
+	// 마이페이지 - 배송지 관리
+	@RequestMapping(value = "/member/addr", method = RequestMethod.GET)
+	public String address() {
+		return "member/userAddress";
+	}
+
+	// 마이페이지 - 포인트
+	@RequestMapping(value = "/member/point", method = RequestMethod.GET)
+	public String point() {
+		return "member/userPoint";
+	}
 
 
 	@RequestMapping(value = "/basic/basic-badge-button", method = RequestMethod.GET)
@@ -230,10 +247,6 @@ public class MemberController {
 	@RequestMapping(value = "/order/cart", method = RequestMethod.GET)
 	public String orderCart() {
 		return "order/cart";
-	}
-	@RequestMapping(value = "/order/checkout", method = RequestMethod.GET)
-	public String orderCheckout() {
-		return "order/checkout";
 	}
 
 

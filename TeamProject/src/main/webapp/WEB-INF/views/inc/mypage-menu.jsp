@@ -64,35 +64,84 @@
             </li>
 
             <li class="menu-header small text-uppercase">
-              <span class="menu-header-text">계정</span>
+              <span class="menu-header-text">내 계정</span>
             </li>
             <li class="menu-item">
-              <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-dock-top"></i>
-                <div data-i18n="Account Settings">내 계정</div>
+              <a href="${pageContext.request.contextPath }/member/modify" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-user"></i>
+                <div data-i18n="Tables">계정 정보</div>
               </a>
-              <ul class="menu-sub">
-                <li class="menu-item">
-                  <a href="${pageContext.request.contextPath }/member/modify" class="menu-link">
-                    <div data-i18n="Account">계정 정보</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="${pageContext.request.contextPath }/member/userConnection" class="menu-link">
-                    <div data-i18n="Connections">연결</div>
-                  </a>
-                </li>
-              </ul>
+           </li>
+            <li class="menu-item">
+              <a href="${pageContext.request.contextPath }/member/connection" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-link"></i>
+                <div data-i18n="Tables">연결</div>
+              </a>
             </li>
 
             <!-- Components -->
-            <li class="menu-header small text-uppercase"><span class="menu-header-text">Components</span></li>
-            <!-- Cards -->
+            <li class="menu-header small text-uppercase"><span class="menu-header-text">주문</span></li>
+            <!-- 내가 쓴 것들 -->
             <li class="menu-item">
-              <a href="${pageContext.request.contextPath }/member/cards-basic" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-collection"></i>
-                <div data-i18n="Basic">Cards</div>
+              <a href="${pageContext.request.contextPath }/member/addr" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-buildings"></i>
+                <div data-i18n="Tables">배송지 관리</div>
               </a>
+            </li>
+            <li class="menu-item">
+              <a href="${pageContext.request.contextPath }/member/order" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-detail"></i>
+                <div data-i18n="Tables">주문 목록</div>
+              </a>
+            </li>
+
+            <!-- 포인트 쿠폰 -->
+            <li class="menu-header small text-uppercase"><span class="menu-header-text">포인트/쿠폰</span></li>
+            <!-- 내가 쓴 것들 -->
+              <li class="menu-item">
+              <a href="${pageContext.request.contextPath }/member/point" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-dock-top"></i>
+                <div data-i18n="Tables">포인트</div>
+              </a>
+            </li>
+             <li class="menu-item">
+              <a href="${pageContext.request.contextPath }/member/comment" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-dock-top"></i>
+                <div data-i18n="Tables">쿠폰</div>
+              </a>
+            </li>
+
+
+            <!-- 보관함 -->
+            <li class="menu-header small text-uppercase"><span class="menu-header-text">Forms &amp; Tables</span></li>
+            <!-- Forms -->
+            <li class="menu-item">
+              <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bx bx-detail"></i>
+                <div data-i18n="Form Elements">보관함</div>
+              </a>
+              <ul class="menu-sub">
+                <li class="menu-item">
+                  <a href="${pageContext.request.contextPath }/member/forms-basic-inputs" class="menu-link">
+                    <div data-i18n="Basic Inputs">나의 글 목록</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="${pageContext.request.contextPath }/member/forms-basic-inputs" class="menu-link">
+                    <div data-i18n="Basic Inputs">나의 댓글</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="${pageContext.request.contextPath }/member/forms-input-groups" class="menu-link">
+                    <div data-i18n="Input groups">나의 리뷰</div>
+                  </a>
+                </li>
+                <li class="menu-item">
+                  <a href="${pageContext.request.contextPath }/member/forms-input-groups" class="menu-link">
+                    <div data-i18n="Input groups">좋아요</div>
+                  </a>
+                </li>
+              </ul>
             </li>
 
             <!-- Forms & Tables -->
@@ -130,11 +179,6 @@
                 <li class="menu-item">
                   <a href="${pageContext.request.contextPath }/member/form-layouts-horizontal" class="menu-link">
                     <div data-i18n="Horizontal Form">Horizontal Form</div>
-                  </a>
-                </li>
-                 <li class="menu-item">
-                  <a href="${pageContext.request.contextPath }/member/form-layouts-vertical" class="menu-link">
-                    <div data-i18n="Vertical Form">페이지</div>
                   </a>
                 </li>
               </ul>

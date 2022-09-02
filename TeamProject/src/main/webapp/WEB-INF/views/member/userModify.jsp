@@ -35,10 +35,12 @@
                       <a class="nav-link active" href="javascript:void(0);"><i class="bx bx-user me-1"></i> 계정 정보</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="pages-account-settings-connections.html">
+                      <a class="nav-link" href="${pageContext.request.contextPath }/member/connection">
                       <i class="bx bx-link-alt me-1"></i> 연결</a>
                     </li>
                   </ul>
+
+                  <!-- Account -->
                   <div class="card mb-4">
                     <h5 class="card-header">개인 정보</h5>
 
@@ -48,7 +50,7 @@
                         <div class="row">
                           <div class="mb-3 col-md-6">
                             <label for="userNm" class="form-label">이름</label>
-                            <input class="form-control form-control-lg" type="text" name="userNm" id=""userNm"" />
+                            <input class="form-control form-control-lg" type="text" name="userNm" id="userNm" />
                           </div>
                           <div class="mb-3 col-md-6">
                             <label for="userEmail" class="form-label">이메일</label>
@@ -77,22 +79,6 @@
                               <option value="yoga">요가</option>
                               <option value="homet">홈트레이닝</option>
                             </select>
-                          </div>
-                          <!-- 주소 -->
-                          <div class="mb-3 col-md-2">
-                            <label for="userZipcode" class="form-label">우편번호</label>
-                            <input class="form-control form-control-lg btn-outline-primary" type="text" name="userZipcode" id="userZipcode" placeholder="주소 찾기"/>
-                          </div>
-                          <div class="mb-3 col-md-6">
-                            <label for="userAddress" class="form-label">주소</label>
-                            <input class="form-control form-control-lg" type="text" name="userAddress" id="userAddress" />
-                          </div>
-<!--                           <div class="mb-3 col-md-4"> -->
-<!--                           	<button type="button" class="btn btn-primary me-2">주소 찾기</button> -->
-<!--                           </div> -->
-                           <div class="mb-3 col-md-4">
-                            <label for="userAddress" class="form-label">상세 주소</label>
-                            <input class="form-control form-control-lg" type="text" name="userAddress" id="userAddress" />
                           </div>
                         </div>
                         <div class="mt-2">

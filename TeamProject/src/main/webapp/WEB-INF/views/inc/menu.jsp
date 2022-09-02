@@ -65,7 +65,7 @@
                     <div class="header__top__left">
                         <p>나에게 딱 맞는 운동 쇼핑몰 핏티드!
 
-                        <a href="${pageContext.request.contextPath }/user/mypage">마이페이지</a>
+                        <a href="${pageContext.request.contextPath }/member/mypage">마이페이지</a>
 			            <a href="${pageContext.request.contextPath }/basic/basic-badge-button">버튼</a>
 			            <a href="${pageContext.request.contextPath }/basic/basic-form">폼</a>
 			            <a href="${pageContext.request.contextPath }/basic/basic-menu-table">테이블</a></p>
@@ -87,7 +87,7 @@
 								<script type="text/javascript" src="${pageContext.request.contextPath }/resources/js/jquery-3.6.0.js"></script>
 								${sessionScope.userId }님 환영합니다!
 								<c:if test="${sessionScope.userId ne 'admin'}">
-									<a href="${pageContext.request.contextPath }/user/mypage">마이페이지</a>
+									<a href="${pageContext.request.contextPath }/member/mypage">마이페이지</a>
 									<a href="${pageContext.request.contextPath }/member/logout">로그아웃</a>
 								</c:if>
 							</c:if>

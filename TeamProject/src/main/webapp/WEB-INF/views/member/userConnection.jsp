@@ -34,7 +34,7 @@
                 <div class="col-md-12">
                   <ul class="nav nav-pills flex-column flex-md-row mb-3">
                     <li class="nav-item">
-                      <a class="nav-link" href="pages-account-settings-account.html"
+                      <a class="nav-link" href="${pageContext.request.contextPath }/member/modify"
                         ><i class="bx bx-user me-1"></i> 계정 정보</a
                       >
                     </li>
@@ -324,7 +324,7 @@
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
-    
+
     <!-- Footer Section Begin -->
     <jsp:include page="../inc/footer.jsp"/>
 </body>
