@@ -8,9 +8,9 @@
 	<select id="selectProdList" parameterType="com.itwillbs.domain.ProdDTO" resultType="com.itwillbs.domain.ProdDTO">
 		SELECT PROD_L_NUM
 			  ,PROD_L_CODE
-			  ,PROD_L_TYPE
 			  ,PROD_L_OPTION1
 			  ,PROD_L_OPTION2
+			  ,PROD_L_OPTION3
 			  ,PROD_L_PRODNM
 			  ,PROD_L_PRICE
 			  ,PROD_L_UPDATE
@@ -62,9 +62,9 @@
 	<select id="selectProdDetail" parameterType="com.itwillbs.domain.ProdDTO" resultType="com.itwillbs.domain.ProdDTO">
 		SELECT PROD_L_NUM
 			  ,PROD_L_CODE
-			  ,PROD_L_TYPE
 			  ,PROD_L_OPTION1
 			  ,PROD_L_OPTION2
+			  ,PROD_L_OPTION3
 			  ,PROD_L_PRODNM
 			  ,PROD_L_PRICE
 			  ,PROD_L_UPDATE
