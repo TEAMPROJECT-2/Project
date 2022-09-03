@@ -21,11 +21,10 @@ public class CompDAOImpl implements CompDAO {
 
 	private static final String namespace="com.itwillbs.mappers.compMapper";
 	@Override
-	public void insertProd(ProdDTO prodDTO,Map<String, Object> opMap) {
+	public void insertProd(ProdDTO prodDTO) {
 		System.out.println("MemberDAOImpl insertProd()");
 		// 마이바티스 메서드 호출
 		sqlSession.insert(namespace + ".insertProd", prodDTO);
-		sqlSession.insert(namespace + ".insertOp", opMap);
 	}
 	@Override
 	public ProdDTO getProd(int num) {
