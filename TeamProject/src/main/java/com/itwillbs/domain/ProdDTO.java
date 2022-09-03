@@ -9,9 +9,11 @@ public class ProdDTO extends PageDTO {
 	private String prodLOption1;
 	private String prodLOption2;
 	private String prodLOption3;
+	private String prodLOption4;
+	private String prodLOption5;
 	private String prodLProdnm;
 	private int prodLPrice;
-	private String prodLUpdate;
+	private Timestamp prodLUpdate;
 	private String prodLCompnm;
 	private String prodLMainimg;
 	private String prodLSubimg;
@@ -48,6 +50,19 @@ public class ProdDTO extends PageDTO {
 	public void setProdLOption3(String prodLOption3) {
 		this.prodLOption3 = prodLOption3;
 	}
+
+	public String getProdLOption4() {
+		return prodLOption4;
+	}
+	public void setProdLOption4(String prodLOption4) {
+		this.prodLOption4 = prodLOption4;
+	}
+	public String getProdLOption5() {
+		return prodLOption5;
+	}
+	public void setProdLOption5(String prodLOption5) {
+		this.prodLOption5 = prodLOption5;
+	}
 	public String getProdLProdnm() {
 		return prodLProdnm;
 	}
@@ -60,11 +75,11 @@ public class ProdDTO extends PageDTO {
 	public void setProdLPrice(int prodLPrice) {
 		this.prodLPrice = prodLPrice;
 	}
-	public String getProdLUpdate() {
+	public Timestamp getProdLUpdate() {
 		return prodLUpdate;
 	}
-	public void setProdLUpdate(String prodLUpdate) {
-		this.prodLUpdate = prodLUpdate;
+	public void setProdLUpdate(Timestamp timestamp) {
+		this.prodLUpdate = timestamp;
 	}
 	public String getProdLCompnm() {
 		return prodLCompnm;
@@ -72,6 +87,7 @@ public class ProdDTO extends PageDTO {
 	public void setProdLCompnm(String prodLCompnm) {
 		this.prodLCompnm = prodLCompnm;
 	}
+
 	public String getProdLMainimg() {
 		return prodLMainimg;
 	}
