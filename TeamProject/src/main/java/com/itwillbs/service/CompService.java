@@ -9,7 +9,7 @@ import com.itwillbs.domain.ProdStockDTO;
 
 public interface CompService {
 
-	void insertProd(ProdDTO prodDTO, Map<String, Object> opMap);
+	void insertProd(ProdDTO prodDTO);
 
 	List<ProdDTO> getProdList(PageDTO pageDTO);
 
