@@ -8,6 +8,7 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import com.itwillbs.domain.CompDTO;
 import com.itwillbs.domain.PageDTO;
 import com.itwillbs.domain.ProdDTO;
 import com.itwillbs.domain.ProdStockDTO;
@@ -27,8 +28,8 @@ public class CompDAOImpl implements CompDAO {
 		sqlSession.insert(namespace + ".insertProd", prodDTO);
 	}
 	@Override
-	public ProdDTO getProd(int num) {
-		return sqlSession.selectOne(namespace+".getProd", num);
+	public ProdDTO getProd(String prodLCode) {
+		return sqlSession.selectOne(namespace+".getProd", prodLCode);
 	}
 	@Override
 	public List<ProdDTO> getProdList(PageDTO pageDTO) {
@@ -41,10 +42,18 @@ public class CompDAOImpl implements CompDAO {
 	}
 	@Override
 	public void deleteProd(String prodLCode) {
-		System.out.println( "deleteProd" + prodLCode);
 		sqlSession.delete(namespace+".deleteProd", prodLCode);
 	}
+	@Override
+	public void updateProd(ProdDTO prodDTO) {
+		sqlSession.update(namespace + ".updateProd", prodDTO);
+	}
 
+	// 업체 정보 갖고 오기
+	@Override
+	public CompDTO getComp(CompDTO compDTO) {
+		return sqlSession.selectOne(namespace + ".getComp", compDTO);
+	}
 
 
 }

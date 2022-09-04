@@ -62,7 +62,7 @@
 													<div class="row">
 													<div class="mb-3">
 														<label class="form-label" for="basic-default-fullname">업체ID</label>
-														<input type="text" class="form-control" id="basic-default-fullname" name="prodLCompNm" value="${sessionScope.compId }" readonly />
+														<input type="text" class="form-control" id="basic-default-fullname" name="compId" value="${sessionScope.compId }" readonly />
 													</div>
 													<div class="food col-4" >
 														<label for="defaultSelect" class="form-label">상품종류</label>
