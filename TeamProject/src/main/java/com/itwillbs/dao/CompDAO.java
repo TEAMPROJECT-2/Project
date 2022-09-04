@@ -9,7 +9,7 @@ import com.itwillbs.domain.ProdStockDTO;
 
 public interface CompDAO {
 
-	public void insertProd(ProdDTO prodDTO, Map<String, Object> opMap);
+	public void insertProd(ProdDTO prodDTO);
 
 	ProdDTO getProd(int num);
 

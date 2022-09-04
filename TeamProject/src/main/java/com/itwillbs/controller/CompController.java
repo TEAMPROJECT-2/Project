@@ -54,7 +54,7 @@ public class CompController {
 
 
 	@RequestMapping(value = "/comp/insertGoodsPro", method = RequestMethod.POST)
-	public String insertPro(HttpServletRequest request,HttpSession session,MultipartFile prodLMainImg,MultipartFile prodLSubImg) throws Exception {
+	public String insertPro(HttpServletRequest request,HttpSession session,MultipartFile prodLMainimg,MultipartFile prodLSubimg) throws Exception {
 //		ProdDTO prodDTO,
 		// 로그인후 세션값, 업체 아이디 갖고옴
 		System.out.println("insertPro");
@@ -66,53 +66,32 @@ public class CompController {
 
 		UUID uuid=UUID.randomUUID();
 
-		String MainImg=uuid.toString()+"_"+prodLMainImg.getOriginalFilename();
-		String SubImg=uuid.toString()+"_"+prodLSubImg.getOriginalFilename();
+		String MainImg=uuid.toString()+"_"+prodLMainimg.getOriginalFilename();
+		String SubImg=uuid.toString()+"_"+prodLSubimg.getOriginalFilename();
 
 		//업로드파일 file.getBytes() => upload/랜덤문자_파일이름 복사
 		File uploadMainFile=new File(compUploadPath, MainImg);
 		File uploadSubFile=new File(compUploadPath,SubImg);
-
-		FileCopyUtils.copy(prodLMainImg.getBytes(), uploadMainFile);
-		FileCopyUtils.copy(prodLSubImg.getBytes(), uploadSubFile);
+		System.out.println("메인사진이름 : "+MainImg);
+		FileCopyUtils.copy(prodLMainimg.getBytes(), uploadMainFile);
+		FileCopyUtils.copy(prodLSubimg.getBytes(), uploadSubFile);
 
 		prodDTO.setProdLCode(request.getParameter("prodLCode"));
-		prodDTO.setProdLType(request.getParameter("default-radio-1"));
 		prodDTO.setProdLOption1(request.getParameter("prodLOption1"));
 		prodDTO.setProdLOption2(request.getParameter("prodLOption2"));
+		prodDTO.setProdLOption3(request.getParameter("prodLOption3"));
+		prodDTO.setProdLOption4(request.getParameter("prodLOption4"));
+		prodDTO.setProdLOption5(request.getParameter("prodLOption5"));
 		prodDTO.setProdLProdnm(request.getParameter("prodLProdNm"));
 		prodDTO.setProdLPrice(Integer.parseInt(request.getParameter("prodLPrice")));
 		prodDTO.setProdLDetail(request.getParameter("ProdLDetail"));
 		prodDTO.setProdLQuantity(Integer.parseInt(request.getParameter("prodLQuantity")));
-
-
-
-
 		prodDTO.setProdLSubimg(SubImg);
 		prodDTO.setProdLMainimg(MainImg);
 
-		// 관리자 물품 입력시 옵션 넣기
-		Map<String, Object> opMap = new HashMap<String, Object>();
-		opMap.put("ProdCodeKey",request.getParameter("prodLCode"));
 
 
-		Map<String,Object> op1Map ;
-
-		 List<Map<String,Object>> opList = new ArrayList<Map<String,Object>>();
-
-		 op1Map = new HashMap<String, Object>();
-		 op1Map.put("prodLOptionKey",request.getParameter("prodLOption1"));
-		 op1Map.put("prodOptionNmKey",request.getParameter("prodOptionNm1"));
-		 opList.add(op1Map);
-
-		 op1Map = new HashMap<String, Object>();
-		 op1Map.put("prodLOptionKey",request.getParameter("prodLOption2"));
-		 op1Map.put("prodOptionNmKey",request.getParameter("prodOptionNm2") );
-		 opList.add(op1Map);
-
-		 opMap.put("opList",opList);
-
-		compService.insertProd(prodDTO,opMap);
+		compService.insertProd(prodDTO);
 //		System.out.println(prodDTO);
 		// 주소변경 이동
 		return "redirect:/comp/insertGoods";
@@ -175,7 +154,7 @@ public class CompController {
 		}
 
 
-		return "redirect:/comp/deleteProd";
+		return "null";
 	}
 
 
@@ -205,3 +184,4 @@ public class CompController {
 	}
 
 }
+

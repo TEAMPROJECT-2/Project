@@ -19,10 +19,10 @@ public class CompServiceImpl implements CompService {
 	private CompDAO compDAO;
 	//상품등록
 	@Override
-	public void insertProd(ProdDTO prodDTO,Map<String, Object> opMap) {
+	public void insertProd(ProdDTO prodDTO) {
 		prodDTO.setProdLUpdate(new Timestamp(System.currentTimeMillis()));
 
-		compDAO.insertProd(prodDTO,opMap);
+		compDAO.insertProd(prodDTO);
 	}
 
 
@@ -60,3 +60,4 @@ public class CompServiceImpl implements CompService {
 
 
 }
+
