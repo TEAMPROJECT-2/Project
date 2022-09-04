@@ -83,21 +83,10 @@
             <li class="menu-item">
               <a href="${pageContext.request.contextPath }/comp/deleteProd" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-collection"></i>
-                <div data-i18n="Basic">상품삭제</div>
+                <div data-i18n="Basic">상품수정/삭제</div>
               </a>
             </li>
-            <li class="menu-item">
-              <a href="${pageContext.request.contextPath }/comp/updateProd" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-collection"></i>
-                <div data-i18n="Basic">상품수정</div>
-              </a>
-            </li>
-            <li class="menu-item">
-              <a href="${pageContext.request.contextPath }/comp/prodList" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-collection"></i>
-                <div data-i18n="Basic">상품목록</div>
-              </a>
-            </li>
+
         <li class="menu-header small text-uppercase"><span class="menu-header-text">주문관리</span></li>
             <!-- Cards -->
             <li class="menu-item">

@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.itwillbs.domain.BoardDTO;
+import com.itwillbs.domain.CompDTO;
 import com.itwillbs.domain.MemberDTO;
 import com.itwillbs.domain.PageDTO;
 import com.itwillbs.domain.ProdDTO;
@@ -144,26 +146,90 @@ public class CompController {
 	}
 	// 삭제기능 구현
 	@RequestMapping(value = "/comp/delete")
-	public String compProdDeleteAjax(HttpServletRequest request) {
+	public int compProdDeleteAjax(HttpServletRequest request) {
+		int result = 1;
 		String[] ajaxMsg = request.getParameterValues("valueArr");
 		System.out.println("compController : "+ajaxMsg[0]);
-		int size = ajaxMsg.length;
-		for(int i=0; i<size; i++) {
+		// 삭제되는 데이터 만큼 for 문을 돌려 compService.deleteProd 호출
+		for(int i=0; i<ajaxMsg.length; i++) {
 			compService.deleteProd(ajaxMsg[i]);
 			System.out.println("compController : "+ ajaxMsg[i]);
 		}
 
 
-		return "null";
+
+		return result;
 	}
 
+	// 수정
+	@RequestMapping(value = "/comp/update", method = RequestMethod.GET)
+	public String update(HttpServletRequest request, Model model) {
+		//파라미터 가져오기
+		String prodLCode=request.getParameter("CheckRow");
+		// 디비에서 조회
+		System.out.println(prodLCode);
+		ProdDTO prodDTO=compService.getProd(prodLCode);
 
+		// model에 데이터 저장
+		model.addAttribute("prodDTO", prodDTO);
 
+		// 주소변경없이 이동
+		// WEB-INF/views/board/updateForm.jsp 이동
+		return "/comp/updateProd";
+	}
 
+	@RequestMapping(value = "/comp/updatePro", method = RequestMethod.POST)
+	public String updatePro(HttpSession session,HttpServletRequest request,MultipartFile prodLMainimg,MultipartFile prodLSubimg) throws Exception {
+		String filenamemain = "";
+		String filenamesub = "";
+		if(prodLMainimg.isEmpty()) {
+			filenamemain=request.getParameter("oldfilemain");
+		}else {
+			UUID uuid=UUID.randomUUID();
+			filenamemain=uuid.toString()+"_"+prodLMainimg.getOriginalFilename();
+			//업로드파일 file.getBytes() => upload/랜덤문자_파일이름 복사
+			File uploadFileMain=new File(compUploadPath,filenamemain);
 
+			FileCopyUtils.copy(prodLMainimg.getBytes(), uploadFileMain);
+		}
+		if(prodLSubimg.isEmpty()) {
+			filenamemain=request.getParameter("oldfilesub");
+		}else {
+			UUID uuid=UUID.randomUUID();
+			filenamemain=uuid.toString()+"_"+prodLSubimg.getOriginalFilename();
+			//업로드파일 file.getBytes() => upload/랜덤문자_파일이름 복사
+			File uploadFileSub=new File(compUploadPath,filenamesub);
 
+			FileCopyUtils.copy(prodLSubimg.getBytes(), uploadFileSub);
+		}
 
+				ProdDTO prodDTO=new ProdDTO();
+				prodDTO.setProdLCode(request.getParameter("prodLCode"));
+				prodDTO.setProdLPrice(Integer.parseInt(request.getParameter("prodLPrice")));
+				prodDTO.setProdLQuantity(Integer.parseInt(request.getParameter("prodSCount")));
+				prodDTO.setProdLDetail(request.getParameter("ProdLDetail"));
+				prodDTO.setProdLMainimg(filenamemain);
+				prodDTO.setProdLSubimg(filenamesub);
 
+		//id 일치 확인
+		CompDTO compDTO = new CompDTO();
+		String CompNm = (String)session.getAttribute("compId");
+		compDTO.setCompId(CompNm);
+		System.out.println("업체 아이디 : "+compDTO.getCompId());
+		compDTO=compService.getComp(compDTO);
+		if(compDTO!=null) {
+//			num pass 일치
+			compService.updateProd(prodDTO);
+			// 주소변경하면서 이동 /board/list 이동
+			return "redirect:/comp/updateProd";
+		}else {
+			// 아이디 틀림
+			// "틀림" 뒤로이동
+			// 주소변경없이 이동
+			// WEB-INF/views/board/msg.jsp 이동
+			return "board/msg";
+		}
+	}
 
 
 	@RequestMapping(value = "/comp/prodRefund", method = RequestMethod.GET)

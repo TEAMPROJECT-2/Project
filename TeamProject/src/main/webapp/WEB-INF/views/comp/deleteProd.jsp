@@ -12,7 +12,7 @@
 >
   <head>
   <script src="http://code.jquery.com/jquery-3.6.0.js"></script>
-  <script src="${pageContext.request.contextPath }/resources/js/deleteProd.js"></script>
+  <script src="${pageContext.request.contextPath }/resources/jsPro/deleteProd.js?testNum=2"></script>
 <!--   전체선택, 선택삭제 자바스크립트 -->
 
 
@@ -100,8 +100,8 @@
                     </thead>
                     <tbody class="table-border-bottom-0">
 					  <c:forEach var="prodDTO" items="${prodList }">
-                      <tr>
-                      	<td>&nbsp;&nbsp;&nbsp;&nbsp;<input class="form-check-input" type="checkbox" value="${prodDTO.prodLCode }" name="CheckRow" id="defaultCheck1" />
+                      <tr onClick="location.href='${pageContext.request.contextPath }/comp/update?CheckRow=${prodDTO.prodLCode }'" style="cursor:pointer;">
+                      	<td onclick="event.cancelBubble=true">&nbsp;&nbsp;&nbsp;&nbsp;<input class="form-check-input" type="checkbox" value="${prodDTO.prodLCode }" name="CheckRow" id="defaultCheck1" />
                       	<label class="form-check-label" for="defaultCheck1"> 선택 </label></td>
                         <td>${prodDTO.prodLNum }</td>
                         <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>${prodDTO.prodLCode }</strong></td>

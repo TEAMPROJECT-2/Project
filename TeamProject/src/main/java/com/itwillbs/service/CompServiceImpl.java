@@ -9,6 +9,7 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 
 import com.itwillbs.dao.CompDAO;
+import com.itwillbs.domain.CompDTO;
 import com.itwillbs.domain.PageDTO;
 import com.itwillbs.domain.ProdDTO;
 import com.itwillbs.domain.ProdStockDTO;
@@ -45,8 +46,8 @@ public class CompServiceImpl implements CompService {
 		return compDAO.getProdCount();
 	}
 	@Override
-	public ProdDTO getProd(int num) {
-		return compDAO.getProd(num);
+	public ProdDTO getProd(String prodLCode) {
+		return compDAO.getProd(prodLCode);
 	}
 
 
@@ -55,7 +56,18 @@ public class CompServiceImpl implements CompService {
 	public void deleteProd(String prodLCode) {
 		compDAO.deleteProd(prodLCode);
 	}
+	// 상품 수정
+	@Override
+	public void updateProd(ProdDTO prodDTO) {
+		compDAO.updateProd(prodDTO);
+	}
 
+
+	// 업체 정보 갖고 오기
+	@Override
+	public CompDTO getComp(CompDTO compDTO) {
+		return compDAO.getComp(compDTO);
+	}
 
 
 
