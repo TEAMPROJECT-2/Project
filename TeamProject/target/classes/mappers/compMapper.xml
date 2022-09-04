@@ -46,16 +46,9 @@
 	</insert>
 
 	<select id="getProd" resultType="com.itwillbs.domain.ProdDTO">
-		   SELECT	PROD_L_NUM
-			       ,PROD_L_CODE
-			       ,PROD_L_OPTION1
-			       ,PROD_L_OPTION2
-			       ,PROD_L_PRODNM
-			       ,PROD_L_PRICE
-			       ,PROD_L_QUANTITY
+		   SELECT	*
 		    FROM    PRODUCT_LIST
-<!-- 		   WHERE    PROD_L_COMPNM=#{delProdNum} -->
-		   WHERE    PROD_L_NUM=#{num}
+		   WHERE    PROD_L_CODE=#{prodLCode}
 
 	</select>
 	<select id="getProdList" resultType="com.itwillbs.domain.ProdDTO">
@@ -83,8 +76,20 @@
 	   	     WHERE  PROD_L_CODE=#{prodLCode}
 	</delete>
 
-
-
+	<update id="updateProd">
+		UPDATE  PRODUCT_LIST
+		   SET  PROD_L_PRICE    =#{prodLPrice}
+			   ,PROD_L_MAINIMG  =#{prodLMainimg}
+			   ,PROD_L_SUBIMG   =#{prodLSubimg}
+			   ,PROD_L_DETAIL   =#{prodLDetail}
+			   ,PROD_L_QUANTITY =#{prodLQuantity}
+	     WHERE  PROD_L_CODE     =#{prodLCode}
+	</update>
+	<select id="getComp" resultType="com.itwillbs.domain.CompDTO">
+		SELECT *
+		  FROM COMPANY_INFO
+		 WHERE COMP_ID=#{compId}
+	</select>
 <!-- 	todo -->
 	<insert id="insertProdStock">
 		INSERT INTO PRODUCT_STOCK(
