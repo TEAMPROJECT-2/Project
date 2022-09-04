@@ -89,10 +89,10 @@
 	</select>
 
 <!-- 마지막 로그인 체크 -->
-	<select id="loginCheck" resultType="com.itwillbs.domain.MemberDTO">
+	<update id="loginCheck">
 		UPDATE USER_INFO
 		   SET USER_LAST_DATE=#{userLastDate}
-	</select>
+	</update>
 
 <!-- 아이디 중복 체크 / 멤버 불러오기 -->
 	<select id="getMember" resultType="com.itwillbs.domain.MemberDTO">

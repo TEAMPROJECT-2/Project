@@ -48,8 +48,6 @@ public class MemberController {
 	@RequestMapping(value = "/member/joinSuccess", method = RequestMethod.GET)
 	public String joinSuccess(MemberDTO memberDTO) throws Exception{
 		memberService.updateEmailAuth(memberDTO);
-		System.out.println(memberService.updateEmailAuth(memberDTO));
-		System.out.println(memberDTO+"나");
 		// 이메일 인증 성공 시 추가정보 입력 후 관심있는 운동에 대한 추천
 		return "member/joinSuccess";
 	}
@@ -152,36 +150,6 @@ public class MemberController {
 		return "redirect:/main/main";
 	}
 
-	// 마이페이지
-	@RequestMapping(value = "/member/mypage", method = RequestMethod.GET)
-	public String mypage() {
-		return "member/mypage";
-	}
-
-	// 마이페이지 - 회원정보수정
-	@RequestMapping(value = "/member/modify", method = RequestMethod.GET)
-	public String Modify() {
-		return "member/userModify";
-	}
-
-	// 마이페이지 - 회원연결정보
-	@RequestMapping(value = "/member/connection", method = RequestMethod.GET)
-	public String connection() {
-		return "member/userConnection";
-	}
-
-	// 마이페이지 - 배송지 관리
-	@RequestMapping(value = "/member/addr", method = RequestMethod.GET)
-	public String address() {
-		return "member/userAddress";
-	}
-
-	// 마이페이지 - 포인트
-	@RequestMapping(value = "/member/point", method = RequestMethod.GET)
-	public String point() {
-		return "member/userPoint";
-	}
-
 
 	@RequestMapping(value = "/basic/basic-badge-button", method = RequestMethod.GET)
 	public String basicBasicBadgeButton() {
@@ -249,20 +217,6 @@ public class MemberController {
 		return "order/cart";
 	}
 
-
-	@RequestMapping(value = "/member/info", method = RequestMethod.GET)
-	public String info(HttpSession session, Model model) {
-//		// 세션값 가져오기
-		String userId=(String)session.getAttribute("userId");
-		// id에 대한 정보를 디비에 가져오기
-		MemberDTO memberDTO = memberService.getMember(userId);
-		// 가져온 정보를 담아 info.jsp 이동
-		model.addAttribute("memberDTO",memberDTO);
-
-//		// 주소변경없이 이동
-		// WEB-INF/views/member/info.jsp 이동
-		return "member/info";
-	}
 
 
 

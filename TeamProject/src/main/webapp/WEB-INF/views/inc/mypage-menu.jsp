@@ -57,7 +57,7 @@
           <ul class="menu-inner py-1">
             <!-- Dashboard -->
             <li class="menu-item active">
-              <a href="${pageContext.request.contextPath }/member/mypage" class="menu-link">
+              <a href="${pageContext.request.contextPath }/mypage" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
                 <div data-i18n="Analytics">마이페이지</div>
               </a>
@@ -67,13 +67,13 @@
               <span class="menu-header-text">내 계정</span>
             </li>
             <li class="menu-item">
-              <a href="${pageContext.request.contextPath }/member/modify" class="menu-link">
+              <a href="${pageContext.request.contextPath }/mypage/modify" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-user"></i>
                 <div data-i18n="Tables">계정 정보</div>
               </a>
            </li>
             <li class="menu-item">
-              <a href="${pageContext.request.contextPath }/member/connection" class="menu-link">
+              <a href="${pageContext.request.contextPath }/mypage/connection" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-link"></i>
                 <div data-i18n="Tables">연결</div>
               </a>
@@ -83,13 +83,13 @@
             <li class="menu-header small text-uppercase"><span class="menu-header-text">주문</span></li>
             <!-- 내가 쓴 것들 -->
             <li class="menu-item">
-              <a href="${pageContext.request.contextPath }/member/addr" class="menu-link">
+              <a href="${pageContext.request.contextPath }/mypage/addr" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-buildings"></i>
                 <div data-i18n="Tables">배송지 관리</div>
               </a>
             </li>
             <li class="menu-item">
-              <a href="${pageContext.request.contextPath }/member/order" class="menu-link">
+              <a href="${pageContext.request.contextPath }/mypage/order" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-detail"></i>
                 <div data-i18n="Tables">주문 목록</div>
               </a>
@@ -99,13 +99,13 @@
             <li class="menu-header small text-uppercase"><span class="menu-header-text">포인트/쿠폰</span></li>
             <!-- 내가 쓴 것들 -->
               <li class="menu-item">
-              <a href="${pageContext.request.contextPath }/member/point" class="menu-link">
+              <a href="${pageContext.request.contextPath }/mypage/point" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-dock-top"></i>
                 <div data-i18n="Tables">포인트</div>
               </a>
             </li>
              <li class="menu-item">
-              <a href="${pageContext.request.contextPath }/member/comment" class="menu-link">
+              <a href="${pageContext.request.contextPath }/mypage/comment" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-dock-top"></i>
                 <div data-i18n="Tables">쿠폰</div>
               </a>

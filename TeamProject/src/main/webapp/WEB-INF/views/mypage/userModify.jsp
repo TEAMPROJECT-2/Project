@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!DOCTYPE html>
 <html
@@ -46,19 +47,19 @@
 
                     <hr class="my-0" />
                     <div class="card-body">
-                      <form id="formAccountSettings" action="${pageContext.request.contextPath}/member/joinMemPro" method="POST" onsubmit="return false">
+                      <form id="formAccountSettings" action="${pageContext.request.contextPath}/member/modifyPro" method="POST">
                         <div class="row">
                           <div class="mb-3 col-md-6">
                             <label for="userNm" class="form-label">이름</label>
-                            <input class="form-control form-control-lg" type="text" name="userNm" id="userNm" />
+                            <input class="form-control form-control-lg" type="text" name="userNm" id="userNm" value="${memberDTO.userNm}" readonly />
                           </div>
                           <div class="mb-3 col-md-6">
                             <label for="userEmail" class="form-label">이메일</label>
-                            <input class="form-control form-control-lg" type="email" name="userEmail" id="userEmail" />
+                            <input class="form-control form-control-lg" type="email" name="userEmail" id="userEmail" value="${memberDTO.userEmail}" readonly />
                           </div>
                           <div class="mb-3 col-md-6">
                             <label for="userNicknm" class="form-label">닉네임</label>
-                            <input class="form-control form-control-lg" type="text" name="userNicknm" id="userNicknm" placeholder="닉네임"/>
+                            <input class="form-control form-control-lg" type="text" name="userNicknm" id="userNicknm" placeholder="닉네임" value="${memberDTO.userNicknm}"/>
                           </div>
                           <div class="mb-3 col-md-6">
                             <label for="userPass" class="form-label">비밀번호</label>
@@ -66,18 +67,24 @@
                           </div>
                           <div class="mb-3 col-md-6">
                             <label for="userPhone" class="form-label">연락처</label>
-                            <input class="form-control form-control-lg" type="text" name="userPhone" id="userPhone" placeholder="012-3456-7890" />
+                            <input class="form-control form-control-lg" type="text" name="userPhone" id="userPhone" placeholder="012-3456-7890" value="${memberDTO.userPhone}"/>
                           </div>
                           <div class="mb-3 col-md-6">
                             <label class="form-label" for="userAthletic">관심 운동</label>
-                            <select id="userAthletic " class="select2 form-control form-control-lg">
-                              <option value="">관심있는 운동을 선택해주세요</option>
-                              <option value="health">헬스</option>
-                              <option value="crossfit">크로스핏</option>
-                              <option value="plates">필라테스</option>
-                              <option value="boxing">복싱</option>
-                              <option value="yoga">요가</option>
-                              <option value="homet">홈트레이닝</option>
+                            <select class="select2 form-control form-control-lg" id="userAthletic " name="userAthletic">
+                            	<option value="" <c:if test="${userAthletic eq null}">selected</c:if>>관심 운동을 선택해주세요</option>
+                            	<option value="헬스" <c:if test="${userAthletic eq '헬스'}">selected</c:if>>헬스</option>
+								<option value="크로스핏" <c:if test="${userAthletic eq '크로스핏'}">selected</c:if>>크로스핏</option>
+								<option value="필라테스" <c:if test="${userAthletic eq '필라테스'}">selected</c:if>>필라테스</option>
+								<option value="복싱" <c:if test="${userAthletic eq '복싱'}">selected</c:if>>복싱</option>
+								<option value="요가" <c:if test="${userAthletic eq '요가'}">selected</c:if>>요가</option>
+								<option value="홈트레이닝" <c:if test="${userAthletic eq '홈트레이닝'}">selected</c:if>>홈트레이닝</option>
+<!--                               <option value="health">헬스</option> -->
+<!--                               <option value="crossfit">크로스핏</option> -->
+<!--                               <option value="plates">필라테스</option> -->
+<!--                               <option value="boxing">복싱</option> -->
+<!--                               <option value="yoga">요가</option> -->
+<!--                               <option value="homet">홈트레이닝</option> -->
                             </select>
                           </div>
                         </div>
