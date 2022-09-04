@@ -4,7 +4,6 @@
 
 <!DOCTYPE html>
 <html
-  lang="en"
   class="light-style layout-menu-relative"
   dir="ltr"
   data-theme="theme-default"
@@ -12,6 +11,43 @@
   data-template="vertical-menu-template-free"
 >
   <head>
+<script type="text/javascript"
+src="${pageContext.request.contextPath }/resources/js/jquery-3.6.0.js"></script>
+<script type="text/javascript">
+
+// 탈퇴 비밀번호 입력창 나오게
+$(document).ready(function(){
+	$('#delCheck').change(function(){
+		if ($('#delCheck').is(':checked')) {
+			$('#delDiv').show();
+		}else {
+			$('#delDiv').hide();
+
+		}
+	});
+});
+
+// 탈퇴
+$(document).ready(function(){
+	$('#delBtn').click(function(){
+		$.ajax({
+			url:'${pageContext.request.contextPath }/mypage/deletePro',
+			type:'POST',
+			data:{'userId':$('#userId1').val(),'userPass':$('#userPass1').val()},
+			success:function(rdata){
+				 if(rdata=="1"){	// 아이디 없음
+						window.location.href = "${pageContext.request.contextPath }/main/main"
+				 	}else{				// 아이디 있음
+				 		alert("다시 입력해주세요!")
+				 	}
+
+			}
+		});
+	});
+});
+
+</script>
+
   </head>
 
   <body>
@@ -33,10 +69,15 @@
                 <div class="col-md-12">
                   <ul class="nav nav-pills flex-column flex-md-row mb-3">
                     <li class="nav-item">
-                      <a class="nav-link active" href="javascript:void(0);"><i class="bx bx-user me-1"></i> 계정 정보</a>
+                      <a class="nav-link active" href="${pageContext.request.contextPath }/mypage/modify">
+                      <i class="bx bx-user me-1"></i> 계정 정보</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="${pageContext.request.contextPath }/member/connection">
+                      <a class="nav-link" href="${pageContext.request.contextPath }/mypage/passMod">
+                      <i class="bx bx-user me-1"></i> 비밀번호 변경</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="${pageContext.request.contextPath }/mypage/connection">
                       <i class="bx bx-link-alt me-1"></i> 연결</a>
                     </li>
                   </ul>
@@ -47,11 +88,12 @@
 
                     <hr class="my-0" />
                     <div class="card-body">
-                      <form id="formAccountSettings" action="${pageContext.request.contextPath}/member/modifyPro" method="POST">
+                      <form id="formAccountSettings" action="${pageContext.request.contextPath}/mypage/modifyPro" method="POST">
                         <div class="row">
+                            <input class="form-control form-control-lg" type="hidden" name="userId" id="userId" value="${memberDTO.userId}" readonly />
                           <div class="mb-3 col-md-6">
                             <label for="userNm" class="form-label">이름</label>
-                            <input class="form-control form-control-lg" type="text" name="userNm" id="userNm" value="${memberDTO.userNm}" readonly />
+                            <input class="form-control form-control-lg" type="text" name="userNm" id="userNm" value="${memberDTO.userNm}"/>
                           </div>
                           <div class="mb-3 col-md-6">
                             <label for="userEmail" class="form-label">이메일</label>
@@ -72,19 +114,12 @@
                           <div class="mb-3 col-md-6">
                             <label class="form-label" for="userAthletic">관심 운동</label>
                             <select class="select2 form-control form-control-lg" id="userAthletic " name="userAthletic">
-                            	<option value="" <c:if test="${userAthletic eq null}">selected</c:if>>관심 운동을 선택해주세요</option>
-                            	<option value="헬스" <c:if test="${userAthletic eq '헬스'}">selected</c:if>>헬스</option>
-								<option value="크로스핏" <c:if test="${userAthletic eq '크로스핏'}">selected</c:if>>크로스핏</option>
-								<option value="필라테스" <c:if test="${userAthletic eq '필라테스'}">selected</c:if>>필라테스</option>
-								<option value="복싱" <c:if test="${userAthletic eq '복싱'}">selected</c:if>>복싱</option>
-								<option value="요가" <c:if test="${userAthletic eq '요가'}">selected</c:if>>요가</option>
-								<option value="홈트레이닝" <c:if test="${userAthletic eq '홈트레이닝'}">selected</c:if>>홈트레이닝</option>
-<!--                               <option value="health">헬스</option> -->
-<!--                               <option value="crossfit">크로스핏</option> -->
-<!--                               <option value="plates">필라테스</option> -->
-<!--                               <option value="boxing">복싱</option> -->
-<!--                               <option value="yoga">요가</option> -->
-<!--                               <option value="homet">홈트레이닝</option> -->
+                           	    <option value="헬스" ${userAthletic == '헬스' ? 'selected="selected"' : '' }>헬스</option>
+							    <option value="크로스핏" ${userAthletic == '크로스핏' ? 'selected="selected"' : '' }>크로스핏</option>
+							    <option value="필라테스" ${userAthletic == '필라테스' ? 'selected="selected"' : '' }>필라테스</option>
+							    <option value="복싱" ${userAthletic == '복싱' ? 'selected="selected"' : '' }>복싱</option>
+							    <option value="요가" ${userAthletic == '요가' ? 'selected="selected"' : '' }>요가</option>
+							    <option value="홈트레이닝" ${userAthletic == '홈트레이닝' ? 'selected="selected"' : '' }>홈트레이닝</option>
                             </select>
                           </div>
                         </div>
@@ -95,6 +130,8 @@
                       </form>
                     </div>
                     <!-- /Account -->
+
+                    <!-- 회월탈퇴 -->
                   </div>
                   <div class="card">
                     <h5 class="card-header">회원 탈퇴</h5>
@@ -105,19 +142,23 @@
                           <p class="mb-0">탈퇴하면 다시 되돌릴 수 없어요. 신중하게 결정해주세요!</p>
                         </div>
                       </div>
-                      <form id="formAccountDeactivation" onsubmit="return false">
+                      <form id="deleteUser" method="POST">
                         <div class="form-check mb-3">
                           <input
                             class="form-check-input"
                             type="checkbox"
-                            name="accountActivation"
-                            id="accountActivation"
+                            id="delCheck"
                           />
-                          <label class="form-check-label" for="accountActivation"
-                            >안내사항을 숙지했고 탈퇴를 계속 진행할래요.</label
-                          >
+                          <label class="form-check-label" for="delCheck">안내사항을 숙지했고 탈퇴를 계속 진행할래요.</label>
                         </div>
-                        <button type="submit" class="btn btn-danger deactivate-account">회원 탈퇴하기</button>
+
+                          <div class="mb-3 col-md-4" id="delDiv" style="display: none">
+                            <label for="userPass" class="form-label">비밀번호를 입력하세요</label>
+                            <input class="form-control form-control-lg" type="hidden" name="userId1" id="userId1" value="${memberDTO.userId}"/>
+                            <input class="form-control form-control-lg" type="password" name="userPass1" id="userPass1"/>
+                          </div>
+
+                        <button type="button" name="delBtn" id="delBtn" class="btn btn-danger deactivate-account">회원 탈퇴하기</button>
                       </form>
                     </div>
                   </div>

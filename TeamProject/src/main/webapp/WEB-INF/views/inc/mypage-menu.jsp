@@ -73,6 +73,12 @@
               </a>
            </li>
             <li class="menu-item">
+              <a href="${pageContext.request.contextPath }/mypage/passMod" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-user"></i>
+                <div data-i18n="Tables">비밀번호 변경</div>
+              </a>
+           </li>
+            <li class="menu-item">
               <a href="${pageContext.request.contextPath }/mypage/connection" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-link"></i>
                 <div data-i18n="Tables">연결</div>
@@ -190,6 +196,7 @@
                 <div data-i18n="Tables">Tables</div>
               </a>
             </li>
+            </ul>
         </aside>
         <!-- / Menu -->
 

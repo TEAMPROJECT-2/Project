@@ -13,13 +13,9 @@
 				   ,USER_PASS
 				   ,USER_NM
 				   ,USER_EMAIL
-				   ,USER_GENDER
 				   ,USER_ATHLETIC
 				   ,USER_NICKNM
 				   ,USER_PHONE
-				   ,USER_ZIPCODE
-				   ,USER_ADDRESS
-				   ,USER_ADDRESS_DETAILS
 				   ,USER_DATE
 				   ,USER_POINT
 				   ,MY_COUPON_NUM
@@ -37,13 +33,9 @@
 				   ,#{userPass}
 				   ,#{userNm}
 				   ,#{userEmail}
-				   ,#{userGender}
 				   ,#{userAthletic}
 				   ,#{userNicknm}
 				   ,#{userPhone}
-				   ,#{userZipcode}
-				   ,#{userAddress}
-				   ,#{userAddressDetails}
 				   ,#{userDate}
 				   ,#{userPoint}
 				   ,#{myCouponNum}
@@ -157,13 +149,12 @@
 
 <!-- 회원 정보 수정 -->
 	<update id="modUser">
-		UPDATE USER_INFO SET
-		<if test="userPass != null">
-				USER_PASS	=#{userPass},
-		</if>	USER_EMAIL	=#{userEmail},
-				USER_PHONE	=#{userPhone},
-				USER_NM		=#{userNm}
-		 WHERE USER_ID		=#{userId}
+		UPDATE USER_INFO
+		   SET	USER_NM			=#{userNm},
+		   		USER_NICKNM		=#{userNicknm},
+				USER_PHONE		=#{userPhone},
+				USER_ATHLETIC	=#{userAthletic}
+		 WHERE USER_ID			=#{userId}
 	</update>
 
 <!-- 회원 탈퇴 -->

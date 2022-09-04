@@ -30,7 +30,7 @@ public class MypageController {
 	// 마이페이지
 	@RequestMapping(value = "/mypage", method = RequestMethod.GET)
 	public String mypage() {
-		return "member/mypage";
+		return "mypage/mypage";
 	}
 
 	// 마이페이지 - 회원정보수정
@@ -51,13 +51,13 @@ public class MypageController {
 	public String modifyPro(MemberDTO memberDTO, HttpSession session) {
 		// 메서드 호출
 		MemberDTO memberDTO2=memberService.userCheck(memberDTO);
-		System.out.println("MemberController updatePro()"+memberDTO2);
+		System.out.println("MemberController modUser()"+memberDTO2+memberDTO);
 		if(memberDTO2!=null) {
 			//아이디 비밀번호 일치
 			// 수정작업
 			memberService.modUser(memberDTO);
 			// 주소변경 이동
-			return "redirect:/mains/main";
+			return "redirect:/mypage/modify";
 		}else {
 			//아이디 비밀번호 틀림
 			return "mypage/msg";
@@ -65,34 +65,29 @@ public class MypageController {
 	}
 
 	// 회원탈퇴
-	@RequestMapping(value = "/mypage/delete", method = RequestMethod.GET)
-	public String delete(HttpSession session, Model model) {
-
-		// 주소변경없이 이동
-		// WEB-INF/views/member/delete.jsp 이동
-		return "mypage/deleteForm";
-	}
-
 	@RequestMapping(value = "/mypage/deletePro", method = RequestMethod.POST)
 	public String deletePro(MemberDTO memberDTO, HttpSession session) {
 		System.out.println("MemberController deletePro()");
 		// 메서드 호출
 		MemberDTO memberDTO2=memberService.userCheck(memberDTO);
 		if(memberDTO2!=null) {
-			//아이디 비밀번호 일치
-			// 수정작업
+			System.out.println("MemberController delUser()+"+memberDTO2+memberDTO);
 			memberService.delUser(memberDTO);
 			// 세션값 초기화
 			session.invalidate();
-			// /member/main 이동
-			// 주소변경 이동
-			return "redirect:/member/main";
+			return "redirect:/main/main";
 		}else {
-			//아이디 비밀번호 틀림
-			return "member/msg";
+			// 비밀번호 틀림
+			System.out.println("MemberController delUserfail()+"+memberDTO2+memberDTO);
+			return "mypage/msg";
 		}
 	}
 
+	// 마이페이지 - 비밀번호변경
+	@RequestMapping(value = "/mypage/passMod", method = RequestMethod.GET)
+	public String passModify() {
+		return "mypage/passModify";
+	}
 
 	// 마이페이지 - 회원연결정보
 	@RequestMapping(value = "/mypage/connection", method = RequestMethod.GET)

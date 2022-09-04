@@ -34,16 +34,19 @@
                 <div class="col-md-12">
                   <ul class="nav nav-pills flex-column flex-md-row mb-3">
                     <li class="nav-item">
-                      <a class="nav-link" href="${pageContext.request.contextPath }/member/modify"
-                        ><i class="bx bx-user me-1"></i> 계정 정보</a
-                      >
+                      <a class="nav-link" href="${pageContext.request.contextPath }/mypage/modify">
+                      <i class="bx bx-user me-1"></i> 계정 정보</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link active" href="javascript:void(0);"
-                        ><i class="bx bx-link-alt me-1"></i> 연결</a
-                      >
+                      <a class="nav-link" href="${pageContext.request.contextPath }/mypage/passMod">
+                      <i class="bx bx-user me-1"></i> 비밀번호 변경</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link active" href="${pageContext.request.contextPath }/mypage/connection">
+                      <i class="bx bx-link-alt me-1"></i> 연결</a>
                     </li>
                   </ul>
+
                   <div class="row">
                     <div class="col-md-6 col-12 mb-md-0 mb-4">
                       <div class="card">

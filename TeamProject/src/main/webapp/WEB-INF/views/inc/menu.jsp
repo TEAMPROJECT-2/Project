@@ -63,13 +63,15 @@
             <div class="row">
                 <div class="col-lg-6 col-md-7">
                     <div class="header__top__left">
-                        <p>나에게 딱 맞는 운동 쇼핑몰 핏티드!
+                     <div class="offcanvas__links">
+                     	<p>000p
 
-                        <a href="${pageContext.request.contextPath }/mypage">마이페이지</a>
+						<a href="${pageContext.request.contextPath }/point">포인트 충전</a>
 			            <a href="${pageContext.request.contextPath }/basic/basic-badge-button">버튼</a>
 			            <a href="${pageContext.request.contextPath }/basic/basic-form">폼</a>
 			            <a href="${pageContext.request.contextPath }/basic/basic-menu-table">테이블</a></p>
 
+                    </div>
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-5">
