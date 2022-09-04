@@ -30,7 +30,7 @@ public class MypageController {
 	// 마이페이지
 	@RequestMapping(value = "/mypage", method = RequestMethod.GET)
 	public String mypage() {
-		return "member/mypage";
+		return "mypage/mypage";
 	}
 
 	// 마이페이지 - 회원정보수정
