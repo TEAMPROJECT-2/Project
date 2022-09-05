@@ -8,17 +8,13 @@ public class ProdDTO extends PageDTO {
 	private String prodLCode;
 	private String prodLOption1;
 	private String prodLOption2;
-	private String prodLOption3;
-	private String prodLOption4;
-	private String prodLOption5;
 	private String prodLProdnm;
 	private int prodLPrice;
-	private Timestamp prodLUpdate;
+	private String prodLUploaddate;
 	private String prodLCompnm;
 	private String prodLMainimg;
 	private String prodLSubimg;
 	private String prodLDetail;
-	private int prodLQuantity;
 
 	public int getProdLNum() {
 		return prodLNum;
@@ -44,25 +40,6 @@ public class ProdDTO extends PageDTO {
 	public void setProdLOption2(String prodLOption2) {
 		this.prodLOption2 = prodLOption2;
 	}
-	public String getProdLOption3() {
-		return prodLOption3;
-	}
-	public void setProdLOption3(String prodLOption3) {
-		this.prodLOption3 = prodLOption3;
-	}
-
-	public String getProdLOption4() {
-		return prodLOption4;
-	}
-	public void setProdLOption4(String prodLOption4) {
-		this.prodLOption4 = prodLOption4;
-	}
-	public String getProdLOption5() {
-		return prodLOption5;
-	}
-	public void setProdLOption5(String prodLOption5) {
-		this.prodLOption5 = prodLOption5;
-	}
 	public String getProdLProdnm() {
 		return prodLProdnm;
 	}
@@ -75,11 +52,11 @@ public class ProdDTO extends PageDTO {
 	public void setProdLPrice(int prodLPrice) {
 		this.prodLPrice = prodLPrice;
 	}
-	public Timestamp getProdLUpdate() {
-		return prodLUpdate;
+	public String getProdLUploaddate() {
+		return prodLUploaddate;
 	}
-	public void setProdLUpdate(Timestamp timestamp) {
-		this.prodLUpdate = timestamp;
+	public void setProdLUploaddate(String prodLUploaddate) {
+		this.prodLUploaddate = prodLUploaddate;
 	}
 	public String getProdLCompnm() {
 		return prodLCompnm;
@@ -87,7 +64,6 @@ public class ProdDTO extends PageDTO {
 	public void setProdLCompnm(String prodLCompnm) {
 		this.prodLCompnm = prodLCompnm;
 	}
-
 	public String getProdLMainimg() {
 		return prodLMainimg;
 	}
@@ -105,12 +81,6 @@ public class ProdDTO extends PageDTO {
 	}
 	public void setProdLDetail(String prodLDetail) {
 		this.prodLDetail = prodLDetail;
-	}
-	public int getProdLQuantity() {
-		return prodLQuantity;
-	}
-	public void setProdLQuantity(int prodLQuantity) {
-		this.prodLQuantity = prodLQuantity;
 	}
 
 }
