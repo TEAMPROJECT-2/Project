@@ -6,7 +6,7 @@
 <!-- 부트스트랩 -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 </head>
-<body>
+</script>
 </head>
 <body>
 <!-- 메뉴단 -->
@@ -59,7 +59,7 @@
                 <div class="col-lg-6 col-md-6  bd-example">
 		              <div class="checkout__order">
 						<main class="form-signin ">
-						  <form method="post">
+						  <form action="${pageContext.request.contextPath}/member/passSearchPro" method="post">
 		                    <div class="checkout__input">
 		                     <label for="userId">
 		                        ID
@@ -72,10 +72,8 @@
 		                     </label>
 		                        <input type="email" id="userEmail" name="userEmail" placeholder="이메일">
 		                    </div>
-						     <input type="button" class="site-btn w-100 btn-lg" value="ID 찾기" id="searchId"><br>
+						     <input type="submit" class="site-btn w-100 btn-lg" value="비밀번호 찾기" id="searchPass"><br>
 						  </form><br>
-						  <div id="resultId" class= "text-center">
-						  </div>
 						</main>
 		         	</div>
                 </div>

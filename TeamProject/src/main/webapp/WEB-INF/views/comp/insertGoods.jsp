@@ -42,13 +42,13 @@
 								<!-- 			탭바		 -->
 								<nav>
 									<div class="nav nav-tabs" id="nav-tab" role="tablist" >
-										<button class="nav-link active" id="user-insert-tab" data-bs-toggle="tab" data-bs-target="#user-insert" type="button" role="tab" aria-controls="user-insert" aria-selected="true">운동용품</button>
-										<button class="nav-link" id="comp-insert-tab" data-bs-toggle="tab" data-bs-target="#comp-insert" type="button" role="tab" aria-controls="comp-insert" aria-selected="false">식품</button>
+										<button class="nav-link active" id="user-insert-tab" data-bs-toggle="tab" data-bs-target="#user-insert" type="button" role="tab" aria-controls="user-insert" aria-selected="true" style="width:50%">운동용품</button>
+										<button class="nav-link" id="comp-insert-tab" data-bs-toggle="tab" data-bs-target="#comp-insert" type="button" role="tab" aria-controls="comp-insert" aria-selected="false" style="width:50%">식품</button>
 									</div>
 								</nav>
 								<!-- 			탭바		 -->
 								<!-- 				컨텐트 탭바로 크게 감싸기 -->
-								<div class="tab-content" id="nav-tabContent">
+								<div class="tab-content" id="nav-tabContent" style="padding:0em">
 									<div class="tab-pane fade" id="comp-insert" role="tabpanel" aria-labelledby="comp-insert-tab">
 
 

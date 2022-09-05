@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -78,6 +79,28 @@ public class AjaxController {
 
 		ResponseEntity<String> entity=new ResponseEntity<String>(result,HttpStatus.OK);
 		return entity;
+	}
+
+	// 회원 탈퇴
+	@RequestMapping(value = "/mypage/deletePro", method = RequestMethod.POST)
+	public ResponseEntity<String> deletePro(MemberDTO memberDTO, HttpServletRequest request, HttpSession session) {
+		System.out.println("MemberController deletePro()");
+		// 메서드 호출
+		MemberDTO memberDTO2=memberService.userCheck(memberDTO);
+
+		String result="";
+		if(memberDTO2!=null) {
+			System.out.println("MemberController delUser()+"+memberDTO2+memberDTO);
+			memberService.delUser(memberDTO);
+			// 세션값 초기화
+			session.invalidate();
+			result="ok";
+		}else {
+			result="fail";
+		}
+		ResponseEntity<String> entity=new ResponseEntity<String>(result,HttpStatus.OK);
+		return entity;
+
 	}
 
 

@@ -94,7 +94,6 @@ public class MemberController {
 		// main/main 이동
 		return "redirect:/main/main";
 	}
-
 	// 로그인(업체)
 	@RequestMapping(value = "/member/loginCompPro", method = RequestMethod.POST)
 	public String loginCompPro(CompDTO compDTO, HttpSession session) {
@@ -114,7 +113,6 @@ public class MemberController {
 	public String idSearch(MemberDTO memberDTO, Model model) throws Exception{
 		return "member/loginIdSearch";
 	}
-
 	// 아이디 찾기
 	@ResponseBody
 	@RequestMapping(value = "/member/idSearchPro", method = RequestMethod.POST)
@@ -132,11 +130,12 @@ public class MemberController {
 	// 비밀번호 찾기
 	@RequestMapping(value = "/member/passSearch", method = RequestMethod.GET)
 	public String findPass() throws Exception{
-		return "member/passSearch";
+		return "member/loginPassSearch";
 	}
-	@RequestMapping(value = "/passSearchPro", method = RequestMethod.POST)
+	@RequestMapping(value = "/member/passSearchPro", method = RequestMethod.POST)
 	public String loginPassSearchPro(@ModelAttribute MemberDTO memberDTO, HttpServletResponse response) throws Exception{
-		return "redirect:/main/main";
+		memberService.updatePass(memberDTO);
+		return "redirect:/member/login";
 	}
 
 

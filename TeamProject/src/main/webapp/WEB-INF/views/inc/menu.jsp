@@ -23,6 +23,15 @@
 	<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/owl.carousel.min.css" type="text/css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/slicknav.min.css" type="text/css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/style.css" type="text/css">
+
+	<style>
+	#searchMain {
+		border: none;
+		color: #495057;
+		border-bottom: 1px solid;
+	}
+	</style>
+
 </head>
 <!-- 페이지 로더 -->
 <div id="preloder">
@@ -46,8 +55,7 @@
         <a href="#"><img src="${pageContext.request.contextPath }/resources/img/icon/heart.png" alt=""></a>
 
        <!-- todo 페이지를 못찾음-->
-        <a href="${pageContext.request.contextPath }/order/cart"><img src="${pageContext.request.contextPath }/resources/img/icon/cart.png" alt=""></a>
-        <div class="price">0 포인트</div>
+        <a href="${pageContext.request.contextPath }/order/cart"><img src="${pageContext.request.contextPath }/resources/img/icon/cart.png" alt="">장바구니</a>
     </div>
     <div id="mobile-menu-wrap"></div>
     <div class="offcanvas__text">
@@ -64,10 +72,11 @@
                 <div class="col-lg-6 col-md-7">
                     <div class="header__top__left">
                      <div class="offcanvas__links">
-                     	<p>000p
+                     	<p class="mr-3 ml-3"> 현재 포인트 : 000P
 
-						<a href="${pageContext.request.contextPath }/point">포인트 충전</a>
-			            <a href="${pageContext.request.contextPath }/basic/basic-badge-button">버튼</a>
+						<a href="${pageContext.request.contextPath }/point" class="mr-3 ml-3">포인트 충전</a> |
+						<a href="${pageContext.request.contextPath }/order/cart" class="mr-3  ml-3">장바구니</a> |
+			            <a href="${pageContext.request.contextPath }/basic/basic-badge-button" class="mr-3  ml-3">버튼</a>
 			            <a href="${pageContext.request.contextPath }/basic/basic-form">폼</a>
 			            <a href="${pageContext.request.contextPath }/basic/basic-menu-table">테이블</a></p>
 
@@ -144,12 +153,12 @@
                     </ul>
                 </nav>
             </div>
-            <div class="col-lg-3 col-md-3">
-                <div class="header__nav__option">
-                    <a href="#" class="search-switch"><img src="${pageContext.request.contextPath }/resources/img/icon/search.png" alt=""></a>
-                    <a href="#"><img src="${pageContext.request.contextPath }/resources/img/icon/heart.png" alt=""></a>
-                    <a href="${pageContext.request.contextPath }/mypage/cart"><img src="${pageContext.request.contextPath }/resources/img/icon/cart.png" alt=""></a>
-                    <div class="price">0 포인트</div>
+            <div class="col-lg-3 col-md-12">
+                <div class="header__nav__option shop__sidebar__search mb-0">
+	              <form action="searchItem" method="post" id="search">
+	                  <input type="text" placeholder="Search..." id="searchMain">
+	                  <button type="submit"><span class="icon_search" style="color:#495057;"></span></button>
+	              </form>
                 </div>
             </div>
         </div>

@@ -64,32 +64,32 @@ public class MypageController {
 		}
 	}
 
-	// 회원탈퇴
-	@RequestMapping(value = "/mypage/deletePro", method = RequestMethod.POST)
-	public String deletePro(MemberDTO memberDTO, HttpSession session) {
-		System.out.println("MemberController deletePro()");
-		// 메서드 호출
-		MemberDTO memberDTO2=memberService.userCheck(memberDTO);
-		if(memberDTO2!=null) {
-			System.out.println("MemberController delUser()+"+memberDTO2+memberDTO);
-			memberService.delUser(memberDTO);
-			// 세션값 초기화
-			session.invalidate();
-			return "redirect:/main/main";
-		}else {
-			// 비밀번호 틀림
-			System.out.println("MemberController delUserfail()+"+memberDTO2+memberDTO);
-			return "mypage/msg";
-		}
-	}
+	// 회원 탈퇴
+//	@RequestMapping(value = "/mypage/deletePro", method = RequestMethod.POST)
+//	public String deletePro(MemberDTO memberDTO, HttpSession session) {
+//		System.out.println("MemberController deletePro()");
+//		// 메서드 호출
+//		MemberDTO memberDTO2=memberService.userCheck(memberDTO);
+//		if(memberDTO2!=null) {
+//			System.out.println("MemberController delUser()+"+memberDTO2+memberDTO);
+//			memberService.delUser(memberDTO);
+//			// 세션값 초기화
+//			session.invalidate();
+//			return "redirect:/main/main";
+//		}else {
+//			// 비밀번호 틀림
+//			System.out.println("MemberController delUserfail()+"+memberDTO2+memberDTO);
+//			return "mypage/msg";
+//		}
+//	}
 
-	// 마이페이지 - 비밀번호변경
+	// 마이페이지 - 비밀번호 변경
 	@RequestMapping(value = "/mypage/passMod", method = RequestMethod.GET)
 	public String passModify() {
 		return "mypage/passModify";
 	}
 
-	// 마이페이지 - 회원연결정보
+	// 마이페이지 - 회원연결 정보
 	@RequestMapping(value = "/mypage/connection", method = RequestMethod.GET)
 	public String connection() {
 		return "mypage/userConnection";

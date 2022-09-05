@@ -81,25 +81,28 @@ public class MemberDAOImpl implements MemberDAO{
 	public String idSearch(MemberDTO memberDTO) {
 		return sqlSession.selectOne(namespace + ".idSearch", memberDTO);
 	}
-
 	@Override
 	public MemberDTO checkUserEmail(String userEmail) {
 		return sqlSession.selectOne(namespace + ".checkUserEmail", userEmail);
 	}
+	// 비밀번호 찾기 동작
+	@Override
+	public void updatePass(MemberDTO memberDTO) {
+		sqlSession.update(namespace + ".updatePass", memberDTO);
+	}
 
-	// 회원 정보 수정
+	// 회원 정보 수정 동작
 	@Override
 	public void modUser(MemberDTO memberDTO) {
 		sqlSession.update(namespace + ".modUser", memberDTO);
-
 	}
 
-	// 회원 탈퇴
+	// 회원 탈퇴 동작
 	@Override
 	public void delUser(MemberDTO memberDTO) {
 		sqlSession.delete(namespace + ".delUser", memberDTO);
-
 	}
+
 
 
 

@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.mail.MessagingException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -60,12 +61,10 @@ public class MemberServiceImpl implements MemberService{
 	public MemberDTO getMember(String userId) {
 		return memberDAO.getMember(userId);
 	}
-
 	@Override
 	public int updateEmailKey(MemberDTO memberDTO) throws Exception {
 		return memberDAO.updateEmailKey(memberDTO);
 	}
-
 	@Override
 	public int updateEmailAuth(MemberDTO memberDTO) throws Exception {
 		return memberDAO.updateEmailAuth(memberDTO);
@@ -115,6 +114,29 @@ public class MemberServiceImpl implements MemberService{
 		return memberDAO.idSearch(memberDTO);
 	}
 
+	// 비밀번호 찾기
+	@Override
+	public void updatePass(MemberDTO memberDTO) throws Exception {
+        String userPassKey = new TempKey().getKey(6,false); // 랜덤키 길이 설정
+        memberDTO.setUserPass(userPassKey);
+        memberDAO.updatePass(memberDTO);
+
+        // 임시비밀번호 발송
+        MailUtils sendMail = new MailUtils(mailSender);
+        sendMail.setSubject("핏티드 임시 비밀번호 발송");
+        sendMail.setText(
+                "<h1>핏티드 임시 비밀번호 인증</h1>" +
+                "<br/>"+memberDTO.getUserId()+"님의 임시 비밀번호가 발급되었습니다!" +
+                "<br>아래의 임시 비밀번호로 로그인 후 비밀번호를 변경해주세요." +
+                "<br><h3>"+userPassKey+"</h3>");
+        sendMail.setFrom("web.main.adm.gmail.com", "핏티드");
+        sendMail.setTo(memberDTO.getUserEmail());
+        sendMail.send();
+
+		memberDAO.updatePass(memberDTO);
+
+	}
+
 	// 회원 정보 수정
 	@Override
 	public void modUser(MemberDTO memberDTO) {
@@ -126,6 +148,7 @@ public class MemberServiceImpl implements MemberService{
 	public void delUser(MemberDTO memberDTO) {
 		memberDAO.delUser(memberDTO);
 	}
+
 
 
 //	// 비밀번호 찾기

@@ -86,7 +86,7 @@
 		   SET USER_LAST_DATE=#{userLastDate}
 	</update>
 
-<!-- 아이디 중복 체크 / 멤버 불러오기 -->
+<!-- 멤버 불러오기 -->
 	<select id="getMember" resultType="com.itwillbs.domain.MemberDTO">
 		SELECT *
 		  FROM USER_INFO
@@ -107,6 +107,15 @@
 		 WHERE USER_NM=		#{userNm}
 		   AND USER_EMAIL=	#{userEmail}
 	</select>
+
+<!-- 비밀번호 찾기 -->
+	<update id="updatePass">
+	    UPDATE USER_INFO
+	       SET USER_PASS  =#{userPass}
+	     WHERE USER_ID	  =#{userId}
+	       AND USER_EMAIL =#{userEmail}
+	</update>
+
 
 
 <!-- 회원가입(업체) -->
@@ -156,6 +165,14 @@
 				USER_ATHLETIC	=#{userAthletic}
 		 WHERE USER_ID			=#{userId}
 	</update>
+
+<!-- 비밀번호 수정 -->
+	<update id="modPass">
+		UPDATE USER_INFO
+		   SET	USER_PASS	=#{userPass},
+		 WHERE USER_ID		=#{userId}
+	</update>
+
 
 <!-- 회원 탈퇴 -->
 	<delete id="delUser">

@@ -27,10 +27,14 @@ public interface MemberService {
 	// 아이디 찾기
 	public String idSearch(MemberDTO memberDTO);
 
+	// 비밀번호 찾기
+	public void updatePass(MemberDTO memberDTO) throws Exception;
+
 	// 회원 정보 수정
-	void modUser(MemberDTO memberDTO);
+	public void modUser(MemberDTO memberDTO);
 
 	// 회원 탈퇴
-	void delUser(MemberDTO memberDTO);
+	public void delUser(MemberDTO memberDTO);
+
 
 }

@@ -80,7 +80,7 @@
 								  </form><br>
 								  <div class= "text-center">
 								  	<a href="${pageContext.request.contextPath }/member/loginIdSearch" class="loginIdSearch">ID 찾기</a>
-								  	<a href="${pageContext.request.contextPath }/member/loginPassSearch" class="loginPassSearch">비밀번호 찾기</a>
+								  	<a href="${pageContext.request.contextPath }/member/passSearch" class="loginPassSearch">비밀번호 찾기</a>
 								  </div>
 								  <div id="idCheck"></div>
 								</main>
