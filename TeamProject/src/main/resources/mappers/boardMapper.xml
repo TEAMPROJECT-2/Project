@@ -9,7 +9,6 @@
 		(
 			 BOARD_NUM
 			,USER_NICKNM
-			,BOARD_PASS
 			,BOARD_SUBJECT
 			,BOARD_CONTENT
 			,BOARD_READCOUNT
@@ -18,7 +17,6 @@
 		values(
 		     #{boardNum}
 			,#{userNicknm}
-			,#{boardPass}
 			,#{boardSubject}
 			,#{boardContent}
 			,#{boardRecount}
@@ -42,8 +40,8 @@
 		select * from BOARD where BOARD_NUM=#{boardNum}
 	</select>
 	
-	<select id="numCheck" resultType="com.itwillbs.domain.BoardDTO">
-		select * from BOARD where BOARD_NUM=#{boardNum} and BOARD_PASS=#{boardPass}
+	<select id="numCheck" resultType="com.itwillbs.domain.MemberDTO">
+			select * from USER_INFO where USER_ID=#{userId} and USER_PASS=#{userPass}
 	</select>
 	
 	<update id="updateBoard">
@@ -57,6 +55,7 @@
 	<delete id="deleteBoard">
 		delete from BOARD where BOARD_PASS=#{boardPass} and BOARD_NUM=#{boardNum}
 	</delete>
+
 	
 	
 </mapper>

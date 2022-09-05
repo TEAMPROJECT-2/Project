@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.itwillbs.domain.BoardDTO;
 import com.itwillbs.domain.LikeDTO;
+import com.itwillbs.domain.MemberDTO;
 import com.itwillbs.domain.PageDTO;
 import com.itwillbs.domain.ReplyDTO;
 
@@ -46,9 +47,9 @@ public class BoardDAOImpl implements BoardDAO{
 	}
 
 	@Override
-	public BoardDTO numCheck(BoardDTO boardDTO) {
+	public MemberDTO numCheck(MemberDTO memberDTO) {
 		
-		return sqlSession.selectOne(namespace+".numCheck", boardDTO);
+		return sqlSession.selectOne(namespace+".numCheck", memberDTO);
 	}
 
 	@Override

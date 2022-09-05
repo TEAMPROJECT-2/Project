@@ -7,6 +7,7 @@ import java.util.UUID;
 import javax.annotation.Resource;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,9 +19,11 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.itwillbs.domain.BoardDTO;
 import com.itwillbs.domain.LikeDTO;
+import com.itwillbs.domain.MemberDTO;
 import com.itwillbs.domain.PageDTO;
 import com.itwillbs.domain.ReplyDTO;
 import com.itwillbs.service.BoardService;
+import com.itwillbs.service.ReplyService;
 
 @Controller
 public class BoardController {
@@ -28,6 +31,8 @@ public class BoardController {
 	//객체생성 부모인터페이스 = 자식클래스
 	@Inject
 	private BoardService boardService;
+	@Inject
+	private ReplyService replyService;
 	
 	//업로드 경로 servlet-context.mxl upload폴더 경로 이름
 	@Resource(name = "uploadPath")
@@ -91,7 +96,7 @@ public class BoardController {
 	
 	//가상주소 시작점 http://localhost:8080/myweb2/board/fwritePro
 	@RequestMapping(value = "/board/fwritePro", method = RequestMethod.POST)
-	public String fwritePro(HttpServletRequest request,MultipartFile file) throws Exception {
+	public String fwritePro(HttpServletRequest request,HttpSession session, MultipartFile file) throws Exception {
 		
 		//파일 이름  => 랜덤문자_파일이름 
 		UUID uuid=UUID.randomUUID();
@@ -104,7 +109,6 @@ public class BoardController {
 		
 		BoardDTO boardDTO=new BoardDTO();
 		boardDTO.setUserNicknm(request.getParameter("userNicknm"));
-		boardDTO.setBoardPass(request.getParameter("boardPass"));
 		boardDTO.setBoardSubject(request.getParameter("boardSubject"));
 		boardDTO.setBoardContent(request.getParameter("boardContent"));
 		boardDTO.setBoardFile(filename);
@@ -124,7 +128,42 @@ public class BoardController {
 		
 		// model에 데이터 저장
 		model.addAttribute("boardDTO", boardDTO);
+		int pageSize=10;
+		//현페이지 번호
+		String pageNum=request.getParameter("pageNum");
+		if(pageNum==null) {
+			pageNum="1";
+		}
+		//현페이지 번호를 정수형으로 변경
+		int currentPage=Integer.parseInt(pageNum);
+		// PageDTO 객체생성
+		PageDTO pageDTO=new PageDTO();
+		pageDTO.setPageSize(pageSize);
+		pageDTO.setPageNum(pageNum);
+		pageDTO.setCurrentPage(currentPage);
+		pageDTO.setBoardNum(boardNum);
+		List<ReplyDTO> replyList=replyService.getReplyList(pageDTO);
 		
+		//pageBlock  startPage endPage count pageCount
+//		int count=replyService.getReplyCount();
+//		int pageBlock=10;
+//		int startPage=(currentPage-1)/pageBlock*pageBlock+1;
+//		int endPage=startPage+pageBlock-1;
+//		int pageCount=count / pageSize +(count % pageSize==0?0:1);
+//		if(endPage > pageCount){
+//			endPage = pageCount;
+//		}
+//		
+//		pageDTO.setCount(count);
+//		pageDTO.setPageBlock(pageBlock);
+//		pageDTO.setStartPage(startPage);
+//		pageDTO.setEndPage(endPage);
+//		pageDTO.setPageCount(pageCount);
+		
+		
+		//데이터 담아서 list.jsp 이동
+		model.addAttribute("replyList", replyList);
+		model.addAttribute("pageDTO", pageDTO);
 		// 주소변경없이 이동
 		// WEB-INF/views/board/content.jsp 이동
 		return "/board/content";
@@ -165,15 +204,17 @@ public class BoardController {
 				BoardDTO boardDTO=new BoardDTO();
 				boardDTO.setBoardNum(Integer.parseInt(request.getParameter("boardNum")));
 				boardDTO.setUserNicknm(request.getParameter("userNicknm"));
-				boardDTO.setBoardPass(request.getParameter("boardPass"));
 				boardDTO.setBoardSubject(request.getParameter("boardSubject"));
 				boardDTO.setBoardContent(request.getParameter("boardContent"));
 				boardDTO.setBoardFile(filename);
 				
+				MemberDTO memberDTO=new MemberDTO();
+				memberDTO.setUserId(request.getParameter("userId"));
+				memberDTO.setUserPass(request.getParameter("userPass"));
 				
 		
-		//num pass 일치 확인
-		BoardDTO boardDTO2=boardService.numCheck(boardDTO);
+				//num pass 일치 확인
+				MemberDTO boardDTO2=boardService.numCheck(memberDTO);
 		if(boardDTO2!=null) {
 //			num pass 일치
 			boardService.updateBoard(boardDTO);
@@ -208,8 +249,11 @@ public class BoardController {
 		//num pass 일치 확인
 		BoardDTO boardDTO=new BoardDTO();
 		boardDTO.setBoardNum(Integer.parseInt(request.getParameter("boardNum")));
-		boardDTO.setBoardPass(request.getParameter("boardPass"));
-		BoardDTO boardDTO2=boardService.numCheck(boardDTO);
+		MemberDTO memberDTO=new MemberDTO();
+		memberDTO.setUserId(request.getParameter("userId"));
+		memberDTO.setUserPass(request.getParameter("userPass"));
+		//num pass 일치 확인
+		MemberDTO boardDTO2=boardService.numCheck(memberDTO);
 		if(boardDTO2!=null) {
 //			num pass 일치
 			boardService.deleteBoard(boardDTO);

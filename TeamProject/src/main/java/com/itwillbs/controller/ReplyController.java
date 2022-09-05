@@ -30,22 +30,72 @@ public class ReplyController {
 	public String isnertPro(HttpServletRequest request, HttpSession session,Model model) throws Exception {
 		int boardNum = Integer.parseInt(request.getParameter("boardNum"));
 		ReplyDTO replyDTO=new ReplyDTO();
-		int count = 0;
-		if() {
-			
-		}
-		replyDTO.setrNum(1);
-		replyDTO.setBoardNum(Integer.parseInt(request.getParameter("boardNum")));
+		
+		replyDTO.setBoardNum(boardNum);
 		replyDTO.setUserId((String)session.getAttribute("userId"));
 		replyDTO.setrContent(request.getParameter("rContent"));
-		System.out.println(replyDTO.getBoardNum());
-		System.out.println(replyDTO.getUserId());
-		System.out.println(replyDTO.getrContent());
+	
 		
 		replyService.insetreply(replyDTO);
 		
+		
+		
 		return "redirect:/board/content?boardNum="+boardNum;
 	}
+	@RequestMapping(value = "/board/deletePro2", method = RequestMethod.GET)
+	public String deletePro2(HttpServletRequest request, HttpSession session,Model model) throws Exception {
+		int boardNum = Integer.parseInt(request.getParameter("boardNum"));
+		
+		
+		
+		int rNum = Integer.parseInt(request.getParameter("rNum"));
+		model.addAttribute("rNum", rNum);
+		ReplyDTO replyDTO=new ReplyDTO();
+		replyDTO.setUserId((String)session.getAttribute("userId"));
+		replyDTO.setrNum(Integer.parseInt(request.getParameter("rNum")));
+		
+		ReplyDTO replyDTO2=replyService.rNumCheck(replyDTO);
+		if(replyDTO2!=null) {
+			replyService.Replydelete(replyDTO);
+		}else {
+			return "board/msg2";
+		}
+		
+		
+		
+		
+		return "redirect:/board/content?boardNum="+boardNum;
+	}
+	
+	
+	
+	/*
+	 * @RequestMapping(value = "/board/selectPro", method = RequestMethod.POST)
+	 * public String selectPro(HttpServletRequest request, HttpSession session,Model
+	 * model) throws Exception { int boardNum =
+	 * Integer.parseInt(request.getParameter("boardNum")); int pageSize=10; //현페이지
+	 * 번호 String pageNum=request.getParameter("pageNum"); if(pageNum==null) {
+	 * pageNum="1"; } //현페이지 번호를 정수형으로 변경 int currentPage=Integer.parseInt(pageNum);
+	 * // PageDTO 객체생성 PageDTO pageDTO=new PageDTO(); pageDTO.setPageSize(pageSize);
+	 * pageDTO.setPageNum(pageNum); pageDTO.setCurrentPage(currentPage);
+	 * 
+	 * List<ReplyDTO> replyList=replyService.getReplyList(pageDTO);
+	 * 
+	 * // pageBlock startPage endPage count pageCount int
+	 * count=replyService.getReplyCount(); int pageBlock=10; int
+	 * startPage=(currentPage-1)/pageBlock*pageBlock+1; int
+	 * endPage=startPage+pageBlock-1; int pageCount=count / pageSize +(count %
+	 * pageSize==0?0:1); if(endPage > pageCount){ endPage = pageCount; }
+	 * 
+	 * pageDTO.setCount(count); pageDTO.setPageBlock(pageBlock);
+	 * pageDTO.setStartPage(startPage); pageDTO.setEndPage(endPage);
+	 * pageDTO.setPageCount(pageCount);
+	 * 
+	 * //데이터 담아서 list.jsp 이동 model.addAttribute("replyList", replyList);
+	 * model.addAttribute("pageDTO", pageDTO);
+	 * 
+	 * return "redirect:/board/content?boardNum="+boardNum; }
+	 */
 	
 	
 	

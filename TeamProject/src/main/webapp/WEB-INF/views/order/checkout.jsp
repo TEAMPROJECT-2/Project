@@ -138,7 +138,7 @@
 											<li>이메일 :${memberDTO.userEmail}</li>
 										</ul>
 										<button type="button" class="btn btn-outline-primary">
-											<a href="/mypage/info/mypage" class="text-primary"><span>주문자
+											<a href="/web/mypage/modify" class="text-primary"><span>주문자
 													정보변경</span><i class="ico-arr-right"></i></a>
 										</button>
 										<input type="hidden" name="orderName" value="김창현"> <input
@@ -151,18 +151,8 @@
 
 
 										<!-- 회원일때 -->
-										<div class="lineless-table type1">
+										<div class="aaaaaaaaaaaaaaaaaaaaa">
 
-											<input type="hidden" name="receiverName" value="김창현">
-											<input type="hidden" name="receiverPost" value="52822">
-											<input type="hidden" name="receiverAddr"
-												value="경상남도 진주시 가좌길 18-5(가좌동)"> <input type="hidden"
-												name="receiverAddrDtl" value="304호"> <input
-												type="hidden" name="receiverCell" value="01024012912">
-											<input type="hidden" name="receiverPhone" value=""> <input
-												type="hidden" id="isExpressDeliveryAddr" value="N">
-											<input type="hidden" name="deliveryId" id="vDeliveryid"
-												value="20220424000000009691">
 
 											<table>
 												<colgroup>
@@ -172,15 +162,15 @@
 												<tbody>
 													<tr>
 														<th scope="row">받는분</th>
-														<td>${memberDTO.userNm}</td>
+														<td>${addressDTO.addressGetNm}</td>
 													</tr>
 													<tr>
 														<th scope="row">주소</th>
-														<td>${memberDTO.userAddress} &nbsp;${memberDTO.userAddressDetails}</td>
+														<td>${addressDTO.address} &nbsp;${addressDTO.addressDetails}</td>
 													</tr>
 													<tr>
 														<th scope="row">휴대전화</th>
-														<td>${memberDTO.userPhone}</td>
+														<td>${addressDTO.addressGetPhone}</td>
 													</tr>
 												</tbody>
 											</table>

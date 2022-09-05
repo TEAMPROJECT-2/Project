@@ -21,7 +21,9 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.itwillbs.domain.ProdDTO;
+import com.itwillbs.domain.CommonDTO;
 import com.itwillbs.domain.PageDTO;
+import com.itwillbs.service.CommonService;
 import com.itwillbs.service.ProdService;
 
 @Controller
@@ -30,23 +32,30 @@ public class ProdController {
 	//객체생성 부모인터페이스 = 자식클래스
 	@Inject
 	private ProdService prodService;
-	
+
+	@Inject
+	private CommonService commonService;
+
 	//업로드 경로 servlet-context.mxl upload폴더 경로 이름
 	@Resource(name = "uploadPath")
 	private String uploadPath;
-	
+
 	@RequestMapping(value = "/product/shop", method = RequestMethod.GET)
 	public ModelAndView list(HttpServletRequest req, HttpServletResponse res, @ModelAttribute ProdDTO prodDTO) throws Exception {
 		try {
 			ModelAndView mv = new ModelAndView();
-			
+
+			CommonDTO commonDTO =  new CommonDTO();
+
+			List<CommonDTO> commonList =  commonService.selectCommonList(commonDTO);
+
 			int pageSize = 10;
 			String pageNum = prodDTO.getPageNum();
 			if(pageNum == null) {
 				pageNum = "1";
 			}
 			int currentPage=Integer.parseInt(pageNum);
-			
+
 			int count = prodService.selectProdListCnt(prodDTO);
 			int pageBlock = 10;
 			int startPage = (currentPage-1)/pageBlock*pageBlock+1;
@@ -55,36 +64,36 @@ public class ProdController {
 			if(endPage > pageCount){
 				endPage = pageCount;
 			}
-			
+
 			prodDTO.setCurrentPage(currentPage);
 			prodDTO.setPageSize(10);
-			
+
 			List<ProdDTO> prodList =  prodService.selectProdList(prodDTO);
-			
+
 			prodDTO.setCount(count);
 			prodDTO.setPageBlock(pageBlock);
 			prodDTO.setStartPage(startPage);
 			prodDTO.setEndPage(endPage);
 			prodDTO.setPageCount(pageCount);
-			
+
 			mv.addObject("prodList", prodList);
 			mv.addObject("prodDTO", prodDTO);
 			mv.setViewName("product/shop");
-			
+
 			return mv;
 		}catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
 		}
 		return null;
-		
+
 	}
 
 	@RequestMapping(value = "/product/details", method = RequestMethod.GET)
 	public String productDetail() {
-		
-		
+
+
 		return "product/details";
 	}
-	
+
 }

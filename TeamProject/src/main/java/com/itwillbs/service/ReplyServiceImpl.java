@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import com.itwillbs.dao.BoardDAO;
 import com.itwillbs.dao.ReplyDAO;
-import com.itwillbs.domain.BoardDTO;
 import com.itwillbs.domain.PageDTO;
 import com.itwillbs.domain.ReplyDTO;
 
@@ -19,25 +18,52 @@ public class ReplyServiceImpl implements ReplyService {
 	
 	@Inject
 	public BoardDAO boardDAO;
-	
-
-	@Override
-	public int getBoardCount() {
-		
-		return boardDAO.getBoardCount();
-	}
-
-	@Override
-	public List<BoardDTO> getBoardList(PageDTO pageDTO) {
-		
-		return boardDAO.getBoardList(pageDTO);
-	}
 
 	@Override
 	public void insetreply(ReplyDTO replyDTO) {
+		if(replyDAO.getMaxNum()==null) {
+			//게시판 글이 없음
+			replyDTO.setrNum(1);
+		}else {
+			replyDTO.setrNum(replyDAO.getMaxNum() + 1);
+		}
+		
 		replyDAO.insetreply(replyDTO);
 		
 	}
+
+	@Override
+	public List<ReplyDTO> getReplyList(PageDTO pageDTO) {
+		int startRow=(pageDTO.getCurrentPage()-1)*pageDTO.getPageSize()+1;
+		int endRow=startRow+pageDTO.getPageSize()-1;
+		
+		// sql => limit #{startRow -1}, #{pageSize}
+		
+		pageDTO.setStartRow(startRow-1);
+		pageDTO.setEndRow(endRow);
+		System.out.println("ReplyServiceImpl.getReplyList");
+		return replyDAO.getReplyList(pageDTO);
+	}
+
+	@Override
+	public int getReplyCount() {
+		return replyDAO.getReplyCount();
+	}
+
+	@Override
+	public void Replydelete(ReplyDTO replyDTO) {
+		replyDAO.Replydelete(replyDTO);
+		
+	}
+
+	@Override
+	public ReplyDTO rNumCheck(ReplyDTO replyDTO) {
+		// TODO Auto-generated method stub
+		return replyDAO.rNumCheck(replyDTO);
+	}
+
+	
+	
 
 	
 	

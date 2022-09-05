@@ -1,18 +1,18 @@
 package com.itwillbs.domain;
 
-public class PageDTO {
+public class PageDTO extends CommonDTO {
 	private int pageSize;
 	private String pageNum;
 	private int currentPage;
 	private int startRow;
 	private int endRow;
-	
+
 	private int pageBlock;
 	private int startPage;
 	private int endPage;
 	private int count;
 	private int pageCount;
-	
+
 	public int getPageSize() {
 		return pageSize;
 	}
@@ -73,7 +73,7 @@ public class PageDTO {
 	public void setPageCount(int pageCount) {
 		this.pageCount = pageCount;
 	}
-	
-	
-	
+
+
+
 }
