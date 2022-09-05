@@ -1,33 +1,31 @@
 package com.itwillbs.dao;
 
-import javax.inject.Inject;
 
-import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
-import com.itwillbs.domain.OrderDTO;
 
 @Repository
 public class OrderDAOImpl implements OrderDAO {
 
-	@Inject
-	private SqlSession sqlSession;
+//	@Inject
+//	private SqlSession sqlSession;
+//	
+//	private static final String namespace="com.itwillbs.mappers.orderMapper";
 	
-	private static final String namespace="com.itwillbs.mappers.orderMapper";
 	
 	
 	
-	@Override
-	public void insertAddress(OrderDTO orderDTO) {
-		System.out.println("OrderDAOImpl insertAddress()");
-		sqlSession.insert(namespace + ".insertAddress", orderDTO);		
-	}
-
-	@Override
-	public void updateAddress(OrderDTO orderDTO) {
-		System.out.println("OrderDAOImpl updateAddress()");
-		sqlSession.insert(namespace + ".updateAddress", orderDTO);		
-	}
+//	@Override
+//	public void insertAddress(OrderDTO orderDTO) {
+//		System.out.println("OrderDAOImpl insertAddress()");
+//		sqlSession.insert(namespace + ".insertAddress", orderDTO);		
+//	}
+//
+//	@Override
+//	public void updateAddress(OrderDTO orderDTO) {
+//		System.out.println("OrderDAOImpl updateAddress()");
+//		sqlSession.insert(namespace + ".updateAddress", orderDTO);		
+//	}
 	
 //	@Override
 //	public void getOrderPriceInfo() {
