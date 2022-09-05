@@ -68,7 +68,7 @@ public class ProdController {
 			prodDTO.setCurrentPage(currentPage);
 			prodDTO.setPageSize(10);
 
-			List<ProdDTO> prodList =  prodService.selectProdList(prodDTO);
+			List<ProdDTO> prodList = prodService.selectProdList(prodDTO);
 
 			prodDTO.setCount(count);
 			prodDTO.setPageBlock(pageBlock);
@@ -82,18 +82,44 @@ public class ProdController {
 
 			return mv;
 		}catch (Exception e) {
-			// TODO: handle exception
 			e.printStackTrace();
 		}
 		return null;
 
 	}
 
+	// 상세화면
 	@RequestMapping(value = "/product/details", method = RequestMethod.GET)
-	public String productDetail() {
+	public ModelAndView details(HttpServletRequest req, HttpServletResponse res, @ModelAttribute ProdDTO prodDTO) throws Exception {
+		try {
+			ModelAndView mv = new ModelAndView();
 
+			ProdDTO details = prodService.selectProdDetail(prodDTO);
 
-		return "product/details";
+			mv.addObject("details", details);
+			mv.addObject("prodDTO", prodDTO);
+			mv.setViewName("product/details");
+
+			return mv;
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+
 	}
+
+	// 상품 소감(댓글) 목록
+//	@ResponseBody
+//	@RequestMapping(value = "/view/replyList", method = RequestMethod.GET)
+//	public List<ReplyVO> getReplyList(@RequestParam("n") int gdsNum) throws Exception {
+//	   logger.info("get reply list");
+//
+//	   List<ReplyVO> reply = service.replyList(gdsNum);
+//
+//	   return reply;
+//	}
+
+
+//	prodLPrice
 
 }
