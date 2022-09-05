@@ -1,7 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <!DOCTYPE html>
 <head>
+<script src="http://code.jquery.com/jquery-3.6.0.js"></script>
+
     <meta charset="UTF-8">
     <meta name="description" content="Male_Fashion Template">
     <meta name="keywords" content="Male_Fashion, unica, creative, html">
@@ -44,7 +48,8 @@
         <div class="col-lg-5 col-xl-4">
           <div class="product__details__text">
             <h3>Faded SkyBlu Denim Jeans</h3>
-            <h2>$149.99</h2>
+            <!-- 상품가격의 가독성을 높이기 위해 숫자 3자리마다 콤마(,)를 찍어주도록 처리함 -->
+             <h2><fmt:formatNumber value="${details.prodLPrice}" pattern="###,###,###"/></h2>
             <ul class="list">
               <li>
                 <a class="active" href="#">

@@ -2,8 +2,37 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
+
+<!-- 상품 소감(댓글) 목록
+<script>
+   var gdsNum = ${view.gdsNum};
+   $.getJSON("/shop/view/replyList" + "?n=" + gdsNum, function(data){
+    var str = "";
+
+    $(data).each(function(){
+
+     console.log(data);
+
+     var repDate = new Date(this.repDate);
+     repDate = repDate.toLocaleDateString("ko-US")
+
+     str += "<li data-gdsNum='" + this.gdsNum + "'>"
+       + "<div class='userInfo'>"
+       + "<span class='userName'>" + this.userName + " "
+       + "<span class='date'>" + repDate + " "
+       + "</div>"
+       + "<div class='replyContent'>" + this.repCon + "</div>"
+       + "</li>";
+    });
+
+    $("section.replyList ol").html(str);
+   });
+</script>
+ -->
+
 <head>
 	<meta charset="UTF-8">
 	<meta name="description" content="Male_Fashion Template">
@@ -236,7 +265,7 @@
                         <div class="col-lg-4 col-md-6 col-sm-6">
                             <div class="product__item">
                                 <div class="product__item__pic set-bg">
-                                <a href="${pageContext.request.contextPath }/product/details" height="5" width="10" target="_blank">
+                                <a href="${pageContext.request.contextPath }/product/details?prodLNum=${prodList.prodLNum }" height="5" width="10">
 									<img src="${pageContext.request.contextPath }/resources/img/product/product-1.jpg" alt="위의 이미지를 누르면 연결됩니다.">
 								</a>
                                     <ul class="product__hover">
@@ -253,7 +282,9 @@
                                         <i class="fa fa-star-o"></i>
                                         <i class="fa fa-star-o"></i>
                                     </div>
-                                    <h5>$67.24</h5>
+                                    <!-- 상품가격의 가독성을 높이기 위해 숫자 3자리마다 콤마(,)를 찍어주도록 처리함 -->
+                                    <fmt:formatNumber value="${details.prodLPrice}" pattern="###,###,###"/>
+                                    <!-- <h5>$67.24</h5> -->
                                 </div>
                             </div>
                         </div>
