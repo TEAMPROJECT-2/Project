@@ -10,8 +10,8 @@ import org.springframework.stereotype.Service;
 import com.itwillbs.dao.BoardDAO;
 import com.itwillbs.domain.BoardDTO;
 import com.itwillbs.domain.LikeDTO;
+import com.itwillbs.domain.MemberDTO;
 import com.itwillbs.domain.PageDTO;
-import com.itwillbs.domain.ReplyDTO;
 
 @Service
 public class BoardServiceImpl implements BoardService{
@@ -65,8 +65,8 @@ public class BoardServiceImpl implements BoardService{
 	}
 
 	@Override
-	public BoardDTO numCheck(BoardDTO boardDTO) {
-		return boardDAO.numCheck(boardDTO);
+	public MemberDTO numCheck(MemberDTO memberDTO) {
+		return boardDAO.numCheck(memberDTO);
 	}
 
 	@Override

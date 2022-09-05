@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.itwillbs.domain.BoardDTO;
 import com.itwillbs.domain.LikeDTO;
+import com.itwillbs.domain.MemberDTO;
 import com.itwillbs.domain.PageDTO;
 import com.itwillbs.domain.ReplyDTO;
 
@@ -19,7 +20,7 @@ public interface BoardDAO {
 	
 	BoardDTO getBoard(int boardNum);
 
-	BoardDTO numCheck(BoardDTO boardDTO);
+	MemberDTO numCheck(MemberDTO memberDTO);
 
 	void updateBoard(BoardDTO boardDTO);
 
@@ -40,6 +41,8 @@ public interface BoardDAO {
 	void updateLikeCheck(LikeDTO likeDTO);
 
 	void updateLikeCheckCancel(LikeDTO likeDTO);
+
+	
 
 
 

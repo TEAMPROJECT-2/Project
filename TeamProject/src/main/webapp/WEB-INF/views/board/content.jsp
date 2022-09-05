@@ -75,28 +75,16 @@ onclick="location.href='${pageContext.request.contextPath }/board/delete?boardNu
 			</form>
 		</div>
 	</div>
-<table class="Table">
-<thead>
-	<tr>
-		<td>번호</td>
-		<td>작성자</td>
-		<td>내용</td>
-		<td>등록일</td>
+<c:forEach items="${replyList}" var="replyDTO">
+<table border="1">
+<tr><td><input type="hidden" name="rNum" value="${replyDTO.rNum }"></td>
+	<td>이름</td><td>${replyDTO.userId}</td>
+    <td>댓글내용</td><td>${replyDTO.rContent }</td>
+    <td>글쓴날짜</td><td>${replyDTO.rDate }</td>
+    <td><input type="button" value="삭제" onclick="location.href='${pageContext.request.contextPath }/board/deletePro2'"></td>
 	</tr>
-</thead>
-<tbody>
-<c:forEach var="replyDTO" items="${replyList}">
-	<tr>
-		<td>${replyDTO.rNum }</td>
-		<td>${replyDTO.userId}</td>
-		<td>${replyDTO.rContent}</td>
-		<td>${boardDTO.boardDate }</td>
-	</tr>	
-</c:forEach></tbody>
-
 </table>
-</form>
-
+</c:forEach>
 <!-- 댓글 부분 -->
 
 <!-- Footer Section Begin -->

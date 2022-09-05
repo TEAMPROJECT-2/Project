@@ -8,11 +8,17 @@ import com.itwillbs.domain.ReplyDTO;
 
 public interface ReplyService {
 
-	int getBoardCount();
 
-	List<BoardDTO> getBoardList(PageDTO pageDTO);
 
 	void insetreply(ReplyDTO replyDTO);
+
+	List<ReplyDTO> getReplyList(PageDTO pageDTO);
+
+	int getReplyCount();
+
+	void Replydelete(ReplyDTO replyDTO);
+
+	ReplyDTO rNumCheck(ReplyDTO replyDTO);
 
 
 }
