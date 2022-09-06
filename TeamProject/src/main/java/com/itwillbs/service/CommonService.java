@@ -7,5 +7,7 @@ import com.itwillbs.domain.CommonDTO;
 public interface CommonService {
 
 	public List<CommonDTO> selectCommonList(CommonDTO commonDTO);
+	
+	public CommonDTO selectCodeSearch(CommonDTO commonDTO);
 
 }

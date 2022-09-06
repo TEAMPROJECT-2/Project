@@ -49,7 +49,7 @@
           <div class="product__details__text">
             <h3>Faded SkyBlu Denim Jeans</h3>
             <!-- 상품가격의 가독성을 높이기 위해 숫자 3자리마다 콤마(,)를 찍어주도록 처리함 -->
-             <h2><fmt:formatNumber value="${details.prodLPrice}" pattern="###,###,###"/></h2>
+             <h2><fmt:formatNumber value="${details.prodLPrice}" pattern="###,###,###"/>원</h2>
             <ul class="list">
               <li>
                 <a class="active" href="#">

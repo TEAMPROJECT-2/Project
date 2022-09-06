@@ -44,9 +44,17 @@ public class ProdController {
 	public ModelAndView list(HttpServletRequest req, HttpServletResponse res, @ModelAttribute ProdDTO prodDTO) throws Exception {
 		try {
 			ModelAndView mv = new ModelAndView();
-
+			
+			//코드 생성 > "코드" + YYMMDD + max(000)+1
 			CommonDTO commonDTO =  new CommonDTO();
-
+			commonDTO.setComCd("PF"); // 코드 정의
+			commonDTO.setColumnNm("PROD_L_CODE"); //기준 컬럼
+			commonDTO.setTableNm("PRODUCT_LIST"); //테이블 정의
+			CommonDTO cd = commonService.selectCodeSearch(commonDTO);
+			//cd = PF220906001 로 생성됨
+			//조회해온 코드값을 원하는 DTO에 Set 처리
+			prodDTO.setProdLCode(cd.getPkCd());
+			
 			List<CommonDTO> commonList =  commonService.selectCommonList(commonDTO);
 
 			int pageSize = 10;
@@ -76,6 +84,7 @@ public class ProdController {
 			prodDTO.setEndPage(endPage);
 			prodDTO.setPageCount(pageCount);
 
+			mv.addObject("cd", cd);
 			mv.addObject("prodList", prodList);
 			mv.addObject("prodDTO", prodDTO);
 			mv.setViewName("product/shop");

@@ -8,6 +8,11 @@ public class CommonDTO {
 	private String useYn;
 	private String srhHighCd;
 	private String[] srhCdOpt;
+	
+	private String pkCd;
+	private String comCd;
+	private String columnNm;
+	private String tableNm;
 
 	public String getCdOpt() {
 		return cdOpt;
@@ -45,6 +50,29 @@ public class CommonDTO {
 	public void setSrhCdOpt(String[] srhCdOpt) {
 		this.srhCdOpt = srhCdOpt;
 	}
-
+	public String getPkCd() {
+		return pkCd;
+	}
+	public void setPkCd(String pkCd) {
+		this.pkCd = pkCd;
+	}
+	public String getComCd() {
+		return comCd;
+	}
+	public void setComCd(String comCd) {
+		this.comCd = comCd;
+	}
+	public String getColumnNm() {
+		return columnNm;
+	}
+	public void setColumnNm(String columnNm) {
+		this.columnNm = columnNm;
+	}
+	public String getTableNm() {
+		return tableNm;
+	}
+	public void setTableNm(String tableNm) {
+		this.tableNm = tableNm;
+	}
 
 }
