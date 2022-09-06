@@ -1,6 +1,8 @@
 package com.itwillbs.domain;
 
 import java.sql.Timestamp;
+
+
 public class MemberDTO {
 	private int userInfoNum;
 	private String userId;
@@ -11,9 +13,6 @@ public class MemberDTO {
 	private String userAthletic;
 	private String userNicknm;
 	private String userPhone;
-	private String userZipcode;
-	private String userAddress;
-	private String userAddressDetails;
 	private Timestamp userDate;
 	private int userPoint;
 	private int myCouponNum;
@@ -78,24 +77,6 @@ public class MemberDTO {
 	public void setUserPhone(String userPhone) {
 		this.userPhone = userPhone;
 	}
-	public String getUserZipcode() {
-		return userZipcode;
-	}
-	public void setUserZipcode(String userZipcode) {
-		this.userZipcode = userZipcode;
-	}
-	public String getUserAddress() {
-		return userAddress;
-	}
-	public void setUserAddress(String userAddress) {
-		this.userAddress = userAddress;
-	}
-	public String getUserAddressDetails() {
-		return userAddressDetails;
-	}
-	public void setUserAddressDetails(String userAddressDetails) {
-		this.userAddressDetails = userAddressDetails;
-	}
 	public Timestamp getUserDate() {
 		return userDate;
 	}
@@ -153,16 +134,4 @@ public class MemberDTO {
 
 
 
-	@Override
-	public String toString() {
-		return "MemberDTO [userInfoNum=" + userInfoNum + ", userId=" + userId + ", userPass=" + userPass + ", userNm="
-				+ userNm + ", userEmail=" + userEmail + ", userGender=" + userGender + ", userAthletic=" + userAthletic
-				+ ", userNicknm=" + userNicknm + ", userPhone=" + userPhone + ", userZipcode=" + userZipcode
-				+ ", userAddress=" + userAddress + ", userAddressDetails=" + userAddressDetails + ", userDate="
-				+ userDate + ", userPoint=" + userPoint + ", myCouponNum=" + myCouponNum + ", userRank=" + userRank
-				+ ", userType=" + userType + ", userStatus=" + userStatus + ", userLastDate=" + userLastDate
-				+ ", userEmailAuth=" + userEmailAuth + ", userEmailKey=" + userEmailKey + "]";
-
-
-}
 }

@@ -12,44 +12,61 @@
 >
   <head>
 <script type="text/javascript"
-src="${pageContext.request.contextPath }/resources/js/jquery-3.6.0.js"></script>
+src="${pageContext.request.contextPath }/resources/js/jquery-3.6.0.js" ></script>
 <script type="text/javascript">
+		// 유효성 체크
+  		$(document).ready(function(){
 
-// 탈퇴 비밀번호 입력창 나오게
-$(document).ready(function(){
-	$('#delCheck').change(function(){
-		if ($('#delCheck').is(':checked')) {
-			$('#delDiv').show();
-		}else {
-			$('#delDiv').hide();
+			$("#passMod").on("click", function(){
+				debugger;
+				if($("#userPass").val==""){
+					alert("현재 비밀번호를 입력해주세요");
+// 					$("#userPass").focus();
+// 					return false;
+				}
+// 				if($("#newPass1").val==""){
+// 					alert("새 비밀번호를 입력해주세요");
+// 					$("#newPass1").focus();
+// 					return false;
+// 				}
+// 				if($("#newPass2").val==""){
+// 					alert("새 비밀번호를 입력해주세요");
+// 					$("#newPass2").focus();
+// 					return false;
+// 				}
+// 				if ($("#newPass1").val() != $("#newPass2").val()) {
+// 					alert("새 비밀번호가 일치하지 않습니다.");
+// 					$("#newPass2").focus();
+// 					return false;
+// 				}
 
-		}
-	});
-});
+// 				$.ajax({
+// 					url : "/mypage/passCheck",
+// 					type : "POST",
+// 					dataType : "json",
+// 					data : $("#passModForm").serializeArray(),
+// 					success: function(data){
 
-// 탈퇴
-$(document).ready(function(){
-	$('#delBtn').click(function(){
-		$.ajax({
-			url:'${pageContext.request.contextPath }/mypage/deletePro',
-			type:'POST',
-			data:{'userId':$('#userId1').val(),'userPass':$('#userPass1').val()},
-			success:function(rdata){
-				 if(rdata=="1"){	// 아이디 없음
-						window.location.href = "${pageContext.request.contextPath }/main/main"
-				 	}else{				// 아이디 있음
-				 		alert("다시 입력해주세요!")
-				 	}
+// 						if(data==0){
+// 							alert("패스워드가 틀렸습니다.");
+// 							return;
+// 						}else{
+// 							if(confirm("변경하시겠습니까?")){
+// 								$("#passModForm").submit();
+// 							}
 
-			}
-		});
-	});
-});
+// 						}
+// 					}
+// 				});
+
+			})
+			});
+
+
 
 </script>
 
-  </head>
-
+	</head>
   <body>
   <!-- 메뉴단 -->
 <jsp:include page="../inc/menu.jsp"/>
@@ -82,35 +99,35 @@ $(document).ready(function(){
                     </li>
                   </ul>
 
-                  <!-- Account -->
+                  <!-- 비밀번호 변경 -->
                   <div class="card mb-4">
                     <h5 class="card-header">비밀번호 변경</h5>
 
                     <hr class="my-0" />
                     <div class="card-body">
-                      <form id="formAccountSettings" action="${pageContext.request.contextPath}/mypage/modifyPro" method="POST">
-                            <input class="form-control form-control-lg" type="hidden" name="userId" id="userId" value="${memberDTO.userId}" readonly />
+                      <form id="passModForm" name="passModForm" action="${pageContext.request.contextPath}/mypage/passModPro" method="POST">
+                            <input class="form-control form-control-lg" type="hidden" name="userId" id="userId" value="${memberDTO.userId}" />
 
                           <div class="mb-3 col-md-6">
                             <label for="userPass" class="form-label">비밀번호</label>
                             <input class="form-control form-control-lg" type="password" name="userPass" id="userPass" />
                           </div>
                           <div class="mb-3 col-md-6">
-                            <label for="userPass" class="form-label">새 비밀번호</label>
-                            <input class="form-control form-control-lg" type="password" name="userPass" id="userPass" />
+                            <label for="newPass1" class="form-label">새 비밀번호</label>
+                            <input class="form-control form-control-lg" type="password" name="newPass1" id="newPass1" />
                           </div>
                           <div class="mb-3 col-md-6">
-                            <label for="userPass" class="form-label">새 비밀번호 확인</label>
-                            <input class="form-control form-control-lg" type="password" name="userPass" id="userPass" />
+                            <label for="newPass2" class="form-label">새 비밀번호 확인</label>
+                            <input class="form-control form-control-lg" type="password" name="newPass2" id="newPass2" />
                           </div>
 
                         <div class="mt-2"><br>
-                          <button type="submit" class="btn btn-primary me-2">정보 수정</button>
+                          <button type="button" id="passMod" name="passMod" class="btn btn-primary me-2">비밀번호 변경</button>
                           <button type="reset" class="btn btn-outline-secondary">취소</button>
                         </div>
                       </form>
                     </div>
-                    <!-- /Account -->
+                    <!-- / 비밀번호 변경 -->
 
                   </div>
                 </div>

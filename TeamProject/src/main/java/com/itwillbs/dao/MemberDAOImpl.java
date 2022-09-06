@@ -1,6 +1,8 @@
 package com.itwillbs.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -101,6 +103,20 @@ public class MemberDAOImpl implements MemberDAO{
 	@Override
 	public void delUser(MemberDTO memberDTO) {
 		sqlSession.delete(namespace + ".delUser", memberDTO);
+	}
+
+	// 비밀번호 변경 동작
+	@Override
+	public String passCheck(String userId) throws Exception {
+		return sqlSession.selectOne(namespace + ".passCheck", userId);
+	}
+	@Override
+	public void passMod(String userId, String hashedPw) throws Exception {
+		Map<String,Object> map = new HashMap<String, Object>();
+		map.put("userId", userId);
+		map.put("userPass", hashedPw);
+		sqlSession.update(namespace + ".passMod", map);
+
 	}
 
 

@@ -4,6 +4,7 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.itwillbs.domain.CompDTO;
 import com.itwillbs.domain.MemberDTO;
@@ -64,30 +66,33 @@ public class MypageController {
 		}
 	}
 
-	// 회원 탈퇴
-//	@RequestMapping(value = "/mypage/deletePro", method = RequestMethod.POST)
-//	public String deletePro(MemberDTO memberDTO, HttpSession session) {
-//		System.out.println("MemberController deletePro()");
-//		// 메서드 호출
-//		MemberDTO memberDTO2=memberService.userCheck(memberDTO);
-//		if(memberDTO2!=null) {
-//			System.out.println("MemberController delUser()+"+memberDTO2+memberDTO);
-//			memberService.delUser(memberDTO);
-//			// 세션값 초기화
-//			session.invalidate();
-//			return "redirect:/main/main";
-//		}else {
-//			// 비밀번호 틀림
-//			System.out.println("MemberController delUserfail()+"+memberDTO2+memberDTO);
-//			return "mypage/msg";
-//		}
-//	}
 
 	// 마이페이지 - 비밀번호 변경
 	@RequestMapping(value = "/mypage/passMod", method = RequestMethod.GET)
 	public String passModify() {
 		return "mypage/passModify";
 	}
+
+	// 비밀번호 변경
+	@RequestMapping(value = "/mypage/passCheck", method = RequestMethod.POST)
+	public int passCheck(MemberDTO memberDTO) throws Exception{
+		String userPw = memberService.passCheck(memberDTO.getUserId());
+		// 해싱 암호화
+		if(memberDTO == null || !BCrypt.checkpw(memberDTO.getUserPass(), userPw)) {
+			return 0;
+		}
+		return 1;
+	}
+	@RequestMapping(value="/mypage/passModPro" , method=RequestMethod.POST)
+	public String passMod(String userId, String newPass1, RedirectAttributes rttr, HttpSession session)throws Exception{
+		String hashedPw = BCrypt.hashpw(newPass1, BCrypt.gensalt());
+		memberService.passMod(userId, hashedPw);
+		session.invalidate();
+		rttr.addFlashAttribute("msg", "정보 수정이 완료되었습니다. 다시 로그인해주세요.");
+
+		return "redirect:/member/login";
+	}
+
 
 	// 마이페이지 - 회원연결 정보
 	@RequestMapping(value = "/mypage/connection", method = RequestMethod.GET)

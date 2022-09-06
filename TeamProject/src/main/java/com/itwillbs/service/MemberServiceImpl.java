@@ -149,34 +149,16 @@ public class MemberServiceImpl implements MemberService{
 		memberDAO.delUser(memberDTO);
 	}
 
+	// 비밀번호 변경
+	@Override
+	public String passCheck(String userId) throws Exception {
+		return memberDAO.passCheck(userId);
+	}
+	@Override
+	public void passMod(String userId, String hashedPw) throws Exception {
+		memberDAO.passMod(userId, hashedPw);
 
-
-//	// 비밀번호 찾기
-//	@Override
-//	public void passSearch(MemberDTO memberDTO) {
-//
-//        // 랜덤 문자열을 생성해서 userEmailKey 컬럼에 넣어주기
-//        String userPassKey = new TempKey().getKey(8,false); // 랜덤키 길이 설정
-//        memberDTO.setUserEmailKey(userPassKey);
-//
-//        // 비밀번호 값 바뀌게
-//        memberDAO.updatePassKey(memberDTO);
-//
-//        // 회원가입 완료하면 인증을 위한 이메일 발송
-//        MailUtils sendMail = new MailUtils(mailSender);
-//        sendMail.setSubject("핏티드 임시 비밀번호 발송");
-//        sendMail.setText(
-//                "<h1>핏티드 메일 인증</h1>" +
-//                "<br/>"+memberDTO.getUserId()+"님 임시 비밀번호를 발송합니다." +
-//                "<br>임시 비밀번호로 로그인 후 비밀번호를 바꿔주세요!" +
-//                "<br><a href='http://localhost:8080/web/member/joinSuccess?userEmail=" + memberDTO.getUserEmail() +
-//                "&userEmailKey=" + userPassKey +
-//                "' target='_blank'>이메일 인증 확인</a>");
-//        sendMail.setFrom("web.main.adm.gmail.com", "핏티드");
-//        sendMail.setTo(memberDTO.getUserEmail());
-//        sendMail.send();
-//	}
-
+	}
 
 
 

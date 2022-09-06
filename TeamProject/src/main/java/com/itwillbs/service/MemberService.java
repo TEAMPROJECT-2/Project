@@ -33,8 +33,11 @@ public interface MemberService {
 	// 회원 정보 수정
 	public void modUser(MemberDTO memberDTO);
 
+	// 비밀번호 변경
+	public String passCheck(String userId) throws Exception;
+	public void passMod(String userId, String hashedPw) throws Exception;
+
 	// 회원 탈퇴
 	public void delUser(MemberDTO memberDTO);
-
 
 }
