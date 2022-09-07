@@ -3,6 +3,7 @@ package com.itwillbs.controller;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,27 +14,35 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.itwillbs.domain.BoardDTO;
+import com.itwillbs.domain.CommonDTO;
 import com.itwillbs.domain.CompDTO;
 import com.itwillbs.domain.MemberDTO;
 import com.itwillbs.domain.PageDTO;
 import com.itwillbs.domain.ProdDTO;
 import com.itwillbs.domain.ProdStockDTO;
+import com.itwillbs.service.CommonService;
 import com.itwillbs.service.CompService;
 import com.itwillbs.service.MemberService;
+import com.mysql.cj.x.protobuf.MysqlxDatatypes.Array;
 
 @Controller
 public class CompController {
 
 	@Inject
 	private CompService compService;
+	@Inject
+	private CommonService commonService ;
 	@Resource(name = "compUploadPath")
 	private String compUploadPath;
 
@@ -51,17 +60,48 @@ public class CompController {
 		return "comp/insertGoods";
 	}
 
+//	@RequestMapping(value = "/comp/insertGoodsPro", method = RequestMethod.POST)
+//	public String insertProHttpServletRequest request,HttpSession session,MultipartFile prodLMainimg,MultipartFile prodLSubimg,@ModelAttribute ProdDTO prodDTO) {
+//
+//		CommonDTO commonDTO =  new CommonDTO();
+//		commonDTO.setComCd("PF"); // 코드 정의
+//		commonDTO.setColumnNm("PROD_L_CODE"); //기준 컬럼
+//		commonDTO.setTableNm("PRODUCT_LIST"); //테이블 정의
+//		CommonDTO cd = commonService.selectCodeSearch(commonDTO);
+//		//cd = PF220906001 로 생성됨
+//		//조회해온 코드값을 원하는 DTO에 Set 처리
+//		prodDTO.setProdLCode(cd.getPkCd());
+//
+//		compService.insertProd(prodDTO);
+//
+//		return "redirect:/comp/insertGoods";
+//	}
 
 
 
 
 	@RequestMapping(value = "/comp/insertGoodsPro", method = RequestMethod.POST)
 	public String insertPro(HttpServletRequest request,HttpSession session,MultipartFile prodLMainimg,MultipartFile prodLSubimg) throws Exception {
-//		ProdDTO prodDTO,
+		System.out.println("/comp/insertGoodsPro");
+
+		ProdDTO prodDTO = new ProdDTO();
+
+
+		CommonDTO commonDTO =  new CommonDTO();
+		commonDTO.setComCd("PF"); // 코드 정의
+		commonDTO.setColumnNm("PROD_L_CODE"); //기준 컬럼
+		commonDTO.setTableNm("PRODUCT_LIST"); //테이블 정의
+		CommonDTO cd = commonService.selectCodeSearch(commonDTO);
+		//cd = PF220906001 로 생성됨
+		//조회해온 코드값을 원하는 DTO에 Set 처리
+		prodDTO.setProdLCode(cd.getPkCd());
+
+
+
+		//		ProdDTO prodDTO,
 		// 로그인후 세션값, 업체 아이디 갖고옴
 		System.out.println("insertPro");
 		String CompNm = (String)session.getAttribute("compId");
-		ProdDTO prodDTO = new ProdDTO();
 		prodDTO.setProdLCompnm(CompNm);
 //
 		//파일 이름  => 랜덤문자_파일이름
@@ -78,7 +118,7 @@ public class CompController {
 		FileCopyUtils.copy(prodLMainimg.getBytes(), uploadMainFile);
 		FileCopyUtils.copy(prodLSubimg.getBytes(), uploadSubFile);
 
-		prodDTO.setProdLCode(request.getParameter("prodLCode"));
+
 		prodDTO.setProdLOption1(request.getParameter("prodLOption1"));
 		prodDTO.setProdLOption2(request.getParameter("prodLOption2"));
 		prodDTO.setProdLOption3(request.getParameter("prodLOption3"));
@@ -92,6 +132,10 @@ public class CompController {
 		prodDTO.setProdLMainimg(MainImg);
 
 
+//		상세 옵션 넣기
+
+
+
 
 		compService.insertProd(prodDTO);
 //		System.out.println(prodDTO);
@@ -102,14 +146,20 @@ public class CompController {
 
 
 	@RequestMapping(value = "/comp/deleteProd", method = RequestMethod.GET)
-	public String list(HttpServletRequest request, Model model) {
+	public String list(HttpServletRequest request, Model model,HttpSession session) {
 		// 한화면에 보여줄 글개수
 		int pageSize=10;
 		//현페이지 번호
 		String pageNum=request.getParameter("pageNum");
+		String CompNm = (String)session.getAttribute("compId"); // 업체 세션값(아이디) 저장
+		String status = request.getParameter("status");
+		String searchKeyWord = request.getParameter("searchKeyWord");
+		System.out.println("status : " +request.getParameter("status") +"searchKeyWord : " +request.getParameter("searchKeyWord"));
+
 		if(pageNum==null) {
 			pageNum="1";
 		}
+
 		//현페이지 번호를 정수형으로 변경
 		int currentPage=Integer.parseInt(pageNum);
 		// PageDTO 객체생성
@@ -117,11 +167,15 @@ public class CompController {
 		pageDTO.setPageSize(pageSize);
 		pageDTO.setPageNum(pageNum);
 		pageDTO.setCurrentPage(currentPage);
+		pageDTO.setCompNm(CompNm);
+//		pageDTO.setSearchKeyWord(searchKeyWord);
+//		pageDTO.setCompCode(request.getParameter(""));
+		//세션값 가져가기( 해당 업체 물건만 갖고 오려고)
+
 
 		List<ProdDTO> prodList=compService.getProdList(pageDTO);
-
-		// pageBlock  startPage endPage count pageCount
-		int count=compService.getProdCount();
+		int count=compService.getProdCount();     // 업체 전체 물건 리스트 갯수
+		// 페이징
 		int pageBlock=10;
 		int startPage=(currentPage-1)/pageBlock*pageBlock+1;
 		int endPage=startPage+pageBlock-1;
@@ -130,11 +184,14 @@ public class CompController {
 			endPage = pageCount;
 		}
 
+
 		pageDTO.setCount(count);
 		pageDTO.setPageBlock(pageBlock);
 		pageDTO.setStartPage(startPage);
 		pageDTO.setEndPage(endPage);
 		pageDTO.setPageCount(pageCount);
+//		pageDTO.setStatus(status);
+
 
 		//데이터 담아서 list.jsp 이동
 		model.addAttribute("prodList", prodList);
@@ -144,10 +201,12 @@ public class CompController {
 		// WEB-INF/views/board/list.jsp 이동
 		return "/comp/deleteProd";
 	}
+
+
+
 	// 삭제기능 구현
 	@RequestMapping(value = "/comp/delete")
-	public int compProdDeleteAjax(HttpServletRequest request) {
-		int result = 1;
+	public ResponseEntity<String> compProdDeleteAjax(HttpServletRequest request) {
 		String[] ajaxMsg = request.getParameterValues("valueArr");
 		System.out.println("compController : "+ajaxMsg[0]);
 		// 삭제되는 데이터 만큼 for 문을 돌려 compService.deleteProd 호출
@@ -156,10 +215,11 @@ public class CompController {
 			System.out.println("compController : "+ ajaxMsg[i]);
 		}
 
-
-
-		return result;
+		ResponseEntity<String> entity=new ResponseEntity<String>("1" ,HttpStatus.OK);
+		return entity;
 	}
+
+
 
 	// 수정
 	@RequestMapping(value = "/comp/update", method = RequestMethod.GET)

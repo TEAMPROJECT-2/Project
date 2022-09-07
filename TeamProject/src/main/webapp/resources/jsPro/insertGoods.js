@@ -2,83 +2,142 @@
  *
  */
 
- // 식품선택시
- $(document).ready(function(){
-	$('#select').change(function(){
-		//보충제 식단 선택
-		var result = $('#select option:selected').val();
-		//보충제, 식단 선택
-//		var selectFoodDetail = $('#selectFoodDetail option:selected').val();
 
-//		식품을 선택시
-		if (result == 'f01') {
-			$('.foodF01').show();
-		}
-		else {
-			$('.foodF01').hide();
-
-		}
-		if (result == 'f02') {
-			$('.foodF02').show();
-		}
-		else {
-			$('.foodF02').hide();
-
-		}
-		if (result == 'f0101') {
-			$('.foodF0101').show();
-		}else {
-			$('.foodF0101').hide();
-
-		}
-	});
-});
-// 맛 선택창
 $(document).ready(function(){
-	$('#select1').change(function(){
-		var result = $('#select1 option:selected').val();
-		if (result == 'f0101') {
-			$('.foodF0101').show();
-		}else {
-			$('.foodF0101').hide();
+	var one;
+	var two;
+	var three;
+	var four;
 
-		}
-	});
-});
+	$('#prodLOption1').change(function () {
+        one = this.options[this.selectedIndex].value;
+        $('#div2').hide(); //숨김
+        $('#prodLOption2').empty(); //초기화
+        $('#div3').hide(); //숨김
+        $('#prodLOption3').empty(); //초기화
+        $('#div4').hide(); //숨김
+        $('#prodLOption4').empty(); //초기화
+        $('#div5').hide(); //숨김
+        $('#prodLOption5').empty(); //초기화
+        $.ajax({
+        	url: "/web/common/selectOptionList",
+			type: "post",
+			data : {"srhHighCd":one},
+			dataType: "json",
+			async: false,
+			success:function( data ) {
+				if(data.code=="S") {
+					$('#div2').show();
+					$('#prodLOption2').show();
+					$('#prodLOption2').append("<option>" + "선택" + "</option>");
+					var codeList = data.commonList;
+				      for(var i = 0; i < codeList.length ; i++){
+				        var option = "<option value='" + codeList[i].cdOpt + "'>" + codeList[i].cdOptNm + "</option>";
+				        $('#prodLOption2').append(option);
+				      }
+				} else {
+					alert("ERROR : Common Code");
+				}
+			}
+		});
+    });
 
-//용품 선택시
+	$('#prodLOption2').change(function () {
+        two = this.options[this.selectedIndex].value;
+        $('#div3').hide(); //숨김
+        $('#prodLOption3').empty(); //초기화
+        $('#div4').hide(); //숨김
+        $('#prodLOption4').empty(); //초기화
+        $('#div5').hide(); //숨김
+        $('#prodLOption5').empty(); //초기화
+        $.ajax({
+        	url: "/web/common/selectOptionList",
+			type: "post",
+			data : {"srhHighCd":two},
+			dataType: "json",
+			async: false,
+			success:function( data ) {
+				if(data.code=="S") {
+					$('#div3').show();
+					$('#prodLOption3').show();
+					$('#prodLOption3').append("<option>" + "선택" + "</option>");
+					var codeList = data.commonList;
+				      for(var i = 0; i < codeList.length ; i++){
+				        var option = "<option value='" + codeList[i].cdOpt + "'>" + codeList[i].cdOptNm + "</option>";
+				        $('#prodLOption3').append(option);
+				      }
+				} else {
+					alert("ERROR : Common Code");
+				}
+			}
+		});
+    });
 
- $(document).ready(function(){
-	$('#select2').change(function(){
-		//옷,기구,잡화
-		var result2 = $('#select2 option:selected').val();
-//		옷선택시
-		if (result2 == 'p01') {
-			$('.prod_p01').show();
-			$('.prod_color').show();
-			$('.prod_size').show();
-		}else {
-			$('.prod_p01').hide();
-			$('.prod_color').hide();
-			$('.prod_size').hide();
-		}
-		// 기구선택시
-		if (result2 == 'p02') {
-			$('.prod_p02').show();
-		}else {
-			$('.prod_p02').hide();
-		}
-//		잡화 선택시
-		if (result2 == 'p03') {
-			$('.prod_p03').show();
-		}else {
-			$('.prod_p03').hide();
-		}
-		if (result2 == 'p02') {
-			$('.prod_p02').show();
-		}else {
-			$('.prod_p02').hide();
+	$('#prodLOption3').change(function () {
+		three = this.options[this.selectedIndex].value;
+		if(three=="P0101" || three=="P0102" || three=="F0101" || three=="F0102" || three=="F0103"){
+			if(three=="P0101" || three=="P0102"){
+				three="COLOR";
+			}else if(three=="F0101" || three=="F0102" || three=="F0103"){
+				three="TASTE";
+			}else{
+				three="";
+			}
+	        $('#div4').hide(); //숨김
+	        $('#prodLOption4').empty(); //초기화
+	        $('#div5').hide(); //숨김
+	        $('#prodLOption5').empty(); //초기화
+	        $.ajax({
+	        	url: "/web/common/selectOptionList",
+				type: "post",
+				data : {"srhHighCd":three},
+				dataType: "json",
+				async: false,
+				success:function( data ) {
+					if(data.code=="S") {
+						$('#div4').show();
+						$('#prodLOption4').show();
+						$('#prodLOption4').append("<option>" + "선택" + "</option>");
+						var codeList = data.commonList;
+					      for(var i = 0; i < codeList.length ; i++){
+					        var option = "<option value='" + codeList[i].cdOpt + "'>" + codeList[i].cdOptNm + "</option>";
+					        $('#prodLOption4').append(option);
+					      }
+					} else {
+						alert("ERROR : Common Code");
+					}
+				}
+			});
 		}
     });
-});
 
+	$('#prodLOption4').change(function () {
+		if(three=="COLOR"){
+			four = "SIZE";
+	        $('#div5').hide(); //숨김
+	        $('#prodLOption5').empty(); //초기화
+	        $.ajax({
+	        	url: "/web/common/selectOptionList",
+				type: "post",
+				data : {"srhHighCd":four},
+				dataType: "json",
+				async: false,
+				success:function( data ) {
+					if(data.code=="S") {
+						$('#div5').show();
+						$('#prodLOption5').show();
+						$('#prodLOption5').append("<option>" + "선택" + "</option>");
+						var codeList = data.commonList;
+					      for(var i = 0; i < codeList.length ; i++){
+					        var option = "<option value='" + codeList[i].cdOpt + "'>" + codeList[i].cdOptNm + "</option>";
+					        $('#prodLOption5').append(option);
+					      }
+					} else {
+						alert("ERROR : Common Code");
+					}
+				}
+			});
+		}
+    });
+
+});

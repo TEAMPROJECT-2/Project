@@ -13,6 +13,10 @@ public class PageDTO extends CommonDTO {
 	private int count;
 	private int pageCount;
 
+	private String CompNm;
+	private String status;
+	private String searchKeyWord;
+
 	public int getPageSize() {
 		return pageSize;
 	}
@@ -73,6 +77,25 @@ public class PageDTO extends CommonDTO {
 	public void setPageCount(int pageCount) {
 		this.pageCount = pageCount;
 	}
+	public String getCompNm() {
+		return CompNm;
+	}
+	public void setCompNm(String compNm) {
+		CompNm = compNm;
+	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	public String getSearchKeyWord() {
+		return searchKeyWord;
+	}
+	public void setSearchKeyWord(String searchKeyWord) {
+		this.searchKeyWord = searchKeyWord;
+	}
+
 
 
 

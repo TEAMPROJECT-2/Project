@@ -9,6 +9,7 @@ import javax.annotation.Resource;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -40,11 +41,31 @@ public class ProdController {
 	@Resource(name = "uploadPath")
 	private String uploadPath;
 
+//	@RequestMapping(value = "/comp/insertGoodsPro", method = RequestMethod.POST)
+//	public String insertProHttpServletRequest request,HttpSession session,MultipartFile prodLMainimg,MultipartFile prodLSubimg,@ModelAttribute ProdDTO prodDTO) {
+//
+//		CommonDTO commonDTO =  new CommonDTO();
+//		commonDTO.setComCd("PF"); // 코드 정의
+//		commonDTO.setColumnNm("PROD_L_CODE"); //기준 컬럼
+//		commonDTO.setTableNm("PRODUCT_LIST"); //테이블 정의
+//		CommonDTO cd = commonService.selectCodeSearch(commonDTO);
+//		//cd = PF220906001 로 생성됨
+//		//조회해온 코드값을 원하는 DTO에 Set 처리
+//		prodDTO.setProdLCode(cd.getPkCd());
+//
+//		compService.insertProd(prodDTO);
+//
+//		return "redirect:/comp/insertGoods";
+//	}
+
+
+
+
 	@RequestMapping(value = "/product/shop", method = RequestMethod.GET)
 	public ModelAndView list(HttpServletRequest req, HttpServletResponse res, @ModelAttribute ProdDTO prodDTO) throws Exception {
 		try {
 			ModelAndView mv = new ModelAndView();
-			
+
 			//코드 생성 > "코드" + YYMMDD + max(000)+1
 			CommonDTO commonDTO =  new CommonDTO();
 			commonDTO.setComCd("PF"); // 코드 정의
@@ -54,7 +75,7 @@ public class ProdController {
 			//cd = PF220906001 로 생성됨
 			//조회해온 코드값을 원하는 DTO에 Set 처리
 			prodDTO.setProdLCode(cd.getPkCd());
-			
+
 			List<CommonDTO> commonList =  commonService.selectCommonList(commonDTO);
 
 			int pageSize = 10;

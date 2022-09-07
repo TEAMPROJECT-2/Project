@@ -3,6 +3,7 @@ package com.itwillbs.service;
 import java.util.List;
 import java.util.Map;
 
+import com.itwillbs.domain.CommonDTO;
 import com.itwillbs.domain.CompDTO;
 import com.itwillbs.domain.PageDTO;
 import com.itwillbs.domain.ProdDTO;
@@ -23,5 +24,6 @@ public interface CompService {
 	void updateProd(ProdDTO prodDTO);
 
 	CompDTO getComp(CompDTO compDTO);
+
 
 }

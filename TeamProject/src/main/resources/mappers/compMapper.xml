@@ -17,7 +17,7 @@
 			       ,PROD_L_OPTION5
 			       ,PROD_L_PRODNM
 			       ,PROD_L_PRICE
-			       ,PROD_L_UPDATE
+			       ,PROD_L_UPLOADDATE
 			       ,PROD_L_COMPNM
 			       ,PROD_L_MAINIMG
 			       ,PROD_L_SUBIMG
@@ -36,7 +36,7 @@
 			       ,#{prodLOption5}
 			       ,#{prodLProdnm}
 			       ,#{prodLPrice}
-			       ,#{prodLUpdate}
+			       ,#{prodLUploaddate}
 			       ,#{prodLCompnm}
 			       ,#{prodLMainimg}
 			       ,#{prodLSubimg}
@@ -60,7 +60,10 @@
 			       ,PROD_L_PRICE
 			       ,PROD_L_QUANTITY
 		     FROM   PRODUCT_LIST
-<!-- 		    WHERE   PROD_L_COMPNM=#{prodLCompnm} -->
+		    WHERE   PROD_L_COMPNM=#{compNm}
+		    <if test="searchKeyWord != null">
+		   	  AND   PROD_L_CODE LIKE CONCAT('%', #{searchKeyWord}, '%')
+		   </if>
 		 ORDER BY   PROD_L_NUM
        DESC LIMIT   #{startRow}
                    ,#{pageSize}
@@ -68,7 +71,9 @@
 	<select id="getProdCount" resultType="java.lang.Integer">
 		   SELECT   COUNT(PROD_L_CODE)
 		     FROM   PRODUCT_LIST
-<!-- 		  	WHERE   PROD_L_COMPNM=#{delProdNum} -->
+		     <if test="searchKeyWord != null">
+		   	WHERE   PROD_L_CODE LIKE CONCAT('%', #{searchKeyWord}, '%')
+		   </if>
 	</select>
 
 	<delete id="deleteProd">

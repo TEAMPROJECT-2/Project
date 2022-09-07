@@ -99,7 +99,7 @@
                       </tr>
                     </thead>
                     <tbody class="table-border-bottom-0">
-					  <c:forEach var="prodDTO" items="${prodList }">
+					  <c:forEach var="prodDTO" items="${prodList }" varStatus="status">
                       <tr onClick="location.href='${pageContext.request.contextPath }/comp/update?CheckRow=${prodDTO.prodLCode }'" style="cursor:pointer;">
                       	<td onclick="event.cancelBubble=true">&nbsp;&nbsp;&nbsp;&nbsp;<input class="form-check-input" type="checkbox" value="${prodDTO.prodLCode }" name="CheckRow" id="defaultCheck1" />
                       	<label class="form-check-label" for="defaultCheck1"> 선택 </label></td>
@@ -112,8 +112,20 @@
                         <td>
                           ${prodDTO.prodLQuantity }
                         </td>
-
-                        <td><span class="badge bg-label-info me-1">양호</span></td>
+                        <td>
+							<c:set var="num" value="${prodDTO.prodLQuantity }" />
+						 	<c:choose>
+						 		<c:when test="${num ge 50}">
+						  			<span class="badge bg-label-info me-1" name="status" id="status">양호</span>
+						 		</c:when>
+						 		<c:when test="${num lt 50 and num gt 0 }">
+						  			<span class="badge bg-label-warning me-1" name="status" id="status">품절임박</span>
+						 		</c:when>
+						 		<c:when test="${num eq 0}">
+						 			<span class="badge bg-label-danger me-1" name="status" id="status">품절</span>
+						 		</c:when>
+						 	</c:choose>
+						</td>
                       </tr>
                       </c:forEach>
 

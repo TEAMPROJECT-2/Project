@@ -21,7 +21,7 @@ public class CompServiceImpl implements CompService {
 	//상품등록
 	@Override
 	public void insertProd(ProdDTO prodDTO) {
-		prodDTO.setProdLUpdate(new Timestamp(System.currentTimeMillis()));
+		prodDTO.setProdLUploaddate(new Timestamp(System.currentTimeMillis()));
 
 		compDAO.insertProd(prodDTO);
 	}
