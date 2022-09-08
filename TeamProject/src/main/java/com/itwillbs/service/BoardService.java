@@ -19,7 +19,7 @@ public interface BoardService {
 	BoardDTO getBoard(int boardNum);
 	
 //	BoardDTO boardDTO2=boardService.numCheck(boardDTO);
-	MemberDTO numCheck(MemberDTO memberDTO);
+	BoardDTO numCheck(BoardDTO boardDTO);
 	
 //	boardService.updateBoard(boardDTO);
 	void updateBoard(BoardDTO boardDTO);
@@ -41,6 +41,8 @@ public interface BoardService {
 	void deleteLike(LikeDTO likeDTO);
 
 	int likeCheck(LikeDTO likeDTO);
+
+	BoardDTO PassCheck(BoardDTO boardDTO);
 
 
 	

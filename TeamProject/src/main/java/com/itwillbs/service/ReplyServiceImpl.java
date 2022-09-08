@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.itwillbs.dao.BoardDAO;
 import com.itwillbs.dao.ReplyDAO;
+import com.itwillbs.domain.MemberDTO;
 import com.itwillbs.domain.PageDTO;
 import com.itwillbs.domain.ReplyDTO;
 
@@ -60,6 +61,12 @@ public class ReplyServiceImpl implements ReplyService {
 	public ReplyDTO rNumCheck(ReplyDTO replyDTO) {
 		// TODO Auto-generated method stub
 		return replyDAO.rNumCheck(replyDTO);
+	}
+
+	@Override
+	public MemberDTO userCheck(MemberDTO memberDTO) {
+		// TODO Auto-generated method stub
+		return replyDAO.userCheck(memberDTO);
 	}
 
 	

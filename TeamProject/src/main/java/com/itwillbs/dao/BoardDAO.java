@@ -20,7 +20,7 @@ public interface BoardDAO {
 	
 	BoardDTO getBoard(int boardNum);
 
-	MemberDTO numCheck(MemberDTO memberDTO);
+	BoardDTO numCheck(BoardDTO boardDTO);
 
 	void updateBoard(BoardDTO boardDTO);
 
@@ -41,6 +41,8 @@ public interface BoardDAO {
 	void updateLikeCheck(LikeDTO likeDTO);
 
 	void updateLikeCheckCancel(LikeDTO likeDTO);
+
+	BoardDTO PassCheck(BoardDTO boardDTO);
 
 	
 

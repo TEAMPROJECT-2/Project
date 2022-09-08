@@ -1,22 +1,25 @@
 package com.itwillbs.domain;
 
-public class PageDTO extends CommonDTO {
+public class PageDTO {
 	private int pageSize;
 	private String pageNum;
 	private int currentPage;
 	private int startRow;
 	private int endRow;
-
+	private int boardNum;
 	private int pageBlock;
 	private int startPage;
+	
 	private int endPage;
 	private int count;
 	private int pageCount;
-
-	private String CompNm;
-	private String status;
-	private String searchKeyWord;
-
+	
+	public int getBoardNum() {
+		return boardNum;
+	}
+	public void setBoardNum(int boardNum) {
+		this.boardNum = boardNum;
+	}
 	public int getPageSize() {
 		return pageSize;
 	}
@@ -77,26 +80,7 @@ public class PageDTO extends CommonDTO {
 	public void setPageCount(int pageCount) {
 		this.pageCount = pageCount;
 	}
-	public String getCompNm() {
-		return CompNm;
-	}
-	public void setCompNm(String compNm) {
-		CompNm = compNm;
-	}
-	public String getStatus() {
-		return status;
-	}
-	public void setStatus(String status) {
-		this.status = status;
-	}
-	public String getSearchKeyWord() {
-		return searchKeyWord;
-	}
-	public void setSearchKeyWord(String searchKeyWord) {
-		this.searchKeyWord = searchKeyWord;
-	}
-
-
-
-
+	
+	
+	
 }

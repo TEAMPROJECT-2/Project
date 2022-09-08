@@ -23,6 +23,7 @@ import com.itwillbs.domain.MemberDTO;
 import com.itwillbs.domain.PageDTO;
 import com.itwillbs.domain.ReplyDTO;
 import com.itwillbs.service.BoardService;
+import com.itwillbs.service.MemberService;
 import com.itwillbs.service.ReplyService;
 
 @Controller
@@ -33,7 +34,8 @@ public class BoardController {
 	private BoardService boardService;
 	@Inject
 	private ReplyService replyService;
-	
+	@Inject
+	private MemberService memberService;
 	//업로드 경로 servlet-context.mxl upload폴더 경로 이름
 	@Resource(name = "uploadPath")
 	private String uploadPath;
@@ -77,7 +79,7 @@ public class BoardController {
 		pageDTO.setEndPage(endPage);
 		pageDTO.setPageCount(pageCount);
 		
-		//데이터 담아서 list.jsp 이동
+		
 		model.addAttribute("boardList", boardList);
 		model.addAttribute("pageDTO", pageDTO);
 		
@@ -86,14 +88,12 @@ public class BoardController {
 		return "/board/list";
 	}
 	
-	//	가상주소 시작점 http://localhost:8080/myweb2/board/fwrite 
 	@RequestMapping(value = "/board/fwrite", method = RequestMethod.GET)
 	public String finsert() {
 		// 주소변경없이 이동
 		// WEB-INF/views/board/fwriteForm.jsp 이동
 		return "/board/fwriteForm";
 	}
-	
 	//가상주소 시작점 http://localhost:8080/myweb2/board/fwritePro
 	@RequestMapping(value = "/board/fwritePro", method = RequestMethod.POST)
 	public String fwritePro(HttpServletRequest request,HttpSession session, MultipartFile file) throws Exception {
@@ -109,9 +109,13 @@ public class BoardController {
 		
 		BoardDTO boardDTO=new BoardDTO();
 		boardDTO.setUserNicknm(request.getParameter("userNicknm"));
+		boardDTO.setBoardPass(request.getParameter("boardPass"));
 		boardDTO.setBoardSubject(request.getParameter("boardSubject"));
 		boardDTO.setBoardContent(request.getParameter("boardContent"));
 		boardDTO.setBoardFile(filename);
+		
+		
+		
 		
 		boardService.insertBoard(boardDTO);
 		
@@ -161,7 +165,7 @@ public class BoardController {
 //		pageDTO.setPageCount(pageCount);
 		
 		
-		//데이터 담아서 list.jsp 이동
+		
 		model.addAttribute("replyList", replyList);
 		model.addAttribute("pageDTO", pageDTO);
 		// 주소변경없이 이동
@@ -183,6 +187,7 @@ public class BoardController {
 		// 주소변경없이 이동
 		// WEB-INF/views/board/updateForm.jsp 이동
 		return "/board/updateForm";
+		
 	}
 	
 	//가상주소 시작점 http://localhost:8080/myweb2/board/updatePro
@@ -204,6 +209,7 @@ public class BoardController {
 				BoardDTO boardDTO=new BoardDTO();
 				boardDTO.setBoardNum(Integer.parseInt(request.getParameter("boardNum")));
 				boardDTO.setUserNicknm(request.getParameter("userNicknm"));
+				boardDTO.setBoardPass(request.getParameter("boardPass"));
 				boardDTO.setBoardSubject(request.getParameter("boardSubject"));
 				boardDTO.setBoardContent(request.getParameter("boardContent"));
 				boardDTO.setBoardFile(filename);
@@ -214,19 +220,24 @@ public class BoardController {
 				
 		
 				//num pass 일치 확인
-				MemberDTO boardDTO2=boardService.numCheck(memberDTO);
-		if(boardDTO2!=null) {
-//			num pass 일치
-			boardService.updateBoard(boardDTO);
-			boardService.updateFile(boardDTO);
+				BoardDTO boardPass=boardService.PassCheck(boardDTO);
+				BoardDTO boardDTO2=boardService.numCheck(boardDTO);
+		if(boardDTO2 != null) {
+			if(boardPass != null) {
+				boardService.updateBoard(boardDTO);
+				boardService.updateFile(boardDTO);
+			}else {
+				//num pass 틀림
+				// "틀림" 뒤로이동
+				// 주소변경없이 이동
+				// WEB-INF/views/board/msg.jsp 이동
+				return "board/msg";
+			}
 			// 주소변경하면서 이동 /board/list 이동
 			return "redirect:/board/list";
 		}else {
-			//num pass 틀림
-			// "틀림" 뒤로이동
-			// 주소변경없이 이동
-			// WEB-INF/views/board/msg.jsp 이동
-			return "board/msg";
+			
+			return "board/msg3";
 		}
 	}
 	@RequestMapping(value = "/board/delete", method = RequestMethod.GET)
@@ -249,23 +260,24 @@ public class BoardController {
 		//num pass 일치 확인
 		BoardDTO boardDTO=new BoardDTO();
 		boardDTO.setBoardNum(Integer.parseInt(request.getParameter("boardNum")));
+		boardDTO.setUserNicknm(request.getParameter("userNicknm"));
+		boardDTO.setBoardPass(request.getParameter("boardPass"));
 		MemberDTO memberDTO=new MemberDTO();
 		memberDTO.setUserId(request.getParameter("userId"));
 		memberDTO.setUserPass(request.getParameter("userPass"));
 		//num pass 일치 확인
-		MemberDTO boardDTO2=boardService.numCheck(memberDTO);
-		if(boardDTO2!=null) {
-//			num pass 일치
-			boardService.deleteBoard(boardDTO);
-			// 주소변경하면서 이동 /board/list 이동
+		BoardDTO boardPass=boardService.PassCheck(boardDTO);
+		BoardDTO boardDTO2=boardService.numCheck(boardDTO);
+		
+	
+		if(boardDTO2 != null) {
+			
+				boardService.deleteBoard(boardDTO);
+			
 			return "redirect:/board/list";
 		}else {
-			//num pass 틀림
-			// "틀림" 뒤로이동
-			// 주소변경없이 이동
-			// WEB-INF/views/board/msg.jsp 이동
-			return "board/msg";
-	
+			
+			return "board/msg3";
 		}
 	
 	

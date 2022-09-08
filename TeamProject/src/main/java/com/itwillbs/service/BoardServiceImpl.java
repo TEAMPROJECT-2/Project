@@ -65,8 +65,8 @@ public class BoardServiceImpl implements BoardService{
 	}
 
 	@Override
-	public MemberDTO numCheck(MemberDTO memberDTO) {
-		return boardDAO.numCheck(memberDTO);
+	public BoardDTO numCheck(BoardDTO boardDTO) {
+		return boardDAO.numCheck(boardDTO);
 	}
 
 	@Override
@@ -120,6 +120,12 @@ public class BoardServiceImpl implements BoardService{
 	@Override
 	public void updateLikeCheckCancel(LikeDTO likeDTO){
 		boardDAO.updateLikeCheckCancel(likeDTO);
+	}
+
+	@Override
+	public BoardDTO PassCheck(BoardDTO boardDTO) {
+		// TODO Auto-generated method stub
+		return boardDAO.PassCheck(boardDTO);
 	}
 
 	

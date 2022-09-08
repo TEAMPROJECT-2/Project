@@ -48,21 +48,26 @@
 ${boardDTO.boardFile }</a></td></tr>
 
 <tr><td>글내용</td><td colspan="3">${boardDTO.boardContent }</td></tr>
-<tr><td colspan="4">
-<input type="button" value="글수정" 
-onclick="location.href='${pageContext.request.contextPath }/board/update?boardNum=${boardDTO.boardNum }'">
-<input type="button" value="글삭제" 
-onclick="location.href='${pageContext.request.contextPath }/board/delete?boardNum=${boardDTO.boardNum }'">
-<input type="button" class="btn btn-primary" id="like_btn" value="추천 ">
-<div>${likeDTO.likeNum}</div>
-</td></tr>
+
+ <c:set var="userId" scope="session" value="${sessionScope.userId}"/>
+    <c:if test="${userId ne null}">
+		<tr><td colspan="4">
+		<input type="button" value="글수정" 
+		onclick="location.href='${pageContext.request.contextPath }/board/update?boardNum=${boardDTO.boardNum }'">
+		<input type="button" value="글삭제" 
+		onclick="location.href='${pageContext.request.contextPath }/board/delete?boardNum=${boardDTO.boardNum }'">
+		<input type="button" class="btn btn-primary" id="like_btn" value="추천 ">
+		<div>${likeDTO.likeNum}</div>
+		</td></tr>
+	</c:if>
 </table>	
 <a href="${pageContext.request.contextPath }/board/list"><input type="button" class="btn btn-primary" value="글목록 "></a>
 
 <hr>
 
 <!-- 댓글 부분 -->
-
+<c:set var="userId" scope="session" value="${sessionScope.userId}"/>
+<c:if test="${userId ne null}">
 <div class="card my-4">
 		<h5 class="card-header">댓글</h5>
 		<div class="card-body">
@@ -71,20 +76,26 @@ onclick="location.href='${pageContext.request.contextPath }/board/delete?boardNu
 					<input type="hidden" name="boardNum" value="${boardDTO.boardNum}" />
 					<textarea name="rContent" class="form-control" rows="3"></textarea>
 				</div>
+				<input type="text" name="rPass" placeholder="댓글 비밀번호"  ><br>
 				<button type="submit" class="btn btn-primary">Submit</button>
 			</form>
 		</div>
 	</div>
+</c:if>
 <c:forEach items="${replyList}" var="replyDTO">
 <table border="1">
 <tr><td><input type="hidden" name="rNum" value="${replyDTO.rNum }"></td>
 	<td>이름</td><td>${replyDTO.userId}</td>
     <td>댓글내용</td><td>${replyDTO.rContent }</td>
     <td>글쓴날짜</td><td>${replyDTO.rDate }</td>
-    <td><input type="button" value="삭제" onclick="location.href='${pageContext.request.contextPath }/board/deletePro2'"></td>
+    <td><input type="button" value="댓글 삭제" onclick="location.href='${pageContext.request.contextPath }/board/rdelete?rNum=${reply.rNum}'"></td>
 	</tr>
+	
 </table>
+
+                
 </c:forEach>
+
 <!-- 댓글 부분 -->
 
 <!-- Footer Section Begin -->

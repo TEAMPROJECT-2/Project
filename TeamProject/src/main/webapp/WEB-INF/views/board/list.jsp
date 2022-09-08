@@ -25,7 +25,10 @@
             </div>
         </div>
     </section>
-
+    <form action="${pageContext.request.contextPath }/board/fwrite">
+    <input type="hidden" name="userId" value="${sessionScope.userId}" >
+    </form>
+	
     <!-- 사이드 메뉴(inc로 빼도 됨) -->
     <section class="shop spad">
         <div class="container">
@@ -83,9 +86,14 @@
           </tbody>
 			
         </table>
-        <div align="right">
+        <c:set var="userId" scope="session" value="${sessionScope.userId}"/>
+        <c:if test="${userId != null}">
+        
+        	<div align="right">
 			<a href="${pageContext.request.contextPath }/board/fwrite"><button type="button" class="btn btn-primary" >게시글 작성하기</button></a>
-		</div>
+			</div>
+        </c:if>
+       
       </div>
   </div>
 

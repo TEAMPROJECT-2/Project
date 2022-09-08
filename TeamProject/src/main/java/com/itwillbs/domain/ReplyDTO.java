@@ -7,9 +7,17 @@ public class ReplyDTO {
 	private int rNum;
 	private int boardNum;
 	private String userId;
+	private String rPass;
+	
 	private String rContent;
 	private Timestamp rDate;
 	
+	public String getrPass() {
+		return rPass;
+	}
+	public void setrPass(String rPass) {
+		this.rPass = rPass;
+	}
 	public int getrNum() {
 		return rNum;
 	}

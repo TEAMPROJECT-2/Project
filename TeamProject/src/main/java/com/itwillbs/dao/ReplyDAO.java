@@ -2,6 +2,7 @@ package com.itwillbs.dao;
 
 import java.util.List;
 
+import com.itwillbs.domain.MemberDTO;
 import com.itwillbs.domain.PageDTO;
 import com.itwillbs.domain.ReplyDTO;
 
@@ -23,6 +24,9 @@ public interface ReplyDAO {
 
 
 	ReplyDTO rNumCheck(ReplyDTO replyDTO);
+
+
+	MemberDTO userCheck(MemberDTO memberDTO);
 
 	
 

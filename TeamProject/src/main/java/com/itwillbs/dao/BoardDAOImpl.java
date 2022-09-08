@@ -47,9 +47,9 @@ public class BoardDAOImpl implements BoardDAO{
 	}
 
 	@Override
-	public MemberDTO numCheck(MemberDTO memberDTO) {
+	public BoardDTO numCheck(BoardDTO boardDTO) {
 		
-		return sqlSession.selectOne(namespace+".numCheck", memberDTO);
+		return sqlSession.selectOne(namespace+".numCheck", boardDTO);
 	}
 
 	@Override
@@ -109,6 +109,12 @@ public class BoardDAOImpl implements BoardDAO{
 	public void updateLikeCheckCancel(LikeDTO likeDTO) {
 		sqlSession.update(namespace+".updateBoard", likeDTO);
 		
+	}
+
+	@Override
+	public BoardDTO PassCheck(BoardDTO boardDTO) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(namespace+".PassCheck", boardDTO);
 	}
 
 
