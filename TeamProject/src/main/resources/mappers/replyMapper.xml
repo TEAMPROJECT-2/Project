@@ -18,18 +18,20 @@
         	   ,#{rContent}
         	   ,#{rDate})	
 	</insert> -->
-		<insert id="replyinsert">
+		<insert id="replyinsert" >
 		insert into BOARD_REPLY
 		(
 			 R_NUM
 			,BOARD_NUM
 			,USER_ID
+			,R_PASS
 			,R_CONTENT
 			) 
 		values(
 		     #{rNum}
 			,#{boardNum}
 			,#{userId}
+			,#{rPass}
 			,#{rContent}
 			)
 		</insert>
@@ -49,7 +51,7 @@
 	</select>
 	
 	<delete id="Replydelete">
-		delete from BOARD_REPLY where R_NUM=#{rNum}
+		delete from BOARD_REPLY where R_NUM=#{rNum} and R_PASS=#{rPass}
 	</delete>
 	
 	<select id="rNumCheck">

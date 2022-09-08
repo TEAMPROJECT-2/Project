@@ -32,6 +32,7 @@ enctype="multipart/form-data">
 <tr><td>파일</td><td><input type="file" name="file"></td></tr>
 <tr><td>내용</td>
     <td><textarea name="boardContent" rows="10" cols="20"></textarea></td></tr>
+<tr><td>게시판 비밀번호</td><td><input type="password" name="boardPass"></td></tr>
 <tr><td colspan="2"><input type="submit" value="글쓰기"></td></tr>
 </table>
 <a href="${pageContext.request.contextPath }/board/list">글목록</a>
