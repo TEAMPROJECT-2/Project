@@ -20,7 +20,7 @@
               ,PROD_L_MAINIMG
               ,PROD_L_SUBIMG
               ,PROD_L_DETAIL
-              ,PROD_L_QUANATITY
+              ,PROD_L_QUANTITY
 		  FROM projectdb.PRODUCT_LIST
 		 WHERE 1=1
 		 <!-- MyBatis 사용
@@ -76,7 +76,7 @@
               ,PROD_L_MAINIMG
               ,PROD_L_SUBIMG
               ,PROD_L_DETAIL
-              ,PROD_L_QUANATITY
+              ,PROD_L_QUANTITY
 		  FROM projectdb.PRODUCT_LIST
 		 WHERE PROD_L_NUM = #{prodLNum}
 	</select>
