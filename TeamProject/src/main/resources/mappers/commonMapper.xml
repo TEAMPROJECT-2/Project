@@ -6,13 +6,16 @@
 <mapper namespace="com.itwillbs.mappers.commonMapper">
 
 		<select  id="selectCommonList" resultType="com.itwillbs.domain.CommonDTO" parameterType="com.itwillbs.domain.CommonDTO">
-			SELECT CD_OPT,CD_OPT_NM,HIGH_CD
-			,#{cdOptNm}
+			SELECT CD_OPT
+				 , CD_OPT_NM
+				 , HIGH_CD
 			FROM projectdb.COMMON_CODE
 			WHERE 1=1
-			<if test="srhHighCd != null and srhHighCd != '' ">AND HIGH_CD = #{srhHighCd} </if>
+			<if test="srhHighCd != null and srhHighCd != '' ">
+				AND HIGH_CD = #{srhHighCd}
+			</if>
 			<if test="srhCdOpt != null and srhCdOpt != '' ">
-			AND CD_OPT IN ( <foreach separator="," item="param" collection="srhCdOpt">#{param} </foreach> )
+				AND CD_OPT IN (<foreach separator="," item="param" collection="srhCdOpt">#{param} </foreach> )
 			</if>
 		</select>
 
