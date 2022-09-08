@@ -84,7 +84,6 @@ public class AjaxController {
 	// 회원 탈퇴
 	@RequestMapping(value = "/mypage/deletePro", method = RequestMethod.POST)
 	public ResponseEntity<String> deletePro(MemberDTO memberDTO, HttpServletRequest request, HttpSession session) {
-		System.out.println("MemberController deletePro()");
 		// 메서드 호출
 		MemberDTO memberDTO2=memberService.userCheck(memberDTO);
 
@@ -102,6 +101,22 @@ public class AjaxController {
 		return entity;
 
 	}
+
+//	// 비밀번호 변경
+//	@RequestMapping(value = "/mypage/passCheck", method = RequestMethod.POST)
+//	public ResponseEntity<String> passCheck(MemberDTO memberDTO, HttpServletRequest request) {
+//		String userId=request.getParameter("userId");
+//		String userPass=memberService.passCheck(memberDTO);
+//
+//		String result="";
+//		if(memberDTO!=null) {
+//			result="emaildup";
+//		}else {
+//			result="emailok";
+//		}
+//		ResponseEntity<String> entity=new ResponseEntity<String>(result,HttpStatus.OK);
+//		return  entity;
+//	}
 
 
 }

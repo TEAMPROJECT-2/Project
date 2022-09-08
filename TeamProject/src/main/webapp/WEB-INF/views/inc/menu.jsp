@@ -115,7 +115,7 @@
 							<c:if test="${ !(empty sessionScope.userId )}">
 								<!-- sessionScope 아이디가 admin일 경우 관리자페이지 -->
 								<c:if test="${sessionScope.userId eq 'admin'}">
-									<a href="${pageContext.request.contextPath }/member/list">관리자페이지</a>
+									<a href="${pageContext.request.contextPath }/adminpage">관리자페이지</a>
 									<a href="${pageContext.request.contextPath }/member/logout">로그아웃</a>
 								</c:if>
 							</c:if>

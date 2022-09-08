@@ -107,15 +107,12 @@ public class MemberDAOImpl implements MemberDAO{
 
 	// 비밀번호 변경 동작
 	@Override
-	public String passCheck(String userId) throws Exception {
-		return sqlSession.selectOne(namespace + ".passCheck", userId);
+	public String passCheck(MemberDTO memberDTO) throws Exception {
+		return sqlSession.selectOne(namespace + ".passCheck", memberDTO);
 	}
 	@Override
-	public void passMod(String userId, String hashedPw) throws Exception {
-		Map<String,Object> map = new HashMap<String, Object>();
-		map.put("userId", userId);
-		map.put("userPass", hashedPw);
-		sqlSession.update(namespace + ".passMod", map);
+	public void passMod(String userId) throws Exception {
+		sqlSession.update(namespace + ".passMod", userId);
 
 	}
 

@@ -117,7 +117,6 @@
 	</update>
 
 
-
 <!-- 회원가입(업체) -->
 	<insert id="insertComp">
 	INSERT INTO  COMPANY_INFO(
@@ -167,10 +166,10 @@
 	</update>
 
 <!-- 비밀번호 수정 -->
-	<select id="passCheck" resultType="String">
+	<select id="passCheck" resultType="string">
 		SELECT USER_PASS
-		  FROM USER_PASS
-		 WHERE USER_ID 		=#{USER_ID}
+		  FROM USER_INFO
+		 WHERE USER_ID 		=#{userId}
 	</select>
 
 	<update id="passMod">
@@ -186,7 +185,6 @@
 		 WHERE USER_ID		=#{userId}
 		   AND USER_PASS	=#{userPass}
 	</delete>
-
 
 
 </mapper>

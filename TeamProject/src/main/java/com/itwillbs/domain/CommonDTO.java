@@ -8,7 +8,7 @@ public class CommonDTO {
 	private String useYn;
 	private String srhHighCd;
 	private String[] srhCdOpt;
-	
+
 	private String pkCd;
 	private String comCd;
 	private String columnNm;

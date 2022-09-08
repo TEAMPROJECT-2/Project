@@ -151,14 +151,15 @@ public class MemberServiceImpl implements MemberService{
 
 	// 비밀번호 변경
 	@Override
-	public String passCheck(String userId) throws Exception {
-		return memberDAO.passCheck(userId);
+	public String passCheck(MemberDTO memberDTO) throws Exception{
+		return memberDAO.passCheck(memberDTO);
 	}
 	@Override
-	public void passMod(String userId, String hashedPw) throws Exception {
-		memberDAO.passMod(userId, hashedPw);
+	public void passMod(String userId) throws Exception {
 
 	}
+
+
 
 
 

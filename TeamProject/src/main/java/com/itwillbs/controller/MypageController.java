@@ -73,25 +73,24 @@ public class MypageController {
 		return "mypage/passModify";
 	}
 
-	// 비밀번호 변경
-	@RequestMapping(value = "/mypage/passCheck", method = RequestMethod.POST)
-	public int passCheck(MemberDTO memberDTO) throws Exception{
-		String userPw = memberService.passCheck(memberDTO.getUserId());
-		// 해싱 암호화
-		if(memberDTO == null || !BCrypt.checkpw(memberDTO.getUserPass(), userPw)) {
-			return 0;
-		}
-		return 1;
-	}
-	@RequestMapping(value="/mypage/passModPro" , method=RequestMethod.POST)
-	public String passMod(String userId, String newPass1, RedirectAttributes rttr, HttpSession session)throws Exception{
-		String hashedPw = BCrypt.hashpw(newPass1, BCrypt.gensalt());
-		memberService.passMod(userId, hashedPw);
-		session.invalidate();
-		rttr.addFlashAttribute("msg", "정보 수정이 완료되었습니다. 다시 로그인해주세요.");
-
-		return "redirect:/member/login";
-	}
+//	// 비밀번호 변경
+//	@RequestMapping(value = "/mypage/passCheck", method = RequestMethod.POST)
+//	public int passCheck(MemberDTO memberDTO) throws Exception{
+//		memberService.passCheck(memberDTO.getUserId());
+//		if(memberDTO == null || memberDTO.equals("")) {
+//			return 0;
+//		}
+//		return 1;
+//	}
+//	@RequestMapping(value="/mypage/passModPro" , method=RequestMethod.POST)
+//	public String passMod(String userId, String newPass1, RedirectAttributes rttr, HttpSession session) throws Exception{
+//		String hashedPw = BCrypt.hashpw(newPass1, BCrypt.gensalt());
+//		memberService.passMod(userId);
+//		session.invalidate();
+//		rttr.addFlashAttribute("msg", "정보 수정이 완료되었습니다. 다시 로그인해주세요.");
+//
+//		return "redirect:/member/login";
+//	}
 
 
 	// 마이페이지 - 회원연결 정보

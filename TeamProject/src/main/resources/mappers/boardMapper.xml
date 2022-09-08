@@ -32,9 +32,7 @@
 		SELECT * FROM BOARD ORDER BY BOARD_NUM DESC LIMIT #{startRow}, #{pageSize}
 	</select>
 	
-	<select id="getBoardCount" resultType="java.lang.Integer">
-		select count(*) from BOARD
-	</select>
+   
 	
 	<select id="getBoard" resultType="com.itwillbs.domain.BoardDTO">
 		select * from BOARD where BOARD_NUM=#{boardNum}

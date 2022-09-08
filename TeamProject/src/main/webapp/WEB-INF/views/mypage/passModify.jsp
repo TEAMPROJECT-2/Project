@@ -18,49 +18,47 @@ src="${pageContext.request.contextPath }/resources/js/jquery-3.6.0.js" ></script
   		$(document).ready(function(){
 
 			$("#passMod").on("click", function(){
-				debugger;
-				if($("#userPass").val==""){
+				if($("#userPass").val()==""){
 					alert("현재 비밀번호를 입력해주세요");
-// 					$("#userPass").focus();
-// 					return false;
+					$("#userPass").focus();
+					return false;
 				}
-// 				if($("#newPass1").val==""){
-// 					alert("새 비밀번호를 입력해주세요");
-// 					$("#newPass1").focus();
-// 					return false;
-// 				}
-// 				if($("#newPass2").val==""){
-// 					alert("새 비밀번호를 입력해주세요");
-// 					$("#newPass2").focus();
-// 					return false;
-// 				}
-// 				if ($("#newPass1").val() != $("#newPass2").val()) {
-// 					alert("새 비밀번호가 일치하지 않습니다.");
-// 					$("#newPass2").focus();
-// 					return false;
-// 				}
+				if($("#newPass1").val()==""){
+					alert("새 비밀번호를 입력해주세요");
+					$("#newPass1").focus();
+					return false;
+				}
+				if($("#newPass2").val()==""){
+					alert("새 비밀번호를 확인해주세요");
+					$("#newPass2").focus();
+					return false;
+				}
+				if ($("#newPass1").val() != $("#newPass2").val()) {
+					alert("새 비밀번호가 일치하지 않습니다.");
+					$("#newPass2").focus();
+					return false;
+				}
 
-// 				$.ajax({
-// 					url : "/mypage/passCheck",
-// 					type : "POST",
-// 					dataType : "json",
-// 					data : $("#passModForm").serializeArray(),
-// 					success: function(data){
+				$.ajax({
+					url : "/mypage/passCheck",
+					type : "POST",
+					data : {'passModForm':$('#passModForm').val()},
+					success: function(rdata){
 
-// 						if(data==0){
-// 							alert("패스워드가 틀렸습니다.");
-// 							return;
-// 						}else{
-// 							if(confirm("변경하시겠습니까?")){
-// 								$("#passModForm").submit();
-// 							}
+						if(rdata==0){
+							alert("패스워드가 틀렸습니다.");
+							return;
+						}else{
+							if(confirm("변경하시겠습니까?")){
+								$("#passModForm").submit();
+							}
 
-// 						}
-// 					}
-// 				});
+						}
+					}
+				});
 
-			})
 			});
+		});
 
 
 

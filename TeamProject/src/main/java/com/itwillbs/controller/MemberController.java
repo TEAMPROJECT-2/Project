@@ -18,6 +18,7 @@ import com.itwillbs.domain.CompDTO;
 import com.itwillbs.domain.MemberDTO;
 import com.itwillbs.mail.MailUtils;
 import com.itwillbs.mail.TempKey;
+import com.itwillbs.service.CommonService;
 import com.itwillbs.service.MemberService;
 
 @Controller

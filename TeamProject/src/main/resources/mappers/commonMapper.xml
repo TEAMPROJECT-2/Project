@@ -23,4 +23,17 @@
 			SELECT concat(#{comCd},(DATE_FORMAT(NOW(), '%y%m%d')),(lpad((max(ifnull(substr(${columnNm}, 9),0))+1),3,'0'))) AS pkCd FROM projectdb.${tableNm}
 		</select>
 
+
+<!-- 수 세기 -->
+		<select id="getCount" resultType="com.itwillbs.domain.CommonDTO" parameterType="com.itwillbs.domain.CommonDTO">
+			SELECT *
+			  FROM projectdb.${tableNm}
+<!-- 			<if test="projectdb.${columnNm} != null and projectdb.${columnNm} != '' "> -->
+<!-- 			 WHERE projectdb.${columnNm} -->
+<!-- 			</if> -->
+		  ORDER BY projectdb.${columnNum} DESC
+		  	 LIMIT ${startRow}-1
+		  	 	 , ${pageSize}
+		</select>
+
 </mapper>

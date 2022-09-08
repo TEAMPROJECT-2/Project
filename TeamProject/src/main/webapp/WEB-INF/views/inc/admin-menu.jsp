@@ -57,75 +57,73 @@
           <ul class="menu-inner py-1">
             <!-- Dashboard -->
             <li class="menu-item active">
-              <a href="adminMain" class="menu-link">
+              <a href="${pageContext.request.contextPath }/adminpage" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
-                <div data-i18n="Analytics">업체홈으로</div>
+                <div data-i18n="Analytics">관리자 홈</div>
               </a>
             </li>
-            <li class="menu-item">
-              <a href="${pageContext.request.contextPath }/admin/updateAccount" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-collection"></i>
-                <div data-i18n="Basic">업체정보수정</div>
-              </a>
-            </li>
-		  	
+
 <!--             <li class="menu-header small text-uppercase"> -->
 <!--               <span class="menu-header-text">계정</span> -->
 <!--             </li> -->
-		<li class="menu-header small text-uppercase"><span class="menu-header-text">상품관리</span></li>
+		<li class="menu-header small text-uppercase"><span class="menu-header-text">회원</span></li>
             <!-- Cards -->
+           <li class="menu-item">
+             <a href="${pageContext.request.contextPath }/admin/user" class="menu-link">
+               <i class="menu-icon tf-icons bx bx-collection"></i>
+               <div data-i18n="Basic">회원 관리</div>
+             </a>
+           </li>
             <li class="menu-item">
-              <a href="${pageContext.request.contextPath }/admin/insertProd" class="menu-link">
+              <a href="${pageContext.request.contextPath }/admin/order" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-collection"></i>
-                <div data-i18n="Basic">상품신규등록</div>
+                <div data-i18n="Basic">주문 관리</div>
               </a>
             </li>
             <li class="menu-item">
               <a href="${pageContext.request.contextPath }/admin/deleteProd" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-collection"></i>
-                <div data-i18n="Basic">상품삭제</div>
+                <div data-i18n="Basic">배송 관리</div>
               </a>
             </li>
-            <li class="menu-item">
-              <a href="${pageContext.request.contextPath }/admin/updateProd" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-collection"></i>
-                <div data-i18n="Basic">상품수정</div>
-              </a>
-            </li>
-            <li class="menu-item">
-              <a href="${pageContext.request.contextPath }/admin/prodList" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-collection"></i>
-                <div data-i18n="Basic">상품목록</div>
-              </a>
-            </li>
-        <li class="menu-header small text-uppercase"><span class="menu-header-text">주문관리</span></li>
+        <li class="menu-header small text-uppercase"><span class="menu-header-text">업체</span></li>
             <!-- Cards -->
             <li class="menu-item">
               <a href="${pageContext.request.contextPath }/admin/ordList" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-collection"></i>
-                <div data-i18n="Basic">주문목록</div>
+                <div data-i18n="Basic">업체 관리</div>
               </a>
             </li>
-            
             <li class="menu-item">
               <a href="${pageContext.request.contextPath }/admin/prodRefund" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-collection"></i>
-                <div data-i18n="Basic">환불관리</div>
+                <div data-i18n="Basic">상품 관리</div>
               </a>
             </li>
-            
-            
+            <li class="menu-item">
+              <a href="${pageContext.request.contextPath }/admin/prodRefund" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-collection"></i>
+                <div data-i18n="Basic">리뷰 관리</div>
+              </a>
+            </li>
+
+
 
             <!-- Components -->
-            <li class="menu-header small text-uppercase"><span class="menu-header-text">Components</span></li>
+            <li class="menu-header small text-uppercase"><span class="menu-header-text">포인트 / 쿠폰</span></li>
             <!-- Cards -->
             <li class="menu-item">
               <a href="${pageContext.request.contextPath }/member/cards-basic" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-collection"></i>
-                <div data-i18n="Basic">Cards</div>
+                <div data-i18n="Basic">포인트</div>
               </a>
             </li>
-
+            <li class="menu-item">
+              <a href="${pageContext.request.contextPath }/member/cards-basic" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-collection"></i>
+                <div data-i18n="Basic">쿠폰</div>
+              </a>
+            </li>
             <!-- Forms & Tables -->
             <li class="menu-header small text-uppercase"><span class="menu-header-text">Forms &amp; Tables</span></li>
             <!-- Forms -->

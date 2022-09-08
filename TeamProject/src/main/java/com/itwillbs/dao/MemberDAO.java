@@ -28,17 +28,18 @@ public interface MemberDAO {
 	public String idSearch(MemberDTO memberDTO);
 
 	// 비밀번호 찾기
-	public void updatePass(MemberDTO memberDTO);
+	public void updatePass(MemberDTO memberDTO) throws Exception;
 
 	// 회원 정보 수정
 	public void modUser(MemberDTO memberDTO);
 
 	// 비밀번호 변경
-	public String passCheck(String userId) throws Exception;
-	public void passMod(String userId, String hashedPw) throws Exception;
+	public String passCheck(MemberDTO memberDTO) throws Exception;
+	public void passMod(String userId) throws Exception;
 
 	// 회원 탈퇴
 	public void delUser(MemberDTO memberDTO);
+
 
 
 

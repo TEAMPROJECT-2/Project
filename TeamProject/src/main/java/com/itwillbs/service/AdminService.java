@@ -5,6 +5,5 @@ import com.itwillbs.domain.ProdStockDTO;
 
 public interface AdminService {
 
-	void insertProd(ProdDTO prodDTO, ProdStockDTO proStockDTO);
 
 }
