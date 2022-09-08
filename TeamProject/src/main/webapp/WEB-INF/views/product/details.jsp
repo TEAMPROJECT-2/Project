@@ -39,17 +39,18 @@
         <div class="col-lg-7 col-xl-7">
           <div class="product_slider_img">
             <div id="vertical">
-              <div data-thumb="${pageContext.request.contextPath }/resources/img/product/product-1.jpg">
-                <img src="${pageContext.request.contextPath }/resources/img/product/product-1.jpg" />
+              <div data-thumb="${details.prodLMainimg}">
+                <img src="${details.prodLMainimg}" />
               </div>
             </div>
           </div>
         </div>
         <div class="col-lg-5 col-xl-4">
           <div class="product__details__text">
-            <h3>Faded SkyBlu Denim Jeans</h3>
+            <!-- <h3>Faded SkyBlu Denim Jeans</h3> -->
+            <h3>${details.prodLProdnm}</h3>
             <!-- 상품가격의 가독성을 높이기 위해 숫자 3자리마다 콤마(,)를 찍어주도록 처리함 -->
-             <h2><fmt:formatNumber value="${details.prodLPrice}" pattern="###,###,###"/>원</h2>
+             <h2><fmt:formatNumber value="${details.prodLPrice}" pattern="###,###,###원"/></h2>
             <ul class="list">
               <li>
                 <a class="active" href="#">

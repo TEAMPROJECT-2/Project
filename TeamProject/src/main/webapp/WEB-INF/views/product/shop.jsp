@@ -274,7 +274,10 @@
                                    </ul>
                                 </div>
                                 <div class="product__item__text">
-                                    <h6><c:out value="${prodList.prodLPrice}"/></h6>
+                                    <%-- <h6><c:out value="${prodList.prodLPrice}"/></h6> --%>
+                                    <!-- 상품가격의 가독성을 높이기 위해 숫자 3자리마다 콤마(,)를 찍어주도록 처리함 -->
+                                    <fmt:formatNumber value="${prodList.prodLPrice}" pattern="###,###,###원"/>
+                                    <!-- <h5>$67.24</h5> -->
                                     <div class="rating">
                                         <i class="fa fa-star-o"></i>
                                         <i class="fa fa-star-o"></i>
@@ -282,9 +285,7 @@
                                         <i class="fa fa-star-o"></i>
                                         <i class="fa fa-star-o"></i>
                                     </div>
-                                    <!-- 상품가격의 가독성을 높이기 위해 숫자 3자리마다 콤마(,)를 찍어주도록 처리함 -->
-                                    <fmt:formatNumber value="${details.prodLPrice}" pattern="###,###,###"/>
-                                    <!-- <h5>$67.24</h5> -->
+
                                 </div>
                             </div>
                         </div>
