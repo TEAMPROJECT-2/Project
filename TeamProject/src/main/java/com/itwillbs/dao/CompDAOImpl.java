@@ -37,8 +37,8 @@ public class CompDAOImpl implements CompDAO {
 		return sqlSession.selectList(namespace+".getProdList",pageDTO);
 	}
 	@Override
-	public int getProdCount() {
-		return sqlSession.selectOne(namespace+".getProdCount");
+	public int getProdCount(PageDTO pageDTO) {
+		return sqlSession.selectOne(namespace+".getProdCount",pageDTO);
 	}
 	@Override
 	public void deleteProd(String prodLCode) {

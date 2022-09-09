@@ -9,11 +9,17 @@ public class PageDTO {
 	private int boardNum;
 	private int pageBlock;
 	private int startPage;
-	
+
 	private int endPage;
 	private int count;
 	private int pageCount;
-	
+
+	// 삭제하는 물건 검색시 필요한것추가 업체 아이디
+	private String compNm;
+	private String status;
+	private String searchKeyWord;
+	private String columnNm;
+
 	public int getBoardNum() {
 		return boardNum;
 	}
@@ -80,7 +86,31 @@ public class PageDTO {
 	public void setPageCount(int pageCount) {
 		this.pageCount = pageCount;
 	}
-	
-	
-	
+	public String getCompNm() {
+		return compNm;
+	}
+	public void setCompNm(String compNm) {
+		this.compNm = compNm;
+	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	public String getSearchKeyWord() {
+		return searchKeyWord;
+	}
+	public void setSearchKeyWord(String searchKeyWord) {
+		this.searchKeyWord = searchKeyWord;
+	}
+	public String getColumnNm() {
+		return columnNm;
+	}
+	public void setColumnNm(String columnNm) {
+		this.columnNm = columnNm;
+	}
+
+
+
 }

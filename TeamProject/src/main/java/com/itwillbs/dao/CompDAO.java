@@ -16,7 +16,7 @@ public interface CompDAO {
 
 	List<ProdDTO> getProdList(PageDTO pageDTO);
 
-	int getProdCount();
+	int getProdCount(PageDTO pageDTO);
 
 	public void deleteProd(String prodLCode);
 

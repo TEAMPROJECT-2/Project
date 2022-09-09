@@ -51,7 +51,9 @@
 		   WHERE    PROD_L_CODE=#{prodLCode}
 
 	</select>
-	<select id="getProdList" resultType="com.itwillbs.domain.ProdDTO">
+
+<!-- 	검색사용, 검색 미사용시 삭제할 상품리스트 갖고오기 -->
+	<select id="getProdList" resultType="com.itwillbs.domain.ProdDTO" >
 		   SELECT 	PROD_L_NUM
 			       ,PROD_L_CODE
 			       ,PROD_L_OPTION1
@@ -61,19 +63,50 @@
 			       ,PROD_L_QUANTITY
 		     FROM   PRODUCT_LIST
 		    WHERE   PROD_L_COMPNM=#{compNm}
-		    <if test="searchKeyWord != null">
-		   	  AND   PROD_L_CODE LIKE CONCAT('%', #{searchKeyWord}, '%')
-		   </if>
+		   	<if test="status != null and status !='0' ">
+		   	  <choose>
+			     <when test='status.equals("1") '>
+		      AND	PROD_L_QUANTITY <![CDATA[ >= ]]> 50
+			     </when>
+			     <when test='status.equals("2") '>
+			  AND   PROD_L_QUANTITY <![CDATA[ < ]]> 50
+		   	  AND   PROD_L_QUANTITY <![CDATA[ > ]]> 0
+			     </when>
+			   	 <when test='status.equals("3") '>
+			  AND   PROD_L_QUANTITY = 0
+			     </when>
+			   </choose>
+			</if>
+			<if test='searchKeyWord != null and columnNm != "0"'>
+		   	  AND   ${columnNm} LIKE CONCAT('%', #{searchKeyWord}, '%')
+		    </if>
 		 ORDER BY   PROD_L_NUM
        DESC LIMIT   #{startRow}
                    ,#{pageSize}
 	</select>
+
+<!--  	페이징 처리에 필요한 게시글수 -->
 	<select id="getProdCount" resultType="java.lang.Integer">
 		   SELECT   COUNT(PROD_L_CODE)
 		     FROM   PRODUCT_LIST
-		     <if test="searchKeyWord != null">
-		   	WHERE   PROD_L_CODE LIKE CONCAT('%', #{searchKeyWord}, '%')
-		   </if>
+		    WHERE   PROD_L_COMPNM=#{compNm}
+	<if test="status != null and status !='0' ">
+		   	  <choose>
+			     <when test='status.equals("1") '>
+		      AND	PROD_L_QUANTITY <![CDATA[ >= ]]> 50
+			     </when>
+			     <when test='status.equals("2") '>
+			  AND   PROD_L_QUANTITY <![CDATA[ < ]]> 50
+		   	  AND   PROD_L_QUANTITY <![CDATA[ > ]]> 0
+			     </when>
+			   	 <when test='status.equals("3") '>
+			  AND   PROD_L_QUANTITY = 0
+			     </when>
+			   </choose>
+			</if>
+			<if test='searchKeyWord != null and columnNm != "0"'>
+		   	  AND   ${columnNm} LIKE CONCAT('%', #{searchKeyWord}, '%')
+		    </if>
 	</select>
 
 	<delete id="deleteProd">

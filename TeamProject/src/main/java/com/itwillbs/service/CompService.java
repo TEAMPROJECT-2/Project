@@ -15,7 +15,7 @@ public interface CompService {
 
 	List<ProdDTO> getProdList(PageDTO pageDTO);
 
-	int getProdCount();
+	int getProdCount(PageDTO pageDTO);
 
 	ProdDTO getProd(String prodLCode);
 

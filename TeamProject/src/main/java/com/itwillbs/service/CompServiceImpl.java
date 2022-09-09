@@ -42,8 +42,8 @@ public class CompServiceImpl implements CompService {
 		return compDAO.getProdList(pageDTO);
 	}
 	@Override
-	public int getProdCount() {
-		return compDAO.getProdCount();
+	public int getProdCount(PageDTO pageDTO) {
+		return compDAO.getProdCount(pageDTO);
 	}
 	@Override
 	public ProdDTO getProd(String prodLCode) {

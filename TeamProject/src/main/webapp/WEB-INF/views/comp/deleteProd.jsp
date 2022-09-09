@@ -61,11 +61,19 @@
                   <tr>
                   	 <td></td>
                      <td class="mb-3">
-                        <select id="defaultSelect" class="form-select">
-                          <option>재고상태 선택</option>
+                        <select id="defaultSelect" class="form-select" name="status">
+                          <option value="0">재고상태 선택</option>
                           <option value="1">양호</option>
                           <option value="2">품절임박</option>
                           <option value="3">품절</option>
+                        </select>
+                     </td>
+                     <td class="mb-3">
+                        <select id="defaultSelect" class="form-select" name="searchCol">
+                          <option value="0">검색 테이블 선택</option>
+                          <option value="PROD_L_CODE">상품코드</option>
+                          <option value="PROD_L_PRODNM">상품이름</option>
+                          <option value="PROD_L_PRICE">가격</option>
                         </select>
                      </td>
                      <td colspan="2" class="input-group input-group-merge">
@@ -75,7 +83,8 @@
                           class="form-control"
                           placeholder="상품번호 검색"
                           aria-label="Search..."
-                          aria-describedby="basic-addon-search31"/>
+                          aria-describedby="basic-addon-search31"
+                          name="searchKeyWord"/>
                 	</td>
                 	<td><button type="submit" class="btn btn-primary">검색</button> </td>
                   </tr>
@@ -116,6 +125,7 @@
 							<c:set var="num" value="${prodDTO.prodLQuantity }" />
 						 	<c:choose>
 						 		<c:when test="${num ge 50}">
+<!-- 						 	ge:	>= -->
 						  			<span class="badge bg-label-info me-1" name="status" id="status">양호</span>
 						 		</c:when>
 						 		<c:when test="${num lt 50 and num gt 0 }">
@@ -131,16 +141,16 @@
 
 					  <c:if test="${pageDTO.startPage > pageDTO.pageBlock }">
 						<a href="${pageContext.request.contextPath }
-							/board/list?pageNum=${pageDTO.startPage - pageDTO.pageBlock}">Prev</a>
+							/board/list?pageNum=${pageDTO.startPage - pageDTO.pageBlock}&status=${pageDTO.status }&searchCol=${pageDTO.columnNm }&searchKeyWord=${pageDTO.searchKeyWord }">Prev</a>
 					  </c:if>
 
 						<c:forEach var="i" begin="${pageDTO.startPage }" end="${pageDTO.endPage }" step="1">
-						<a href="${pageContext.request.contextPath }/comp/deleteProd?pageNum=${i}">${i}</a>
+						<a href="${pageContext.request.contextPath }/comp/deleteProd?pageNum=${i}&status=${pageDTO.status }&searchCol=${pageDTO.columnNm }&searchKeyWord=${pageDTO.searchKeyWord }">${i}</a>
 						</c:forEach>
 
 					  <c:if test="${pageDTO.endPage < pageDTO.pageCount }">
 						<a href="${pageContext.request.contextPath }
-						 /comp/deleteProd?pageNum=${pageDTO.startPage + pageDTO.pageBlock}">Next</a>
+						 /comp/deleteProd?pageNum=${pageDTO.startPage + pageDTO.pageBlock}&status=${pageDTO.status }&searchCol=${pageDTO.columnNm }&searchKeyWord=${pageDTO.searchKeyWord }">Next</a>
 					  </c:if>
                     </tbody>
                   </table>

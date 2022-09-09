@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.itwillbs.domain.BoardDTO;
 import com.itwillbs.domain.CommonDTO;
@@ -146,15 +147,14 @@ public class CompController {
 
 
 	@RequestMapping(value = "/comp/deleteProd", method = RequestMethod.GET)
-	public String list(HttpServletRequest request, Model model,HttpSession session) {
+	public String list(HttpServletRequest request, Model model,HttpSession session,@ModelAttribute ProdDTO prodDTO) {
 		// 한화면에 보여줄 글개수
 		int pageSize=10;
 		//현페이지 번호
 		String pageNum=request.getParameter("pageNum");
-		String CompNm = (String)session.getAttribute("compId"); // 업체 세션값(아이디) 저장
-		String status = request.getParameter("status");
-		String searchKeyWord = request.getParameter("searchKeyWord");
-		System.out.println("status : " +request.getParameter("status") +"searchKeyWord : " +request.getParameter("searchKeyWord"));
+		String CompNm = (String)session.getAttribute("compId");
+
+		System.out.println("CompNm : " + CompNm);
 
 		if(pageNum==null) {
 			pageNum="1";
@@ -168,13 +168,18 @@ public class CompController {
 		pageDTO.setPageNum(pageNum);
 		pageDTO.setCurrentPage(currentPage);
 		pageDTO.setCompNm(CompNm);
+		pageDTO.setColumnNm(request.getParameter("searchCol")); // 기준 컬럼
+		pageDTO.setSearchKeyWord(request.getParameter("searchKeyWord")); // 검색 키워드 갖고오기
+		pageDTO.setStatus(request.getParameter("status")); // 검색 양호,품절 상태 갖고오기
+		System.out.println("getSearchKeyWord() : "+pageDTO.getSearchKeyWord());
+		System.out.println("pageDTO.getColumnNm() : "+pageDTO.getColumnNm());
+		System.out.println("pageDTO.getStatus() : "+pageDTO.getStatus());
 //		pageDTO.setSearchKeyWord(searchKeyWord);
 //		pageDTO.setCompCode(request.getParameter(""));
 		//세션값 가져가기( 해당 업체 물건만 갖고 오려고)
 
-
-		List<ProdDTO> prodList=compService.getProdList(pageDTO);
-		int count=compService.getProdCount();     // 업체 전체 물건 리스트 갯수
+		List<ProdDTO> prodList=compService.getProdList(pageDTO); // 물건 리스트 갖고오기
+		int count=compService.getProdCount(pageDTO);     // 업체 전체 물건 리스트 갯수
 		// 페이징
 		int pageBlock=10;
 		int startPage=(currentPage-1)/pageBlock*pageBlock+1;
@@ -191,7 +196,7 @@ public class CompController {
 		pageDTO.setEndPage(endPage);
 		pageDTO.setPageCount(pageCount);
 //		pageDTO.setStatus(status);
-
+		System.out.println("pageDTO.getStatus() : "+pageDTO.getStatus());
 
 		//데이터 담아서 list.jsp 이동
 		model.addAttribute("prodList", prodList);
