@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <head>
 <script src="http://code.jquery.com/jquery-3.6.0.js"></script>
-
+<script src="${pageContext.request.contextPath }/resources/jsPro/insertBasket.js"></script>
     <meta charset="UTF-8">
     <meta name="description" content="Male_Fashion Template">
     <meta name="keywords" content="Male_Fashion, unica, creative, html">
@@ -48,9 +48,10 @@
         <div class="col-lg-5 col-xl-4">
           <div class="product__details__text">
             <!-- <h3>Faded SkyBlu Denim Jeans</h3> -->
-            <h3>${details.prodLProdnm}</h3>
+            <h3 id="prodnm">${details.prodLProdnm}</h3>
+            <h3>값값닥  ${details.prodLCode}</h3>
             <!-- 상품가격의 가독성을 높이기 위해 숫자 3자리마다 콤마(,)를 찍어주도록 처리함 -->
-             <h2><fmt:formatNumber value="${details.prodLPrice}" pattern="###,###,###원"/></h2>
+             <h2><fmt:formatNumber  value="${details.prodLPrice}" pattern="###,###,###원" /></h2>
             <ul class="list">
               <li>
                 <a class="active" href="#">
@@ -70,7 +71,8 @@
                 <input class="input-number" type="text" value="1" min="0" max="10">
                 <span class="number-increment"> <i class="ti-plus"></i></span>
               </div>
-              <a href="${pageContext.request.contextPath }/order/cart" class="btn_3">add to cart</a>
+<%--               <a href="${pageContext.request.contextPath }/order/cart" class="btn_3" id="insertBasket">카트add to cart</a> --%>
+              <a class="btn_3" id="insertBasket">카트add to cart</a>
               <a href="#" class="like_us"> <i class="ti-heart"></i> </a>
             </div>
           </div>
