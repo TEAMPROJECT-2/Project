@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.itwillbs.mappers.basketMapper">
+
+<!-- 	카트에 물건 삽입 -->
+	<insert id="insertBasket">
+		INSERT INTO  SHOPPING_BASKET(
+					 SB_BASKET_NUM
+					,SB_USER
+					,SB_PROD_CODE
+					,SB_COUNT
+					,SB_PROD_PRICE
+					,SB_TOTAL_PRICE
+				   )
+			VALUES(
+				  (SELECT PROD_L_NUM
+		       		 FROM   (SELECT IFNULL(MAX(CAST(PROD_L_NUM AS UNSIGNED)), 0) + 1 AS PROD_L_NUM
+				 	   	       FROM PRODUCT_LIST) A)
+<!-- 					#{sbBasketNum} -->
+				   ,#{sbUser}
+				   ,#{sbProdCode}
+				   ,#{sbCount}
+				   ,#{sbProdPrice}
+				   ,#{sbTotalPrice}
+				    )
+
+	</insert>
+
+<!-- 	카트리스트  -->
+	<select id="getBastketList" resultType="com.itwillbs.domain.BasketDTO" >
+		   SELECT 	 SB_BASKET_NUM
+					,SB_USER
+					,SB_PROD_CODE
+					,SB_COUNT
+					,SB_PROD_PRICE
+					,SB_TOTAL_PRICE
+				   )
+		     FROM   SHOPPING_BASKET
+		    WHERE   SB_USER=#{sbUser}
+
+	</select>
+
+<!-- 	회원인지 아닌지 검사 -->
+	<select id="getUser" resultType="com.itwillbs.domain.BasketDTO">
+		SELECT *
+		  FROM SHOPPING_BASKET
+		 WHERE SB_USER=#{sbUser}
+	</select>
+
+
+</mapper>
