@@ -6,16 +6,13 @@ public class CompDTO {
 
 	private int companyInfoNum;
 	private String compId;
+	private String compNm;
 	private String compPass;
 	private String compEmail;
 	private String compRegNum;
-	private String compZipcode;
-	private String compAddress;
-	private String compAddressDetails;
+	private int userType;
 	private String compPhone;
-	private int compType;
 	private Timestamp compDate;
-
 
 	public int getCompanyInfoNum() {
 		return companyInfoNum;
@@ -28,6 +25,12 @@ public class CompDTO {
 	}
 	public void setCompId(String compId) {
 		this.compId = compId;
+	}
+	public String getCompNm() {
+		return compNm;
+	}
+	public void setCompNm(String compNm) {
+		this.compNm = compNm;
 	}
 	public String getCompPass() {
 		return compPass;
@@ -47,35 +50,17 @@ public class CompDTO {
 	public void setCompRegNum(String compRegNum) {
 		this.compRegNum = compRegNum;
 	}
-	public String getCompZipcode() {
-		return compZipcode;
+	public int getUserType() {
+		return userType;
 	}
-	public void setCompZipcode(String compZipcode) {
-		this.compZipcode = compZipcode;
-	}
-	public String getCompAddress() {
-		return compAddress;
-	}
-	public void setCompAddress(String compAddress) {
-		this.compAddress = compAddress;
-	}
-	public String getCompAddressDetails() {
-		return compAddressDetails;
-	}
-	public void setCompAddressDetails(String compAddressDetails) {
-		this.compAddressDetails = compAddressDetails;
+	public void setUserType(int userType) {
+		this.userType = userType;
 	}
 	public String getCompPhone() {
 		return compPhone;
 	}
 	public void setCompPhone(String compPhone) {
 		this.compPhone = compPhone;
-	}
-	public int getCompType() {
-		return compType;
-	}
-	public void setCompType(int compType) {
-		this.compType = compType;
 	}
 	public Timestamp getCompDate() {
 		return compDate;
@@ -84,14 +69,13 @@ public class CompDTO {
 		this.compDate = compDate;
 	}
 
-
 	@Override
 	public String toString() {
-		return "CompDTO [companyInfoNum=" + companyInfoNum + ", compId=" + compId + ", compPass=" + compPass
-				+ ", compEmail=" + compEmail + ", compRegNum=" + compRegNum + ", compZipcode=" + compZipcode
-				+ ", compAddress=" + compAddress + ", compAddressDetails=" + compAddressDetails + ", compPhone="
-				+ compPhone + ", compType=" + compType + ", compDate=" + compDate + "]";
+		return "CompDTO [companyInfoNum=" + companyInfoNum + ", compId=" + compId + ", compNm=" + compNm + ", compPass="
+				+ compPass + ", compEmail=" + compEmail + ", compRegNum=" + compRegNum + ", userType=" + userType
+				+ ", compPhone=" + compPhone + ", compDate=" + compDate + "]";
 	}
+
 
 
 

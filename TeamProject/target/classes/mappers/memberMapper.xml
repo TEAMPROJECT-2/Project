@@ -122,28 +122,24 @@
 	INSERT INTO  COMPANY_INFO(
 				 COMPANY_INFO_NUM
 				,COMP_ID
+				,COMP_NM
 	            ,COMP_PASS
 	            ,COMP_EMAIL
 	            ,COMP_REG_NUM
-	            ,COMP_ZIPCODE
-	            ,COMP_ADDRESS
-				,COMP_ADDRESS_DETAILS
+	            ,USER_TYPE
 	            ,COMP_PHONE
-	            ,COMP_TYPE
 	            ,COMP_DATE
 				)
 		VALUES(
-		  		#{COMPANY_INFO_NUM}
-			   ,#{COMP_ID}
-			   ,#{COMP_PASS}
-			   ,#{COMP_EMAIL}
-			   ,#{COMP_REG_NUM}
-			   ,#{COMP_ZIPCODE}
-			   ,#{COMP_ADDRESS}
-			   ,#{COMP_ADDRESS_DETAILS}
-			   ,#{COMP_PHONE}
-			   ,#{COMP_TYPE}
-			   ,#{COMP_DATE}
+		  		#{companyInfoNum}
+			   ,#{compId}
+			   ,#{compNm}
+			   ,#{compPass}
+			   ,#{compEmail}
+			   ,#{compRegNum}
+			   ,#{userType}
+			   ,#{compPhone}
+			   ,#{compDate}
 		  		)
 	</insert>
 

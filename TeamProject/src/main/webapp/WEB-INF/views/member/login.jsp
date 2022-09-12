@@ -79,7 +79,7 @@
 								     <button type="submit" class="site-btn w-100 btn-lg">로그인</button><br>
 								  </form><br>
 								  <div class= "text-center">
-								  	<a href="${pageContext.request.contextPath }/member/loginIdSearch" class="loginIdSearch">ID 찾기</a>
+								  	<a href="${pageContext.request.contextPath }/member/loginIdSearch" class="loginIdSearch">ID 찾기</a> &nbsp; &nbsp; | &nbsp; &nbsp;
 								  	<a href="${pageContext.request.contextPath }/member/passSearch" class="loginPassSearch">비밀번호 찾기</a>
 								  </div>
 								  <div id="idCheck"></div>

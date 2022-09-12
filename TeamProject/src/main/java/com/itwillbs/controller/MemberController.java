@@ -19,6 +19,7 @@ import com.itwillbs.domain.MemberDTO;
 import com.itwillbs.mail.MailUtils;
 import com.itwillbs.mail.TempKey;
 import com.itwillbs.service.CommonService;
+import com.itwillbs.service.CompService;
 import com.itwillbs.service.MemberService;
 
 @Controller
@@ -30,7 +31,7 @@ public class MemberController {
 	// 회원가입(유저)
 	@RequestMapping(value = "/member/join", method = RequestMethod.GET)
 	public String insert() {
-		return "member/insertUserForm";
+		return "member/insertForm";
 	}
 	@RequestMapping(value = "/member/joinMemPro", method = RequestMethod.POST)
 	public String insertPro(MemberDTO memberDTO, Model model) throws Exception {
