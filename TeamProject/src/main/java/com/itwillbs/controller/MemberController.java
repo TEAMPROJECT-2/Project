@@ -213,10 +213,7 @@ public class MemberController {
 	}
 
 
-	@RequestMapping(value = "/order/cart", method = RequestMethod.GET)
-	public String orderCart() {
-		return "order/cart";
-	}
+
 
 
 

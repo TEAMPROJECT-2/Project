@@ -9,66 +9,38 @@
 
 $(document)
 			.ready(
-					function() {
+					function () {
+					$("#insertBasket ").on("click",function (){
+						alert("클릭10");
+						var prodLCode = $('#prodLCode').val(); // 제품 코드
+						var prodLPrice = $('#prodLPrice').val(); // 제품 가격
+						var prodLcount = $('#prodLcount').val();   // 제품 수량
 
-					$("#insertBasket ").on("click",function(){
-
-						var str = "$('#prodnm').val()";
-						console.log(str);
-
-						debugger;
-
-						var obj = {
-							price : "${prodDTO.prodLPrice}",
-							name : "${details.prodLCode}"
-						};
-						console.log(obj);
-						alert(obj);
-
-
-
-						$
-							.ajax({
-										type : "POST",
-										url : "/main/cart",
+							$.ajax({
+										type : 'POST',
+										url:'cartPro',
 										dataType : "json",
 										data : {
-											'cart_option_no' : item_optionValue,
-											'cart_option_content' : item_optionContent,
-											'cart_item_no' : item_no
+											'sbProdCode' : prodLCode,
+											'sbProdPrice' : prodLPrice,
+											'sbCount' : prodLcount
 										},
-//										error : function(
-//												request,
-//												status, error) {
-//											alert("code:"
-//													+ request.status
-//													+ "\n"
-//													+ "message:"
-//													+ request.responseText
-//													+ "\n"
-//													+ "error:"
-//													+ error);
-//										},
 										success : function(data) {
+												if (data == 1) {
+											var chk = confirm("상품이 추가 되었습니다. 장바구니로 이동하시겠습니까?	");
+													if(chk){
+														location.href="/order/cart";
+													}else {
+														location.href="shop";
+													}
+												}
+												 else if (data == 2) {
+													alert("장바구니 추가 실패");
+												 }
 
-											if (data == 1) {
-												cartHeaderView();
-												toastr.options.preventDuplicates = true;
+										} //success 괄호
 
-												toastr
-														.success("장바구니 추가완료");
-											} else if (data == 2) {
-												toastr.options.preventDuplicates = true;
-
-												toastr
-														.warning("이미 추가 된 상품입니다");
-											}
-
-										}
-
-
-
-
+									}); // ajax괄호
 
 
 

@@ -1,5 +1,7 @@
 package com.itwillbs.dao;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
@@ -21,6 +23,12 @@ public class BasketDAOImpl implements BasketDAO {
 	@Override
 	public void insertBasket(BasketDTO basketDTO) {
 		sqlSession.insert(namespace + ".insertBasket", basketDTO);
+	}
+
+	@Override
+	public List<BasketDTO> getBasketList(BasketDTO basketDTO) {
+
+		return sqlSession.selectList(namespace+".getBasketList",basketDTO);
 	}
 
 

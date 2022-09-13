@@ -1,8 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
+<script src="http://code.jquery.com/jquery-3.6.0.js"></script>
+<script src="${pageContext.request.contextPath }/resources/jsPro/basketListPro.js"></script>
 </head>
 <body>
 <jsp:include page="../inc/menu.jsp"/>
@@ -42,86 +45,41 @@
                                 </tr>
                             </thead>
                             <tbody>
+                              <c:forEach items="${basketList }" var="basketDTO" varStatus="status">
                                 <tr>
                                     <td class="product__cart__item">
                                         <div class="product__cart__item__pic">
                                             <img src="img/shopping-cart/cart-1.jpg" alt="">
                                         </div>
                                         <div class="product__cart__item__text">
-                                            <h6>T-shirt Contrast Pocket</h6>
-                                            <h5>0000원</h5>
+                                            <h6>${basketDTO.sbProdNm }상품이름</h6>
+                                            <h5>${basketDTO.sbProdPrice }원</h5>
                                         </div>
                                     </td>
                                     <td class="quantity__item">
+                                        <c:if test="${basketDTO.prodLQuantity == 0}">
+                      						<h6>품절</h6>
+                      					</c:if>
+                                        <c:if test="${basketDTO.prodLQuantity != 0}">
                                         <div class="quantity">
                                             <div class="pro-qty-2">
-                                                <input type="text" value="1">
+                                                <input type="text" value="${basketDTO.sbCount}" max="${basketDTO.prodLQuantity}" min="1">
                                             </div>
                                         </div>
+                                        </c:if>
                                     </td>
-                                    <td class="cart__price">0000원</td>
-                                    <td class="cart__close"><i class="fa fa-close"></i></td>
-                                </tr>
-                                <tr>
-                                    <td class="product__cart__item">
-                                        <div class="product__cart__item__pic">
-                                            <img src="img/shopping-cart/cart-2.jpg" alt="">
-                                        </div>
-                                        <div class="product__cart__item__text">
-                                            <h6>Diagonal Textured Cap</h6>
-                                            <h5>0000원</h5>
-                                        </div>
-                                    </td>
-                                    <td class="quantity__item">
+                                    <td class="cart__price">
+
                                         <div class="quantity">
-                                            <div class="pro-qty-2">
-                                                <input type="text" value="1">
-                                            </div>
+                                                ${basketDTO.sbCount * basketDTO.sbProdPrice }
                                         </div>
-                                    </td>
-                                    <td class="cart__price">0000원</td>
+                                     </td>
                                     <td class="cart__close"><i class="fa fa-close"></i></td>
                                 </tr>
-                                <tr>
-                                    <td class="product__cart__item">
-                                        <div class="product__cart__item__pic">
-                                            <img src="img/shopping-cart/cart-3.jpg" alt="">
-                                        </div>
-                                        <div class="product__cart__item__text">
-                                            <h6>Basic Flowing Scarf</h6>
-                                            <h5>0000원</h5>
-                                        </div>
-                                    </td>
-                                    <td class="quantity__item">
-                                        <div class="quantity">
-                                            <div class="pro-qty-2">
-                                                <input type="text" value="1">
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="cart__price">0000원</td>
-                                    <td class="cart__close"><i class="fa fa-close"></i></td>
-                                </tr>
-                                <tr>
-                                    <td class="product__cart__item">
-                                        <div class="product__cart__item__pic">
-                                            <img src="img/shopping-cart/cart-4.jpg" alt="">
-                                        </div>
-                                        <div class="product__cart__item__text">
-                                            <h6>Basic Flowing Scarf</h6>
-                                            <h5>0000원</h5>
-                                        </div>
-                                    </td>
-                                    <td class="quantity__item">
-                                        <div class="quantity">
-                                            <div class="pro-qty-2">
-                                                <input type="text" value="1">
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="cart__price">0000원</td>
-                                    <td class="cart__close"><i class="fa fa-close"></i></td>
-                                </tr>
+                                <input type="hidden" name="sbCount" value="${basketDTO.sbCount}" id="sbCount">
+                                <input type="hidden" name="sbProdPrice" value="${basketDTO.sbProdPrice}" id="sbProdPrice">
+
+                          </c:forEach>
                             </tbody>
                         </table>
                     </div>
@@ -149,8 +107,8 @@
                     <div class="cart__total">
                         <h6>결제</h6>
                         <ul>
-                            <li>할인 <span>0000원</span></li>
-                            <li>합계 <span>0000원</span></li>
+                            <li>할인 <span >0000원</span></li>
+                            <li>합계 <span id="itemTotalPrice"></span></li>
                         </ul>
 <!--                         todo -->
                         <a href="${pageContext.request.contextPath }/mypage/order" class="primary-btn">주문하기</a>

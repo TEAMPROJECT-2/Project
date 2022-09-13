@@ -1,12 +1,17 @@
 package com.itwillbs.domain;
 
+import java.sql.Timestamp;
+
 public class BasketDTO {
 	private int sbBasketNum;
 	private String sbUser;
 	private String sbProdCode;
-	private String sbCount;
+	private int sbCount;
+	private int prodLQuantity;
 	private int sbProdPrice;
 	private int sbTotalPrice;
+	private String sbProdNm;
+	private Timestamp shoppingBasketDate;
 
 
 
@@ -28,10 +33,10 @@ public class BasketDTO {
 	public void setSbProdCode(String sbProdCode) {
 		this.sbProdCode = sbProdCode;
 	}
-	public String getSbCount() {
+	public int getSbCount() {
 		return sbCount;
 	}
-	public void setSbCount(String sbCount) {
+	public void setSbCount(int sbCount) {
 		this.sbCount = sbCount;
 	}
 	public int getSbProdPrice() {
@@ -45,6 +50,24 @@ public class BasketDTO {
 	}
 	public void setSbTotalPrice(int sbTotalPrice) {
 		this.sbTotalPrice = sbTotalPrice;
+	}
+	public String getSbProdNm() {
+		return sbProdNm;
+	}
+	public void setSbProdNm(String sbProdNm) {
+		this.sbProdNm = sbProdNm;
+	}
+	public Timestamp getShoppingBasketDate() {
+		return shoppingBasketDate;
+	}
+	public void setShoppingBasketDate(Timestamp shoppingBasketDate) {
+		this.shoppingBasketDate = shoppingBasketDate;
+	}
+	public int getProdLQuantity() {
+		return prodLQuantity;
+	}
+	public void setProdLQuantity(int prodLQuantity) {
+		this.prodLQuantity = prodLQuantity;
 	}
 
 

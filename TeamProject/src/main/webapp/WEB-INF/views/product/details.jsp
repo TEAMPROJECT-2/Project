@@ -48,7 +48,7 @@
         <div class="col-lg-5 col-xl-4">
           <div class="product__details__text">
             <!-- <h3>Faded SkyBlu Denim Jeans</h3> -->
-            <h3 id="prodnm">${details.prodLProdnm}</h3>
+            <h3 >${details.prodLProdnm}</h3>
             <h3>값값닥  ${details.prodLCode}</h3>
             <!-- 상품가격의 가독성을 높이기 위해 숫자 3자리마다 콤마(,)를 찍어주도록 처리함 -->
              <h2><fmt:formatNumber  value="${details.prodLPrice}" pattern="###,###,###원" /></h2>
@@ -68,11 +68,19 @@
             <div class="card_area d-flex justify-content-between align-items-center">
               <div class="product_count">
                 <span class="inumber-decrement"> <i class="ti-minus"></i></span>
-                <input class="input-number" type="text" value="1" min="0" max="10">
+
+<!--                 상품 갯수입력 -->
+                <input class="input-number" name="prodLcount" type="text"  min="0" max="10" id="prodLcount">
+<!--                 상품 갯수입력 -->
+
                 <span class="number-increment"> <i class="ti-plus"></i></span>
               </div>
 <%--               <a href="${pageContext.request.contextPath }/order/cart" class="btn_3" id="insertBasket">카트add to cart</a> --%>
-              <a class="btn_3" id="insertBasket">카트add to cart</a>
+              <a class="btn_3" id="insertBasket" >카트add to cart</a>
+<!--               상품 코드와 가격 들고가기 -->
+              <input type="hidden" name="prodLCode" value="${details.prodLCode}" id="prodLCode">
+              <input type="hidden" name="prodLPrice" value="${details.prodLPrice}" id="prodLPrice">
+
               <a href="#" class="like_us"> <i class="ti-heart"></i> </a>
             </div>
           </div>

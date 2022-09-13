@@ -13,33 +13,40 @@
 					,SB_PROD_CODE
 					,SB_COUNT
 					,SB_PROD_PRICE
-					,SB_TOTAL_PRICE
+					,SHOPPING_BASKET_DATE
 				   )
 			VALUES(
-				  (SELECT PROD_L_NUM
-		       		 FROM   (SELECT IFNULL(MAX(CAST(PROD_L_NUM AS UNSIGNED)), 0) + 1 AS PROD_L_NUM
-				 	   	       FROM PRODUCT_LIST) A)
-<!-- 					#{sbBasketNum} -->
+				  (SELECT SB_BASKET_NUM
+		       		 FROM   (SELECT IFNULL(MAX(CAST(SB_BASKET_NUM AS UNSIGNED)), 0) + 1 AS SB_BASKET_NUM
+				 	   	       FROM SHOPPING_BASKET) A)
 				   ,#{sbUser}
 				   ,#{sbProdCode}
 				   ,#{sbCount}
 				   ,#{sbProdPrice}
-				   ,#{sbTotalPrice}
+				   ,#{shoppingBasketDate}
 				    )
 
 	</insert>
 
 <!-- 	카트리스트  -->
-	<select id="getBastketList" resultType="com.itwillbs.domain.BasketDTO" >
+	<select id="getBasketList" resultType="com.itwillbs.domain.BasketDTO" >
 		   SELECT 	 SB_BASKET_NUM
 					,SB_USER
 					,SB_PROD_CODE
 					,SB_COUNT
 					,SB_PROD_PRICE
+					,(SELECT PROD_L_PRODNM
+					  FROM PRODUCT_LIST
+					  WHERE PROD_L_CODE=SB_PROD_CODE
+					  ) as sbProdNm
 					,SB_TOTAL_PRICE
-				   )
+					,(SELECT PROD_L_QUANTITY
+					  FROM PRODUCT_LIST
+					  WHERE PROD_L_CODE=SB_PROD_CODE
+					  ) as prodLQuantity
 		     FROM   SHOPPING_BASKET
 		    WHERE   SB_USER=#{sbUser}
+
 
 	</select>
 
