@@ -41,6 +41,14 @@
  <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
  <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
  <script src="${pageContext.request.contextPath }/resources/assets/js/config.js"></script>
+  <style type="text/css">
+
+ @media (min-width: 992px) {
+  .bg-navbar-theme {
+    background-color: transparent !important;
+    color: #697a8d;}
+  }
+ </style>
  </head>
         <!-- Menu -->
 

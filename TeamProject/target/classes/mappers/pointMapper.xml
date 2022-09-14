@@ -13,9 +13,53 @@
 	</update>
 
 
+	<select id="getMember" resultType="com.itwillbs.domain.PointDTO">
+		SELECT *
+		  FROM POINT
+		 WHERE USER_ID=#{userId}
+	</select>
 
+	<insert id="insertPoint">
+			INSERT INTO USER_INFO(
+					USER_INFO_NUM
+				   ,USER_ID
+				   ,USER_PASS
+				   ,USER_NM
+				   ,USER_EMAIL
+				   ,USER_ATHLETIC
+				   ,USER_NICKNM
+				   ,USER_PHONE
+				   ,USER_DATE
+				   ,USER_POINT
+				   ,MY_COUPON_NUM
+				   ,USER_RANK
+				   ,USER_TYPE
+             	   ,USER_STATUS
+            	   ,USER_LAST_DATE
+            	   ,USER_EMAIL_AUTH
+            	   ,USER_EMAIL_KEY
 
-
+					)
+			VALUES(
+				    #{userInfoNum}
+			  	   ,#{userId}
+				   ,#{userPass}
+				   ,#{userNm}
+				   ,#{userEmail}
+				   ,#{userAthletic}
+				   ,#{userNicknm}
+				   ,#{userPhone}
+				   ,#{userDate}
+				   ,#{userPoint}
+				   ,#{myCouponNum}
+				   ,#{userRank}
+				   ,#{userType}
+				   ,#{userStatus}
+				   ,#{userLastDate}
+				   ,#{userEmailAuth}
+				   ,#{userEmailKey}
+			  		)
+	</insert>
 
 
 

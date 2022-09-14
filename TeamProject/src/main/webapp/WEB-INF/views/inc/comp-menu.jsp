@@ -41,6 +41,13 @@
  <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
  <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
  <script src="${pageContext.request.contextPath }/resources/assets/js/config.js"></script>
+  <style type="text/css">
+ @media (min-width: 992px) {
+  .bg-navbar-theme {
+    background-color: transparent !important;
+    color: #697a8d;}
+  }
+ </style>
  </head>
         <!-- Menu -->
 
@@ -59,47 +66,47 @@
             <li class="menu-item active">
               <a href="compMain" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
-                <div data-i18n="Analytics">업체홈으로</div>
+                <div data-i18n="Analytics">업체 홈으로</div>
               </a>
             </li>
             <li class="menu-item">
               <a href="${pageContext.request.contextPath }/comp/updateAccount" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-collection"></i>
-                <div data-i18n="Basic">업체정보수정</div>
+                <div data-i18n="Basic">업체 정보수정</div>
               </a>
             </li>
 
 <!--             <li class="menu-header small text-uppercase"> -->
 <!--               <span class="menu-header-text">계정</span> -->
 <!--             </li> -->
-		<li class="menu-header small text-uppercase"><span class="menu-header-text">상품관리</span></li>
+		<li class="menu-header small text-uppercase"><span class="menu-header-text">상품 관리</span></li>
 
             <li class="menu-item">
               <a href="${pageContext.request.contextPath }/comp/insertGoods" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-collection"></i>
-                <div data-i18n="Basic">상품신규등록</div>
+                <div data-i18n="Basic">상품 등록</div>
               </a>
             </li>
             <li class="menu-item">
               <a href="${pageContext.request.contextPath }/comp/deleteProd" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-collection"></i>
-                <div data-i18n="Basic">상품수정/삭제</div>
+                <div data-i18n="Basic">상품 목록</div>
               </a>
             </li>
 
-        <li class="menu-header small text-uppercase"><span class="menu-header-text">주문관리</span></li>
+        <li class="menu-header small text-uppercase"><span class="menu-header-text">주문 관리</span></li>
             <!-- Cards -->
             <li class="menu-item">
               <a href="${pageContext.request.contextPath }/comp/ordList" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-collection"></i>
-                <div data-i18n="Basic">주문목록</div>
+                <div data-i18n="Basic">주문 목록</div>
               </a>
             </li>
 
             <li class="menu-item">
               <a href="${pageContext.request.contextPath }/comp/prodRefund" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-collection"></i>
-                <div data-i18n="Basic">환불관리</div>
+                <div data-i18n="Basic">환불 관리</div>
               </a>
             </li>
 

@@ -8,11 +8,14 @@ $(document).ready(function(){
 	var two;
 	var three;
 	var four;
-
+	$('.nice-select').hide();
+	$('#prodLOption1').show();
 	$('#prodLOption1').change(function () {
         one = this.options[this.selectedIndex].value;
         $('#div2').hide(); //숨김
         $('#prodLOption2').empty(); //초기화
+		$('.nice-select').hide();
+		$('#prodLOption1').show();
         $('#div3').hide(); //숨김
         $('#prodLOption3').empty(); //초기화
         $('#div4').hide(); //숨김
@@ -140,4 +143,13 @@ $(document).ready(function(){
 		}
     });
 
+
 });
+
+// 가격
+const formatPrice = (target) => {
+  // 숫자만 남긴 후 포맷
+ target.value = Number(target.value
+   .replace(/[^0-9]/g, ''))
+   .toLocaleString();
+}

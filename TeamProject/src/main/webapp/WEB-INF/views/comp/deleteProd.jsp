@@ -30,24 +30,24 @@
 <!-- 		큰화면 버티컬 끝 -->
 
 
-           <!-- Content wrapper -->
-          <div class="content-wrapper">
-            <!-- Content -->
-<!-- 화면줄였을때 버티컬 메뉴 및 큰화면에서는 시작 -->
+			<!-- Content wrapper -->
+			<div class="content-wrapper">
+				<!-- Content -->
+				<!-- 화면줄였을때 버티컬 메뉴 및 큰화면에서는 시작 -->
             <div class="container-xxl flex-grow-1 container-p-y">
-              <h4 class="fw-bold py-3 mb-4">
-                <span class="text-muted fw-light">상품삭제 </span>
-              </h4>
+              <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">상품 관리 /</span> 상품 목록</h4>
 
-              <div class="row">
+			<div class="row">
                 <div class="col-md-12">
                   <ul class="nav nav-pills flex-column flex-md-row mb-3">
                     <li class="nav-item">
-                      <a class="nav-link" href="${pageContext.request.contextPath }/comp/deleteProd"
-                        ><i class="bx bx-user me-1"></i>상품삭제 </a
-                      >
-
-
+                      <a class="nav-link" href="${pageContext.request.contextPath }/comp/insertGoods">
+                      <i class="bx bx-user me-1"></i> 상품 등록</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link active" href="${pageContext.request.contextPath }/comp/deleteProd">
+                      <i class="bx bx-user me-1"></i> 상품 목록</a>
+                    </li>
                   </ul>
 <!--  화면줄였을때 버티컬 및 큰화면에서는 시작 매뉴끝                  -->
 
@@ -56,7 +56,7 @@
                 <div class="card">
                 <h5 class="card-header">상품목록</h5>
                 <form>
-                <table class="table table-striped">
+                <table class="table table-borderless">
                  <tbody class="table-border-bottom-0">
                   <tr>
                   	 <td></td>
@@ -78,13 +78,7 @@
                      </td>
                      <td colspan="2" class="input-group input-group-merge">
                         <span class="input-group-text" id="basic-addon-search31"><i class="bx bx-search"></i></span>
-                        <input
-                          type="text"
-                          class="form-control"
-                          placeholder="상품번호 검색"
-                          aria-label="Search..."
-                          aria-describedby="basic-addon-search31"
-                          name="searchKeyWord"/>
+                        <input type="text" class="form-control" placeholder="상품번호 검색" aria-describedby="basic-addon-search31" name="searchKeyWord"/>
                 	</td>
                 	<td><button type="submit" class="btn btn-primary">검색</button> </td>
                   </tr>
@@ -95,10 +89,11 @@
 
                 <div class="table-responsive text-nowrap" id="Context">
                  <form>
+                  <button type="submit" class="btn btn-primary" onclick="deleteValue();">선택삭제</button>
                   <table class="table table-striped" >
                     <thead>
                       <tr>
-                        <th>&nbsp;&nbsp;<input class="form-check-input" type="checkbox" id="allCheck" name="allCheck" />&nbsp;&nbsp;&nbsp;&nbsp;전체선택 </th>
+                        <th>&nbsp;&nbsp;<input class="form-check-input" type="checkbox" id="allCheck" name="allCheck" />&nbsp;&nbsp;&nbsp;전체선택 </th>
                         <th>번호</th>
                         <th>상품코드</th>
                         <th>상품이름</th>
@@ -111,7 +106,7 @@
 					  <c:forEach var="prodDTO" items="${prodList }" varStatus="status">
                       <tr onClick="location.href='${pageContext.request.contextPath }/comp/update?CheckRow=${prodDTO.prodLCode }'" style="cursor:pointer;">
                       	<td onclick="event.cancelBubble=true">&nbsp;&nbsp;&nbsp;&nbsp;<input class="form-check-input" type="checkbox" value="${prodDTO.prodLCode }" name="CheckRow" id="defaultCheck1" />
-                      	<label class="form-check-label" for="defaultCheck1"> 선택 </label></td>
+                      	<label class="form-check-label" for="defaultCheck1"></label></td>
                         <td>${prodDTO.prodLNum }</td>
                         <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>${prodDTO.prodLCode }</strong></td>
                         <td>${prodDTO.prodLProdnm }</td>
@@ -155,7 +150,26 @@
                     </tbody>
                   </table>
 
-                  <button type="submit" class="btn btn-primary" onclick="deleteValue();">선택삭제</button>
+			        <div class="bd-example-snippet bd-code-snippet"><div class="bd-example " >
+			        <nav aria-label="Standard pagination example">
+			          <ul class="pagination">
+			            <li class="page-item">
+			              <a class="page-link" href="#" aria-label="Previous">
+			                <span aria-hidden="true">&laquo;</span>
+			              </a>
+			            </li>
+			            <li class="page-item"><a class="page-link" href="#">1</a></li>
+			            <li class="page-item"><a class="page-link" href="#">2</a></li>
+			            <li class="page-item"><a class="page-link" href="#">3</a></li>
+			            <li class="page-item">
+			              <a class="page-link" href="#" aria-label="Next">
+			                <span aria-hidden="true">&raquo;</span>
+			              </a>
+			            </li>
+			          </ul>
+			        </nav>
+			        </div></div>
+
                  </form>
                 </div>
               </div>

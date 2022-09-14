@@ -24,126 +24,111 @@
 			<div class="content-wrapper">
 				<!-- Content -->
 				<!-- 화면줄였을때 버티컬 메뉴 및 큰화면에서는 시작 -->
-				<div class="container-xxl flex-grow-1 container-p-y">
-					<h4 class="fw-bold py-3 mb-4">
-						<span class="text-muted fw-light">상품관리 </span>
-					</h4>
+            <div class="container-xxl flex-grow-1 container-p-y">
+              <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">상품 관리 /</span> 상품 등록</h4>
 
-					<div class="row">
-						<div class="col-md-12">
-							<ul class="nav nav-pills flex-column flex-md-row mb-3">
-								<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath }/comp/updateProd">
-										<i class="bx bx-user me-1"></i>신규등록
-									</a>
-							</ul>
+			<div class="row">
+                <div class="col-md-12">
+                  <ul class="nav nav-pills flex-column flex-md-row mb-3">
+                    <li class="nav-item">
+                      <a class="nav-link active" href="${pageContext.request.contextPath }/comp/updateProd">
+                      <i class="bx bx-user me-1"></i> 상품 등록</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="${pageContext.request.contextPath }/comp/deleteProd">
+                      <i class="bx bx-user me-1"></i> 상품 목록</a>
+                    </li>
+                  </ul>
 							<!--  화면줄였을때 버티컬 및 큰화면에서는 시작 매뉴끝                  -->
 
 							<div class="col-xl">
-								<!-- 			탭바		 -->
-								<nav>
-									<div class="nav nav-tabs" id="nav-tab" role="tablist" >
-										<button class="nav-link active" id="user-insert-tab" data-bs-toggle="tab" data-bs-target="#user-insert" type="button" role="tab" aria-controls="user-insert" aria-selected="true">운동용품</button>
-										<button class="nav-link" id="comp-insert-tab" data-bs-toggle="tab" data-bs-target="#comp-insert" type="button" role="tab" aria-controls="comp-insert" aria-selected="false">식품</button>
-									</div>
-								</nav>
-								<!-- 			탭바		 -->
-								<!-- 				컨텐트 탭바로 크게 감싸기 -->
-
 									<div class="tab-pane fade show active" id="user-insert" role="tabpanel" aria-labelledby="user-insert-tab">
 
 										<div class="card mb-4">
 											<div class="card-body">
 												<form action="${pageContext.request.contextPath }/comp/insertGoodsPro" method="post" enctype="multipart/form-data">
 													<div class="row">
-													<div class="mb-3">
-														<label class="form-label" for="basic-default-fullname">업체ID</label>
-														<input type="text" class="form-control" id="basic-default-fullname" name="prodLCompNm" value="${sessionScope.compId }" readonly />
-													</div>
 
-													<div class="prod_p01 col-3">
-														<label for="defaultSelect" class="form-label" >종류</label>
-														<select id="prodLOption1" class="form-select" name="prodLOption1">
-															<option>선택</option>
+													<div class="prod_p01 col-3 mb-3">
+														<label for="defaultSelect" class="form-label" >분류</label>
+														<select id="prodLOption1" class="form-select form-control-lg" name="prodLOption1">
+															<option>분류 선택</option>
 															<option value="PROD">운동용품</option>
 															<option value="FOOD">식품</option>
 														</select>
 													</div>
 
-													<div id="div2" class="prod col-3" style="display: none">
-														<label for="defaultSelect" class="form-label">상품종류</label>
-														<select id="prodLOption2" class="form-select" name="prodLOption2">
+													<div id="div2" class="prod col-2" style="display: none">
+														<label for="defaultSelect" class="form-label">상품 분류</label>
+														<select id="prodLOption2" class="form-select form-control-lg" name="prodLOption2">
 															<c:forEach var="cdList" items="${cdList}">
 																<option value="${cdList.cdOpt}">${cdList.cdOptNm}</option>
 															</c:forEach>
 														</select>
 													</div>
 
-													<div id="div3" class="prod_p01 col-3" style="display: none">
-														<label for="defaultSelect" class="form-label" >상품상세종류</label>
-														<select id="prodLOption3" class="form-select" name="prodLOption3">
+													<div id="div3" class="prod_p01 col-2" style="display: none">
+														<label for="defaultSelect" class="form-label" >상세 분류</label>
+														<select id="prodLOption3" class="form-select form-control-lg" name="prodLOption3">
 															<option>선택</option>
 														</select>
 													</div>
 
-													<div id="div4" class="prod_color col-3" style="display: none">
+													<div id="div4" class="prod_color col-2" style="display: none">
 														<label for="defaultSelect" class="form-label">색상</label>
-														<select id="prodLOption4" class="form-select" name="prodLOption4">
+														<select id="prodLOption4" class="form-select form-control-lg" name="prodLOption4">
 															<option>선택</option>
 														</select>
 													</div>
-													<div id="div5" class="prod_size col-3" style="display: none">
+													<div id="div5" class="prod_size col-2" style="display: none">
 														<label for="defaultSelect" class="form-label">사이즈</label>
-														<select id="prodLOption5" class="form-select" name="prodLOption5">
+														<select id="prodLOption5" class="form-select form-control-lg" name="prodLOption5">
 															<option>선택</option>
 														</select>
 													</div>
 
-
-													<div class="mb-3">
-														<label class="form-label" for="basic-default-fullname">제품코드</label>
-														<input type="text" class="form-control" id="basic-default-fullname" name="prodLCode" placeholder="제품코드 입력" />
-													</div>
-
-													<div class="mb-3">
+													<!-- 줄 구분 -->
+													<div></div>
+													<div class="mb-3 col-8">
 														<label class="form-label" for="basic-default-fullname">상품명</label>
-														<input type="text" class="form-control" id="basic-default-fullname" name="prodLProdNm" placeholder="상품명 입력" />
+														<input type="text" class="form-control form-control-lg" id="basic-default-fullname" name="prodLProdNm" placeholder="상품명 입력" />
 													</div>
 
+													<div class="mb-3 col-4">
+														<label class="form-label" for="basic-default-fullname">업체명</label>
+														<input type="text" class="form-control form-control-lg" id="basic-default-fullname" name="prodLCompNm" value="${sessionScope.compId }" readonly />
+													</div>
 
-													<div class="mb-3">
+													<div class="mb-3 col-4">
+														<label class="form-label" for="basic-default-fullname">제품코드</label>
+														<input type="text" class="form-control form-control-lg" id="basic-default-fullname" name="prodLCode" placeholder="제품코드 입력" />
+													</div>
+
+													<div class="mb-3 col-4">
 														<label class="form-label" for="basic-default-company">가격</label>
-														<input type="text" class="form-control" id="basic-default-company" name="prodLPrice" placeholder="가격은 숫자만 입력" />
+														<input type="text" class="form-control form-control-lg" id="basic-default-company" name="prodLPrice" oninput="formatPrice(this)" style="text-align:right;" placeholder="원" />
 													</div>
-													<div class="mb-3">
+													<div class="mb-3 col-4">
 														<label class="form-label" for="basic-default-company">수량</label>
-														<input type="text" class="form-control" id="basic-default-company" name="prodLQuantity" placeholder="수량은 숫자만 입력" />
+														<input type="text" class="form-control form-control-lg" id="basic-default-company" name="prodLQuantity" oninput="formatPrice(this)" style="text-align:right;"placeholder="개" />
 													</div>
-
 													<div class="mb-3">
-														<label class="form-label" for="basic-default-message">상품상세설명</label>
-														<textarea id="basic-default-message" name="ProdLDetail" class="form-control" placeholder="상세상품설명 입력"></textarea>
+														<label class="form-label" for="basic-default-message">상품 설명</label>
+														<textarea id="basic-default-message" name="ProdLDetail" class="form-control" placeholder="상품에 대한 설명을 적어주세요"></textarea>
 													</div>
-													<div class="card">
-														<label class="form-label" for="basic-default-message">상품 메인 사진 첨부</label>
-														<div class="card-body">
-															<div class="mb-3">
-																<label for="formFile" class="form-label">상품사진 선택</label>
-																<input class="form-control" type="file" id="formFile" name="prodLMainimg" />
-															</div>
-														</div>
-														<label class="form-label" for="basic-default-message">상품 서브 사진 첨부</label>
-														<div class="card-body">
-															<div class="mb-3">
-																<label for="formFile" class="form-label">상품사진 선택</label>
-																<input class="form-control" type="file" id="formFile" name="prodLSubimg" />
-															</div>
-														</div>
+													<div class="mb-3 col-6">
+													<label class="form-label" for="basic-default-message">상품 메인 사진 첨부</label>
+														<input class="form-control" type="file" id="formFile" name="prodLMainimg" />
+													</div>
+													<div class="mb-4 col-6">
+													<label class="form-label" for="basic-default-message">상품 서브 사진 첨부</label>
+														<input class="form-control" type="file" id="formFile" name="prodLSubimg" />
+													</div>
 
-													</div>
 													</div>
 													<input type="hidden" name="prodLOption" value="goods">
 													<button type="submit" class="btn btn-primary">등록</button>
-													<button type="submit" class="btn btn-primary">취소</button>
+													<button type="reset" class="btn btn-primary">취소</button>
 												</form>
 											</div>
 										</div>
