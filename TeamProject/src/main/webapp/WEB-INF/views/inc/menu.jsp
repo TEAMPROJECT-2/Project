@@ -74,9 +74,21 @@
                 <div class="col-lg-6 col-md-7">
                     <div class="header__top__left">
                      <div class="offcanvas__links">
-                     	<p class="mr-3 ml-3"> 현재 포인트 : 000P
-
-						<a href="${pageContext.request.contextPath }/point" class="mr-3 ml-3">포인트 충전</a> |
+                     	<c:if test="${(empty sessionScope)}">
+								<!-- sessionScope 아이디가 비어있는 경우 현재 포인트 : 000 -->
+                     	<p class="mr-3 ml-3"> 현재 포인트 : 000 P
+ 					 </c:if>
+			 		<c:if test="${ !(empty sessionScope.userId)}">
+						<script type="text/javascript" src="${pageContext.request.contextPath }/resources/js/jquery-3.6.0.js"></script>
+								<!-- sessionScope 아이디가 userId이면 현재 포인트  -->
+                     	<p class="mr-3 ml-3"> 현재 포인트 : ${memberDTO.userPoint } P
+					</c:if>
+						<a href="javascript:openPopup('${pageContext.request.contextPath }/point/charge');" class="mr-3 ml-3" >포인트 충전</a> |
+						 <script type="text/javascript">
+						 	function openPopup() {
+						 		window.open('${pageContext.request.contextPath }/point/charge', target='_blank', width='100', height='138');
+							}
+						 </script>
 						<a href="${pageContext.request.contextPath }/order/cart" class="mr-3  ml-3">장바구니</a> |
 			            <a href="${pageContext.request.contextPath }/basic/basic-badge-button" class="mr-3  ml-3">버튼</a>
 			            <a href="${pageContext.request.contextPath }/basic/basic-form">폼</a>

@@ -5,7 +5,7 @@ import java.sql.Timestamp;
 public class PointDTO {
 	private int pointNum;
 	private String userId;
-	private int pointType;
+	private String pointType;
 	private Timestamp pointDate;
 	private int pointNow;
 	private int pointUsed;
@@ -22,10 +22,10 @@ public class PointDTO {
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
-	public int getPointType() {
+	public String getPointType() {
 		return pointType;
 	}
-	public void setPointType(int pointType) {
+	public void setPointType(String pointType) {
 		this.pointType = pointType;
 	}
 	public Timestamp getPointDate() {

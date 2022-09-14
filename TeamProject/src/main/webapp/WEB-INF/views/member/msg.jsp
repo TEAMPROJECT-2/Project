@@ -11,6 +11,7 @@
 <script type="text/javascript">
 	alert("입력하신 정보는 틀립니다");
 	history.back();
+	window.close();
 </script>
 
 </body>
