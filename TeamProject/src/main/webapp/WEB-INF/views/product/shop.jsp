@@ -227,8 +227,8 @@ $(function(){
                 <div class="col-lg-3">
                     <div class="shop__sidebar">
                         <div class="shop__sidebar__search">
-                            <form action="#">
-                                <input type="text" placeholder="Search...">
+                            <form action="${pageContext.request.contextPath }/product/shop">
+                                <input type="text" id="srhText" name="srhText">
                                 <button type="submit"><span class="icon_search"></span></button>
                             </form>
                         </div>
