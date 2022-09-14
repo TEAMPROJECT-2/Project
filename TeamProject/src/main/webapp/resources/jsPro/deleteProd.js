@@ -4,7 +4,7 @@
 
 //전체체크시작
 
-$(function(){debugger;
+$(function(){
 	var chkObj = document.getElementsByName("CheckRow");
 	var rowCnt = chkObj.length;
 
@@ -28,7 +28,7 @@ $(function(){debugger;
 // 전체 체크 끝
 
 // 삭제 코드 시작
-function deleteValue(){debugger;
+function deleteValue(){
 	var sendUrl = "delete";       // Controller로 보내는 URL Controller에 /delete로 전송되고 매핑함
 	var valueArr = new Array();   // valueArr에 체크된 데이터가 배열로 저장
 	var list = $("input[name='CheckRow']"); // list는 CheckRow(그페이지에 있는 행수)가 저장됨
@@ -46,7 +46,7 @@ function deleteValue(){debugger;
 	}
 	else{
 		var chk = confirm("정말 삭제하시겠습니까?"); //chk가 boolean타입으로 선택가능
-		if(chk){debugger; //chk가 true면 if문으로 들어옴
+		if(chk){ //chk가 true면 if문으로 들어옴
 		$.ajax({
 			type : 'POST',       // Post방식
 			url : sendUrl,          // 전송 URL
@@ -54,8 +54,8 @@ function deleteValue(){debugger;
 			data : {
 				valueArr : valueArr   // 보내고자 하는 data 변수 설정
 			},
-			success: function (rdata) {debugger;
-				if(rdata == 1) {debugger;
+			success: function (rdata) {
+				if(rdata == 1) {
 				 console.log(rdata);
 				 location.href="deleteProd";
 				}else {
@@ -63,7 +63,7 @@ function deleteValue(){debugger;
 				}
 
 			},
-			error:function(){debugger;
+			error:function(){
 
 				alert("에러");
 			}

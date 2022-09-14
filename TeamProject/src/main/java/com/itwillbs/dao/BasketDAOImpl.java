@@ -15,23 +15,31 @@ public class BasketDAOImpl implements BasketDAO {
 	private SqlSession sqlSession;
 	private static final String namespace="com.itwillbs.mappers.basketMapper";
 
-	@Override
+	@Override // 유저체크
 	public BasketDTO getMemberchk(BasketDTO basketDTO) {
 		return sqlSession.selectOne(namespace + ".getUser", basketDTO);
 	}
 
-	@Override
+	@Override // 메인에서 카트로 인서트
 	public void insertBasket(BasketDTO basketDTO) {
 		sqlSession.insert(namespace + ".insertBasket", basketDTO);
 	}
 
-	@Override
+	@Override // 디비에서 카트물건리스트 갖고오기
 	public List<BasketDTO> getBasketList(BasketDTO basketDTO) {
 
 		return sqlSession.selectList(namespace+".getBasketList",basketDTO);
 	}
 
+	@Override // 주문 디비에 인서트
+	public void insertOrder(BasketDTO basketDTO) {
+		sqlSession.insert(namespace + ".insertOrder", basketDTO);
+	}
 
+	@Override // 카트에 물건 삭제
+	public void deleteBasket(BasketDTO basketDTO) {
+		sqlSession.delete(namespace+".deleteBasket", basketDTO);
+	}
 
 
 

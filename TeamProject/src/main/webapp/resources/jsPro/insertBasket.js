@@ -3,15 +3,10 @@
  */
 
 
-
-
-
-
 $(document)
 			.ready(
 					function () {
 					$("#insertBasket ").on("click",function (){
-						alert("클릭10");
 						var prodLCode = $('#prodLCode').val(); // 제품 코드
 						var prodLPrice = $('#prodLPrice').val(); // 제품 가격
 						var prodLcount = $('#prodLcount').val();   // 제품 수량

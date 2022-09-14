@@ -40,10 +40,8 @@ public class BasketController {
 	@RequestMapping(value = "/product/cartPro", method = RequestMethod.POST)
 	public ResponseEntity<String> orderCart(HttpSession session,HttpServletRequest request,BasketDTO basketDTO) throws Exception {
 		String userId = (String)session.getAttribute("userId");
-		System.out.println("/product/cartPro : " + basketDTO.getSbCount());
 
-		basketDTO.setSbCount(basketDTO.getSbCount() + 1);
-		System.out.println("합계 : " + basketDTO.getSbCount() );
+		basketDTO.setSbCount(basketDTO.getSbCount());
 		basketDTO.setSbUser(userId);
 		basketService.insertBasket(basketDTO);
 
@@ -63,6 +61,28 @@ public class BasketController {
 		return entity;
 
 	}
+	// 주문인서트 구현
+			@RequestMapping(value = "/order/insertOrder", method = RequestMethod.POST)
+			public String insertOrder (HttpSession session,HttpServletRequest request,BasketDTO basketDTO) {
+				String[] sbProdCode=request.getParameterValues("CheckRow");
+				String[] sbCount=request.getParameterValues("sbCount");
+				String[] sbProdPrice=request.getParameterValues("sbProdPrice");
+				String userId = (String)session.getAttribute("userId");
+
+				for(int i =0 ; i < sbProdCode.length;i++ ) {
+					basketDTO.setSbProdCode(sbProdCode[i]);
+					basketDTO.setSbCount(Integer.parseInt(sbCount[i]));
+					basketDTO.setSbProdPrice(Integer.parseInt(sbProdPrice[i]));
+					System.out.println(sbCount[i]);
+					System.out.println(sbProdPrice[i]);
+					basketDTO.setSbUser(userId);
+					basketService.insertOrder(basketDTO);
+					basketService.deleteBasket(basketDTO);
+				}
+
+
+				return "redirect:/order/cart";
+			}
 
 
 }

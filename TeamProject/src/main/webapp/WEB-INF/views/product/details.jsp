@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <head>
 <script src="http://code.jquery.com/jquery-3.6.0.js"></script>
-
+<script src="${pageContext.request.contextPath }/resources/jsPro/insertBasket.js"></script>
 <script type="text/javascript">
 
 function BbsList(){
@@ -85,7 +85,11 @@ function BbsList(){
                 <span>찜하기</span> : <a href="#"> ${details.prodLQuantity}</a>
               </li>
 	            <li>
-	              장바구니에 넣기 : <a href="${pageContext.request.contextPath }/order/cart" class="btn_3">add to cart</a>
+	              장바구니에 넣기 : <a class="btn_3" id="insertBasket" >카트add to cart</a>
+<!-- 	              장바구니에 가져갈 히든 값. 제품 코드와 가격, 수량 1개 -->
+				  <input type="hidden" name="prodLcount" type="text" id="prodLcount" value="1">
+	              <input type="hidden" name="prodLCode" value="${details.prodLCode}" id="prodLCode">
+              	  <input type="hidden" name="prodLPrice" value="${details.prodLPrice}" id="prodLPrice">
              	 <a href="#" class="like_us"> <i class="ti-heart"></i> </a>
               	</li>
               </ul>
