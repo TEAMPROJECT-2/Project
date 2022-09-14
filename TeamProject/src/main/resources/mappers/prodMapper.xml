@@ -30,7 +30,8 @@
 		 	  OR REGEXP_LIKE (PROD_L_OPTION2 , #{search}))
 		 </if>
 		  -->
-		 ORDER BY PROD_L_NUM DESC
+		 ORDER BY PROD_L_NUM DESC LIMIT #{startRow}, #{pageSize}
+
 		 <!--
 		 정렬 방법 높은가격,낮은가격
 		 ORDER BY

@@ -412,14 +412,14 @@ $(function(){
                             <div class="product__pagination">
                                <c:if test="${prodDTO.startPage > prodDTO.pageBlock }">
 									<a href="${pageContext.request.contextPath }
-									/product/shop?prodLNum=${prodDTO.startPage - prodDTO.pageBlock}">&lt; &lt;</a>
+									/product/shop?pageNum=${prodDTO.startPage - prodDTO.pageBlock}">&lt; &lt;</a>
 									</c:if>
 									<c:forEach var="i" begin="${prodDTO.startPage }" end="${prodDTO.endPage }" step="1">
-									<a class="active" href="${pageContext.request.contextPath }/product/shop?prodLNum=${i}">${i}</a>
+									<a class="active" href="${pageContext.request.contextPath }/product/shop?pageNum=${i}">${i}</a>
 									</c:forEach>
 									<c:if test="${prodDTO.endPage < prodDTO.pageCount }">
 									<a href="${pageContext.request.contextPath }
-									/product/shop?prodLNum=${prodDTO.startPage + prodDTO.pageBlock}">&gt; &gt;</a>
+									/product/shop?pageNum=${prodDTO.startPage + prodDTO.pageBlock}">&gt; &gt;</a>
 									</c:if>
                             </div>
                         </div>

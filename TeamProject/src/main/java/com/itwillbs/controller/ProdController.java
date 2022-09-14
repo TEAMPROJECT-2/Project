@@ -57,7 +57,7 @@ public class ProdController {
 
 			List<CommonDTO> commonList =  commonService.selectCommonList(commonDTO);
 
-			int pageSize = 10;
+			int pageSize = 9;
 			String pageNum = prodDTO.getPageNum();
 			if(pageNum == null) {
 				pageNum = "1";
@@ -65,7 +65,7 @@ public class ProdController {
 			int currentPage=Integer.parseInt(pageNum);
 
 			int count = prodService.selectProdListCnt(prodDTO);
-			int pageBlock = 10;
+			int pageBlock = 3;
 			int startPage = (currentPage-1)/pageBlock*pageBlock+1;
 			int endPage=startPage+pageBlock-1;
 			int pageCount=count / pageSize +(count % pageSize==0?0:1);
@@ -74,7 +74,7 @@ public class ProdController {
 			}
 
 			prodDTO.setCurrentPage(currentPage);
-			prodDTO.setPageSize(10);
+			prodDTO.setPageSize(9);
 
 			List<ProdDTO> prodList = prodService.selectProdList(prodDTO);
 
