@@ -14,7 +14,7 @@
 			,BOARD_CONTENT
 			,BOARD_READCOUNT
 			,BOARD_DATE
-			,BOARD_FILE) 
+			,BOARD_FILE)
 		values(
 		     #{boardNum}
 			,#{userNicknm}
@@ -25,43 +25,39 @@
 			,#{boardDate}
 			,#{boardFile})
 	</insert>
-	
+
 	<select id="getMaxNum" resultType="java.lang.Integer">
 		SELECT MAX(BOARD_NUM) FROM BOARD
 	</select>
-	   
+
 	<select id="getBoardList" resultType="com.itwillbs.domain.BoardDTO">
 		SELECT * FROM BOARD ORDER BY BOARD_NUM DESC LIMIT #{startRow}, #{pageSize}
 	</select>
-	
-   
-	
+
 	<select id="getBoard" resultType="com.itwillbs.domain.BoardDTO">
 		select * from BOARD where BOARD_NUM=#{boardNum}
 	</select>
-	
-	
-	
+
 	<select id="PassCheck" resultType="com.itwillbs.domain.BoardDTO">
 		select * from BOARD where BOARD_PASS=#{boardPass} and BOARD_NUM=#{boardNum}
 	</select>
-	
+
 	<select id="numCheck" resultType="com.itwillbs.domain.BoardDTO">
 			select * from BOARD where USER_NICKNM=#{userNicknm} and BOARD_NUM=#{boardNum}
 	</select>
-	
+
 	<update id="updateBoard">
 		update BOARD set BOARD_SUBJECT=#{boardSubject}, BOARD_CONTENT=#{boardContent} where BOARD_NUM=#{boardNum}
 	</update>
-	
+
 	<update id="updateFile">
 		update BOARD set BOARD_SUBJECT=#{boardSubject}, BOARD_CONTENT=#{boardContent}, BOARD_FILE=#{boardFile} where BOARD_NUM=#{boardNum}
 	</update>
-	
+
 	<delete id="deleteBoard">
 		delete from BOARD where BOARD_PASS=#{boardPass} and USER_NICKNM=#{userNicknm}
 	</delete>
 
-	
-	
+
+
 </mapper>

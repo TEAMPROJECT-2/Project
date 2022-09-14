@@ -99,18 +99,12 @@ public class MypageController {
 		return "mypage/userConnection";
 	}
 
-	// 마이페이지 - 배송지 관리
-	@RequestMapping(value = "/mypage/addr", method = RequestMethod.GET)
-	public String address() {
-		return "mypage/userAddress";
-	}
 
 	// 마이페이지 - 포인트
 	@RequestMapping(value = "/mypage/point", method = RequestMethod.GET)
 	public String point() {
 		return "mypage/userPoint";
 	}
-
 
 	@RequestMapping(value = "/mypage/info", method = RequestMethod.GET)
 	public String info(HttpSession session, Model model) {

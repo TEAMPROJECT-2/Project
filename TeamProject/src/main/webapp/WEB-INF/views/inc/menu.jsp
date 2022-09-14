@@ -27,8 +27,10 @@
 	<style>
 	#searchMain {
 		border: none;
+		background-color: #f5f5f9;
 		color: #495057;
-		border-bottom: 1px solid;
+		border-radius: 1.5rem;
+		height: 3em;
 	}
 	</style>
 
@@ -136,11 +138,18 @@
                     <a href="${pageContext.request.contextPath }/main/main"><img src="${pageContext.request.contextPath }/resources/img/logo.png" alt="로고"></a>
                 </div>
             </div>
-            <div class="col-lg-6 col-md-6">
+            <div class="col-lg-5 col-md-6">
+              <div class="header__nav__option shop__sidebar__search mb-0">
+	              <form action="searchItem" method="post" id="search">
+	                  <input type="text" placeholder="단백질 쉐이크" id="searchMain">
+	                  <button type="submit"><span class="icon_search" style="color:#495057;"></span></button>
+	              </form>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-12">
                 <nav class="header__menu mobile-menu">
                     <ul>
-                        <li><a href="${pageContext.request.contextPath }/product/shop">운동용품</a></li>
-                        <li><a href="${pageContext.request.contextPath }/food/shop">식품</a></li>
+                        <li><a href="${pageContext.request.contextPath }/product/shop">스토어</a></li>
                         <li><a href="${pageContext.request.contextPath }/board/list">커뮤니티</a></li>
 <!--                         <li class="active"><a href="#">커뮤니티</a> -->
 <!--                                <ul class="dropdown"> -->
@@ -152,14 +161,6 @@
                         <li><a href="../contact.html">이벤트</a></li>
                     </ul>
                 </nav>
-            </div>
-            <div class="col-lg-3 col-md-12">
-                <div class="header__nav__option shop__sidebar__search mb-0">
-	              <form action="searchItem" method="post" id="search">
-	                  <input type="text" placeholder="Search..." id="searchMain">
-	                  <button type="submit"><span class="icon_search" style="color:#495057;"></span></button>
-	              </form>
-                </div>
             </div>
         </div>
         <div class="canvas__open"><i class="fa fa-bars"></i></div>

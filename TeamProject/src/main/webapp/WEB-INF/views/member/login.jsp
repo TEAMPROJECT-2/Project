@@ -39,7 +39,10 @@
                             <h5>회원가입 시 기입했던 ID와 이메일을 적어주세요!</h5>
                         	<hr><br>
                         	<h4>SNS 로그인</h4><br>
-                        	<p>카카오톡 네이버</p><br><br>
+                        	<a class="p-2" href="https://kauth.kakao.com/oauth/authorize?client_id=2aad40910868e3c5fa9594f8de34a07b&redirect_uri=http://localhost:8080/oauth/kakao&response_type=code">
+							  <img th:src="@{/images/kakao_login_medium_wide .png}" style="height:60px"/>
+							</a>
+							<br><br>
                         <ul>
                         	<li>
                             	<button type="button" class="site-btn btn-lg w-100" onclick="location.href='${pageContext.request.contextPath }/member/join'">회원가입</button>
