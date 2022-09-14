@@ -17,12 +17,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.itwillbs.domain.BasketDTO;
 import com.itwillbs.domain.ProdDTO;
-import com.itwillbs.service.BasketSerive;
+import com.itwillbs.service.BasketService;
 
 @Controller
 public class BasketController {
 	@Inject
-	private BasketSerive basketService;
+	private BasketService basketService;
 
 	@RequestMapping(value = "/order/cart", method = RequestMethod.GET)
 	public String orderCartList(HttpServletRequest request, Model model,HttpSession session,@ModelAttribute BasketDTO basketDTO) {
