@@ -5,7 +5,22 @@
 <!DOCTYPE html>
 <head>
 <script src="http://code.jquery.com/jquery-3.6.0.js"></script>
-<script src="${pageContext.request.contextPath }/resources/jsPro/insertBasket.js"></script>
+
+<script type="text/javascript">
+
+function BbsList(){
+    $.ajax({
+        type:"GET",
+        url:"/bbs/BbsList",
+        dataType:"JSON",
+        success : function(obj) {
+            BbsListCallback(obj);
+        },
+        error : function(xhr, status, error) {}
+     });
+}
+</script>
+
     <meta charset="UTF-8">
     <meta name="description" content="Male_Fashion Template">
     <meta name="keywords" content="Male_Fashion, unica, creative, html">
@@ -39,8 +54,8 @@
         <div class="col-lg-7 col-xl-7">
           <div class="product_slider_img">
             <div id="vertical">
-              <div data-thumb="${details.prodLMainimg}">
-                <img src="${details.prodLMainimg}" />
+              <div data-thumb="${pageContext.request.contextPath }/resources/img/product/${details.prodLMainimg}">
+                <img src="${pageContext.request.contextPath }/resources/img/product/${details.prodLMainimg}"  width="500" height="500"/>
               </div>
             </div>
           </div>
@@ -48,46 +63,37 @@
         <div class="col-lg-5 col-xl-4">
           <div class="product__details__text">
             <!-- <h3>Faded SkyBlu Denim Jeans</h3> -->
-            <h3 >${details.prodLProdnm}</h3>
-            <h3>값값닥  ${details.prodLCode}</h3>
+            <h3>${details.prodLProdnm}</h3>
             <!-- 상품가격의 가독성을 높이기 위해 숫자 3자리마다 콤마(,)를 찍어주도록 처리함 -->
-             <h2><fmt:formatNumber  value="${details.prodLPrice}" pattern="###,###,###원" /></h2>
+             <h2><fmt:formatNumber value="${details.prodLPrice}" pattern="###,###,###원"/></h2>
+            <div class="rating">
+            <h5><%-- (괄호안에 몇명이 했는지 넣으면 좋을듯 ${details.prodLPrice}) --%>
+		        <i class="fa fa-star-o"></i>
+		        <i class="fa fa-star-o"></i>
+		        <i class="fa fa-star-o"></i>
+		        <i class="fa fa-star-o"></i>
+		        <i class="fa fa-star-o"></i>
+		        ()
+		        </h5>
+	      	</div>
             <ul class="list">
               <li>
-                <a class="active" href="#">
-                  <span>Category</span> : Household</a>
+                <span>남은 수량</span> : ${details.prodLQuantity}
               </li>
               <li>
-                <a href="#"> <span>Availibility</span> : In Stock</a>
+              <!-- 내가 찜한 목록들 리스트 볼수있게 이동? -->
+                <span>찜하기</span> : <a href="#"> ${details.prodLQuantity}</a>
               </li>
-            </ul>
-            <p>
-              First replenish living. Creepeth image image. Creeping can't, won't called.
-              Two fruitful let days signs sea together all land fly subdue
-            </p>
-            <div class="card_area d-flex justify-content-between align-items-center">
-              <div class="product_count">
-                <span class="inumber-decrement"> <i class="ti-minus"></i></span>
-
-<!--                 상품 갯수입력 -->
-                <input class="input-number" name="prodLcount" type="text"  min="0" max="10" id="prodLcount">
-<!--                 상품 갯수입력 -->
-
-                <span class="number-increment"> <i class="ti-plus"></i></span>
-              </div>
-<%--               <a href="${pageContext.request.contextPath }/order/cart" class="btn_3" id="insertBasket">카트add to cart</a> --%>
-              <a class="btn_3" id="insertBasket" >카트add to cart</a>
-<!--               상품 코드와 가격 들고가기 -->
-              <input type="hidden" name="prodLCode" value="${details.prodLCode}" id="prodLCode">
-              <input type="hidden" name="prodLPrice" value="${details.prodLPrice}" id="prodLPrice">
-
-              <a href="#" class="like_us"> <i class="ti-heart"></i> </a>
+	            <li>
+	              장바구니에 넣기 : <a href="${pageContext.request.contextPath }/order/cart" class="btn_3">add to cart</a>
+             	 <a href="#" class="like_us"> <i class="ti-heart"></i> </a>
+              	</li>
+              </ul>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
   <!--================End Single Product Area =================-->
 
   <!--================Product Description Area =================-->
@@ -96,88 +102,22 @@
       <ul class="nav nav-tabs" id="myTab" role="tablist">
 
         <li class="nav-item">
-          <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile"
+          <a class="nav-link active" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile"
             aria-selected="false">상품 정보</a>
 
         <li class="nav-item">
-          <a class="nav-link active" id="review-tab" data-toggle="tab" href="#review" role="tab" aria-controls="review"
+          <a class="nav-link" id="review-tab" data-toggle="tab" href="#review" role="tab" aria-controls="review"
             aria-selected="false">상품 후기</a>
         </li>
       </ul>
       <div class="tab-content" id="myTabContent">
-        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+        <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
           <div class="table-responsive">
-            <table class="table">
-              <tbody>
-                <tr>
-                  <td>
-                    <h5>Width</h5>
-                  </td>
-                  <td>
-                    <h5>128mm</h5>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <h5>Height</h5>
-                  </td>
-                  <td>
-                    <h5>508mm</h5>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <h5>Depth</h5>
-                  </td>
-                  <td>
-                    <h5>85mm</h5>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <h5>Weight</h5>
-                  </td>
-                  <td>
-                    <h5>52gm</h5>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <h5>Quality checking</h5>
-                  </td>
-                  <td>
-                    <h5>yes</h5>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <h5>Freshness Duration</h5>
-                  </td>
-                  <td>
-                    <h5>03days</h5>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <h5>When packeting</h5>
-                  </td>
-                  <td>
-                    <h5>Without touch of hand</h5>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <h5>Each Box contains</h5>
-                  </td>
-                  <td>
-                    <h5>60pcs</h5>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+					<style>div { text-align: center; }</style>
+                <img src="${pageContext.request.contextPath }/resources/img/product/${details.prodLSubimg}"/>
           </div>
         </div>
-        <div class="tab-pane fade show active" id="review" role="tabpanel" aria-labelledby="review-tab">
+        <div class="tab-pane fade" id="review" role="tabpanel" aria-labelledby="review-tab">
           <div class="row">
             <div class="col-lg-6">
               <div class="row total_rate">
@@ -294,7 +234,7 @@
     </div>
   </section>
   <!--================End Product Description Area =================-->
-    <!-- Related Section Begin -->
+       <!-- Related Section Begin -->
     <section class="related spad">
         <div class="container">
             <div class="row">
