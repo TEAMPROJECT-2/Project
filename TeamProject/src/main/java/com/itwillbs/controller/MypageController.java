@@ -1,6 +1,9 @@
 package com.itwillbs.controller;
 
+import java.util.List;
+
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -16,17 +19,23 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.itwillbs.domain.BoardDTO;
 import com.itwillbs.domain.CompDTO;
 import com.itwillbs.domain.MemberDTO;
+import com.itwillbs.domain.PageDTO;
+import com.itwillbs.domain.PointDTO;
 import com.itwillbs.mail.MailUtils;
 import com.itwillbs.mail.TempKey;
 import com.itwillbs.service.MemberService;
+import com.itwillbs.service.PointService;
 
 @Controller
 public class MypageController {
 
 	@Inject
 	private MemberService memberService;
+	@Inject
+	private PointService pointService;
 
 
 	// 마이페이지
@@ -102,7 +111,43 @@ public class MypageController {
 
 	// 마이페이지 - 포인트
 	@RequestMapping(value = "/mypage/point", method = RequestMethod.GET)
-	public String point() {
+	public String point(HttpServletRequest request, Model model) {
+		// 한화면에 보여줄 글개수
+		int pageSize=10;
+		//현페이지 번호
+		String pageNum=request.getParameter("pageNum");
+		if(pageNum==null) {
+			pageNum="1";
+		}
+		//현페이지 번호를 정수형으로 변경
+		int currentPage=Integer.parseInt(pageNum);
+		// PageDTO 객체생성
+		PageDTO pageDTO=new PageDTO();
+		pageDTO.setPageSize(pageSize);
+		pageDTO.setPageNum(pageNum);
+		pageDTO.setCurrentPage(currentPage);
+		
+		List<PointDTO> pointList=pointService.getPointList(pageDTO);
+		
+		// pageBlock  startPage endPage count pageCount
+		int count=pointService.getPointCount();
+		int pageBlock=10;
+		int startPage=(currentPage-1)/pageBlock*pageBlock+1;
+		int endPage=startPage+pageBlock-1;
+		int pageCount=count / pageSize +(count % pageSize==0?0:1);
+		if(endPage > pageCount){
+			endPage = pageCount;
+		}
+		
+		pageDTO.setCount(count);
+		pageDTO.setPageBlock(pageBlock);
+		pageDTO.setStartPage(startPage);
+		pageDTO.setEndPage(endPage);
+		pageDTO.setPageCount(pageCount);
+		
+		
+		model.addAttribute("pointList", pointList);
+		model.addAttribute("pageDTO", pageDTO);
 		return "mypage/userPoint";
 	}
 

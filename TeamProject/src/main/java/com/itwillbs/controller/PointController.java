@@ -42,10 +42,10 @@ public class PointController {
 		if(userId==null) {
 			return "/member/msg";
 		} else {
-		PointDTO pointDTO = pointService.getMember(userId);	
+//		PointDTO pointDTO = pointService.getMember(userId);	
 		MemberDTO memberDTO = memberService.getMember(userId); 
 		model.addAttribute("memberDTO", memberDTO);
-		model.addAttribute("pointDTO", pointDTO);
+//		model.addAttribute("pointDTO", pointDTO);
 		return "point/charge";
 		}
 	}
