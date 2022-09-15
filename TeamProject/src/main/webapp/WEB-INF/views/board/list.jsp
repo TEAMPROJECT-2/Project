@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>        
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,7 +28,7 @@
     <form action="${pageContext.request.contextPath }/board/fwrite">
     <input type="hidden" name="userId" value="${sessionScope.userId}" >
     </form>
-	
+
     <!-- 사이드 메뉴(inc로 빼도 됨) -->
     <section class="shop spad">
         <div class="container">
@@ -84,16 +84,16 @@
 				</tr>
 			</c:forEach>
           </tbody>
-			
+
         </table>
         <c:set var="userId" scope="session" value="${sessionScope.userId}"/>
         <c:if test="${userId != null}">
-        
+
         	<div align="right">
 			<a href="${pageContext.request.contextPath }/board/fwrite"><button type="button" class="btn btn-primary" >게시글 작성하기</button></a>
 			</div>
         </c:if>
-       
+
       </div>
   </div>
 
@@ -105,24 +105,24 @@
 									<a href="${pageContext.request.contextPath }
 									/board/list?pageNum=${pageDTO.startPage - pageDTO.pageBlock}">Prev</a>
 									</c:if>
-									
+
 									<c:forEach var="i" begin="${pageDTO.startPage }" end="${pageDTO.endPage }" step="1">
-									<a href="${pageContext.request.contextPath }/board/list?pageNum=${i}">${i}</a>  
+									<a href="${pageContext.request.contextPath }/board/list?pageNum=${i}">${i}</a>
 									</c:forEach>
-									
+
 									<c:if test="${pageDTO.endPage < pageDTO.pageCount }">
 									<a href="${pageContext.request.contextPath }
 									/board/list?pageNum=${pageDTO.startPage + pageDTO.pageBlock}">Next</a>
 									</c:if>
-									
-									
+
+
 
                             </div>
-                            
+
                         </div>
                     </div>
                 </div>
-        
+
     </section>
     <!-- Shop Section End -->
 

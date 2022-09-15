@@ -62,9 +62,8 @@ public class MypageController {
 	public String modifyPro(MemberDTO memberDTO, HttpSession session) {
 		// 메서드 호출
 		MemberDTO memberDTO2=memberService.userCheck(memberDTO);
-		System.out.println("MemberController modUser()"+memberDTO2+memberDTO);
 		if(memberDTO2!=null) {
-			//아이디 비밀번호 일치
+			// 아이디 비밀번호 일치
 			// 수정작업
 			memberService.modUser(memberDTO);
 			// 주소변경 이동
@@ -75,28 +74,22 @@ public class MypageController {
 		}
 	}
 
-
 	// 마이페이지 - 비밀번호 변경 페이지
 	@RequestMapping(value = "/mypage/passMod", method = RequestMethod.GET)
 	public String passModify() {
 		return "mypage/passModify";
 	}
 
-//	// 비밀번호 변경
-//	@RequestMapping(value = "/mypage/passCheck", method = RequestMethod.POST)
-//	public int passCheck(MemberDTO memberDTO) throws Exception{
-//		memberService.passCheck(memberDTO);
-//		if(memberDTO == null) {
-//			return 0;
-//		}
-//		return 1;
-//	}
+	// 비밀번호 변경
 	@RequestMapping(value="/mypage/passModPro" , method=RequestMethod.POST)
-	public String passMod(String userId, String newPass1, RedirectAttributes rttr, HttpSession session) throws Exception{
-		System.out.println("controller/passModPro");
-		memberService.passMod(userId);
+	public String passMod(HttpSession session, HttpServletRequest request, MemberDTO memberDTO) throws Exception{
+		String userPass=request.getParameter("newPass");
+		memberDTO.setUserPass(userPass);
+		String userId =(String)session.getAttribute("userId");
+		memberDTO.setUserId(userId);
+		memberService.passMod(memberDTO);
 		session.invalidate();
-		rttr.addFlashAttribute("msg", "정보 수정이 완료되었습니다. 다시 로그인해주세요.");
+//		("msg", "정보 수정이 완료되었습니다. 다시 로그인해주세요.");
 
 		return "redirect:/member/login";
 	}
@@ -138,13 +131,11 @@ public class MypageController {
 		if(endPage > pageCount){
 			endPage = pageCount;
 		}
-
 		pageDTO.setCount(count);
 		pageDTO.setPageBlock(pageBlock);
 		pageDTO.setStartPage(startPage);
 		pageDTO.setEndPage(endPage);
 		pageDTO.setPageCount(pageCount);
-
 
 		model.addAttribute("pointList", pointList);
 		model.addAttribute("pageDTO", pageDTO);
@@ -159,8 +150,6 @@ public class MypageController {
 		MemberDTO memberDTO = memberService.getMember(userId);
 		// 가져온 정보를 담아 info.jsp 이동
 		model.addAttribute("memberDTO",memberDTO);
-
-//		// 주소변경없이 이동
 		// WEB-INF/views/member/info.jsp 이동
 		return "member/info";
 	}

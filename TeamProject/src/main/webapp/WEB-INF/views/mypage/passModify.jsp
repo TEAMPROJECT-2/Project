@@ -42,7 +42,7 @@ src="${pageContext.request.contextPath }/resources/js/jquery-3.6.0.js" ></script
 				$.ajax({
 					url : "${pageContext.request.contextPath}/mypage/passCheck",
 					type : "POST",
-					data : {'passModForm':$('#passModForm').val()},
+					data : {'userId':$('#userId1').val(),'userPass':$('#passModForm').val()},
 					success: function(rdata){
 
 						if(rdata=="ok"){
@@ -112,7 +112,7 @@ src="${pageContext.request.contextPath }/resources/js/jquery-3.6.0.js" ></script
                           </div>
                           <div class="mb-3 col-md-6">
                             <label for="newPass1" class="form-label">새 비밀번호</label>
-                            <input class="form-control form-control-lg" type="password" name="newPass1" id="newPass1" />
+                            <input class="form-control form-control-lg" type="password" name="newPass" id="newPass" />
                           </div>
                           <div class="mb-3 col-md-6">
                             <label for="newPass2" class="form-label">새 비밀번호 확인</label>

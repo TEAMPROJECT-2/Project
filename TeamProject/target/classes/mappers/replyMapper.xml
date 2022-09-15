@@ -51,10 +51,10 @@
 	</select>
 
 	<delete id="Replydelete">
-		delete from BOARD_REPLY where R_NUM=#{rNum} and R_PASS=#{rPass}
+		delete from BOARD_REPLY where R_NUM=#{rNum} and USER_ID=#{userId}
 	</delete>
 
-	<select id="rNumCheck">
+	<select id="rNumCheck" resultType="com.itwillbs.domain.ReplyDTO">
 		select * from BOARD_REPLY where R_NUM=#{rNum} and USER_ID=#{userId}
 	</select>
 </mapper>

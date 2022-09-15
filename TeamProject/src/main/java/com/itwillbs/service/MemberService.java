@@ -34,11 +34,11 @@ public interface MemberService {
 	public void modUser(MemberDTO memberDTO);
 
 	// 비밀번호 변경
-	public String passCheck(MemberDTO memberDTO) throws Exception;
-	public void passMod(String userId) throws Exception;
+	public void passMod(MemberDTO memberDTO) throws Exception;
 
 	// 회원 탈퇴
 	public void delUser(MemberDTO memberDTO);
+
 
 
 

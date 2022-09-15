@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -60,7 +61,6 @@ public class AjaxController {
 
 	// 아이디 찾기
 	@RequestMapping(value = "/member/idSearch", method = RequestMethod.POST)
-	//	주소값이 아닌 출력값 담은 걸 리턴하겠다(데이터를 담아서 리턴한다), httpSR=아이디값
 	public ResponseEntity<String> loginidSearch(MemberDTO memberDTO, HttpServletRequest request) {
 		String userNm=request.getParameter("userNm");
 		String userEmail=request.getParameter("userEmail");
@@ -89,7 +89,6 @@ public class AjaxController {
 
 		String result="";
 		if(memberDTO2!=null) {
-			System.out.println("MemberController delUser()+"+memberDTO2+memberDTO);
 			memberService.delUser(memberDTO);
 			// 세션값 초기화
 			session.invalidate();
@@ -105,11 +104,10 @@ public class AjaxController {
 	// 비밀번호 변경
 	@RequestMapping(value = "/mypage/passCheck", method = RequestMethod.POST)
 	public ResponseEntity<String> passCheck(MemberDTO memberDTO, HttpServletRequest request) throws Exception {
+
 		MemberDTO memberDTO2=memberService.userCheck(memberDTO);
-		System.out.println("ajax/passCheck"+memberDTO2);
-		memberService.passCheck(memberDTO);
 		String result="";
-		if(memberDTO == null) {
+		if(memberDTO2 == null) {
 			result="no";
 		}else {
 		result="ok";

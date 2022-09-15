@@ -162,15 +162,9 @@
 	</update>
 
 <!-- 비밀번호 수정 -->
-	<select id="passCheck" resultType="string">
-		SELECT USER_PASS
-		  FROM USER_INFO
-		 WHERE USER_ID 		=#{userId}
-	</select>
-
 	<update id="passMod">
 		UPDATE USER_INFO
-		   SET USER_PASS	=#{userPass},
+		   SET USER_PASS	=#{userPass}
 		 WHERE USER_ID		=#{userId}
 	</update>
 
