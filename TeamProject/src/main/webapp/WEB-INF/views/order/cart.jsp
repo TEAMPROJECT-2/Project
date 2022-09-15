@@ -7,6 +7,7 @@
 <script src="http://code.jquery.com/jquery-3.6.0.js"></script>
 <script src="${pageContext.request.contextPath }/resources/jsPro/basketListPro.js"></script>
 </head>
+
 <body>
 	<jsp:include page="../inc/menu.jsp" />
 
@@ -70,16 +71,17 @@
 												<c:if test="${basketDTO.prodLQuantity != 0}">
 													<div class="quantity">
 														<div class="pro-qty-2">
-															<input type="text" id="select_vol" name="select_vol" value="${basketDTO.sbCount}" max="${basketDTO.prodLQuantity}" min="1">
+															<input type="text" id="select_vol_${basketDTO.num}" class="select_vol" name="select_vol" value="${basketDTO.sbCount}" max="${basketDTO.prodLQuantity}" min="1">
 															<a href="#"></a>
 														</div>
 													</div>
 												</c:if>
 											</td>
 											<td class="cart__price">
-
-												<div class="quantity">${basketDTO.sbCount * basketDTO.sbProdPrice }</div>
+												<input type="hidden" id="price_${basketDTO.num}" value="${basketDTO.sbProdPrice }">
+												<div id="total_${basketDTO.num}" class="total">${basketDTO.sbTotalPrice }</div>
 											</td>
+<!-- 											삭제버튼 -->
 											<td class="cart__close">
 												<i class="fa fa-close"></i>
 											</td>
@@ -97,14 +99,16 @@
 					<div class="row">
 						<div class="col-lg-6 col-md-6 col-sm-6">
 							<div class="continue__btn">
-								<a href="#">쇼핑 계속하기</a>
+								<a href="${pageContext.request.contextPath }/product/shop">쇼핑 계속하기</a>
 							</div>
 						</div>
 						<div class="col-lg-6 col-md-6 col-sm-6">
 							<div class="continue__btn update__btn">
 								<a href="#">
-									<i class="fa fa-spinner"></i> Update cart
+									<i class="fa fa-spinner"></i> 수량 수정
 								</a>
+								<button type="submit" class="btn btn-primary" onclick="deleteValue();">선택삭제</button>
+
 							</div>
 						</div>
 					</div>
@@ -123,7 +127,7 @@
 							<li>할인 <span>0000원</span></li>
 							<li>합계 <span id="itemTotalPrice"></span></li>
 						</ul>
-						<button type="submit">주문하기</button>
+						<button type="submit" id="orderChk" name="orderChk" >주문하기</button>
 <!-- 						<a class="primary-btn" id="orderProd">주문하기</a> -->
 					</form>
 					</div>
