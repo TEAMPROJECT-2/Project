@@ -120,11 +120,9 @@ public class MypageController {
 		pageDTO.setPageSize(pageSize);
 		pageDTO.setPageNum(pageNum);
 		pageDTO.setCurrentPage(currentPage);
-<<<<<<< HEAD
 
-=======
 		pageDTO.setUserId(userId);
->>>>>>> refs/remotes/origin/main
+
 		List<PointDTO> pointList=pointService.getPointList(pageDTO);
 
 		// pageBlock  startPage endPage count pageCount
