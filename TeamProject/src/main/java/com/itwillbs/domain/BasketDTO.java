@@ -3,6 +3,7 @@ package com.itwillbs.domain;
 import java.sql.Timestamp;
 
 public class BasketDTO {
+	private int num;
 	private int sbBasketNum;
 	private String sbUser;
 	private String sbProdCode;
@@ -14,7 +15,12 @@ public class BasketDTO {
 	private Timestamp shoppingBasketDate;
 
 
-
+	public int getNum() {
+		return num;
+	}
+	public void setNum(int num) {
+		this.num = num;
+	}
 	public int getSbBasketNum() {
 		return sbBasketNum;
 	}
@@ -69,10 +75,13 @@ public class BasketDTO {
 	public void setProdLQuantity(int prodLQuantity) {
 		this.prodLQuantity = prodLQuantity;
 	}
-
-
-
-
+	@Override
+	public String toString() {
+		return "BasketDTO [sbBasketNum=" + sbBasketNum + ", sbUser=" + sbUser + ", sbProdCode=" + sbProdCode
+				+ ", sbCount=" + sbCount + ", prodLQuantity=" + prodLQuantity + ", sbProdPrice=" + sbProdPrice
+				+ ", sbTotalPrice=" + sbTotalPrice + ", sbProdNm=" + sbProdNm + ", shoppingBasketDate="
+				+ shoppingBasketDate + "]";
+	}
 
 
 }

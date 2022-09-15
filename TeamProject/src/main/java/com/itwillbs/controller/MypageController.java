@@ -104,7 +104,8 @@ public class MypageController {
 
 	// 마이페이지 - 포인트
 	@RequestMapping(value = "/mypage/point", method = RequestMethod.GET)
-	public String point(HttpServletRequest request, Model model) {
+	public String point(HttpServletRequest request, Model model, HttpSession session) {
+		String userId=(String)session.getAttribute("userId");
 		// 한화면에 보여줄 글개수
 		int pageSize=10;
 		//현페이지 번호
@@ -119,7 +120,11 @@ public class MypageController {
 		pageDTO.setPageSize(pageSize);
 		pageDTO.setPageNum(pageNum);
 		pageDTO.setCurrentPage(currentPage);
+<<<<<<< HEAD
 
+=======
+		pageDTO.setUserId(userId);
+>>>>>>> refs/remotes/origin/main
 		List<PointDTO> pointList=pointService.getPointList(pageDTO);
 
 		// pageBlock  startPage endPage count pageCount

@@ -183,8 +183,10 @@
     proQty.prepend('<span class="fa fa-angle-left dec qtybtn"></span>');
     proQty.append('<span class="fa fa-angle-right inc qtybtn"></span>');
     proQty.on('click', '.qtybtn', function () {
+
         var $button = $(this);
         var oldValue = $button.parent().find('input').val();
+        var index = $button.parent().find('input')[0].id.split('_')[2];
         if ($button.hasClass('inc')) {
             var newVal = parseFloat(oldValue) + 1;
         } else {
@@ -196,6 +198,19 @@
             }
         }
         $button.parent().find('input').val(newVal);
+        var price = $('#price_' + index).val();
+        var total = newVal * price;
+        $('#total_' + index).text(total);
+
+		var totalSum = 0;
+
+		for(var i = 0; i < $('.total').length ; i++){
+			totalSum += parseInt($('.total')[i].textContent)
+		}
+		var totalSum = new Intl.NumberFormat('ko-KR', { style: 'currency', currency: 'KRW' }).format(totalSum);
+		$("#itemTotalPrice").html(totalSum);
+
+
     });
 
     /*------------------

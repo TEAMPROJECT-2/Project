@@ -28,17 +28,26 @@
     <form action="${pageContext.request.contextPath }/board/fwrite">
     <input type="hidden" name="userId" value="${sessionScope.userId}" >
     </form>
+<<<<<<< HEAD
 
+=======
+   
+>>>>>>> refs/remotes/origin/main
     <!-- 사이드 메뉴(inc로 빼도 됨) -->
     <section class="shop spad">
         <div class="container">
           <div class="col-lg">
             <div class="row">
                 <div class="col-lg-12">
+                 <ul class="filter__controls mt-3 mb-5">
+				    <li class="active">
+					<h3>공지사항</h3>
+				    <a href="${pageContext.request.contextPath }/board/content?boardNum=${boardDTO.boardNum }">${boardDTO.boardSubject }공지사항란 </a>
+				    </li>
+				    </ul>
                     <ul class="filter__controls mt-3 mb-5">
-                        <li class="active"><a href="${pageContext.request.contextPath }/board/list">게시판1</a></li>
-                        <li> <a href="${pageContext.request.contextPath }/main/main">게시판2</a></li>
-                        <li> <a href="${pageContext.request.contextPath }/main/main">게시판3</a></li>
+                        <li class="active"><a href="${pageContext.request.contextPath }/board/list">유저 게시판</a></li>
+                        <li> <a href="${pageContext.request.contextPath }/main/main">이벤트 게시판</a></li>
                     </ul>
 	             <div class="shop__sidebar__search">
 	              <form action="#">
@@ -65,11 +74,11 @@
         <table class="table table-hover table">
           <thead>
             <tr>
-              <th scope="col">#</th>
-              <th scope="col">Header</th>
-              <th scope="col">Header</th>
-              <th scope="col">Header</th>
-              <th scope="col">Header</th>
+              <th scope="col">글번호</th>
+              <th scope="col">글쓴이</th>
+              <th scope="col">제목</th>
+              <th scope="col">등록 날짜</th>
+              <th scope="col">조회수</th>
             </tr>
           </thead>
           <tbody>
@@ -78,7 +87,7 @@
 					<td>${boardDTO.boardNum }</td>
 					<td>${boardDTO.userNicknm}</td>
 					<td><a href="${pageContext.request.contextPath }/board/content?boardNum=${boardDTO.boardNum }">
-					${boardDTO.boardSubject }</a></td>
+					${boardDTO.boardSubject } </a></td>
 					<td>${boardDTO.boardDate }</td>
 					<td>${boardDTO.boardRecount }</td>
 				</tr>

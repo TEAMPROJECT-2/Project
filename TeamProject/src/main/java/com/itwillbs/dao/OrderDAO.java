@@ -1,14 +1,11 @@
 package com.itwillbs.dao;
 
-//import com.itwillbs.domain.OrderDTO;
+import com.itwillbs.domain.BasketDTO;
+
 
 public interface OrderDAO {
-	
-//	public void insertAddress(OrderDTO orderDTO);
-//	
-//	public void updateAddress(OrderDTO orderDTO);
-//	
-////	public void getOrderPriceInfo();
+
+	public void getTotalPrice(BasketDTO basketDTO);
 }
 
 

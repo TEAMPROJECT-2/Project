@@ -15,7 +15,7 @@ public interface ReplyService {
 
 	List<ReplyDTO> getReplyList(PageDTO pageDTO);
 
-	int getReplyCount();
+	int getReplyCount(int rNum);
 
 	void Replydelete(ReplyDTO replyDTO);
 

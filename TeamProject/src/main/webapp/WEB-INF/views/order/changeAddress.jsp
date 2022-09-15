@@ -42,14 +42,24 @@
 			pop.focus();
 		}
 
-		function oneCheckbox(a) {
-			var obj = document.getElementsByName("checkbox1");
-			for (var i = 0; i < obj.length; i++) {
-				if (obj[i] != a) {
-					obj[i].checked = false;
-				}
+// 		function oneCheckbox(a) {
+// 			var obj = document.getElementsByName("mainAddress");
+// 			for (var i = 0; i < obj.length; i++) {
+// 				if (obj[i] != a) {
+// 					obj[i].checked = false;
+// 				}
+// 			}
+// 		}
+		
+		function YnCheck(obj){
+			var checked = obj.checked;
+			if(checked){
+				obj.value="Y";
+			}else{
+				obj.value="N";
 			}
-		}
+		};
+		
 	</script>
 
 
@@ -78,8 +88,9 @@
 				<form name="sendForm" method="get">           
 				<div class="layer-content">
 					<div class="inner">
-									<ul class="dlv-addr-list">
-										<li><input type="checkbox" name="mainAddress" value="1"
+									<c:forEach var="getAddressList" items="${addressDTOList}">
+									
+										<input type="checkbox" id="mainAddress" name="mainAddress" value="1"
 											onclick="oneCheckbox(this)">
 											<div class="custom-radio">
 												<label for="radio-delivery-20220424000000009691"> <span
@@ -91,39 +102,41 @@
 													<a href="javascript:void(0);"
 														onclick="resOpenPopup2();return false;"
 														class="btn btn-outline-dark">수정</a> 
-														</div>
+											</div>
+									</c:forEach>
+									
+													
 														
+<!-- 													<input type="checkbox" -->
+<!-- 														name="mainAddress" value="2" onclick="oneCheckbox(this)">a2 -->
+<!-- 														<div class="custom-radio"> -->
+<!-- 												<label for="radio-delivery-20220424000000009691"> <span -->
+<%-- 													class="name">${addressDTO.addressGetNm}</span> <span --%>
+<%-- 													class="addr-txt">${addressDTO.address} --%>
+<%-- 														&nbsp;${addressDTO.addressDetails}</span> --%>
+<!-- 														</label> -->
+<%-- 												<p class="tel">${addressDTO.addressGetPhone}</p> --%>
+<!-- 													<a href="javascript:void(0);" -->
+<!-- 														onclick="resOpenPopup2();return false;" -->
+<!-- 														class="btn btn-outline-dark">수정</a>  -->
+<!-- 														</div> -->
 														
-													<input type="checkbox"
-														name="mainAddress" value="2" onclick="oneCheckbox(this)">a2
-														<div class="custom-radio">
-												<label for="radio-delivery-20220424000000009691"> <span
-													class="name">${addressDTO.addressGetNm}</span> <span
-													class="addr-txt">${addressDTO.address}
-														&nbsp;${addressDTO.addressDetails}</span>
-														</label>
-												<p class="tel">${addressDTO.addressGetPhone}</p>
-													<a href="javascript:void(0);"
-														onclick="resOpenPopup2();return false;"
-														class="btn btn-outline-dark">수정</a> 
-														</div>
-														
-													<input type="checkbox" name="mainAddress" value="3"
-														onclick="oneCheckbox(this)">a3
-														<div class="custom-radio">
-												<label for="radio-delivery-20220424000000009691"> <span
-													class="name">${addressDTO.addressGetNm}</span> <span
-													class="addr-txt">${addressDTO.address}
-														&nbsp;${addressDTO.addressDetails}</span>
-														</label>
-												<p class="tel">${addressDTO.addressGetPhone}</p>
-													<a href="javascript:void(0);"
-														onclick="resOpenPopup2();return false;"
-														class="btn btn-outline-dark">수정</a> 
-														</div>
+<!-- 													<input type="checkbox" name="mainAddress" value="3" -->
+<!-- 														onclick="oneCheckbox(this)">a3 -->
+<!-- 														<div class="custom-radio"> -->
+<!-- 												<label for="radio-delivery-20220424000000009691"> <span -->
+<%-- 													class="name">${addressDTO.addressGetNm}</span> <span --%>
+<%-- 													class="addr-txt">${addressDTO.address} --%>
+<%-- 														&nbsp;${addressDTO.addressDetails}</span> --%>
+<!-- 														</label> -->
+<%-- 												<p class="tel">${addressDTO.addressGetPhone}</p> --%>
+<!-- 													<a href="javascript:void(0);" -->
+<!-- 														onclick="resOpenPopup2();return false;" -->
+<!-- 														class="btn btn-outline-dark">수정</a>  -->
+<!-- 														</div> -->
 
 												</div>
-x									</ul>
+									</ul>
 											</form>
 									<div class="pagination"></div>
 								</div>

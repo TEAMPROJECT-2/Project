@@ -6,19 +6,11 @@ public class AddressDTO {
 	private String addressZipcode;
 	private String address;
 	private String addressDetails;
-	private String mainAddress;
 	private String addressGetNm;
 	private String addressGetPhone;
-	private int num;
 	
 	
 	
-	public int getNum() {
-		return num;
-	}
-	public void setNum(int num) {
-		this.num = num;
-	}
 	public String getUserId() {
 		return userId;
 	}
@@ -43,12 +35,6 @@ public class AddressDTO {
 	public void setAddressDetails(String addressDetails) {
 		this.addressDetails = addressDetails;
 	}
-	public String getMainAddress() {
-		return mainAddress;
-	}
-	public void setMainAddress(String mainAddress) {
-		this.mainAddress = mainAddress;
-	}
 	public String getAddressGetNm() {
 		return addressGetNm;
 	}
@@ -61,13 +47,14 @@ public class AddressDTO {
 	public void setAddressGetPhone(String addressGetPhone) {
 		this.addressGetPhone = addressGetPhone;
 	}
+	
 	@Override
 	public String toString() {
 		return "AddressDTO [userId=" + userId + ", addressZipcode=" + addressZipcode + ", address=" + address
-				+ ", addressDetails=" + addressDetails + ", mainAddress=" + mainAddress + ", addressGetNm="
-				+ addressGetNm + ", addressGetPhone=" + addressGetPhone + ", num=" + num + "]";
+				+ ", addressDetails=" + addressDetails + ", addressGetNm=" + addressGetNm + ", addressGetPhone="
+				+ addressGetPhone + "]";
 	}
-
+	
 	
 	
 	

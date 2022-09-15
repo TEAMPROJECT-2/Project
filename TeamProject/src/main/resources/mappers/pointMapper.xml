@@ -26,7 +26,8 @@
 
 	<select id="getPointList" resultType="com.itwillbs.domain.PointDTO">
 		SELECT * 
-		  FROM POINT 
+		  FROM POINT
+ WHERE USER_ID= #{userId} 
 	  ORDER BY POINT_NUM DESC LIMIT #{startRow}, #{pageSize}
 	</select>
 

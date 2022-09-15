@@ -61,24 +61,6 @@ public class CompController {
 		return "comp/insertGoods";
 	}
 
-//	@RequestMapping(value = "/comp/insertGoodsPro", method = RequestMethod.POST)
-//	public String insertProHttpServletRequest request,HttpSession session,MultipartFile prodLMainimg,MultipartFile prodLSubimg,@ModelAttribute ProdDTO prodDTO) {
-//
-//		CommonDTO commonDTO =  new CommonDTO();
-//		commonDTO.setComCd("PF"); // 코드 정의
-//		commonDTO.setColumnNm("PROD_L_CODE"); //기준 컬럼
-//		commonDTO.setTableNm("PRODUCT_LIST"); //테이블 정의
-//		CommonDTO cd = commonService.selectCodeSearch(commonDTO);
-//		//cd = PF220906001 로 생성됨
-//		//조회해온 코드값을 원하는 DTO에 Set 처리
-//		prodDTO.setProdLCode(cd.getPkCd());
-//
-//		compService.insertProd(prodDTO);
-//
-//		return "redirect:/comp/insertGoods";
-//	}
-
-
 
 
 	@RequestMapping(value = "/comp/insertGoodsPro", method = RequestMethod.POST)
@@ -168,7 +150,7 @@ public class CompController {
 		pageDTO.setPageNum(pageNum);
 		pageDTO.setCurrentPage(currentPage);
 		pageDTO.setCompNm(CompNm);
-		pageDTO.setColumnNm(request.getParameter("searchCol")); // 기준 컬럼
+		pageDTO.setColumnNm(request.getParameter("searchCol") == null ? "0" : request.getParameter("searchCol")); // 기준 컬럼
 		pageDTO.setSearchKeyWord(request.getParameter("searchKeyWord")); // 검색 키워드 갖고오기
 		pageDTO.setStatus(request.getParameter("status")); // 검색 양호,품절 상태 갖고오기
 		System.out.println("getSearchKeyWord() : "+pageDTO.getSearchKeyWord());
@@ -177,7 +159,7 @@ public class CompController {
 //		pageDTO.setSearchKeyWord(searchKeyWord);
 //		pageDTO.setCompCode(request.getParameter(""));
 		//세션값 가져가기( 해당 업체 물건만 갖고 오려고)
-
+		System.out.println(pageDTO);
 		List<ProdDTO> prodList=compService.getProdList(pageDTO); // 물건 리스트 갖고오기
 		int count=compService.getProdCount(pageDTO);     // 업체 전체 물건 리스트 갯수
 		// 페이징
@@ -315,4 +297,5 @@ public class CompController {
 	}
 
 }
+
 

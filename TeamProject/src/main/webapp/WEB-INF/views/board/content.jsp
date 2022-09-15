@@ -11,48 +11,6 @@
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 
 
-<script type="text/javascript" 
-src="${pageContext.request.contextPath }/resources/script/jquery-3.6.0.js""></script>
-<script type="text/javascript">
-$(document).ready(function () {
-	let likecount = document.getElementById('likecount')
-	let likeval = document.getElementById('likeCheck').value
-	const boardNum = '${boardDTO.boardNum}';
-	const userId = "${sessionScope.userId}";
-	const likeimg = document.getElementById("likeimg")
-
-	if (likeval > 0) {
-		likeimg.src = "/resources/img/harte/redheart.png";
-	}
-	else {
-		likeimg.src = "/resources/img/harte/heart.png";
-	}
-    // 좋아요 버튼을 클릭 시 실행되는 코드
-$(".likeimg").on("click", function () {
-	$.ajax({
-      url: '/board/isnertLike',
-      type: 'POST',
-      data: { 'boardNum': boardNum, 'userId': userId },
-      success: function (data) {
-          if (data == 1) {
-              $("#likeimg").attr("src", "/resources/img/harte/redheart.png");
-              location.reload();
-          } else {
-              $("#likeimg").attr("src", "/re/resources/img/harte/heart.png");
-              location.reload();
-          }
-      }, error: function () {
-          $("#likeimg").attr("src", "/resources/img/harte/redheart.png");
-          console.log('오타 찾으세요')
-      }
-
-  });
-
-  });
-  });
-
-
-</script>
 
 </head>
 <body>
@@ -107,22 +65,9 @@ ${boardDTO.boardFile }</a></td></tr>
 </table>	
 <!-- 추천부분 -->
  <body>
-<c:set var="userId" scope="session" value="${sessionScope.userId}"/>
-<c:if test="${sessionScope.userId ne null}">
-	<img src="/resources/img/harte/heart.png" id="likeimg" width="60px" height="60px"
-		class="rounded-circle mt-2">
-		${boardDTO.likecount} <br><br>
-	추천 기능은 <a href="/member/login" type="button" id="newLogin"
-	class="btn btn-outline-success">로그인</a> 후 사용 가능합니다.
-	</c:if>
-	<c:if test="${sessionScope.userId == null}">
-		<div>
-	<input type="hidden" id="like_check" value="${likeDTO.likeCheck}">
-	<img class="rounded-circle likeimg" id="likeimg" src="/resources/img/harte/heart.png"
-	width="60px" height="60px"> ${boardDTO.likecount}
-	</div>
-	</c:if>
-    </body>
+<div>
+	<button type="button"onclick="location.href='${pageContext.request.contextPath }/board/likeinset?boardNum=${boardDTO.boardNum}&userId=${sessionScope.userId}'">추천 ${boardDTO.likecount}</button>
+</div>
 	
 
 

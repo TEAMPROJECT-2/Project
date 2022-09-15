@@ -1,5 +1,10 @@
 package com.itwillbs.service;
 
-public class OrderService {
+
+import com.itwillbs.domain.BasketDTO;
+
+public interface OrderService {
+
+	public void getTotalPrice(BasketDTO basketDTO);
 
 }
