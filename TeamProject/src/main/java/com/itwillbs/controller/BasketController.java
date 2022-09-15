@@ -23,7 +23,7 @@ import com.itwillbs.service.BasketService;
 public class BasketController {
 	@Inject
 	private BasketService basketService;
-
+	// 카트에서 물건 갖고 오기
 	@RequestMapping(value = "/order/cart", method = RequestMethod.GET)
 	public String orderCartList(HttpServletRequest request, Model model,HttpSession session,@ModelAttribute BasketDTO basketDTO) {
 		String userId = (String)session.getAttribute("userId");
@@ -31,57 +31,71 @@ public class BasketController {
 
 		List<BasketDTO> basketList=basketService.getBasketList(basketDTO); // 물건 리스트 갖고오기
 		model.addAttribute("basketList", basketList);
-
+		System.out.println(basketList);
 		return "order/cart";
 
 	}
-
+	// 카트에 물건 담기
 	@ResponseBody
 	@RequestMapping(value = "/product/cartPro", method = RequestMethod.POST)
-	public ResponseEntity<String> orderCart(HttpSession session,HttpServletRequest request,BasketDTO basketDTO) throws Exception {
+	public ResponseEntity<String> cartPro(HttpSession session,HttpServletRequest request,BasketDTO basketDTO) throws Exception {
 		String userId = (String)session.getAttribute("userId");
 
 		basketDTO.setSbCount(basketDTO.getSbCount());
 		basketDTO.setSbUser(userId);
-		basketService.insertBasket(basketDTO);
+		BasketDTO basketDTO2 = basketService.prodCodeCheck(basketDTO);
 
+		if(basketDTO2!=null) { // 중복 물건일때
+			ResponseEntity<String> entity=new ResponseEntity<String>("2" ,HttpStatus.OK);
+			return entity;
+		}else { //중복물건 아닐때
+			basketService.insertBasket(basketDTO);
+			ResponseEntity<String> entity=new ResponseEntity<String>("1" ,HttpStatus.OK);
+			return entity;
+		}
 
-
-		//		if (userId == null) {
-//			return "board/msg";
-//		}
-//		else if(userId != null){
-//		      basketDTO.setSbUser(userId);
-//		      if(basketService.getMemberchk(basketDTO) != null) {
-//		    	  return "2";
-//		      }
-//		      basketService.insertBasket(basketDTO);
-//		}
-		ResponseEntity<String> entity=new ResponseEntity<String>("1" ,HttpStatus.OK);
-		return entity;
 
 	}
 	// 주문인서트 구현
 			@RequestMapping(value = "/order/insertOrder", method = RequestMethod.POST)
 			public String insertOrder (HttpSession session,HttpServletRequest request,BasketDTO basketDTO) {
 				String[] sbProdCode=request.getParameterValues("CheckRow");
-				String[] sbCount=request.getParameterValues("sbCount");
+				String[] sbCount=request.getParameterValues("select_vol");
 				String[] sbProdPrice=request.getParameterValues("sbProdPrice");
 				String userId = (String)session.getAttribute("userId");
 
+				if(sbProdCode != null) {
 				for(int i =0 ; i < sbProdCode.length;i++ ) {
 					basketDTO.setSbProdCode(sbProdCode[i]);
 					basketDTO.setSbCount(Integer.parseInt(sbCount[i]));
 					basketDTO.setSbProdPrice(Integer.parseInt(sbProdPrice[i]));
-					System.out.println(sbCount[i]);
-					System.out.println(sbProdPrice[i]);
 					basketDTO.setSbUser(userId);
-					basketService.insertOrder(basketDTO);
+					basketService.insertOrder(basketDTO);   // order DB로 넘김
+					basketService.deleteBasket(basketDTO);  // basket DB 데이터 삭제
+				}
+				} else {
+					return "redirect:/order/cart";
+				}
+
+				return "redirect:/order/cart";
+			}
+
+			// 삭제기능 구현
+			@RequestMapping(value = "/order/delete")
+			public ResponseEntity<String> compProdDeleteAjax(HttpSession session,HttpServletRequest request,BasketDTO basketDTO) {
+				String userId = (String)session.getAttribute("userId"); // 삭제 할때 필요한 유저 아이디
+
+				String[] ajaxMsg = request.getParameterValues("valueArr");
+				System.out.println("compController : "+ajaxMsg[0]);
+				// 삭제되는 데이터 만큼 for 문을 돌려  호출
+				for(int i=0; i<ajaxMsg.length; i++) {
+					basketDTO.setSbProdCode(ajaxMsg[i]); // 삭제 코드
+					basketDTO.setSbUser(userId);         // 삭제 하는 유저 아이디
 					basketService.deleteBasket(basketDTO);
 				}
 
-
-				return "redirect:/order/cart";
+				ResponseEntity<String> entity=new ResponseEntity<String>("1" ,HttpStatus.OK);
+				return entity;
 			}
 
 
