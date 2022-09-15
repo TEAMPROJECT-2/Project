@@ -76,7 +76,7 @@ public class MypageController {
 	}
 
 
-	// 마이페이지 - 비밀번호 변경
+	// 마이페이지 - 비밀번호 변경 페이지
 	@RequestMapping(value = "/mypage/passMod", method = RequestMethod.GET)
 	public String passModify() {
 		return "mypage/passModify";
@@ -85,21 +85,21 @@ public class MypageController {
 //	// 비밀번호 변경
 //	@RequestMapping(value = "/mypage/passCheck", method = RequestMethod.POST)
 //	public int passCheck(MemberDTO memberDTO) throws Exception{
-//		memberService.passCheck(memberDTO.getUserId());
-//		if(memberDTO == null || memberDTO.equals("")) {
+//		memberService.passCheck(memberDTO);
+//		if(memberDTO == null) {
 //			return 0;
 //		}
 //		return 1;
 //	}
-//	@RequestMapping(value="/mypage/passModPro" , method=RequestMethod.POST)
-//	public String passMod(String userId, String newPass1, RedirectAttributes rttr, HttpSession session) throws Exception{
-//		String hashedPw = BCrypt.hashpw(newPass1, BCrypt.gensalt());
-//		memberService.passMod(userId);
-//		session.invalidate();
-//		rttr.addFlashAttribute("msg", "정보 수정이 완료되었습니다. 다시 로그인해주세요.");
-//
-//		return "redirect:/member/login";
-//	}
+	@RequestMapping(value="/mypage/passModPro" , method=RequestMethod.POST)
+	public String passMod(String userId, String newPass1, RedirectAttributes rttr, HttpSession session) throws Exception{
+		System.out.println("controller/passModPro");
+		memberService.passMod(userId);
+		session.invalidate();
+		rttr.addFlashAttribute("msg", "정보 수정이 완료되었습니다. 다시 로그인해주세요.");
+
+		return "redirect:/member/login";
+	}
 
 
 	// 마이페이지 - 회원연결 정보
@@ -126,9 +126,9 @@ public class MypageController {
 		pageDTO.setPageSize(pageSize);
 		pageDTO.setPageNum(pageNum);
 		pageDTO.setCurrentPage(currentPage);
-		
+
 		List<PointDTO> pointList=pointService.getPointList(pageDTO);
-		
+
 		// pageBlock  startPage endPage count pageCount
 		int count=pointService.getPointCount();
 		int pageBlock=10;
@@ -138,14 +138,14 @@ public class MypageController {
 		if(endPage > pageCount){
 			endPage = pageCount;
 		}
-		
+
 		pageDTO.setCount(count);
 		pageDTO.setPageBlock(pageBlock);
 		pageDTO.setStartPage(startPage);
 		pageDTO.setEndPage(endPage);
 		pageDTO.setPageCount(pageCount);
-		
-		
+
+
 		model.addAttribute("pointList", pointList);
 		model.addAttribute("pageDTO", pageDTO);
 		return "mypage/userPoint";

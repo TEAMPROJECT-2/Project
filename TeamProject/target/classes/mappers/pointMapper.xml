@@ -19,50 +19,16 @@
 		 WHERE USER_ID=#{userId}
 	</select>
 
-	<insert id="insertPoint">
-			INSERT INTO USER_INFO(
-					USER_INFO_NUM
-				   ,USER_ID
-				   ,USER_PASS
-				   ,USER_NM
-				   ,USER_EMAIL
-				   ,USER_ATHLETIC
-				   ,USER_NICKNM
-				   ,USER_PHONE
-				   ,USER_DATE
-				   ,USER_POINT
-				   ,MY_COUPON_NUM
-				   ,USER_RANK
-				   ,USER_TYPE
-             	   ,USER_STATUS
-            	   ,USER_LAST_DATE
-            	   ,USER_EMAIL_AUTH
-            	   ,USER_EMAIL_KEY
+	<select id="getPointCount" resultType="java.lang.Integer">
+		SELECT COUNT(*)
+		  FROM POINT
+	</select>
 
-					)
-			VALUES(
-				    #{userInfoNum}
-			  	   ,#{userId}
-				   ,#{userPass}
-				   ,#{userNm}
-				   ,#{userEmail}
-				   ,#{userAthletic}
-				   ,#{userNicknm}
-				   ,#{userPhone}
-				   ,#{userDate}
-				   ,#{userPoint}
-				   ,#{myCouponNum}
-				   ,#{userRank}
-				   ,#{userType}
-				   ,#{userStatus}
-				   ,#{userLastDate}
-				   ,#{userEmailAuth}
-				   ,#{userEmailKey}
-			  		)
-	</insert>
-
-
-
+	<select id="getPointList" resultType="com.itwillbs.domain.PointDTO">
+		SELECT * 
+		  FROM POINT 
+	  ORDER BY POINT_NUM DESC LIMIT #{startRow}, #{pageSize}
+	</select>
 
 
 </mapper>

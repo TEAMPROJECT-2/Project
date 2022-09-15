@@ -78,7 +78,7 @@
                      </td>
                      <td colspan="2" class="input-group input-group-merge">
                         <span class="input-group-text" id="basic-addon-search31"><i class="bx bx-search"></i></span>
-                        <input type="text" class="form-control" placeholder="상품번호 검색" aria-describedby="basic-addon-search31" name="searchKeyWord"/>
+                        <input type="text" class="form-control" placeholder="상품 번호 검색" aria-describedby="basic-addon-search31" name="searchKeyWord"/>
                 	</td>
                 	<td><button type="submit" class="btn btn-primary">검색</button> </td>
                   </tr>
@@ -89,7 +89,7 @@
 
                 <div class="table-responsive text-nowrap" id="Context">
                  <form>
-                  <button type="submit" class="btn btn-primary" onclick="deleteValue();">선택삭제</button>
+                  <button type="submit" class="btn btn-primary " onclick="deleteValue();">선택 삭제</button>
                   <table class="table table-striped" >
                     <thead>
                       <tr>

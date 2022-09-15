@@ -102,21 +102,21 @@ public class AjaxController {
 
 	}
 
-//	// 비밀번호 변경
-//	@RequestMapping(value = "/mypage/passCheck", method = RequestMethod.POST)
-//	public ResponseEntity<String> passCheck(MemberDTO memberDTO, HttpServletRequest request) {
-//		String userId=request.getParameter("userId");
-//		String userPass=memberService.passCheck(memberDTO);
-//
-//		String result="";
-//		if(memberDTO!=null) {
-//			result="emaildup";
-//		}else {
-//			result="emailok";
-//		}
-//		ResponseEntity<String> entity=new ResponseEntity<String>(result,HttpStatus.OK);
-//		return  entity;
-//	}
+	// 비밀번호 변경
+	@RequestMapping(value = "/mypage/passCheck", method = RequestMethod.POST)
+	public ResponseEntity<String> passCheck(MemberDTO memberDTO, HttpServletRequest request) throws Exception {
+		MemberDTO memberDTO2=memberService.userCheck(memberDTO);
+		System.out.println("ajax/passCheck"+memberDTO2);
+		memberService.passCheck(memberDTO);
+		String result="";
+		if(memberDTO == null) {
+			result="no";
+		}else {
+		result="ok";
+	}
+		ResponseEntity<String> entity=new ResponseEntity<String>(result,HttpStatus.OK);
+		return entity;
+	}
 
 
 }

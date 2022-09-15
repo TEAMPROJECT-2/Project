@@ -39,7 +39,7 @@
 					  FROM PRODUCT_LIST
 					  WHERE PROD_L_CODE=SB_PROD_CODE
 					  ) as sbProdNm
-					,SB_TOTAL_PRICE
+<!-- 					,SB_TOTAL_PRICE -->
 					,(SELECT PROD_L_QUANTITY
 					  FROM PRODUCT_LIST
 					  WHERE PROD_L_CODE=SB_PROD_CODE
@@ -57,5 +57,30 @@
 		 WHERE SB_USER=#{sbUser}
 	</select>
 
+<!-- 	주문리스트테이블에 상품 넣기 -->
+	<insert id="insertOrder">
+		INSERT INTO  ORDER_LIST(
+					  ORD_NUM
+					 ,ORD_L_CODE
+					 ,ORD_L_USER
+					 ,ORD_L_QUANTITY
+					 ,ORD_L_PRICE
+				   )
+			VALUES(
+				  (SELECT ORD_NUM
+		       		 FROM   (SELECT IFNULL(MAX(CAST(ORD_NUM AS UNSIGNED)), 0) + 1 AS ORD_NUM
+				 	   	       FROM ORDER_LIST) A)
+				   ,#{sbProdCode}
+				   ,#{sbUser}
+				   ,#{sbCount}
+				   ,#{sbProdPrice}
+				    )
 
+	</insert>
+<!-- 	주문보드로 물건 이동후 장바구니 물건은 삭제 -->
+	<delete id="deleteBasket">
+	   DELETE FROM  SHOPPING_BASKET
+	   	     WHERE  SB_PROD_CODE=#{sbProdCode}
+	   	     AND    SB_USER=#{sbUser}
+	</delete>
 </mapper>

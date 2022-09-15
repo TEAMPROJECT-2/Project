@@ -36,16 +36,16 @@ src="${pageContext.request.contextPath }/resources/js/jquery-3.6.0.js" ></script
 				if ($("#newPass1").val() != $("#newPass2").val()) {
 					alert("새 비밀번호가 일치하지 않습니다.");
 					$("#newPass2").focus();
-					return false;
+// 					return false;
 				}
 
 				$.ajax({
-					url : "/mypage/passCheck",
+					url : "${pageContext.request.contextPath}/mypage/passCheck",
 					type : "POST",
 					data : {'passModForm':$('#passModForm').val()},
 					success: function(rdata){
 
-						if(rdata==0){
+						if(rdata=="ok"){
 							alert("패스워드가 틀렸습니다.");
 							return;
 						}else{
