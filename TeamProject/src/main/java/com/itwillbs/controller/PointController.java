@@ -50,27 +50,30 @@ public class PointController {
 		}
 	}
 
-	@RequestMapping(value = "/point/chargePro", method = RequestMethod.POST)
-	public String chargePro(MemberDTO memberDTO, PointDTO pointDTO, HttpSession session) throws Exception {
-		// 메서드 호출
-		String userId = (String)session.getAttribute("userId");
-		MemberDTO memberDTO2 = memberService.getMember(userId);
-		if(memberDTO2!=null) {
-			//아이디 비밀번호 일치
-			// 수정작업
-//			memberService.updatePoint(memberDTO);
-			pointService.insertPoint(pointDTO);
-			// /member/main 이동
-			// 주소변경 이동
-			return "redirect:/main/main";
-		}else {
-			//아이디 비밀번호 틀림
-			// "틀림" 뒤로이동
-			// 주소변경없이 이동
-			// WEB-INF/views/member/msg.jsp 이동
-			return "member/msg";
-		}
-	}
+//	@RequestMapping(value = "/point/chargePro", method = RequestMethod.POST)
+//	public String chargePro(MemberDTO memberDTO, PointDTO pointDTO, HttpSession session) throws Exception {
+//		// 메서드 호출
+//		String userId = (String)session.getAttribute("userId");
+//		MemberDTO memberDTO2 = memberService.getMember(userId);
+//		if(memberDTO2!=null) {
+//			//아이디 비밀번호 일치
+//			// 수정작업
+////			memberService.updatePoint(memberDTO);
+//			pointService.insertPoint(pointDTO);
+//			// /member/main 이동
+//			// 주소변경 이동
+//			return "redirect:/main/main";
+//		}else {
+//			//아이디 비밀번호 틀림
+//			// "틀림" 뒤로이동
+//			// 주소변경없이 이동
+//			// WEB-INF/views/member/msg.jsp 이동
+//			return "member/msg";
+//		}
+//	}
+//	SimpleDateFormat format1 = new SimpleDateFormat ( "yyyy-MM-dd HH:mm:ss");
+//	Date time = new Date();
+//	String time1 = format1.format(time.getTime());
 
 
 	

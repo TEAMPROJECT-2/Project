@@ -13,7 +13,9 @@ public class PageDTO {
 	private int endPage;
 	private int count;
 	private int pageCount;
-
+	
+	private String userId;
+	
 	// 삭제하는 물건 검색시 필요한것추가 업체 아이디
 	private String compNm;
 	private String status;
@@ -110,7 +112,11 @@ public class PageDTO {
 	public void setColumnNm(String columnNm) {
 		this.columnNm = columnNm;
 	}
-
-
+	public String getUserId() {
+		return userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
 
 }
