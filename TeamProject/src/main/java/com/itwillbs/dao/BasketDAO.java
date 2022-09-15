@@ -14,4 +14,6 @@ public interface BasketDAO {
 	void insertOrder(BasketDTO basketDTO); // 주문 디비에 인서트
 
 	void deleteBasket(BasketDTO basketDTO); // 카트에 물건 삭제
+
+	BasketDTO prodCodeCheck(BasketDTO basketDTO); // 중복물건이 담겼는지 검사
 }
