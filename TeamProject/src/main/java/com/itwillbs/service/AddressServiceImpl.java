@@ -23,7 +23,7 @@ public class AddressServiceImpl implements AddressService {
 	
 	@Override
 	public void insertAddress(AddressDTO addressDTO) {
-		addressDAO.insertAddressPro(addressDTO);
+		addressDAO.insertAddress(addressDTO);
 		
 	}
 
@@ -39,10 +39,9 @@ public class AddressServiceImpl implements AddressService {
 	}
 
 	@Override
-	public List<AddressDTO> getAddressList(int num) {
+	public List<AddressDTO> getAddressList(String userId) {
 		
-		System.out.println("service");
-		return addressDAO.getAddressList(session, num);
+		return addressDAO.getAddressList(userId);
 	}
 	
 	

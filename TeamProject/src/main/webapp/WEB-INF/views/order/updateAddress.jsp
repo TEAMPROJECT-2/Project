@@ -7,18 +7,29 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<script>
-		$("#mainAddress").change(function(mainAddress) {
-			if ($("#mainAddress").is(".checked")) {
-				$("#YN").val('#Y');
-			} else {
-				$("#YN").val('#N');
-			}
-		});
+
+	<script type="text/javascript">
+	function reload2(){
+		alert('배송지가 저장되었습니다!');
+		alert(document.updateAddress.addressGetNm.value);
+		opener.fr.addressGetNm.value=document.updateAddress.addressGetNm.value;
+// 		window.opener.
+		window.close();
+	}
+	
+	function reloadd2(){
+// 		alert('배송지가 저장되었습니다!');
+		alert(document.updateAddress.addressGetNm.value);
+// 		window.opener.fr123.addressGetNm123.value=document.updateAddress.addressGetNm.value;
+		window.close();
+	}
 	</script>
-	<form class=form-update
+
+
+	<form name="updateAddress"
+	class=form-update
 		action="${pageContext.request.contextPath }/order/updateAddressPro"
-		method="post">
+		method="post" onsubmit="return reload2()">
 		<!-- ========== 팝업 영역 ========== -->
 		<div id="userDeliveryDiv" class="layer-pop dlv-addr-pop hideLayers"
 			style="">
@@ -87,34 +98,28 @@
 											</div>
 										</td>
 									</tr>
-									<tr>
-										<th scope="row"></th>
-										<td>
-											<div class="custom-checkbox">
-												<input type="checkbox" id="mainAddress" class="checkbox"
-													name="mainAddress" value="${addressDTO.mainAddress}">
-												<label for="check-101"> 기본배송지로 등록</label>
-											</div>
-										</td>
-									</tr>
 								</tbody>
 							</table>
 						</div>
 					</div>
 				</div>
-				<!--// layer-content -->
 
 				<div class="layer-bottom">
 					<div class="btn-area">
 						<button type="button" class="btn btn-outline-dark"
-							onclick="history.back(-1)">
-							<a href="javascript:history.back(-1)">취소</a>
-
-							<!-- 								<span>취소</span> -->
+							onclick="window.close()">취소
 						</button>
-						<button type="submit" class="btn-basic-lg2 btn-black" onclick="history.back(-1)">
-							<span>확인</span>
+						
+						
+						<button type="submit" class="btn-basic-lg2 btn-black"
+						  >
+							<span>저장</span>
 						</button>
+						
+<!-- 						<button type="button" onclick="reloadd2(); "> -->
+<!-- 						확인 -->
+<!-- 						</button> -->
+						
 					</div>
 				</div>
 			</div>

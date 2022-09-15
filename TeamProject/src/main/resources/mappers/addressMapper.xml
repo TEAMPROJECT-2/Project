@@ -5,7 +5,7 @@
 
 <mapper namespace="com.itwillbs.mappers.addressMapper">
 	
-	<insert id="insertAddressPro">
+	<insert id="insertAddress">
 		INSERT INTO ADDRESS(
 					USER_ID
 				   ,ADDRESS_ZIPCODE
@@ -32,7 +32,9 @@
 		   SET ADDRESS_ZIPCODE	=#{addressZipcode}
 		      ,ADDRESS			=#{Address}
 		      ,ADDRESS_DETAILS	=#{addressDetails}
-		      ,MAIN_ADDRESS 	=#{mainAddress}
+<!-- 		      ,MAIN_ADDRESS 	=#{mainAddress} -->
+		 	   ,ADDRESS_GET_NM		=#{addressGetNm}
+		       ,ADDRESS_GET_PHONE	=#{addressGetPhone}			
 	 	 WHERE USER_ID			=#{userId}
 		   
 	</select>
@@ -41,6 +43,7 @@
 		SELECT *
 		  FROM ADDRESS
 		 WHERE USER_ID=#{userId}
+<!-- 		   AND MAIN_ADDRESS = 'Y' -->
 	</select>
 	
 	
@@ -49,17 +52,18 @@
 			SET ADDRESS_ZIPCODE 	=#{addressZipcode}
 			   ,ADDRESS 			=#{address}
 		       ,ADDRESS_DETAILS 	=#{addressDetails}
-		 	   ,MAIN_ADDRESS 		=#{mainAddress}
+<!-- 		 	   ,MAIN_ADDRESS 		=#{mainAddress} -->
 		 	   ,ADDRESS_GET_NM		=#{addressGetNm}
 		       ,ADDRESS_GET_PHONE	=#{addressGetPhone}
 		 	WHERE USER_ID			=#{userId}
 	</update>
 	
-	<select id="getAddressList" parameterType="int" resultType="com.itwillbs.domain.AddressDTO">
-		SELECT * 
-			FROM ADDRESS
-		WHERE NUM = #{num}
-	</select>
+	
+<!-- 	<select id="getAddressList"  resultType="com.itwillbs.domain.AddressDTO"> -->
+<!-- 		SELECT *  -->
+<!-- 			FROM ADDRESS -->
+<!-- 		WHERE USER_ID = #{userId} -->
+<!-- 	</select> -->
 	
 	
 	

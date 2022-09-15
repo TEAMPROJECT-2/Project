@@ -29,22 +29,14 @@ public class AddressController {
 	@Inject
 	private MemberService memberService;
 
-	@RequestMapping(value = "/order/checkout", method = RequestMethod.GET)
-	public String orderCheckout(HttpSession session, Model model) {
-		String userId = (String) session.getAttribute("userId");
-		AddressDTO addressDTO = addressService.getAddress(userId);
-		MemberDTO memberDTO = memberService.getMember(userId);
-		model.addAttribute("addressDTO", addressDTO);
-		model.addAttribute("memberDTO", memberDTO);
-		return "order/checkout";
-	}
+
 
 	@RequestMapping(value = "/order/changeAddress", method = RequestMethod.GET)
 	public String changeAddress(HttpSession session, Model model) {
 		String userId = (String) session.getAttribute("userId");
-		AddressDTO addressDTO = addressService.getAddress(userId);
+		List<AddressDTO> addressDTOList = addressService.getAddressList(userId);
 		MemberDTO memberDTO = memberService.getMember(userId);
-		model.addAttribute("addressDTO", addressDTO);
+		model.addAttribute("addressDTOList", addressDTOList);
 		model.addAttribute("memberDTO", memberDTO);
 		
 		return "order/changeAddress";
@@ -60,8 +52,8 @@ public class AddressController {
 		return "order/newAddress";
 	}
 
-	@RequestMapping(value = "/order/insertAddressPro", method = RequestMethod.POST)
-	public String insertAddressPro(AddressDTO addressDTO, HttpSession session) {
+	@RequestMapping(value = "/order/insertAddress", method = RequestMethod.POST)
+	public String insertAddress(AddressDTO addressDTO, HttpSession session) {
 		String userId = (String) session.getAttribute("userId");
 		addressDTO.setUserId(userId);
 		addressService.insertAddress(addressDTO);
@@ -87,16 +79,27 @@ public class AddressController {
 		System.out.println(addressDTO.getUserId());
 		addressService.updateAddress(addressDTO);
 
-		return "redirect:changeAddress";
+		return "redirect:updateAddress";
+	}
+	
+	@RequestMapping(value = "/mypage/addr", method = RequestMethod.GET)
+	public String userAddress(HttpSession session, Model model) {
+		String userId = (String) session.getAttribute("userId");
+		AddressDTO addressDTO = addressService.getAddress(userId);
+		MemberDTO memberDTO = memberService.getMember(userId);
+		model.addAttribute("addressDTO", addressDTO);
+		model.addAttribute("memberDTO", memberDTO);
+		
+		return "mypage/userAddress";
 	}
 
-	@RequestMapping(value = "/order/getAddressList", method = RequestMethod.GET)
-	public String getAddressList(@PathVariable(value = "num") int num, Model model) throws Exception {
-		List<AddressDTO> addressList = addressService.getAddressList(num);
-
-
-		model.addAttribute("addressList", addressList);
-		return "";
-	}
+//	@RequestMapping(value = "/order/getAddressList", method = RequestMethod.GET)
+//	public String getAddressList(@PathVariable(value = "num") int num, Model model) throws Exception {
+//		List<AddressDTO> addressList = addressService.getAddressList(num);
+//
+//
+//		model.addAttribute("addressList", addressList);
+//		return "";
+//	}
 
 }

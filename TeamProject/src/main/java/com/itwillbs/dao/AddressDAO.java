@@ -18,6 +18,6 @@ public interface AddressDAO {
 	
 	public void updateAddressPro(AddressDTO addressDTO);
 	
-	public abstract List<AddressDTO> getAddressList(SqlSessionTemplate session, int num );
+	public abstract List<AddressDTO> getAddressList(String userId);
 
 }

@@ -10,22 +10,18 @@
 
 <script type="text/javascript">
 
-function mainAddressCheck(obj) {
-	var checked=obj.checked;
-	if(checked){
-		obj.value="1";
-	}else{
-		obj.value="0";
-	}
-};
-if($("mainAddressCheck").is(':checked')==true{
-	data.set("mainAddressCheck","1");
-}else{
-	data.set("mainAddressCheck","0");
+
+function checkbox_Check(){
+    if ($("input:checkbox[name=mainAddress]").is(":checked") == true) {
+            //체크가 되어있을때.    
+    } else {
+            //체크가 안되어있을때.
+    }
 }
+
 </script>
 
-		<form id="userDeliveryForm" action="${pageContext.request.contextPath }/order/insertAddressPro" method="post">
+		<form id="insertAddress" action="${pageContext.request.contextPath }/order/insertAddress" method="post">
 			<input type="hidden" name="vDeliveryid"> <input type="hidden"
 				name="vDeliveryCell">
 			<!-- ========== 팝업 영역 ========== -->
@@ -86,6 +82,7 @@ if($("mainAddressCheck").is(':checked')==true{
 												<div class="input-group w-full">
 													<div class="input-group-form">
 
+
 															<input type="text" id="addressGetPhone"  name="addressGetPhone" title=""
 																class="input-text" value="" maxlength="11"
 																onkeydown="return numberOnly(event)"
@@ -96,10 +93,10 @@ if($("mainAddressCheck").is(':checked')==true{
 										<tr>
 											<th scope="row"></th>
 											<td>
-												<div class="custom-checkbox">
-													<input type="checkbox" id="mainAddress" class="checkbox"
-														name="mainAddress" value=""> <label
-														for="check-101"> 기본배송지로 등록</label>
+												<div class="ui toggle checkbox">
+<!-- 												<input type="hidden" name="mainAddress"  id="mainAddress" /> -->
+													<input type="checkbox" id="mainAddress"  name="mainAddress" > 
+														<label> 기본배송지로 등록</label>
 												</div>
 											</td>
 										</tr>
@@ -108,19 +105,18 @@ if($("mainAddressCheck").is(':checked')==true{
 							</div>
 						</div>
 					</div>
-					<!--// layer-content -->
 
+							<button type="submit" class="btn-basic-lg2 btn-black">
+								<span>확인</span>
+							</button>
+							
 					<div class="layer-bottom">
 						<div class="btn-area">
 							<button type="button" class="btn btn-outline-dark"
 							onclick="history.back(-1)">
 							<a href="javascript:history.back(-1)">취소</a>
+							</button>
 							
-<!-- 								<span>취소</span> -->
-							</button>
-							<button type="submit" class="btn-basic-lg2 btn-black">
-								<span>확인</span>
-							</button>
 						</div>
 					</div>
 				</div>

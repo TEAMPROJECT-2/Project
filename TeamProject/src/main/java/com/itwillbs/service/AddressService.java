@@ -13,8 +13,9 @@ public interface AddressService {
 	// 배송지 수정
 	public void updateAddress(AddressDTO addressDTO);
 	
-	// 배송지 불러오기
+	// 배송지 불러오기 Y 한건
 	public AddressDTO getAddress(String userId);
 	
-	public abstract List<AddressDTO> getAddressList(int num );
+	// 유저의 모든 배송지
+	public abstract List<AddressDTO> getAddressList(String userId);
 }

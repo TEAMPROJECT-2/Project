@@ -55,10 +55,11 @@ public class AddressDAOImpl implements AddressDAO {
 
 
 	@Override
-	public List<AddressDTO> getAddressList(SqlSessionTemplate session, int num) {
-		System.out.println("dao");
-		return session.selectList("getAddressList", num);
+	public List<AddressDTO> getAddressList(String userId) {
+		return sqlSession.selectList(namespace + ".getAddressList", userId);
 	}
 
 
+
+	
 }
