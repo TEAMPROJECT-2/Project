@@ -30,11 +30,13 @@
 
 <!-- 	카트리스트  -->
 	<select id="getBasketList" resultType="com.itwillbs.domain.BasketDTO" >
-		   SELECT 	 SB_BASKET_NUM
+		   SELECT 	 @rownum:=@rownum+1 as num
+		   			,SB_BASKET_NUM
 					,SB_USER
 					,SB_PROD_CODE
 					,SB_COUNT
 					,SB_PROD_PRICE
+					,SB_PROD_PRICE * SB_COUNT as SB_TOTAL_PRICE
 					,(SELECT PROD_L_PRODNM
 					  FROM PRODUCT_LIST
 					  WHERE PROD_L_CODE=SB_PROD_CODE
@@ -45,7 +47,8 @@
 					  WHERE PROD_L_CODE=SB_PROD_CODE
 					  ) as prodLQuantity
 		     FROM   SHOPPING_BASKET
-		    WHERE   SB_USER=#{sbUser}
+		    WHERE   (@rownum:=0)=0
+		      AND   SB_USER=#{sbUser}
 
 
 	</select>
@@ -56,6 +59,13 @@
 		  FROM SHOPPING_BASKET
 		 WHERE SB_USER=#{sbUser}
 	</select>
+<!-- 	중복 물건 담겼는지 검사 -->
+	<select id="prodCodeCheck" resultType="com.itwillbs.domain.BasketDTO">
+		SELECT *
+		  FROM SHOPPING_BASKET
+		 WHERE SB_USER=#{sbUser}
+		   AND SB_PROD_CODE=#{sbProdCode}
+	</select>
 
 <!-- 	주문리스트테이블에 상품 넣기 -->
 	<insert id="insertOrder">
@@ -65,6 +75,7 @@
 					 ,ORD_L_USER
 					 ,ORD_L_QUANTITY
 					 ,ORD_L_PRICE
+					 ,ORD_L_DATE
 				   )
 			VALUES(
 				  (SELECT ORD_NUM
@@ -74,6 +85,7 @@
 				   ,#{sbUser}
 				   ,#{sbCount}
 				   ,#{sbProdPrice}
+				   ,#{shoppingBasketDate}
 				    )
 
 	</insert>
