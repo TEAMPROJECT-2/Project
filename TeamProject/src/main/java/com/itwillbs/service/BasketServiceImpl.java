@@ -35,6 +35,7 @@ public class BasketServiceImpl implements BasketService {
 
 	@Override // 주문 디비에 인서트
 	public void insertOrder(BasketDTO basketDTO) {
+		basketDTO.setShoppingBasketDate(new Timestamp(System.currentTimeMillis()));
 		basketDAO.insertOrder(basketDTO);
 	}
 
@@ -42,6 +43,11 @@ public class BasketServiceImpl implements BasketService {
 	public void deleteBasket(BasketDTO basketDTO) {
 		basketDAO.deleteBasket(basketDTO);
 
+	}
+
+	@Override //중복 물건 담겼는지 검사
+	public BasketDTO prodCodeCheck(BasketDTO basketDTO) {
+		return basketDAO.prodCodeCheck(basketDTO);
 	}
 
 }
