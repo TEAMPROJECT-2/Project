@@ -41,6 +41,11 @@ public class BasketDAOImpl implements BasketDAO {
 		sqlSession.delete(namespace+".deleteBasket", basketDTO);
 	}
 
+	@Override // 중복물건이 담겼는지 검사
+	public BasketDTO prodCodeCheck(BasketDTO basketDTO) {
+		return sqlSession.selectOne(namespace + ".prodCodeCheck", basketDTO);
+	}
+
 
 
 }
