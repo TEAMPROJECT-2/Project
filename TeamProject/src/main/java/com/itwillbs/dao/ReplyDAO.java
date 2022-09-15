@@ -14,7 +14,7 @@ public interface ReplyDAO {
 	List<ReplyDTO> getReplyList(PageDTO pageDTO);
 
 
-	int getReplyCount();
+	int getReplyCount(int rNum);
 
 
 	Integer getMaxNum();
