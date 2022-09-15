@@ -47,7 +47,7 @@
 	</select>
 
 	<select id="getReplyCount" resultType="java.lang.Integer">
-		select count(*) from BOARD_REPLY
+		select count(*) from BOARD_REPLY where BOARD_NUM=#{boardNum}
 	</select>
 
 	<delete id="Replydelete">

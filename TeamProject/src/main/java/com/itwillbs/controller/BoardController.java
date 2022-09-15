@@ -83,8 +83,6 @@ public class BoardController {
 		pageDTO.setStartPage(startPage);
 		pageDTO.setEndPage(endPage);
 		pageDTO.setPageCount(pageCount);
-		
-		
 		model.addAttribute("boardList", boardList);
 		model.addAttribute("pageDTO", pageDTO);
 		
