@@ -2,23 +2,39 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.itwillbs.mappers.boardMapper">
+<mapper namespace="com.itwillbs.mappers.likeMapper">
 	
-	<insert id="insertLike">
-		insert info BOARD_LIKE
-		(
-			BOARD_NUM
-		   ,USER_NUM
-		   ,LIKE_NUM)
+	<insert id="insertLike" >
+		insert into BOARD_LIKE
+		(	
+		    BOARD_NUM
+		   ,USER_ID
+		   ,LIKECHECK
+		   )
 		values(
-			#{boardNum}
-		   ,#{userNum}
-		   ,#{likeNum})
+		    #{boardNum}
+		   ,#{userId}
+		   ,#{likeCheck}
+		   )
 	</insert>
 	
-	<select id="countLike" resultType="java.lang.Integer">
-		SELECT count(*) FROM BOARD_LIKE WHERE BOARD_NUM=#{boardNum} and USER_NUM=#{userNum}
+	<select id="isnertCount" resultType="java.lang.Integer">
+		SELECT count(*) FROM BOARD_LIKE WHERE BOARD_NUM=#{boardNum} and USER_ID=#{userId}
 	</select>
+	
+	<delete id="deleteLike">
+		delete from BOARD_LIKE where USER_ID=#{userId}
+	</delete> 
+	
+	
+	
+
+	
+	
+	
+	
+	
+	
 	
 	
 	

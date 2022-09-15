@@ -23,6 +23,8 @@ import com.itwillbs.domain.MemberDTO;
 import com.itwillbs.domain.PageDTO;
 import com.itwillbs.domain.ReplyDTO;
 import com.itwillbs.service.BoardService;
+import com.itwillbs.service.LikeService;
+import com.itwillbs.service.LikeServiceImpl;
 import com.itwillbs.service.MemberService;
 import com.itwillbs.service.ReplyService;
 
@@ -35,10 +37,13 @@ public class BoardController {
 	@Inject
 	private ReplyService replyService;
 	@Inject
-	private MemberService memberService;
+	private LikeService likeService;
+
 	//업로드 경로 servlet-context.mxl upload폴더 경로 이름
 	@Resource(name = "uploadPath")
 	private String uploadPath;
+	
+	
 	
 	//	가상주소 시작점 http://localhost:8080/myweb2/board/write 
 	
@@ -124,7 +129,7 @@ public class BoardController {
 	}
 //	가상주소 시작점 http://localhost:8080/myweb2/board/content?num=2
 	@RequestMapping(value = "/board/content", method = RequestMethod.GET)
-	public String content(HttpServletRequest request, Model model) {
+	public String content(HttpServletRequest request, HttpSession session, Model model) {
 		//파라미터 가져오기
 		int boardNum=Integer.parseInt(request.getParameter("boardNum"));
 		// 디비에서 조회
@@ -132,6 +137,8 @@ public class BoardController {
 		
 		// model에 데이터 저장
 		model.addAttribute("boardDTO", boardDTO);
+		
+		//댓글란
 		int pageSize=10;
 		//현페이지 번호
 		String pageNum=request.getParameter("pageNum");
@@ -166,6 +173,7 @@ public class BoardController {
 		
 		
 		
+		
 		model.addAttribute("replyList", replyList);
 		model.addAttribute("pageDTO", pageDTO);
 		// 주소변경없이 이동
@@ -173,6 +181,8 @@ public class BoardController {
 		return "/board/content";
 	}
 	
+	
+
 	//	가상주소 시작점 http://localhost:8080/myweb2/board/update?num=2
 	@RequestMapping(value = "/board/update", method = RequestMethod.GET)
 	public String update(HttpServletRequest request, Model model) {

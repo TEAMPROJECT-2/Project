@@ -8,16 +8,9 @@ public class ReplyDTO {
 	private int boardNum;
 	private String userId;
 	private String rPass;
-	
 	private String rContent;
 	private Timestamp rDate;
 	
-	public String getrPass() {
-		return rPass;
-	}
-	public void setrPass(String rPass) {
-		this.rPass = rPass;
-	}
 	public int getrNum() {
 		return rNum;
 	}
@@ -26,6 +19,9 @@ public class ReplyDTO {
 	}
 	public String getUserId() {
 		return userId;
+	}
+	public String getrPass() {
+		return rPass;
 	}
 	public String getrContent() {
 		return rContent;
@@ -42,6 +38,9 @@ public class ReplyDTO {
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
+	public void setrPass(String rPass) {
+		this.rPass = rPass;
+	}
 	public void setrContent(String rContent) {
 		this.rContent = rContent;
 	}
@@ -50,9 +49,11 @@ public class ReplyDTO {
 	}
 	@Override
 	public String toString() {
-		return "ReplyDTO [rNum=" + rNum + ", boardNum=" + boardNum + ", userId=" + userId + ", rContent=" + rContent
-				+ ", rDate=" + rDate + "]";
+		return "ReplyDTO [rNum=" + rNum + ", boardNum=" + boardNum + ", userId=" + userId + ", rPass=" + rPass
+				+ ", rContent=" + rContent + ", rDate=" + rDate + "]";
 	}
+	
+	
 	
 	
 	
