@@ -16,4 +16,6 @@ public interface BasketService {
 
 	void deleteBasket(BasketDTO basketDTO); // 카트에 물건 삭제
 
+	BasketDTO prodCodeCheck(BasketDTO basketDTO);
+
 }
