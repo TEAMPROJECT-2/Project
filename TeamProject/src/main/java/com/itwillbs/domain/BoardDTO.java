@@ -9,6 +9,13 @@ public class BoardDTO {
 	private String boardPass;
 	private String boardSubject;
 	private String boardContent;
+	private int likecount;
+	public int getLikecount() {
+		return likecount;
+	}
+	public void setLikecount(int likecount) {
+		this.likecount = likecount;
+	}
 	private int boardRecount;
 	private Timestamp boardDate;
 	private String boardFile;
@@ -65,8 +72,8 @@ public class BoardDTO {
 	@Override
 	public String toString() {
 		return "BoardDTO [boardNum=" + boardNum + ", userNicknm=" + userNicknm + ", boardPass=" + boardPass
-				+ ", boardSubject=" + boardSubject + ", boardContent=" + boardContent + ", boardRecount=" + boardRecount
-				+ ", boardDate=" + boardDate + ", boardFile=" + boardFile + "]";
+				+ ", boardSubject=" + boardSubject + ", boardContent=" + boardContent + ", likecount=" + likecount
+				+ ", boardRecount=" + boardRecount + ", boardDate=" + boardDate + ", boardFile=" + boardFile + "]";
 	}
 	
 	

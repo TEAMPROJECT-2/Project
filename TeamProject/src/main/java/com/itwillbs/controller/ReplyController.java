@@ -35,7 +35,7 @@ public class ReplyController {
 		replyDTO.setUserId((String)session.getAttribute("userId"));
 		replyDTO.setrPass(request.getParameter("rPass"));
 		replyDTO.setrContent(request.getParameter("rContent"));
-
+		
 
 		replyService.insetreply(replyDTO);
 
@@ -43,30 +43,21 @@ public class ReplyController {
 
 		return "redirect:/board/content?boardNum="+boardNum;
 	}
-	@RequestMapping(value = "/board/rdelete", method = RequestMethod.GET)
-	public String rdelete(HttpServletRequest request, Model model) {
-
-		int rNum = Integer.parseInt(request.getParameter("rNum"));
-
-
-		model.addAttribute("rNum", rNum);
-
-
-		return "/board/rdeleteForm";
-	}
+	
 	@RequestMapping(value = "/board/rdeletePro", method = RequestMethod.GET)
 	public String deletePro2(HttpServletRequest request, HttpSession session,Model model) throws Exception {
+		
 		int boardNum = Integer.parseInt(request.getParameter("boardNum"));
-
-
-
-		int rNum = Integer.parseInt(request.getParameter("rNum"));
-		model.addAttribute("rNum", rNum);
+		
 		ReplyDTO replyDTO=new ReplyDTO();
 		replyDTO.setUserId((String)session.getAttribute("userId"));
-		replyDTO.setrPass(request.getParameter("rPass"));
 		replyDTO.setrNum(Integer.parseInt(request.getParameter("rNum")));
-
+		
+		
+		
+		model.addAttribute("boardNum", boardNum);
+		
+		
 		ReplyDTO replyDTO2=replyService.rNumCheck(replyDTO);
 
 		if(replyDTO2!=null) {

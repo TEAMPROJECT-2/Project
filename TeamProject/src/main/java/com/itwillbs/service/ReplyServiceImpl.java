@@ -53,12 +53,14 @@ public class ReplyServiceImpl implements ReplyService {
 
 	@Override
 	public void Replydelete(ReplyDTO replyDTO) {
+		System.out.println("ReplyDAOImpl.Replydelete");
 		replyDAO.Replydelete(replyDTO);
 		
 	}
 
 	@Override
 	public ReplyDTO rNumCheck(ReplyDTO replyDTO) {
+		
 		// TODO Auto-generated method stub
 		return replyDAO.rNumCheck(replyDTO);
 	}

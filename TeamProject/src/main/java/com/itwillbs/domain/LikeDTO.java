@@ -1,40 +1,54 @@
 package com.itwillbs.domain;
 
+import java.sql.Timestamp;
+
 public class LikeDTO {
 	
-	private int Num;
+	private int likeNum;
 	private int boardNum;
-	private int userNum;
-	private int LikeNum;
+	private String userId;
+	private int likeCheck;
+	private Timestamp likeDate;
 	
-	public int getNum() {
-		return Num;
+	
+	
+	public Timestamp getLikeDate() {
+		return likeDate;
+	}
+	public void setLikeDate(Timestamp likeDate) {
+		this.likeDate = likeDate;
+	}
+	public int getLikeNum() {
+		return likeNum;
 	}
 	public int getBoardNum() {
 		return boardNum;
 	}
-	public int getUserNum() {
-		return userNum;
+	public String getUserId() {
+		return userId;
 	}
-	public int getLikeNum() {
-		return LikeNum;
+	public int getLikeCheck() {
+		return likeCheck;
 	}
-	public void setNum(int num) {
-		Num = num;
+	public void setLikeNum(int likeNum) {
+		this.likeNum = likeNum;
 	}
 	public void setBoardNum(int boardNum) {
 		this.boardNum = boardNum;
 	}
-	public void setUserNum(int userNum) {
-		this.userNum = userNum;
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
-	public void setLikeNum(int likeNum) {
-		LikeNum = likeNum;
+	public void setLikeCheck(int likeCheck) {
+		this.likeCheck = likeCheck;
 	}
 	@Override
 	public String toString() {
-		return "LikeDTO [Num=" + Num + ", boardNum=" + boardNum + ", userNum=" + userNum + ", LikeNum=" + LikeNum + "]";
+		return "LikeDTO [likeNum=" + likeNum + ", boardNum=" + boardNum + ", userId=" + userId + ", likeCheck="
+				+ likeCheck + ", likeDate=" + likeDate + "]";
 	}
+	
+	
 	
 	
 	
