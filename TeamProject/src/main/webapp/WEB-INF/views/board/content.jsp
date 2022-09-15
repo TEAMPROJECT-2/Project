@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>   
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -62,13 +62,13 @@ ${boardDTO.boardFile }</a></td></tr>
 		</td>
 		</tr>
 	</c:if>
-</table>	
+</table>
 <!-- 추천부분 -->
  <body>
 <div>
 	<button type="button"onclick="location.href='${pageContext.request.contextPath }/board/likeinset?boardNum=${boardDTO.boardNum}&userId=${sessionScope.userId}'">추천 ${boardDTO.likecount}</button>
 </div>
-	
+
 
 
 <hr>
@@ -101,10 +101,10 @@ ${boardDTO.boardFile }</a></td></tr>
     <td><input type="button" value="댓글 삭제" onclick="location.href='${pageContext.request.contextPath }/board/rdeletePro?boardNum=${boardDTO.boardNum}&rNum=${replyDTO.rNum}'"></td>
 	</c:if>
 	</tr>
-	
+
 </table>
 
-                
+
 </c:forEach>
 
 <!-- 댓글 부분 -->

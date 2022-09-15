@@ -23,15 +23,15 @@
 <!-- 		큰화면 버티컬 시작-->
 		<jsp:include page="../inc/admin-menu.jsp"/>
 <!-- 		큰화면 버티컬 끝 -->
-           
-           
+
+
            <!-- Content wrapper -->
           <div class="content-wrapper">
             <!-- Content -->
 <!-- 화면줄였을때 버티컬 메뉴 및 큰화면에서는 시작 -->
             <div class="container-xxl flex-grow-1 container-p-y">
               <h4 class="fw-bold py-3 mb-4">
-                <span class="text-muted fw-light">업체정보수정 </span> 
+                <span class="text-muted fw-light">업체정보수정 </span>
               </h4>
 
               <div class="row">
@@ -41,13 +41,13 @@
                       <a class="nav-link" href="${pageContext.request.contextPath }/admin/updateProd"
                         ><i class="bx bx-user me-1"></i>상품수정 </a
                       >
-                   
-                    
+
+
                   </ul>
 <!--  화면줄였을때 버티컬 및 큰화면에서는 시작 매뉴끝                  -->
-                  
-                  
-                  
+
+
+
                  <div class="col-xl">
                   <div class="card mb-4">
                     <div class="card-header d-flex justify-content-between align-items-center">
@@ -60,7 +60,7 @@
                           <label class="form-label" for="basic-default-fullname">상품번호(수정불가)</label>
                           <input type="text" class="form-control" id="basic-default-fullname" placeholder="John Doe" />
                         </div>
-                        
+
                         <label class="form-label" for="basic-default-fullname">상품분류</label>
                           <div class="form-check mt-3">
                             <input
@@ -83,7 +83,7 @@
                             />
                             <label class="form-check-label" for="defaultRadio2"> 기구 </label>
                           </div>
-                                        	                      
+
                         <div class="mb-3">
                           <label class="form-label" for="basic-default-fullname">상품명</label>
                           <input type="text" class="form-control" id="basic-default-fullname" placeholder="John Doe" />
@@ -92,8 +92,8 @@
                           <label class="form-label" for="basic-default-company">가격</label>
                           <input type="text" class="form-control" id="basic-default-company" placeholder="ACME Inc." />
                         </div>
-                        
-                        
+
+
                         <div class="mb-3">
                           <label class="form-label" for="basic-default-message">상품상세설명</label>
                           <textarea
@@ -109,8 +109,8 @@
                         <label for="formFile" class="form-label">상품사진 선택</label>
                         <input class="form-control" type="file" id="formFile" />
                       </div>
-                      
-                      
+
+
                     </div>
                   </div>
                         <button type="submit" class="btn btn-primary">등록</button>
@@ -119,10 +119,10 @@
                     </div>
                   </div>
                 </div>
-                
-                
-                
-                
+
+
+
+
                 </div>
               </div>
             </div>
@@ -191,7 +191,7 @@
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
-    
+
     <!-- Footer Section Begin -->
     <jsp:include page="../inc/footer.jsp"/>
 </body>

@@ -33,10 +33,10 @@ src="${pageContext.request.contextPath }/resources/js/jquery-3.6.0.js" ></script
 					$("#newPass2").focus();
 					return false;
 				}
-				if ($("#newPass1").val() != $("#newPass2").val()) {
+				if ($("#newPass").val() != $("#newPass1").val()) {
 					alert("새 비밀번호가 일치하지 않습니다.");
 					$("#newPass2").focus();
-// 					return false;
+					return false;
 				}
 
 				$.ajax({
@@ -116,7 +116,7 @@ src="${pageContext.request.contextPath }/resources/js/jquery-3.6.0.js" ></script
                           </div>
                           <div class="mb-3 col-md-6">
                             <label for="newPass2" class="form-label">새 비밀번호 확인</label>
-                            <input class="form-control form-control-lg" type="password" name="newPass2" id="newPass2" />
+                            <input class="form-control form-control-lg" type="password" name="newPass1" id="newPass1" />
                           </div>
 
                         <div class="mt-2"><br>

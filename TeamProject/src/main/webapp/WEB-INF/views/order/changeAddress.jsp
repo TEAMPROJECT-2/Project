@@ -50,7 +50,7 @@
 // 				}
 // 			}
 // 		}
-		
+
 		function YnCheck(obj){
 			var checked = obj.checked;
 			if(checked){
@@ -59,7 +59,7 @@
 				obj.value="N";
 			}
 		};
-		
+
 	</script>
 
 
@@ -83,13 +83,13 @@
 						</div>
 					</div>
 				</div>
-				
-				
+
+
 				<form name="sendForm" method="get">           
 				<div class="layer-content">
 					<div class="inner">
 									<c:forEach var="getAddressList" items="${addressDTOList}">
-									
+
 										<input type="checkbox" id="mainAddress" name="mainAddress" value="1"
 											onclick="oneCheckbox(this)">
 											<div class="custom-radio">
@@ -101,12 +101,12 @@
 												<p class="tel">${addressDTO.addressGetPhone}</p>
 													<a href="javascript:void(0);"
 														onclick="resOpenPopup2();return false;"
-														class="btn btn-outline-dark">수정</a> 
+														class="btn btn-outline-dark">수정</a>
 											</div>
 									</c:forEach>
-									
-													
-														
+
+
+
 <!-- 													<input type="checkbox" -->
 <!-- 														name="mainAddress" value="2" onclick="oneCheckbox(this)">a2 -->
 <!-- 														<div class="custom-radio"> -->
@@ -120,7 +120,7 @@
 <!-- 														onclick="resOpenPopup2();return false;" -->
 <!-- 														class="btn btn-outline-dark">수정</a>  -->
 <!-- 														</div> -->
-														
+
 <!-- 													<input type="checkbox" name="mainAddress" value="3" -->
 <!-- 														onclick="oneCheckbox(this)">a3 -->
 <!-- 														<div class="custom-radio"> -->
@@ -170,7 +170,7 @@
 					<i class="ico-x-black"></i><span class="blind">닫기</span>
 				</button>
 				</div>
-				
+
 </form>
 
 	<script>

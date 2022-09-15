@@ -57,7 +57,7 @@
                         <td>${pointDTO.pointCharge }</td>
                         <td><span class="badge bg-label-primary me-1">${pointDTO.pointNow }</span></td>
                       </tr>
-					 </c:forEach>					
+					 </c:forEach>
                     </tbody>
                   </table>
                 </div>

@@ -33,9 +33,9 @@
 
 
 	<script>
-	
+
 	function iamport(){
-        
+
         var amount = '${total}';
         //- '${prePayment}' - $('#usePoint').val();
         //가맹점 식별코드
@@ -51,8 +51,8 @@
             buyer_tel : '${memberDTO.userPhone}',
         }, function(rsp) {
            console.log(rsp);
-           
-           
+
+
 //              var reservation = {
 //                 reservationNum: rsp.merchant_uid,
 //                    checkin: '${date1}',
@@ -62,12 +62,12 @@
 //                    userid: '${user.userId}',
 //                    pensionid: '${pension.pensionid}'
 //                    };
-                   
+
             if (rsp.success) {
                 var msg = '결제가 완료되었습니다.';
                 console.log(reservation);
                 alert(msg);
-              
+
                 $.ajax({
                     url: "/verifyIamport/" + rsp.imp_uid,
                    type: "POST",
@@ -76,7 +76,7 @@
                    dataType:"json",
                     contentType:"application/json; charset=utf-8"
                 })
-              
+
                 location.href = '${pageContext.request.contextPath}/mypage/order';
             } else {
               var msg = rsp.error_msg;
@@ -117,7 +117,7 @@
   </script>
 
 <script>
- 
+
             function itemSum() {
                 var str = "";
                 var sum = 0;
@@ -129,7 +129,7 @@
                 $("#total_sum").html(sum + " 원");
                 $("#amount").val(sum);
             }
- 
+
         </script>
 
 	<!-- 메뉴단 -->
@@ -323,7 +323,7 @@
 									<p>
 										배송시 요구사항<span>*</span>
 									</p>
-									<input type="checkbo x" placeholder="메세지를 입력하세요."> 
+									<input type="checkbo x" placeholder="메세지를 입력하세요.">
 								</div>
 							</div>
 
@@ -344,26 +344,26 @@
 											<li>${basketDTO.sbProdPrice *basketDTO.sbCount }원</li>
 										</ul>
 									</c:forEach>
-									
-									
-			
+
+
+
 									<c:set var = "total" value = "0" />
 
-									<c:forEach var="basketDTO" items="${basketList}" varStatus="status">     
-									
+									<c:forEach var="basketDTO" items="${basketList}" varStatus="status">
+
 									<c:set var= "total" value="${total + (basketDTO.sbProdPrice *basketDTO.sbCount)}"/>
-									
+
 									</c:forEach>
-									
-									
-									
-									
-									
+
+
+
+
+
 									<ul class="checkout__total__all">
 										<li>할인 금액<span>0000원</span></li>
 										<li>Total <span>${total}원</span></li>
 									</ul>
-									
+
 <!-- 									<div class="checkout__input__checkbox"> -->
 <!-- 										<label for="payment"> 신용카드/무통장입금 사항 선택해도 되고 <input -->
 <!-- 											type="checkbox" id="payment"> <span class="checkmark"></span> -->
