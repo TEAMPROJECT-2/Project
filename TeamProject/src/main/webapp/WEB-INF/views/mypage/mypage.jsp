@@ -41,7 +41,7 @@
                             </div>
                           </div>
                           <span class="d-block mb-1">포인트</span>
-                          <h3 class="card-title text-nowrap mb-2">000 P</h3>
+                          <h3 class="card-title text-nowrap mb-2">${pointDTO.pointNow } P</h3>
                         </div>
                       </div>
                     </div>
