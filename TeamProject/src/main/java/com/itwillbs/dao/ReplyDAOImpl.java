@@ -44,7 +44,7 @@ public class ReplyDAOImpl implements ReplyDAO{
 
 	@Override
 	public void Replydelete(ReplyDTO replyDTO) {
-		System.out.println("ReplyDAOImpl.getReplyList123");
+		System.out.println("ReplyDAOImpl.Replydelete");
 		sqlSession.delete(namespace+".Replydelete", replyDTO);
 		
 	}

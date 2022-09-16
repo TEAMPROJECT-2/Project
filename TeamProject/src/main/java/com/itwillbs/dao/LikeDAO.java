@@ -1,5 +1,6 @@
 package com.itwillbs.dao;
 
+import com.itwillbs.domain.BoardDTO;
 import com.itwillbs.domain.LikeDTO;
 
 public interface LikeDAO {
@@ -14,7 +15,9 @@ public interface LikeDAO {
 
 	void deleteLike(LikeDTO likeDTO);
 
-	Integer likeMaxNum();
+	void updateLike(BoardDTO boardDTO);
+
+	void updateLikeCancel(BoardDTO boardDTO);
 
 
 	

@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>        
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,11 +28,7 @@
     <form action="${pageContext.request.contextPath }/board/fwrite">
     <input type="hidden" name="userId" value="${sessionScope.userId}" >
     </form>
-<<<<<<< HEAD
-
-=======
-
->>>>>>> refs/remotes/origin/main
+   
     <!-- 사이드 메뉴(inc로 빼도 됨) -->
     <section class="shop spad">
         <div class="container">
@@ -79,30 +75,33 @@
               <th scope="col">제목</th>
               <th scope="col">등록 날짜</th>
               <th scope="col">조회수</th>
+              <th scope="col">좋아요</th>
             </tr>
           </thead>
           <tbody>
-            <c:forEach var="boardDTO" items="${boardList }" >
+            <c:forEach var="boardDTO" items="${boardList}" >
 				<tr>
+				<input type="hidden" value="${sessionScope.userId}">
 					<td>${boardDTO.boardNum }</td>
 					<td>${boardDTO.userNicknm}</td>
-					<td><a href="${pageContext.request.contextPath }/board/content?boardNum=${boardDTO.boardNum }">
+					<td><a href="${pageContext.request.contextPath }/board/content?boardNum=${boardDTO.boardNum }&userId=${sessionScope.userId}">
 					${boardDTO.boardSubject } </a></td>
 					<td>${boardDTO.boardDate }</td>
-					<td>${boardDTO.boardRecount }</td>
+					<td>${boardDTO.boardReadcount }</td>
+					<td>${boardDTO.boardLikecount }</td>
 				</tr>
 			</c:forEach>
           </tbody>
-
+			
         </table>
         <c:set var="userId" scope="session" value="${sessionScope.userId}"/>
         <c:if test="${userId != null}">
-
+        
         	<div align="right">
 			<a href="${pageContext.request.contextPath }/board/fwrite"><button type="button" class="btn btn-primary" >게시글 작성하기</button></a>
 			</div>
         </c:if>
-
+       
       </div>
   </div>
 
@@ -114,24 +113,24 @@
 									<a href="${pageContext.request.contextPath }
 									/board/list?pageNum=${pageDTO.startPage - pageDTO.pageBlock}">Prev</a>
 									</c:if>
-
+									
 									<c:forEach var="i" begin="${pageDTO.startPage }" end="${pageDTO.endPage }" step="1">
-									<a href="${pageContext.request.contextPath }/board/list?pageNum=${i}">${i}</a>
+									<a href="${pageContext.request.contextPath }/board/list?pageNum=${i}">${i}</a>  
 									</c:forEach>
-
+									
 									<c:if test="${pageDTO.endPage < pageDTO.pageCount }">
 									<a href="${pageContext.request.contextPath }
 									/board/list?pageNum=${pageDTO.startPage + pageDTO.pageBlock}">Next</a>
 									</c:if>
-
-
+									
+									
 
                             </div>
-
+                            
                         </div>
                     </div>
                 </div>
-
+        
     </section>
     <!-- Shop Section End -->
 

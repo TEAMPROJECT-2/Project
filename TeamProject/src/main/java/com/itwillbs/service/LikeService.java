@@ -1,5 +1,6 @@
 package com.itwillbs.service;
 
+import com.itwillbs.domain.BoardDTO;
 import com.itwillbs.domain.LikeDTO;
 
 public interface LikeService {
@@ -12,6 +13,10 @@ public interface LikeService {
 	void insertLike(LikeDTO likeDTO);
 
 	void deleteLike(LikeDTO likeDTO);
+
+	void updateLike(BoardDTO boardDTO);
+
+	void updateLikeCancel(BoardDTO boardDTO);
 
 
 	

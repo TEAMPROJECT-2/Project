@@ -24,7 +24,7 @@
             </div>
         </div>
         </section>
-<form action="${pageContext.request.contextPath }/board/fwritePro" method="post"
+<form action="${pageContext.request.contextPath }/board/fwritePro" method="post" 
 enctype="multipart/form-data">
 <table border="1">
 <tr><td>닉네임</td><td><input type="text" name="userNicknm" value="${sessionScope.userId }" readonly></td></tr>
