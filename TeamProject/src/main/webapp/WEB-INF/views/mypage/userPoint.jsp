@@ -10,6 +10,45 @@
   data-assets-path="../assets/"
   data-template="vertical-menu-template-free"
 >
+<script type="text/javascript">
+function datecheck(){
+	
+	
+	var today = new Date();
+	var startyear = $('#startyear').val(); 
+	var endyear = $('#endyear').val();
+	var startmonth = $('#startmonth').val();
+	var endmonth = $('#endmonth').val();
+	var startday = $('#startday').val();
+	var endday = $('#endday').val();
+	
+	
+	var startdate1 = new Date();
+	startdate1.setFullYear(startyear,startmonth-1,startday);
+
+	var enddate1 = new Date();
+	enddate1.setFullYear(endyear,endmonth-1,endday);
+	
+
+	var startdate = startyear +"-"+ startmonth +"-"+ startday;
+	var enddate = endyear + "-" + endmonth +"-"+ endday
+	
+	$('#startdate').val(startdate);
+	$('#enddate').val(enddate);
+	
+	if(startdate1 > enddate1){
+		alert('검색 종료일을 검색 시작일 보다 늦은 날짜로 지정해주세요.');
+		return false;
+	}else if(endyear - startyear > 2){
+		alert('최대 검색 가능 기간은 1년 입니다.');
+		return false;
+	}else if(startdate1 > today || enddate1 > today){
+		alert('오늘 이전의 날짜만 검색이 가능합니다.');
+		return false;
+	}
+	
+}
+</script>
   <head>
   </head>
 
@@ -36,6 +75,47 @@
                   <label for="html5-date-input" class="col-md-2 col-form-label">Date</label>
                 </div>
 
+						<fieldset id="checkline">
+							<br>
+							<form action="pointcheck.cp" method="post"
+								onsubmit="return datecheck()">
+								<input type="hidden" id="startdate" name="startdate"> <input
+									type="hidden" id="enddate" name="enddate"> <input
+									type="button" value="1개월" class="btn btn-outline-info"
+									onclick="location.href='pointcheck.cp?searchmonth=1';">
+								<input type="button" value="3개월" class="btn btn-outline-info"
+									onclick="location.href='pointcheck.cp?searchmonth=3';">
+								<input type="button" value="6개월" class="btn btn-outline-info"
+									onclick="location.href='pointcheck.cp?searchmonth=6';">
+
+								<br>
+								<br> <select name="startyear" id="startyear"
+									class="custom-select" style="width: 100px;">
+								</select>년
+								 <select name="startmonth" id="startmonth"
+									class="custom-select" style="width: 100px;">
+								</select>월
+								<select name="startday" id="startday"
+									class="custom-select" style="width: 100px;">
+								</select>일 ~ <select name="endyear" id="endyear"
+								</select>년 <select name="endmonth" id="endmonth"
+								</select>월 <select name="endday" id="endday"
+									class="custom-select" style="width: 100px;">
+									<%for(int i=1;i<32;i++) {%>
+									<option name="<%=i%>"><%=i %></option>
+									<%} %>
+								</select>일&nbsp;&nbsp; <input type="submit" value="조회하기"
+									class="btn btn-info">
+
+							</form>
+							<br>
+							<br>
+						</fieldset>
+
+
+
+
+
               <!-- Basic Bootstrap Table -->
               <div class="card">
                 <h5 class="card-header">포인트 조회</h5>
@@ -54,10 +134,15 @@
                       <tr>
                         <td><i class="fab fa-angular fa-lg text-danger me-3"></i> ${pointDTO.pointDate }</td>
                         <td>${pointDTO.pointType }</td>
+                        <c:if test="${ pointDTO.pointUsed ne 0}">
+                        <td>-${pointDTO.pointUsed }</td>
+                        </c:if>
+                        <c:if test="${ pointDTO.pointCharge ne 0}">
                         <td>${pointDTO.pointCharge }</td>
+                        </c:if>
                         <td><span class="badge bg-label-primary me-1">${pointDTO.pointNow }</span></td>
                       </tr>
-					 </c:forEach>
+					 </c:forEach>					
                     </tbody>
                   </table>
                 </div>

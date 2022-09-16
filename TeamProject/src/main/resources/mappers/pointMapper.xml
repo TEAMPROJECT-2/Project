@@ -17,6 +17,7 @@
 		SELECT *
 		  FROM POINT
 		 WHERE USER_ID=#{userId}
+	  ORDER BY POINT_NUM DESC LIMIT 1
 	</select>
 
 	<select id="getPointCount" resultType="java.lang.Integer">

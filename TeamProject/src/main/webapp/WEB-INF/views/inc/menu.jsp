@@ -74,15 +74,6 @@
                 <div class="col-lg-6 col-md-7">
                     <div class="header__top__left">
                      <div class="offcanvas__links">
-                     	<c:if test="${(empty sessionScope)}">
-								<!-- sessionScope 아이디가 비어있는 경우 현재 포인트 : 000 -->
-                     	<p class="mr-3 ml-3"> 현재 포인트 : 000 P
- 					 </c:if>
-			 		<c:if test="${ !(empty sessionScope.userId)}">
-						<script type="text/javascript" src="${pageContext.request.contextPath }/resources/js/jquery-3.6.0.js"></script>
-								<!-- sessionScope 아이디가 userId이면 현재 포인트  -->
-                     	<p class="mr-3 ml-3"> 현재 포인트 : ${memberDTO.userPoint } P
-					</c:if>
 						<a href="javascript:openPopup('${pageContext.request.contextPath }/point/charge');" class="mr-3 ml-3" >포인트 충전</a> |
 						 <script type="text/javascript">
 						 	function openPopup() {

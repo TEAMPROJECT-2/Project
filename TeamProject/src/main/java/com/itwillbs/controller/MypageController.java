@@ -40,7 +40,10 @@ public class MypageController {
 
 	// 마이페이지
 	@RequestMapping(value = "/mypage", method = RequestMethod.GET)
-	public String mypage() {
+	public String mypage(HttpSession session, Model model) {
+		String userId=(String)session.getAttribute("userId");
+		PointDTO pointDTO = pointService.getMember(userId);
+		model.addAttribute("pointDTO", pointDTO);
 		return "mypage/mypage";
 	}
 
@@ -120,7 +123,6 @@ public class MypageController {
 		pageDTO.setPageSize(pageSize);
 		pageDTO.setPageNum(pageNum);
 		pageDTO.setCurrentPage(currentPage);
-
 		pageDTO.setUserId(userId);
 
 		List<PointDTO> pointList=pointService.getPointList(pageDTO);
