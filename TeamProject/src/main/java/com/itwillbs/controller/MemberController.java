@@ -16,17 +16,21 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.itwillbs.domain.CompDTO;
 import com.itwillbs.domain.MemberDTO;
+import com.itwillbs.domain.PointDTO;
 import com.itwillbs.mail.MailUtils;
 import com.itwillbs.mail.TempKey;
 import com.itwillbs.service.CommonService;
 import com.itwillbs.service.CompService;
 import com.itwillbs.service.MemberService;
+import com.itwillbs.service.PointService;
 
 @Controller
 public class MemberController {
 
 	@Inject
 	private MemberService memberService;
+	@Inject
+	private PointService pointService;
 
 	// 회원가입(유저)
 	@RequestMapping(value = "/member/join", method = RequestMethod.GET)
@@ -34,9 +38,11 @@ public class MemberController {
 		return "member/insertForm";
 	}
 	@RequestMapping(value = "/member/joinMemPro", method = RequestMethod.POST)
-	public String insertPro(MemberDTO memberDTO, Model model) throws Exception {
+	public String insertPro(MemberDTO memberDTO, PointDTO pointDTO, Model model) throws Exception {
 		memberService.insertMember(memberDTO);
+		pointService.insertMember(pointDTO);
 		model.addAttribute("memberDTO",memberDTO);
+		model.addAttribute("pointDTO",pointDTO);
 		return "redirect:/member/joinEmailCheck";
 	}
 

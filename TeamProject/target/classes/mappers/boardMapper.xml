@@ -12,8 +12,6 @@
 			,BOARD_PASS
 			,BOARD_SUBJECT
 			,BOARD_CONTENT
-			,BOARD_READCOUNT
-			,BOARD_DATE
 			,BOARD_FILE) 
 		values(
 		     #{boardNum}
@@ -21,8 +19,6 @@
 			,#{boardPass}
 			,#{boardSubject}
 			,#{boardContent}
-			,#{boardRecount}
-			,#{boardDate}
 			,#{boardFile})
 	</insert>
 	
@@ -41,8 +37,6 @@
 	<select id="getBoard" resultType="com.itwillbs.domain.BoardDTO">
 		select * from BOARD where BOARD_NUM=#{boardNum}
 	</select>
-	
-	
 	
 	<select id="PassCheck" resultType="com.itwillbs.domain.BoardDTO">
 		select * from BOARD where BOARD_PASS=#{boardPass} and BOARD_NUM=#{boardNum}
@@ -64,6 +58,26 @@
 		delete from BOARD where BOARD_PASS=#{boardPass} and USER_NICKNM=#{userNicknm}
 	</delete>
 
+	<!-- view -->
+	<insert id="viewinsert">
+		insert into BOARD_VIEW 
+		(
+			BOARD_NUM
+		   ,USER_ID
+		) values (
+			#{boardNum}
+		   ,#{userId}
+		)
+	</insert>
 	
+	<select id="viewcheck" resultType="com.itwillbs.domain.ViewDTO">
+		SELECT * FROM BOARD_VIEW WHERE USER_ID=#{userId} and BOARD_NUM=#{boardNum}
+	</select>
+	
+	<update id="viewup">
+		UPDATE BOARD SET 
+		BOARD_READCOUNT = BOARD_READCOUNT + 1 
+		where BOARD_NUM=#{boardNum}
+	</update>
 	
 </mapper>

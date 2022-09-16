@@ -12,6 +12,7 @@ import com.itwillbs.domain.LikeDTO;
 import com.itwillbs.domain.MemberDTO;
 import com.itwillbs.domain.PageDTO;
 import com.itwillbs.domain.ReplyDTO;
+import com.itwillbs.domain.ViewDTO;
 
 @Repository
 public class BoardDAOImpl implements BoardDAO{
@@ -70,51 +71,27 @@ public class BoardDAOImpl implements BoardDAO{
 	}
 
 	@Override
-	public void updateLike(LikeDTO likeDTO) {
-		sqlSession.update(namespace+".updateLike", likeDTO);
-		
-	}
-
-	@Override
-	public void updateLikeCancel(LikeDTO likeDTO) {
-		sqlSession.update(namespace+".updateLikeCancel", likeDTO);
-		
-	}
-
-	@Override
-	public void insertLike(LikeDTO likeDTO) {
-		sqlSession.insert(namespace+".insertLike", likeDTO);
-		
-	}
-
-	@Override
-	public void deleteLike(LikeDTO likeDTO) {
-		sqlSession.delete(namespace+".deleteLike", likeDTO);
-		
-	}
-
-	@Override
-	public int likeCheck(LikeDTO likeDTO) {
-		// TODO Auto-generated method stub
-		return sqlSession.selectOne(namespace+".likeCheck", likeDTO);
-	}
-
-	@Override
-	public void updateLikeCheck(LikeDTO likeDTO) {
-		sqlSession.update(namespace+".updateLikeCheck", likeDTO);
-		
-	}
-
-	@Override
-	public void updateLikeCheckCancel(LikeDTO likeDTO) {
-		sqlSession.update(namespace+".updateBoard", likeDTO);
-		
-	}
-
-	@Override
 	public BoardDTO PassCheck(BoardDTO boardDTO) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne(namespace+".PassCheck", boardDTO);
+	}
+
+	@Override
+	public ViewDTO viewcheck(ViewDTO viewDTO) {
+		return sqlSession.selectOne(namespace+".viewcheck", viewDTO);
+	}
+
+	@Override
+	public void viewinsert(ViewDTO viewDTO) {
+		sqlSession.insert(namespace+".viewinsert", viewDTO);
+		
+	}
+
+	@Override
+	public void viewup(int boardNum) {
+		sqlSession.update(namespace+".viewup", boardNum);
+		
+		
 	}
 
 

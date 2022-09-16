@@ -12,6 +12,7 @@ import com.itwillbs.domain.BoardDTO;
 import com.itwillbs.domain.LikeDTO;
 import com.itwillbs.domain.MemberDTO;
 import com.itwillbs.domain.PageDTO;
+import com.itwillbs.domain.ViewDTO;
 
 @Service
 public class BoardServiceImpl implements BoardService{
@@ -21,12 +22,11 @@ public class BoardServiceImpl implements BoardService{
 	private BoardDAO boardDAO;
 	private BoardDAO likeDAO;
 	
+	
 	@Override
 	public void insertBoard(BoardDTO boardDTO) {
 		//폼에서 가져온값 name pass subject content
 		// num,readcount,date
-		boardDTO.setBoardRecount(0);
-		boardDTO.setBoardDate(new Timestamp(System.currentTimeMillis()));
 		// num = max(num)+1
 		if(boardDAO.getMaxNum()==null) {
 			//게시판 글이 없음
@@ -85,48 +85,32 @@ public class BoardServiceImpl implements BoardService{
 		boardDAO.deleteBoard(boardDTO);
 	}
 	
-	//like
-	@Override
-	public void updateLike(LikeDTO likeDTO){
-		boardDAO.updateLike(likeDTO);
-	}
-	
-	@Override
-	public void updateLikeCancel(LikeDTO likeDTO){
-		boardDAO.updateLikeCancel(likeDTO);
-	}
-
-	
-	@Override
-	public void insertLike(LikeDTO likeDTO){
-		boardDAO.insertLike(likeDTO);
-	}
-	
-	@Override
-	public void deleteLike(LikeDTO likeDTO){
-		boardDAO.deleteLike(likeDTO);
-	}
-	
-	@Override
-	public int likeCheck(LikeDTO likeDTO) {
-		return boardDAO.likeCheck(likeDTO);
-	}
-	
-	@Override
-	public void updateLikeCheck(LikeDTO likeDTO){
-		boardDAO.updateLikeCheck(likeDTO);
-	}
-	
-	@Override
-	public void updateLikeCheckCancel(LikeDTO likeDTO){
-		boardDAO.updateLikeCheckCancel(likeDTO);
-	}
 
 	@Override
 	public BoardDTO PassCheck(BoardDTO boardDTO) {
 		// TODO Auto-generated method stub
 		return boardDAO.PassCheck(boardDTO);
 	}
+
+	@Override
+	public ViewDTO viewcheck(ViewDTO viewDTO) {
+		// TODO Auto-generated method stub
+		return boardDAO.viewcheck(viewDTO);
+	}
+
+	@Override
+	public void viewinsert(ViewDTO viewDTO) {
+		boardDAO.viewinsert(viewDTO);
+		
+	}
+
+	@Override
+	public void viewup(int boardNum) {
+		boardDAO.viewup(boardNum);
+		
+	}
+
+	
 
 	
 	

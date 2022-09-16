@@ -8,6 +8,7 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import com.itwillbs.domain.BoardDTO;
 import com.itwillbs.domain.LikeDTO;
 
 @Repository
@@ -47,10 +48,21 @@ public class LikeDAOImpl implements LikeDAO {
 
 
 
+
 	@Override
-	public Integer likeMaxNum() {
-		// TODO Auto-generated method stub
-		return sqlSession.selectOne(namespace+".likeMaxNum");
+	public void updateLike(BoardDTO boardDTO) {
+		System.out.println("DAOLIKE");
+		sqlSession.update(namespace+".updateLike", boardDTO);
+		
+	}
+
+
+
+
+	@Override
+	public void updateLikeCancel(BoardDTO boardDTO) {
+		sqlSession.update(namespace+".updateLikeCancel", boardDTO);
+		
 	}
 
 	

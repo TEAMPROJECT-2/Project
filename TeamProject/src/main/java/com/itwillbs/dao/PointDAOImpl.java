@@ -1,6 +1,7 @@
 package com.itwillbs.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -19,23 +20,9 @@ public class PointDAOImpl implements PointDAO {
 
 	private static final String namespace="com.itwillbs.mappers.pointMapper";
 	
-	
-	@Override
-	public void updatePoint(MemberDTO memberDTO) {
-		System.out.println("PointDAOImpl updatePoint()");
-		sqlSession.update(namespace + ".updatePoint", memberDTO);
-	}
-
-	
 	@Override
 	public PointDTO getMember(String userId) {
 		return sqlSession.selectOne(namespace + ".getMember", userId);
-	}
-
-
-	@Override
-	public void insertPoint(PointDTO pointDTO)  throws Exception {
-		sqlSession.insert(namespace + ".insertPoint", pointDTO);
 	}
 
 
@@ -48,6 +35,24 @@ public class PointDAOImpl implements PointDAO {
 	@Override
 	public List<PointDTO> getPointList(PageDTO pageDTO) {
 		return sqlSession.selectList(namespace+".getPointList",pageDTO);
+	}
+
+
+	@Override
+	public Integer getMaxNum() {
+		return sqlSession.selectOne(namespace+".getMaxNum");
+	}
+
+
+	@Override
+	public void insertMember(PointDTO pointDTO) {
+		sqlSession.insert(namespace+".insertMember", pointDTO);
+	}
+
+
+	@Override
+	public void insertChargePoint(Map<String, Object> sMap) {
+		sqlSession.insert(namespace+".insertChargePoint", sMap);
 	}
 
 }

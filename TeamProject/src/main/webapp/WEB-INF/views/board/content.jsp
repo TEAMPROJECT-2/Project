@@ -9,8 +9,12 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>Bootstrap 4</title>
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-
-
+<style type="text/css">
+	table {
+  border-collapse: separate;
+  border-spacing: 0 10px;
+}
+</style>
 
 </head>
 <body>
@@ -23,91 +27,109 @@
 	%>
 	<!-- 메뉴단 -->
 <jsp:include page="../inc/menu.jsp"/>
+    <form action="${pageContext.request.contextPath }/board/fwrite">
+    <input type="hidden" name="userId" value="${sessionScope.userId}" >
+    </form>
 
-    <section class="breadcrumb-option">
-        <div class="container">
+    <!-- 사이드 메뉴(inc로 빼도 됨) -->
+    <section class="shop spad">
+		<div class="container">
             <div class="row">
-                <div class="col-lg-12">
-                    <div class="breadcrumb__text">
-                        <h4>community</h4>
-                        <div class="breadcrumb__links">
-                            <a href="${pageContext.request.contextPath }/main/main">Home</a>
-                            <span>community</span>
-                        </div>
-                    </div>
-                </div>
+                    <table class="table table-condensed">
+                        <thead>
+                            <tr align="center">
+                                <th width="10%">${boardDTO.boardNum }</th>
+                                <th width="60%"><h5>${boardDTO.boardSubject }</h5></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>작성일
+                                </td>
+                                <td>
+                               ${boardDTO.boardDate }<span style='float:right'>조회 : ${boardDTO.boardReadcount }</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                작성자
+                                </td>
+                                <td>
+                                ${boardDTO.userNicknm} <span style='float:right'>좋아요 : ${boardDTO.boardLikecount}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <p class="mb-4 mt-3">${boardDTO.boardContent }</p>
+
+                                </td>
+                            </tr>
+                            <tr>
+                            		<td width="10%">파일</td>
+                                	<td width="60%">${boardDTO.boardFile }</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <form action="${pageContext.request.contextPath }/board/likeinset">
+                    <input type="hidden" name="boardNum" value="${boardDTO.boardNum}">
+                    <input type="submit" value="추천">
+                    </form>
+                    
+                    
+                    
+               <c:forEach items="${replyList}" var="replyDTO">
+				<!-- 댓글 테이블 -->
+                    <table class="table table-striped" >
+                   		 <tr>
+                   		 		<input type="hidden" name="rNum" value="${replyDTO.rNum}">
+                            	<th width="5%" style="text-align:right;">${replyDTO.userId}</th>
+                                <td width="60%">${replyDTO.rContent } <span style='float:right'>${replyDTO.rDate}</span>
+                                <td width="5%" style="text-align:width;">
+                                  <c:set var="userId" scope="session" value="${sessionScope.userId}" />
+								  <c:set var="rId" target="${replyList}" scope="request" value="${replyDTO.userId}" />
+								  <c:if test="${userId == rId}">
+                                	<a onclick="location.href='${pageContext.request.contextPath }/board/rdeletePro?boardNum=${boardDTO.boardNum}&rNum=${replyDTO.rNum}'" style="cursor:pointer;">삭제</a>
+                                  </c:if>
+                                </td>
+                         </tr>
+                    </table>
+                </c:forEach>
+			<!-- 댓글 작성 -->
+				<form name="comment-form" action="${pageContext.request.contextPath }/board/isnertPro" method="post" autocomplete="off">
+				
+                    <table class="table table-condensed">
+                        <tr>
+                            <td>
+                                <span class="form-inline" role="form">
+                                		<h3>댓글</h3>
+                                		<input type="hidden" name="boardNum" value="${boardDTO.boardNum}">
+                                        <textarea id="commentParentText" name="rContent" class="form-control col-lg-12 mt-3" style="width:100%" rows="4" cols="180"></textarea><br>
+                                        <button type="submit" class="btn btn-light">등록</button>
+                                </span>
+                            </td>
+                        </tr>
+                    </table>
+                    </form>
+                    <table class="table table-condensed">
+                        <thead>
+                            <tr>
+                                <td>
+                                    <span style='float:right'>
+                                        <a href="${pageContext.request.contextPath }/board/list"><button type="button" id="list" class="btn btn-secondary">목록</button></a>
+                                        <c:if test="${userId == rId}">
+                                        <button type="button" id="modify" class="btn btn-secondary" onclick="location.href='${pageContext.request.contextPath }/board/update?boardNum=${boardDTO.boardNum }'">수정</button>
+                                        <button type="button" id="delete" class="btn btn-secondary" onclick="location.href='${pageContext.request.contextPath }/board/delete?boardNum=${boardDTO.boardNum }'">삭제</button>
+                                    	</c:if>
+                                    </span>
+                                </td>
+                            </tr>
+                        </thead>
+                    </table>
             </div>
+            <hr/>
         </div>
-        </section>
-<table border="1">
-<tr><td>글번호</td><td>${boardDTO.boardNum }</td>
-    <td>글쓴날짜</td><td>${boardDTO.boardDate }</td></tr>
-<tr><td>글쓴이</td><td>${boardDTO.userNicknm}</td>
-    <td>조회수</td><td>${boardDTO.boardRecount }</td></tr>
-<tr><td>글제목</td><td colspan="3">${boardDTO.boardSubject }</td></tr>
 
-<tr><td>파일</td><td colspan="3">
-<a href="${pageContext.request.contextPath }/resources/upload/${boardDTO.boardFile }" download>
-${boardDTO.boardFile }</a></td></tr>
-
-<tr><td>글내용</td><td colspan="3">${boardDTO.boardContent }</td></tr>
-
- <c:set var="userId" scope="session" value="${sessionScope.userId}"/>
-    <c:if test="${userId ne null}">
-		<tr><td colspan="4">
-		<input type="button" value="글수정" class="btn btn-primary"
-		onclick="location.href='${pageContext.request.contextPath }/board/update?boardNum=${boardDTO.boardNum }'">
-		<input type="button" value="글삭제" class="btn btn-primary"
-		onclick="location.href='${pageContext.request.contextPath }/board/delete?boardNum=${boardDTO.boardNum }'">
-		</td>
-		</tr>
-	</c:if>
-</table>
-<!-- 추천부분 -->
- <body>
-<div>
-	<button type="button"onclick="location.href='${pageContext.request.contextPath }/board/likeinset?boardNum=${boardDTO.boardNum}&userId=${sessionScope.userId}'">추천 ${boardDTO.likecount}</button>
-</div>
-
-
-
-<hr>
-<a href="${pageContext.request.contextPath }/board/list"><input type="button" class="btn btn-primary" value="글목록 "></a>
-<!-- 댓글 부분 -->
-<c:set var="userId" scope="session" value="${sessionScope.userId}"/>
-<c:if test="${userId ne null}">
-<div class="card my-4">
-		<h5 class="card-header">댓글</h5>
-		<div class="card-body">
-			<form name="comment-form" action="${pageContext.request.contextPath }/board/isnertPro" method="post" autocomplete="off">
-				<div class="form-group">
-					<input type="hidden" name="boardNum" value="${boardDTO.boardNum}" />
-					<textarea name="rContent" class="form-control" rows="3"></textarea>
-				</div>
-				<button type="submit" class="btn btn-primary">작성하기</button>
-			</form>
-		</div>
-	</div>
-</c:if>
-<c:forEach items="${replyList}" var="replyDTO">
-<table border="1">
-<tr><td><input type="hidden" name="rNum" value="${replyDTO.rNum}"></td>
-	<td>이름</td><td>${replyDTO.userId}</td>
-    <td>댓글내용</td><td>${replyDTO.rContent }</td>
-    <td>글쓴날짜</td><td>${replyDTO.rDate }</td>
-    <c:set var="userId" scope="session" value="${sessionScope.userId}" />
-    <c:set var="rId" target="${replyList}" scope="request" value="${replyDTO.userId}" />
-    <c:if test="${userId == rId}">
-    <td><input type="button" value="댓글 삭제" onclick="location.href='${pageContext.request.contextPath }/board/rdeletePro?boardNum=${boardDTO.boardNum}&rNum=${replyDTO.rNum}'"></td>
-	</c:if>
-	</tr>
-
-</table>
-
-
-</c:forEach>
-
-<!-- 댓글 부분 -->
+    </section>
 
 <!-- Footer Section Begin -->
 <jsp:include page="../inc/footer.jsp"/>

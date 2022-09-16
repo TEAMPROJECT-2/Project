@@ -5,6 +5,7 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 
 import com.itwillbs.dao.LikeDAO;
+import com.itwillbs.domain.BoardDTO;
 import com.itwillbs.domain.LikeDTO;
 
 @Service
@@ -25,12 +26,6 @@ public class LikeServiceImpl implements LikeService {
 	@Override
 	public void insertLike(LikeDTO likeDTO) {
 		
-		likeDTO.setLikeNum(0);
-		if(likeDAO.likeMaxNum()==null) {
-			likeDTO.setLikeNum(1);
-		}else {
-			likeDTO.setLikeNum(likeDAO.likeMaxNum() + 1);
-		}
 		
 		likeDAO.insertLike(likeDTO);
 		
@@ -42,6 +37,21 @@ public class LikeServiceImpl implements LikeService {
 	public void deleteLike(LikeDTO likeDTO) {
 		likeDAO.deleteLike(likeDTO);
 		
+	}
+
+
+
+	@Override
+	public void updateLike(BoardDTO boardDTO) {
+		likeDAO.updateLike(boardDTO);
+		
+	}
+
+
+
+	@Override
+	public void updateLikeCancel(BoardDTO boardDTO) {
+		likeDAO.updateLikeCancel(boardDTO);
 	}
 
 	

@@ -7,6 +7,7 @@ import com.itwillbs.domain.LikeDTO;
 import com.itwillbs.domain.MemberDTO;
 import com.itwillbs.domain.PageDTO;
 import com.itwillbs.domain.ReplyDTO;
+import com.itwillbs.domain.ViewDTO;
 
 public interface BoardService {
 	//추상메서드
@@ -28,21 +29,13 @@ public interface BoardService {
 	
 	void deleteBoard(BoardDTO boardDTO);
 
-	void insertLike(LikeDTO likeDTO);
-
-	void updateLike(LikeDTO likeDTO);
-
-	void updateLikeCheck(LikeDTO likeDTO);
-
-	void updateLikeCheckCancel(LikeDTO likeDTO);
-
-	void updateLikeCancel(LikeDTO likeDTO);
-
-	void deleteLike(LikeDTO likeDTO);
-
-	int likeCheck(LikeDTO likeDTO);
-
 	BoardDTO PassCheck(BoardDTO boardDTO);
+
+	ViewDTO viewcheck(ViewDTO viewDTO);
+
+	void viewinsert(ViewDTO viewDTO);
+
+	void viewup(int boardNum);
 
 
 	

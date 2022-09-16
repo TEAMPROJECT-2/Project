@@ -57,7 +57,12 @@ public class OrderController {
 		MemberDTO memberDTO = memberService.getMember(userId);
 		List<BasketDTO> basketList=basketService.getBasketList(basketDTO);
 		PointDTO pointDTO2 = pointService.getMember(userId); 
-		int total=10;
+		
+		// 상품 가격 총합
+		int total = 0;
+		for(BasketDTO dto : basketList) {
+			total+=dto.getSbProdPrice() * dto.getSbCount();
+		}
 		
 //		List<ProdDTO> prodList=prodService.selectProdList(prodDTO); 
 		model.addAttribute("addressDTO", addressDTO);

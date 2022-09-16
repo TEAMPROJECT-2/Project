@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.itwillbs.domain.BoardDTO;
 import com.itwillbs.domain.LikeDTO;
 import com.itwillbs.domain.MemberDTO;
 import com.itwillbs.domain.ReplyDTO;
@@ -38,12 +39,20 @@ public class LikeController {
 		LikeDTO likeDTO=new LikeDTO();
 		likeDTO.setBoardNum(boardNum);
 		likeDTO.setUserId((String)session.getAttribute("userId"));
+		BoardDTO boardDTO=new BoardDTO();
+		boardDTO.setBoardNum(boardNum);
+		
 		
 		LikeDTO likeDTO2=likeService.likeCheck(likeDTO);
+		
+		
+		
 		if(likeDTO2 != null) {
 			likeService.deleteLike(likeDTO);
-		}else if(likeDTO2 == null) {
+			likeService.updateLikeCancel(boardDTO);
+		}else{
 			likeService.insertLike(likeDTO);
+			likeService.updateLike(boardDTO);
 		}
 		
 		
