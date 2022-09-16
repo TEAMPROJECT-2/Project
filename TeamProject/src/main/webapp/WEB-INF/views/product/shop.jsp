@@ -6,34 +6,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
-
-<!-- 상품 소감(댓글) 목록
-<script>
-   var gdsNum = ${view.gdsNum};
-   $.getJSON("/shop/view/replyList" + "?n=" + gdsNum, function(data){
-    var str = "";
-
-    $(data).each(function(){
-
-     console.log(data);
-
-     var repDate = new Date(this.repDate);
-     repDate = repDate.toLocaleDateString("ko-US")
-
-     str += "<li data-gdsNum='" + this.gdsNum + "'>"
-       + "<div class='userInfo'>"
-       + "<span class='userName'>" + this.userName + " "
-       + "<span class='date'>" + repDate + " "
-       + "</div>"
-       + "<div class='replyContent'>" + this.repCon + "</div>"
-       + "</li>";
-    });
-
-    $("section.replyList ol").html(str);
-   });
-</script>
- -->
-
 <head>
 	<meta charset="UTF-8">
 	<meta name="description" content="Male_Fashion Template">
@@ -58,142 +30,54 @@
 	<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/style.css" type="text/css">
 </head>
 
-<!-- ------------ JQUERY 게시판 버튼형 카테고리 구현 ------------ -->
-<script src="http://code.jquery.com/jquery-latest.js"></script>
+<!-- ------------ AJAX 카테고리 구현 ------------ -->
+<script src="http://code.jquery.com/jquery-3.6.0.js"></script>
 <script type="text/javascript">
 
-
-$(function(){
-	var one;
-	var two;
-	var three;
-	var four;
-
-    $("#clothes").on('click',function(){
-        var one = $(this).val();       //버튼이 클릭 되었을 시, 개별 버튼의 값이 kind 변수에 담겨집니다.
-        $.ajax({
-        	url: "/web/common/selectOptionList",
-			type: "post",
-			data : {"srhHighCd":one},
-			dataType: "json",
-			async: false,
-			success:function( data ) {
-				if(data.code=="S") {
-					$('#div2').show();
-					$('#prodLOption2').show();
-					$('#prodLOption2').append("<option>" + "선택" + "</option>");
-					var codeList = data.commonList;
-				      for(var i = 0; i < codeList.length ; i++){
-				        var option = "<option value='" + codeList[i].cdOpt + "'>" + codeList[i].cdOptNm + "</option>";
-				        $('#prodLOption2').append(option);
-				      }
-				} else {
-					alert("ERROR : Common Code");
-				}
-			}
-		});
-    });
-
-
-	$('#prodLOption2').change(function () {
-        two = this.options[this.selectedIndex].value;
-        $('#div3').hide(); //숨김
-        $('#prodLOption3').empty(); //초기화
-        $('#div4').hide(); //숨김
-        $('#prodLOption4').empty(); //초기화
-        $('#div5').hide(); //숨김
-        $('#prodLOption5').empty(); //초기화
-        $.ajax({
-        	url: "/web/common/selectOptionList",
-			type: "post",
-			data : {"srhHighCd":two},
-			dataType: "json",
-			async: false,
-			success:function( data ) {
-				if(data.code=="S") {
-					$('#div3').show();
-					$('#prodLOption3').show();
-					$('#prodLOption3').append("<option>" + "선택" + "</option>");
-					var codeList = data.commonList;
-				      for(var i = 0; i < codeList.length ; i++){
-				        var option = "<option value='" + codeList[i].cdOpt + "'>" + codeList[i].cdOptNm + "</option>";
-				        $('#prodLOption3').append(option);
-				      }
-				} else {
-					alert("ERROR : Common Code");
-				}
-			}
-		});
-    });
-
-	$('#prodLOption3').change(function () {
-		three = this.options[this.selectedIndex].value;
-		if(three=="P0101" || three=="P0102" || three=="F0101" || three=="F0102" || three=="F0103"){
-			if(three=="P0101" || three=="P0102"){
-				three="COLOR";
-			}else if(three=="F0101" || three=="F0102" || three=="F0103"){
-				three="TASTE";
-			}else{
-				three="";
-			}
-	        $('#div4').hide(); //숨김
-	        $('#prodLOption4').empty(); //초기화
-	        $('#div5').hide(); //숨김
-	        $('#prodLOption5').empty(); //초기화
-	        $.ajax({
-	        	url: "/web/common/selectOptionList",
-				type: "post",
-				data : {"srhHighCd":three},
-				dataType: "json",
-				async: false,
-				success:function( data ) {
-					if(data.code=="S") {
-						$('#div4').show();
-						$('#prodLOption4').show();
-						$('#prodLOption4').append("<option>" + "선택" + "</option>");
-						var codeList = data.commonList;
-					      for(var i = 0; i < codeList.length ; i++){
-					        var option = "<option value='" + codeList[i].cdOpt + "'>" + codeList[i].cdOptNm + "</option>";
-					        $('#prodLOption4').append(option);
-					      }
-					} else {
-						alert("ERROR : Common Code");
-					}
-				}
-			});
+<!-- 검색어 기능 START -->
+$(document).ready(function(){
+	$('#submit').click(function() {
+// 		alert("TEST");
+		if($("#srhText").val().length==''){
+			alert("검색어를 입력해주세요.");
+			$("#srhText").focus();
+			return false;
 		}
-    });
-
-	$('#prodLOption4').change(function () {
-		if(three=="COLOR"){
-			four = "SIZE";
-	        $('#div5').hide(); //숨김
-	        $('#prodLOption5').empty(); //초기화
-	        $.ajax({
-	        	url: "/web/common/selectOptionList",
-				type: "post",
-				data : {"srhHighCd":four},
-				dataType: "json",
-				async: false,
-				success:function( data ) {
-					if(data.code=="S") {
-						$('#div5').show();
-						$('#prodLOption5').show();
-						$('#prodLOption5').append("<option>" + "선택" + "</option>");
-						var codeList = data.commonList;
-					      for(var i = 0; i < codeList.length ; i++){
-					        var option = "<option value='" + codeList[i].cdOpt + "'>" + codeList[i].cdOptNm + "</option>";
-					        $('#prodLOption5').append(option);
-					      }
-					} else {
-						alert("ERROR : Common Code");
-					}
-				}
-			});
-		}
-    });
-
+	});
 });
+<!-- 검색어 기능 END -->
+
+<!-- 카테고리 기능 -->
+$(document).ready(function(){
+	$(".clothes").click(function(){
+// 		alert("TEST");
+	    if($(".sub1").is(":visible")){
+	        $(".sub1").slideUp();
+	    }
+	    else{
+	        $(".sub1").slideDown();
+	    }
+	});
+	$(".instrument").click(function(){
+// 		alert("TEST");
+	    if($(".sub2").is(":visible")){
+	        $(".sub2").slideUp();
+	    }
+	    else{
+	        $(".sub2").slideDown();
+	    }
+	});
+	$(".stuff").click(function(){
+// 		alert("TEST");
+	    if($(".sub3").is(":visible")){
+	        $(".sub3").slideUp();
+	    }
+	    else{
+	        $(".sub3").slideDown();
+	    }
+	});
+});
+<!-- 카테고리 기능 -->
 
 </script>
 
@@ -229,43 +113,77 @@ $(function(){
                         <div class="shop__sidebar__search">
                             <form action="${pageContext.request.contextPath }/product/shop">
                                 <input type="text" id="srhText" name="srhText">
-                                <button type="submit"><span class="icon_search"></span></button>
+                                <button type="submit" id="submit">
+                                <span class="icon_search"></span></button>
                             </form>
                         </div>
+                        <!-- 화면 왼쪽 카테고리 시작 -->
                         <div class="shop__sidebar__accordion">
                             <div class="accordion" id="accordionExample">
+                            	<!-- 운동용품 카테고리 시작 -->
                                 <div class="card">
                                     <div class="card-heading">
-                                        <a data-toggle="collapse" data-target="#collapseOne">Categories</a>
+                                        <a data-toggle="collapse" data-target="#collapseOne">운동용품</a>
                                     </div>
-                                    <!-- 상품 카테고리 -->
-                                    <div id="collapseTwo" class="collapse show" data-parent="#accordionExample">
+                                    <div id="collapseOne" class="collapse show" data-parent="#accordionExample">
                                         <div class="card-body">
                                             <div class="shop__sidebar__categories">
                                                 <ul class="nice-scroll">
-                                                	<label for="defaultSelect" class="form-label" >종류</label>
-                                               		<li><a href="javascript:clothes();">운동용품</a></li>
-                                                    <li><a href="javascript:top();">식품</a></li>
-
-                                                    <li><a href="javascript:clothes();">옷 (갯수)</a></li>
-                                                    <li><a href="javascript:top();">상의 (갯수)</a></li>
-                                                    <li><a href="javascript:bottoms();">하의 (갯수)</a></li>
-
-                                                    <li><a href="javascript:instrument();">기구 (갯수)</a></li>
-                                                    <li><a href="javascript:dumbbell();">덤벨 (갯수)</a></li>
-                                                    <li><a href="javascript:mat();">매트 (갯수)</a></li>
-                                                    <li><a href="javascript:roller();">폼롤러 (갯수)</a></li>
-
-                                                    <li><a href="javascript:stuff();">잡화 (갯수)</a></li>
-                                                    <li><a href="javascript:protector();">보호대 (갯수)</a></li>
-                                                    <li><a href="javascript:bottle();">보틀 (갯수)</a></li>
-                                                   	<li><a href="javascript:bag();">가방 (갯수)</a></li>
-
+                                                <!-- to do -->
+                                               		<li><a href="#" id="clothes" class="clothes">옷</a>
+                                               			<ul class="sub1" style="display: none">
+                                               				<li><a href="#" id="top">ㅡ　상의</a></li>
+                                               				<li><a href="#" id="bottoms">ㅡ　하의</a></li>
+                                               			</ul>
+                                               		</li>
+                                               		<li><a href="#" id="instrument" class="instrument">기구</a>
+                                               			<ul class="sub2" style="display: none">
+                                               				<li><a href="#" id="dumbbell">ㅡ　덤벨</a></li>
+                                               				<li><a href="#" id="mat">ㅡ　매트</a></li>
+                                               				<li><a href="#" id="roller">ㅡ　폼롤러</a></li>
+                                               			</ul>
+                                               		</li>
+                                               		<li><a href="#" id="stuff" class="stuff">잡화</a>
+                                               			<ul class="sub3" style="display: none">
+                                               				<li><a href="#" id="protector">ㅡ　보호대</a></li>
+                                               				<li><a href="#" id="bottle">ㅡ　보틀</a></li>
+                                               				<li><a href="#" id="bag">ㅡ　가방</a></li>
+                                               			</ul>
+                                               		</li>
                                                 </ul>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+                                <!-- 운동용품 카테고리 끝 -->
+                                <!-- 식품 카테고리 시작 -->
+                                <div class="card">
+                                    <div class="card-heading">
+                                        <a data-toggle="collapse" data-target="#collapseTwo">식품</a>
+                                    </div>
+
+                                    <div id="collapseTwo" class="collapse show" data-parent="#accordionExample">
+                                        <div class="card-body">
+                                            <div class="shop__sidebar__brand">
+                                                <ul class="nice-scroll">
+                                                	<!-- 선택지 1 -->
+                                               		<li><a href="#" id="supplement" class="supplement">보충제</a></li>
+                                                    <li><a href="#" id="meal" class="meal">식단</a></li>
+                                                    <!-- 선택지 1 -> supplement 클릭 시 -> 선택지 2 -->
+                                                    <li><a href="#" id="protein" class="protein" style="display: none">프로틴</a></li>
+                                                    <li><a href="#" id="booster" class="booster" style="display: none">부스터</a></li>
+                                                    <li><a href="#" id="nutritive" class="nutritive" style="display: none">영양제</a></li>
+                                                    <!-- 선택지 1 -> meal 클릭 시 -> 선택지 2 -->
+                                                    <li><a href="#" id="chicken" class="chicken" style="display: none">닭가슴살</a></li>
+                                                    <li><a href="#" id="salad" class="salad" style="display: none">샐러드</a></li>
+                                                    <li><a href="#" id="lunchbox" class="lunchbox" style="display: none">도시락</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- 식품 카테고리 끝 -->
+                                <!-- 가격 카테고리 시작 -->
                                 <div class="card">
                                     <div class="card-heading">
                                         <a data-toggle="collapse" data-target="#collapseThree">가격대</a>
@@ -283,6 +201,8 @@ $(function(){
                                         </div>
                                     </div>
                                 </div>
+                                <!-- 가격 카테고리 끝 -->
+                                <!-- 사이즈 카테고리 시작 -->
                                 <div class="card">
                                     <div class="card-heading">
                                         <a data-toggle="collapse" data-target="#collapseFour">Size</a>
@@ -290,25 +210,27 @@ $(function(){
                                     <div id="collapseFour" class="collapse show" data-parent="#accordionExample">
                                         <div class="card-body">
                                             <div class="shop__sidebar__size">
-                                                <label for="xs">XS
+                                                <label for="xs" id="xs" class="xs">XS
                                                     <input type="radio" id="xs">
                                                 </label>
-                                                <label for="sm">S
-                                                    <input type="radio" id="sm">
+                                                <label for="s" id="s" class="s">S
+                                                    <input type="radio" id="s">
                                                 </label>
-                                                <label for="md">M
-                                                    <input type="radio" id="md">
+                                                <label for="m" id="m" class="m">M
+                                                    <input type="radio" id="m">
                                                 </label>
-                                                <label for="xl">L
+                                                <label for="l" id="l" class="l">L
+                                                    <input type="radio" id="l">
+                                                </label>
+                                                <label for="xl" id="xl" class="xl">XL
                                                     <input type="radio" id="xl">
-                                                </label>
-                                                <label for="2xl">XL
-                                                    <input type="radio" id="2xl">
                                                 </label>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+                                <!-- 사이즈 카테고리 끝 -->
+                                <!-- 색상 카테고리 시작 -->
                                 <div class="card">
                                     <div class="card-heading">
                                         <a data-toggle="collapse" data-target="#collapseFive">Colors</a>
@@ -347,6 +269,7 @@ $(function(){
                                         </div>
                                     </div>
                                 </div>
+                                <!-- 색상 카테고리 끝 -->
                             </div>
                         </div>
                     </div>
@@ -377,6 +300,9 @@ $(function(){
                             </div>
                         </div>
                     </div>
+
+                    <!-- 상품 뿌려주는 곳 시작 -->
+                    <%-- <c:if test=""> --%>
                     <div class="row">
                     	<c:forEach var="prodList" items="${prodList}">
                         <div class="col-lg-4 col-md-6 col-sm-6">
@@ -406,7 +332,10 @@ $(function(){
                         </div>
                         </c:forEach>
                     </div>
+                    <%-- </c:if> --%>
+                    <!-- 상품 뿌려주는 곳 끝 -->
 
+                    <!-- 페이지 (페이징 처리) 시작 -->
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="product__pagination">
@@ -420,10 +349,12 @@ $(function(){
 									<c:if test="${prodDTO.endPage < prodDTO.pageCount }">
 									<a href="${pageContext.request.contextPath }
 									/product/shop?pageNum=${prodDTO.startPage + prodDTO.pageBlock}">&gt; &gt;</a>
-									</c:if>
+								</c:if>
                             </div>
                         </div>
                     </div>
+                    <!-- 페이지 (페이징 처리) 끝 -->
+
                 </div>
             </div>
         </div>
