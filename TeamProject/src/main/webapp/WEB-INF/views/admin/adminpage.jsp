@@ -43,8 +43,8 @@
                               />
                             </div>
                           </div>
-                          <span class="fw-semibold d-block mb-1">총 회원 수</span>
-                          <h2 class="card-title mb-2">000P</h2>
+                          <span class="fw-semibold d-block mb-1">총 회원</span>
+                          <h2 class="card-title mb-2">${totalMember}명</h2>
                           <small class="text-success fw-semibold"><i class="bx bx-up-arrow-alt"></i> +72.80%</small>
                         </div>
                       </div>
@@ -61,8 +61,8 @@
                               />
                             </div>
                           </div>
-                          <span class="fw-semibold d-block mb-1">일반 회원 수 / 업체 수</span>
-                          <h2 class="card-title mb-2">0 개</h2 >
+                          <span class="fw-semibold d-block mb-1">일반 회원 / 업체</span>
+                          <h2 class="card-title mb-2">${userCount}명 / ${compCount}명</h2 >
                           <small class="text-success fw-semibold"><i class="bx bx-up-arrow-alt"></i> +72.80%</small>
                         </div>
                       </div>

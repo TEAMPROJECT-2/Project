@@ -83,7 +83,7 @@
 						<a href="${pageContext.request.contextPath }/order/cart" class="mr-3  ml-3">장바구니</a> |
 			            <a href="${pageContext.request.contextPath }/basic/basic-badge-button" class="mr-3  ml-3">버튼</a>
 			            <a href="${pageContext.request.contextPath }/basic/basic-form">폼</a>
-			            <a href="${pageContext.request.contextPath }/basic/basic-menu-table">테이블</a></p>
+			            <a href="${pageContext.request.contextPath }/basic/basic-menu-table">테이블</a>
 
                     </div>
                     </div>

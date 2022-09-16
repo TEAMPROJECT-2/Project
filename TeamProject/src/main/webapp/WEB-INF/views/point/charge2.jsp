@@ -19,7 +19,7 @@ span {
 /* 	width: 40%; */
 /* 	height: 280px; */
 /* } */
-</style> 
+</style>
 </head>
 <body>
 <h2>포인트 충전</h2>
@@ -36,6 +36,7 @@ span {
                 <p  style="color: #ac2925; margin-top: 30px">최소 충전금액은 1,000원이며 <br/>최대 충전금액은 50,000원 입니다.</p>
                 <button type="button" class="btn btn-lg btn-block  btn-custom" id="charge">충 전 하 기</button>
 </body>
+</html>
 <script>
     $('#charge').click(function () {
         // getter
@@ -87,4 +88,3 @@ span {
         });
     });
 </script>
-</html>

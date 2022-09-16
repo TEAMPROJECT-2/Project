@@ -2,49 +2,8 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-  
+
 <mapper namespace="com.itwillbs.mappers.adminMapper">
 
-<!-- 회원가입 -->
-	<insert id="insertProd">
-		INSERT INTO PRODUCT_LIST(
-				    PROD_L_NUM
-				   ,PROD_L_TYPE
-           		   ,PROD_L_NM
-           		   ,PROD_L_PRICE
-           		   ,PROD_L_UPDATE
-            	   ,PROD_L_COMPNM
-           	 	   ,PROD_L_PRODIMG
-           		   ,PROD_L_DETAIL
-           		    ) 
-			 VALUES (
-			  		#{prodLNum},
-			  		#{prodLType},
-			  		#{prodLNm},
-			  		#{prodLPrice},
-			  		#{prodLUpdate},
-			  		#{prodLCompNm},
-			  		#{prodLProdImg},
-			  		#{ProdLDetail}
-			  		)
-			
-	</insert>
-	
-	<insert id="insertProdStock">
-		INSERT INTO PRODUCT_STOCK(
-			   		NUM
-				   ,PROD_S_PNUM
-				   ,PROD_S_COUNT 
-				    )
-			 VALUES (
-				    #{num}
-			       ,#{prodSPnum}
-			       ,#{prodSCount}
-			)
-	
-	</insert>
-	<select id="getMaxNum" resultType="java.lang.Integer">
-		select max(num) from PRODUCT_STOCK
-	</select>
 
 </mapper>

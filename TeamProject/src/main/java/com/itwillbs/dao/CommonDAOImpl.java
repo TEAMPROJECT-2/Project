@@ -21,10 +21,16 @@ public class CommonDAOImpl implements CommonDAO {
 	public List<CommonDTO> selectCommonList(CommonDTO commonDTO) {
 		return sqlSession.selectList(namespace+".selectCommonList",commonDTO);
 	}
-	
+
 	@Override
 	public CommonDTO selectCodeSearch(CommonDTO commonDTO) {
 		return sqlSession.selectOne(namespace+".selectCodeSearch",commonDTO);
 	}
-	
+
+	@Override
+	public int getCount(CommonDTO commonDTO) {
+		return sqlSession.selectOne(namespace+".getCount",commonDTO);
+	}
+
+
 }

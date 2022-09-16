@@ -24,16 +24,10 @@
 		</select>
 
 
-<!-- 수 세기 -->
-		<select id="getCount" resultType="com.itwillbs.domain.CommonDTO" parameterType="com.itwillbs.domain.CommonDTO">
-			SELECT *
-			  FROM projectdb.${tableNm}
-<!-- 			<if test="projectdb.${columnNm} != null and projectdb.${columnNm} != '' "> -->
-<!-- 			 WHERE projectdb.${columnNm} -->
-<!-- 			</if> -->
-		  ORDER BY projectdb.${columnNum} DESC
-		  	 LIMIT ${startRow}-1
-		  	 	 , ${pageSize}
+	<!-- 수 세기 -->
+		<select id="getCount" resultType="int">
+			SELECT	COUNT(*)
+			FROM	projectdb.${tableNm}
 		</select>
 
 </mapper>

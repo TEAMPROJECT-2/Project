@@ -49,6 +49,17 @@ h6 {
 	font-family: "Nunito Sans", sans-serif;
 }
 
+.popup {display: none; /*hide setting*/
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    width: 20%; /*가로길이 설정은 여기서*/
+    margin-left: -10%; /*width의 반만큼 음수로*/
+    height: 300px; /*세로길이 설정은 여기서*/
+    margin-top: -150px; /*height의 반만큼 음수로*/
+    z-index: 1000;
+}
+
 h1 {
 	font-size: 70px;
 }

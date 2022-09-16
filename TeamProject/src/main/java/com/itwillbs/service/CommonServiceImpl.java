@@ -19,10 +19,15 @@ public class CommonServiceImpl implements CommonService {
 	public List<CommonDTO> selectCommonList(CommonDTO commonDTO) {
 		return commonDAO.selectCommonList(commonDTO);
 	}
-	
+
 	@Override
 	public CommonDTO selectCodeSearch(CommonDTO commonDTO) {
 		return commonDAO.selectCodeSearch(commonDTO);
+	}
+
+	@Override
+	public int getCount(CommonDTO commonDTO) {
+		return commonDAO.getCount(commonDTO);
 	}
 
 }

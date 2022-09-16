@@ -14,10 +14,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.itwillbs.domain.CommonDTO;
+import com.itwillbs.domain.CompDTO;
 import com.itwillbs.domain.MemberDTO;
 import com.itwillbs.domain.ProdDTO;
 import com.itwillbs.domain.ProdStockDTO;
-import com.itwillbs.service.AdminService;
 import com.itwillbs.service.CommonService;
 import com.itwillbs.service.CompService;
 import com.itwillbs.service.MemberService;
@@ -30,12 +30,34 @@ public class AdminController {
 	@Inject
 	private CompService compService;
 	@Inject
-	private CommonService commonservice;
+	private CommonService commonService;
 
 	// 관리자 페이지
 	@RequestMapping(value = "/adminpage", method = RequestMethod.GET)
-	public String adminPage() {
-		return "admin/adminpage";
+	public ModelAndView list(HttpServletRequest req, HttpServletResponse res,
+							@ModelAttribute MemberDTO memberDTO,
+							@ModelAttribute CompDTO compDTO) throws Exception {
+		try {
+			ModelAndView mv = new ModelAndView();
+			// 일반 회원 수
+			CommonDTO commonDTO =  new CommonDTO();
+			commonDTO.setTableNm("USER_INFO"); 	// 기준 컬럼
+			int userCount = commonService.getCount(commonDTO);
+			mv.addObject("userCount", userCount);
+			mv.setViewName("admin/adminpage");
+			// 업체 수
+			commonDTO.setTableNm("COMPANY_INFO"); 	// 기준 컬럼
+			int compCount = commonService.getCount(commonDTO);
+			mv.addObject("compCount", compCount);
+			// 총 회원 수
+			int totalMember = userCount+compCount;
+			mv.addObject("totalMember",totalMember);
+			return mv;
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+
 	}
 
 	// 회원 리스트
@@ -95,31 +117,11 @@ public class AdminController {
 //		return "admin/userList";
 //	}
 
-	@RequestMapping(value = "/admin/insertProd", method = RequestMethod.GET)
-	public String adminInsertProd() {
-		return "admin/insertProd";
+	// 쿠폰 페이지
+	@RequestMapping(value = "/admin/coupon", method = RequestMethod.GET)
+	public String coupon() {
+		return "admin/coupon";
 	}
 
-	@RequestMapping(value = "/admin/deleteProd", method = RequestMethod.GET)
-	public String adminDeleteProd() {
-		return "admin/deleteProd";
-	}
-
-	@RequestMapping(value = "/admin/prodRefund", method = RequestMethod.GET)
-	public String adminProdRefund() {
-		return "admin/prodRefund";
-	}
-	@RequestMapping(value = "/admin/updateAccount", method = RequestMethod.GET)
-	public String adminupdateAccount() {
-		return "admin/updateAccount";
-	}
-	@RequestMapping(value = "/admin/prodList", method = RequestMethod.GET)
-	public String adminProdList() {
-		return "admin/prodList";
-	}
-	@RequestMapping(value = "/admin/ordList", method = RequestMethod.GET)
-	public String adminOrdList() {
-		return "admin/ordList";
-	}
 
 }
