@@ -1,14 +1,13 @@
 package com.itwillbs.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.itwillbs.domain.MemberDTO;
 import com.itwillbs.domain.PageDTO;
 import com.itwillbs.domain.PointDTO;
 
 public interface PointDAO {
-
-	void updatePoint(MemberDTO memberDTO);
 
 	PointDTO getMember(String userId);
 
@@ -19,5 +18,7 @@ public interface PointDAO {
 	Integer getMaxNum();
 
 	void insertMember(PointDTO pointDTO);
+
+	void insertChargePoint(Map<String, Object> sMap);
 
 }

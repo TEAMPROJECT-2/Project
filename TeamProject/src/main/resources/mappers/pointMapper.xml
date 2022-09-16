@@ -5,7 +5,7 @@
 
 <mapper namespace="com.itwillbs.mappers.pointMapper">
 	<insert id="insertMember">
-			insert into POINT(
+			INSERT INTO POINT(
 			 POINT_NUM
 			,USER_ID
 			,POINT_DATE
@@ -20,12 +20,6 @@
 	<select id="getMaxNum" resultType="java.lang.Integer">
 		SELECT MAX(POINT_NUM) FROM POINT
 	</select>
-
-	<update id="updatePoint">
-		UPDATE USER_INFO
-	       SET USER_POINT=#{userPoint}
-	     WHERE USER_ID	  =#{userId}
-	</update>
 
 
 	<select id="getMember" resultType="com.itwillbs.domain.PointDTO">
@@ -47,5 +41,24 @@
 	  ORDER BY POINT_NUM DESC LIMIT #{startRow}, #{pageSize}
 	</select>
 
-
+	<insert id="insertChargePoint">
+			INSERT INTO POINT(
+			 POINT_NUM
+			,USER_ID
+			,POINT_DATE
+			,POINT_TYPE
+			,POINT_NOW
+			,POINT_CHARGE
+			) 
+		values(
+			 (SELECT A.POINTNUM
+			    FROM (SELECT MAX(POINT_NUM) + 1 AS POINTNUM
+			    	    FROM POINT) A)
+			,#{userId}
+			,#{pointDate}
+			,#{pointType}
+			,#{pointNow}
+			,#{pointCharge}
+			)
+	</insert>
 </mapper>

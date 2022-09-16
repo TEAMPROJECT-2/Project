@@ -48,7 +48,6 @@ span {
         IMP.request_pay({
             pg: 'html5_inicis',
             merchant_uid: 'point' + new Date().getTime(),
-
             name: '핏티드 포인트 충전',
             amount: money,
             buyer_name: '${memberDTO.userNm}',
@@ -63,18 +62,14 @@ span {
                 msg += '결제 금액 : ' + rsp.paid_amount;
                 msg += '카드 승인번호 : ' + rsp.apply_num;
                 $.ajax({
-                    url: "${pageContext.request.contextPath }/point/chargePro", //충전 금액값을 보낼 url 설정
+                    url: "insertChargePoint", //충전 금액값을 보낼 url 설정
                     type: "POST", 
-                    headers: { "Content-Type": "application/json" },
 		        	dataType:"json",
 		        	data: {
-		        		pointNum : rsp.merchant_uid,
-		            	userId : '${pointDTO.userId}',
-		            	pointType : "포인트 충전",
-		            	pointDate : rsp.paid_at,
-		            	pointNow : '${pointDTO.pointNow}' + rsp.paid_amount,
-		            	pointUsed : '${pointDTO.pointUsed}',
-						pointCharge : rsp.paid_amount
+		            	'userId' : '${pointDTO.userId}',
+		            	'pointType' : 's{pointType}',
+		            	'pointNow' : '${pointDTO.pointNow}' + 'money',
+						'pointCharge' : 'money'
 		        	},
 		            contentType:"application/json; charset=utf-8"
                 });
@@ -83,8 +78,9 @@ span {
                 msg += '에러내용 : ' + rsp.error_msg;
             }
             alert(msg);
+            location.href="${pageContext.request.contextPath }/main/main"; //alert창 확인 후 이동할 url 설정
             window.close();
-            //location.href="${pageContext.request.contextPath }/main/main"; //alert창 확인 후 이동할 url 설정
         });
     });
 </script>
+
