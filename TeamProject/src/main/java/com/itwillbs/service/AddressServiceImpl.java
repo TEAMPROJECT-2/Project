@@ -1,7 +1,5 @@
 package com.itwillbs.service;
 
-import java.util.List;
-
 import javax.inject.Inject;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,11 +36,7 @@ public class AddressServiceImpl implements AddressService {
 		return addressDAO.getAddress(userId);
 	}
 
-	@Override
-	public List<AddressDTO> getAddressList(String userId) {
-		
-		return addressDAO.getAddressList(userId);
-	}
+
 	
 	
 	

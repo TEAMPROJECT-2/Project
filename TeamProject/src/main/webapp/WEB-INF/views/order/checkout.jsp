@@ -4,6 +4,7 @@
 <%@page import="com.itwillbs.domain.OrderDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js" ></script>
 <script type="text/javascript"
 	src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <script type="text/javascript"
@@ -16,6 +17,56 @@
 
 </head>
 <body>
+<script type="text/javascript">
+
+  $(function(){
+
+	    $("#addressGetPhone").on('keydown', function(e){
+	       // 숫자만 입력받기
+	        var trans_num = $(this).val().replace(/-/gi,'');
+		var k = e.keyCode;
+					
+		if(trans_num.length >= 11 && ((k >= 48 && k <=126) || (k >= 12592 && k <= 12687 || k==32 || k==229 || (k>=45032 && k<=55203)) ))
+		{
+	  	    e.preventDefault();
+		}
+	    }).on('blur', function(){ // 포커스를 잃었을때 실행합니다.
+	        if($(this).val() == '') return;
+
+	        // 기존 번호에서 - 를 삭제합니다.
+	        var trans_num = $(this).val().replace(/-/gi,'');
+	      
+	        // 입력값이 있을때만 실행합니다.
+	        if(trans_num != null && trans_num != '')
+	        {
+	            // 총 핸드폰 자리수는 11글자이거나, 10자여야 합니다.
+	            if(trans_num.length==11 || trans_num.length==10) 
+	            {   
+	                // 유효성 체크
+	                var regExp_ctn = /^(01[016789]{1}|02|0[3-9]{1}[0-9]{1})([0-9]{3,4})([0-9]{4})$/;
+	                if(regExp_ctn.test(trans_num))
+	                {
+	                    // 유효성 체크에 성공하면 하이픈을 넣고 값을 바꿔줍니다.
+	                    trans_num = trans_num.replace(/^(01[016789]{1}|02|0[3-9]{1}[0-9]{1})-?([0-9]{3,4})-?([0-9]{4})$/, "$1-$2-$3");                  
+	                    $(this).val(trans_num);
+	                }
+	                else
+	                {
+	                    alert("유효하지 않은 전화번호 입니다.");
+	                    $(this).val("");
+	                    $(this).focus();
+	                }
+	            }
+	            else 
+	            {
+	                alert("유효하지 않은 전화번호 입니다.");
+	                $(this).val("");
+	                $(this).focus();
+	            }
+	      }
+	  });  
+	});
+  </script>
 
 	<script type="text/javascript">
 		var path = "${pageContext.request.contextPath }";
@@ -33,9 +84,8 @@
 
 
 	<script>
-
+	
 	function iamport(){
-
         var amount = '${total}';
         //- '${prePayment}' - $('#usePoint').val();
         //가맹점 식별코드
@@ -51,8 +101,8 @@
             buyer_tel : '${memberDTO.userPhone}',
         }, function(rsp) {
            console.log(rsp);
-
-
+           
+           
 //              var reservation = {
 //                 reservationNum: rsp.merchant_uid,
 //                    checkin: '${date1}',
@@ -62,12 +112,12 @@
 //                    userid: '${user.userId}',
 //                    pensionid: '${pension.pensionid}'
 //                    };
-
+                   
             if (rsp.success) {
                 var msg = '결제가 완료되었습니다.';
                 console.log(reservation);
                 alert(msg);
-
+              
                 $.ajax({
                     url: "/verifyIamport/" + rsp.imp_uid,
                    type: "POST",
@@ -76,7 +126,7 @@
                    dataType:"json",
                     contentType:"application/json; charset=utf-8"
                 })
-
+              
                 location.href = '${pageContext.request.contextPath}/mypage/order';
             } else {
               var msg = rsp.error_msg;
@@ -117,7 +167,7 @@
   </script>
 
 <script>
-
+ 
             function itemSum() {
                 var str = "";
                 var sum = 0;
@@ -129,7 +179,7 @@
                 $("#total_sum").html(sum + " 원");
                 $("#amount").val(sum);
             }
-
+ 
         </script>
 
 	<!-- 메뉴단 -->
@@ -143,7 +193,7 @@
 			<div class="row">
 				<div class="col-lg-12">
 					<div class="breadcrumb__text">
-						<h4>Check Out</h4>
+						<h4>상품 주문</h4>
 						<div class="breadcrumb__links">
 							<a href="./index.html">Home</a> <a href="./shop.html">Shop</a> <span>Check
 								Out</span>
@@ -193,48 +243,99 @@
 									<!--// 회원일때 -->
 
 
-									<form name="fr123" action="#">
 										<div class="list-head-sub">
 
 											<h3 class="title-list">배송지 정보</h3>
 
+					<c:if test="${addressDTO.address ne null }">
+										<form name="updateAddressPro2"
+						class=form-update
+							action="${pageContext.request.contextPath }/order/updateAddressPro2"
+							method="post" >
+					</c:if>
+                    
+                       <c:if test="${addressDTO.address eq null }">
+						<form name="insertAddress2" action="${pageContext.request.contextPath }/order/insertAddress2" method="post">
+						</c:if>
+                        <div class="row">
+                          <div class="mb-3 col-md-6">
+                            <label for="userNm" class="form-label">받는 분</label>
+                            <input class="form-control form-control-lg" type="text" name="addressGetNm" id="addressGetNm" value="${addressDTO.addressGetNm}"/>
+                          </div>
+                          <div class="mb-3 col-md-6">
+                            <label for="userPhone" class="form-label" >연락처</label>
+                            <input class="form-control form-control-lg" type="text" name="addressGetPhone" id="addressGetPhone" maxlength="11" value="${addressDTO.addressGetPhone}" />
+                          </div>
+                          <div class="mb-3 col-md-3">
+                            <label for="userNicknm" class="form-label">우편번호</label>
+                            <input class="form-control form-control-lg" type="text" name="addressZipcode" id="addressZipcode"  value="${addressDTO.addressZipcode}" readonly/>
+                          </div>
+                          <div class="mb-3 col-md-7">
+                            <label for="userNicknm" class="form-label">주소</label>
+                            <input class="form-control form-control-lg" type="text" name="address" id="address"  value="${addressDTO.address}" readonly/>
+                          </div>
+                          <div class="mb-3 col-md-2">
+                          	<button type="button" class="btn btn-outline-primary me-2" onclick="sample6_execDaumPostcode();" style="margin-top: 1.8rem; height:60%">주소 검색</button>
+                          </div>
+                          <div class="mb-3 col-md-12">
+                            <label for="userNicknm" class="form-label">상세주소</label>
+                            <input class="form-control form-control-lg" type="text" name="addressDetails" id="addressDetails"  value="${addressDTO.addressDetails}"/>
+                          </div>
+                        </div>
+                        
+                        <div class="mt-3" id="mt-3" name="mt-3">
+                         <c:if test="${addressDTO.address ne null }">
+                          <button type="submit" class="btn btn-primary me-2">배송지 수정</button>
+                          <button type="reset" class="btn btn-outline-secondary">취소</button>
+                      </form>
+                      </c:if>
+                      <c:if test="${addressDTO.address eq null }">
+                          <button type="submit" class="btn btn-primary me-2">배송지 입력</button>
+                          <button type="reset" class="btn btn-outline-secondary">취소</button>
+                      </form>
+                      </c:if>
+                        </div>
+                      
+                    </div>
 
-											<!-- 회원일때 -->
-											<div class="aaaaaaaaaaaaaaaaaaaaa">
 
 
 
-												<table>
-													<colgroup>
-														<col style="width: 115px">
-														<col>
-													</colgroup>
-													<tbody>
-														<tr>
-															<th scope="row">받는분</th>
-															<td><input type=text name="addressGetNm123"
-																value="${addressDTO.addressGetNm}"></td>
-														</tr>
-														<tr>
-															<th scope="row">주소</th>
-															<td>${addressDTO.address}
-																&nbsp;${addressDTO.addressDetails}</td>
-														</tr>
-														<tr>
-															<th scope="row">휴대전화</th>
-															<td>${addressDTO.addressGetPhone}</td>
-														</tr>
-													</tbody>
-												</table>
-											</div>
-									</form>
+<!-- 											회원일때 -->
+<!-- 											<div class="aaaaaaaaaaaaaaaaaaaaa"> -->
 
-									<div class="text-center">
-										<a href="javascript:void(0);"
-											onclick="resOpenPopup();return false;"
-											class="btn btn-outline-primary">배송지 수정</a>
-									</div>
-								</div>
+
+
+<!-- 												<table> -->
+<%-- 													<colgroup> --%>
+<%-- 														<col style="width: 115px"> --%>
+<%-- 														<col> --%>
+<%-- 													</colgroup> --%>
+<!-- 													<tbody> -->
+<!-- 														<tr> -->
+<!-- 															<th scope="row">받는분</th> -->
+<!-- 															<td><input type=text name="addressGetNm123" -->
+<%-- 																value="${addressDTO.addressGetNm}"></td> --%>
+<!-- 														</tr> -->
+<!-- 														<tr> -->
+<!-- 															<th scope="row">주소</th> -->
+<%-- 															<td>${addressDTO.address} --%>
+<%-- 																&nbsp;${addressDTO.addressDetails}</td> --%>
+<!-- 														</tr> -->
+<!-- 														<tr> -->
+<!-- 															<th scope="row">휴대전화</th> -->
+<%-- 															<td>${addressDTO.addressGetPhone}</td> --%>
+<!-- 														</tr> -->
+<!-- 													</tbody> -->
+<!-- 												</table> -->
+<!-- 											</div> -->
+
+<!-- 									<div class="text-center"> -->
+<!-- 										<a href="javascript:void(0);" -->
+<!-- 											onclick="resOpenPopup();return false;" -->
+<!-- 											class="btn btn-outline-primary">배송지 수정</a> -->
+<!-- 									</div> -->
+<!-- 								</div> -->
 
 
 								<div class="order-info">
@@ -323,7 +424,7 @@
 									<p>
 										배송시 요구사항<span>*</span>
 									</p>
-									<input type="checkbo x" placeholder="메세지를 입력하세요.">
+									<input type="checkbo x" placeholder="메세지를 입력하세요."> 
 								</div>
 							</div>
 
@@ -344,26 +445,26 @@
 											<li>${basketDTO.sbProdPrice *basketDTO.sbCount }원</li>
 										</ul>
 									</c:forEach>
+									
+									
+			
+<%-- 									<c:set var = "total" value = "0" /> --%>
 
-
-
-									<c:set var = "total" value = "0" />
-
-									<c:forEach var="basketDTO" items="${basketList}" varStatus="status">
-
-									<c:set var= "total" value="${total + (basketDTO.sbProdPrice *basketDTO.sbCount)}"/>
-
-									</c:forEach>
-
-
-
-
-
+<%-- 									<c:forEach var="basketDTO" items="${basketList}" varStatus="status">      --%>
+									
+<%-- 									<c:set var= "total" value="${total + (basketDTO.sbProdPrice *basketDTO.sbCount)}"/> --%>
+									
+<%-- 									</c:forEach> --%>
+									
+									
+									
+									
+									
 									<ul class="checkout__total__all">
 										<li>할인 금액<span>0000원</span></li>
 										<li>Total <span>${total}원</span></li>
 									</ul>
-
+									
 <!-- 									<div class="checkout__input__checkbox"> -->
 <!-- 										<label for="payment"> 신용카드/무통장입금 사항 선택해도 되고 <input -->
 <!-- 											type="checkbox" id="payment"> <span class="checkmark"></span> -->
@@ -387,6 +488,36 @@
 	<!-- Footer Section Begin -->
 	<jsp:include page="../inc/footer.jsp" />
 </body>
+
+	<script
+		src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	<script>
+		function sample6_execDaumPostcode() {
+			new daum.Postcode(
+					{
+						oncomplete : function(data) {
+							// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+							// 각 주소의 노출 규칙에 따라 주소를 조합한다.
+							// 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+							var addr = ''; // 주소 변수
+
+							//사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+							if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+								addr = data.roadAddress;
+							} else { // 사용자가 지번 주소를 선택했을 경우(J)
+								addr = data.jibunAddress;
+							}
+							// 우편번호와 주소 정보를 해당 필드에 넣는다.
+							document.getElementById('addressZipcode').value = data.zonecode;
+							document.getElementById("address").value = addr;
+							// 커서를 상세주소 필드로 이동한다.
+							document.getElementById("addressDetails").value = "";
+							document.getElementById("addressDetails").focus();
+						}
+					}).open();
+		}
+	</script>
 
 
 <!-- jQuery -->

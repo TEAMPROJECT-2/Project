@@ -31,16 +31,14 @@ public class AddressController {
 
 
 
-	@RequestMapping(value = "/order/changeAddress", method = RequestMethod.GET)
-	public String changeAddress(HttpSession session, Model model) {
-		String userId = (String) session.getAttribute("userId");
-		List<AddressDTO> addressDTOList = addressService.getAddressList(userId);
-		MemberDTO memberDTO = memberService.getMember(userId);
-		model.addAttribute("addressDTOList", addressDTOList);
-		model.addAttribute("memberDTO", memberDTO);
-		
-		return "order/changeAddress";
-	}
+//	@RequestMapping(value = "/order/changeAddress", method = RequestMethod.GET)
+//	public String changeAddress(HttpSession session, Model model) {
+//		String userId = (String) session.getAttribute("userId");
+//		MemberDTO memberDTO = memberService.getMember(userId);
+//		model.addAttribute("memberDTO", memberDTO);
+//		
+//		return "order/changeAddress";
+//	}
 
 	@RequestMapping(value = "/order/changeAddressPro", method = RequestMethod.POST)
 	public String changeAddressPro(@ModelAttribute AddressDTO addressDTO, HttpSession session) {
@@ -57,7 +55,15 @@ public class AddressController {
 		String userId = (String) session.getAttribute("userId");
 		addressDTO.setUserId(userId);
 		addressService.insertAddress(addressDTO);
-		return "redirect:changeAddress";
+		return "redirect:/mypage/addr";
+	}
+	
+	@RequestMapping(value = "/order/insertAddress2", method = RequestMethod.POST)
+	public String insertAddress2(AddressDTO addressDTO, HttpSession session) {
+		String userId = (String) session.getAttribute("userId");
+		addressDTO.setUserId(userId);
+		addressService.insertAddress(addressDTO);
+		return "/order/checkout";
 	}
 
 	@RequestMapping(value = "/order/updateAddress", method = RequestMethod.GET)
@@ -68,7 +74,7 @@ public class AddressController {
 		model.addAttribute("addressDTO", addressDTO);
 		model.addAttribute("memberDTO", memberDTO);
 
-		return "order/updateAddress";
+		return "mypage/userAddress";
 	}
 
 	@RequestMapping(value = "/order/updateAddressPro", method = RequestMethod.POST)
@@ -79,7 +85,18 @@ public class AddressController {
 		System.out.println(addressDTO.getUserId());
 		addressService.updateAddress(addressDTO);
 
-		return "redirect:updateAddress";
+		return "redirect:/mypage/addr";
+	}
+	
+	@RequestMapping(value = "/order/updateAddressPro2", method = RequestMethod.POST)
+	public String updateAddressPro2(AddressDTO addressDTO, HttpSession session) {
+		String userId = (String) session.getAttribute("userId");
+		addressDTO.setUserId(userId);
+		System.out.println(addressDTO.getAddress());
+		System.out.println(addressDTO.getUserId());
+		addressService.updateAddress(addressDTO);
+		
+		return "redirect:/order/checkout";
 	}
 	
 	@RequestMapping(value = "/mypage/addr", method = RequestMethod.GET)
