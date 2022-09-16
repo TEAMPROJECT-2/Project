@@ -25,27 +25,27 @@ src="${pageContext.request.contextPath }/resources/js/jquery-3.6.0.js" ></script
 				}
 				if($("#newPass1").val()==""){
 					alert("새 비밀번호를 입력해주세요");
-					$("#newPass1").focus();
+					$("#newPass").focus();
 					return false;
 				}
 				if($("#newPass2").val()==""){
 					alert("새 비밀번호를 확인해주세요");
-					$("#newPass2").focus();
+					$("#newPass1").focus();
 					return false;
 				}
 				if ($("#newPass").val() != $("#newPass1").val()) {
 					alert("새 비밀번호가 일치하지 않습니다.");
-					$("#newPass2").focus();
+					$("#newPass1").focus();
 					return false;
 				}
 
 				$.ajax({
 					url : "${pageContext.request.contextPath}/mypage/passCheck",
 					type : "POST",
-					data : {'userId':$('#userId1').val(),'userPass':$('#passModForm').val()},
+					data : {'userId':$('#userId').val(),'userPass':$('#passModForm').val()},
 					success: function(rdata){
 
-						if(rdata=="ok"){
+						if(rdata=="no"){
 							alert("패스워드가 틀렸습니다.");
 							return;
 						}else{
