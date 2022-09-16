@@ -12,10 +12,12 @@ public interface PointDAO {
 
 	PointDTO getMember(String userId);
 
-	void insertPoint(PointDTO pointDTO) throws Exception;
-
 	int getPointCount();
 
 	List<PointDTO> getPointList(PageDTO pageDTO);
+
+	Integer getMaxNum();
+
+	void insertMember(PointDTO pointDTO);
 
 }

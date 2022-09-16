@@ -1,5 +1,6 @@
 package com.itwillbs.service;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -28,11 +29,6 @@ public class PointServiceImpl implements PointService {
 	}
 
 	@Override
-	public void insertPoint(PointDTO pointDTO) throws Exception {
-		pointDAO.insertPoint(pointDTO);
-	}
-
-	@Override
 	public int getPointCount() {
 		return pointDAO.getPointCount();
 	}
@@ -48,6 +44,20 @@ public class PointServiceImpl implements PointService {
 		pageDTO.setStartRow(startRow-1);
 		pageDTO.setEndRow(endRow);
 		return pointDAO.getPointList(pageDTO);
+	}
+
+	@Override
+	public void insertMember(PointDTO pointDTO) {
+		pointDTO.setPointDate(new Timestamp(System.currentTimeMillis()));
+		
+		// max(num)+1
+		if(pointDAO.getMaxNum()==null) {
+			pointDTO.setPointNum(1);
+		}else {
+			pointDTO.setPointNum(pointDAO.getMaxNum()+1);
+		}
+		
+		pointDAO.insertMember(pointDTO);
 	}
 
 }

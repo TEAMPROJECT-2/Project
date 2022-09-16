@@ -34,12 +34,6 @@ public class PointDAOImpl implements PointDAO {
 
 
 	@Override
-	public void insertPoint(PointDTO pointDTO)  throws Exception {
-		sqlSession.insert(namespace + ".insertPoint", pointDTO);
-	}
-
-
-	@Override
 	public int getPointCount() {
 		return sqlSession.selectOne(namespace+".getPointCount");
 	}
@@ -48,6 +42,18 @@ public class PointDAOImpl implements PointDAO {
 	@Override
 	public List<PointDTO> getPointList(PageDTO pageDTO) {
 		return sqlSession.selectList(namespace+".getPointList",pageDTO);
+	}
+
+
+	@Override
+	public Integer getMaxNum() {
+		return sqlSession.selectOne(namespace+".getMaxNum");
+	}
+
+
+	@Override
+	public void insertMember(PointDTO pointDTO) {
+		sqlSession.insert(namespace+".insertMember", pointDTO);
 	}
 
 }

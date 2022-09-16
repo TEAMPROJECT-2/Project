@@ -12,11 +12,11 @@ public interface PointService {
 
 	PointDTO getMember(String userId);
 
-	void insertPoint(PointDTO pointDTO) throws Exception;
-
 	int getPointCount();
 
 	List<PointDTO> getPointList(PageDTO pageDTO);
+
+	void insertMember(PointDTO pointDTO);
 
 
 }

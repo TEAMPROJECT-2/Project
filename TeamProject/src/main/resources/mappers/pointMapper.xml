@@ -4,7 +4,22 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.itwillbs.mappers.pointMapper">
+	<insert id="insertMember">
+			insert into POINT(
+			 POINT_NUM
+			,USER_ID
+			,POINT_DATE
+			) 
+		values(
+		     #{pointNum}
+			,#{userId}
+			,#{pointDate}
+			)
+	</insert>
 
+	<select id="getMaxNum" resultType="java.lang.Integer">
+		SELECT MAX(POINT_NUM) FROM POINT
+	</select>
 
 	<update id="updatePoint">
 		UPDATE USER_INFO
@@ -28,7 +43,7 @@
 	<select id="getPointList" resultType="com.itwillbs.domain.PointDTO">
 		SELECT * 
 		  FROM POINT
- WHERE USER_ID= #{userId} 
+ 		 WHERE USER_ID= #{userId} 
 	  ORDER BY POINT_NUM DESC LIMIT #{startRow}, #{pageSize}
 	</select>
 
