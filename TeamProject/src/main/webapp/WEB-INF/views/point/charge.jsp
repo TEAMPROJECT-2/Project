@@ -19,7 +19,7 @@ span {
 /* 	width: 40%; */
 /* 	height: 280px; */
 /* } */
-</style> 
+</style>
 </head>
 <body>
 <h2>포인트 충전</h2>
@@ -61,14 +61,11 @@ span {
                 msg += '결제 금액 : ' + rsp.paid_amount;
                 msg += '카드 승인번호 : ' + rsp.apply_num;
                 $.ajax({
-<<<<<<< HEAD
                     url: "${pageContext.request.contextPath }/point/chargePro", //충전 금액값을 보낼 url 설정
                     type: "POST",
                     headers: { "Content-Type": "application/json" },
-=======
                     url: "insertChargePoint", //충전 금액값을 보낼 url 설정
-                    type: "POST", 
->>>>>>> refs/remotes/origin/main
+                    type: "POST",
 		        	dataType:"json",
 		        	data: {
 		            	'userId' : '${pointDTO.userId}',
@@ -88,8 +85,5 @@ span {
         });
     });
 </script>
-<<<<<<< HEAD
 </html>
-=======
 
->>>>>>> refs/remotes/origin/main

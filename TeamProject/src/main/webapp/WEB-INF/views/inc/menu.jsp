@@ -15,6 +15,7 @@
 	rel="stylesheet">
 
 	<!-- Css Styles -->
+	<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/popup-charge.css" type="text/css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/bootstrap.min.css" type="text/css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/font-awesome.min.css" type="text/css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/elegant-icons.css" type="text/css">
@@ -24,6 +25,22 @@
 	<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/slicknav.min.css" type="text/css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath }/resources/css/style.css" type="text/css">
 
+	<!-- JS -->
+	<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
+	<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+	<script type="text/javascript">
+	// 팝업 띄우기
+	function openPop() {
+	    document.getElementById("popup_layer").style.display = "block";
+
+	}
+	// 팝업 닫기
+	function closePop() {
+	    document.getElementById("popup_layer").style.display = "none";
+	}
+	</script>
+
+	<!-- CSS -->
 	<style>
 	#searchMain {
 		border: none;
@@ -74,12 +91,7 @@
                 <div class="col-lg-6 col-md-7">
                     <div class="header__top__left">
                      <div class="offcanvas__links">
-						<a href="javascript:openPopup('${pageContext.request.contextPath }/point/charge');" class="mr-3 ml-3" >포인트 충전</a> |
-						 <script type="text/javascript">
-						 	function openPopup() {
-						 		window.open('${pageContext.request.contextPath }/point/charge', target='_blank', width='100', height='138');
-							}
-						 </script>
+						<a href="javascript:openPop();" class="mr-3 ml-3" >포인트 충전</a> |
 						<a href="${pageContext.request.contextPath }/order/cart" class="mr-3  ml-3">장바구니</a> |
 			            <a href="${pageContext.request.contextPath }/basic/basic-badge-button" class="mr-3  ml-3">버튼</a>
 			            <a href="${pageContext.request.contextPath }/basic/basic-form">폼</a>
@@ -154,13 +166,6 @@
                     <ul>
                         <li><a href="${pageContext.request.contextPath }/product/shop">스토어</a></li>
                         <li><a href="${pageContext.request.contextPath }/board/list">커뮤니티</a></li>
-<!--                         <li class="active"><a href="#">커뮤니티</a> -->
-<!--                                <ul class="dropdown"> -->
-<!--                                 <li><a href="../shopping-cart.html">게시판1</a></li> -->
-<!--                                 <li><a href="../checkout.html">게시판2</a></li> -->
-<!--                                 <li><a href="../blog-details.html">게시판2</a></li> -->
-<!--                             </ul> -->
-<!--                         </li> -->
                         <li><a href="../contact.html">이벤트</a></li>
                     </ul>
                 </nav>
@@ -168,4 +173,108 @@
         </div>
         <div class="canvas__open"><i class="fa fa-bars"></i></div>
     </div>
+
+
+    <!--팝업 레이어 영역-->
+    <div class="popup_layer" id="popup_layer" style="display: none;">
+  	<div class="popup_box">
+      <div style="height: 10px; width: 375px; float: top;">
+        <a href="javascript:closePop();"><img src="${pageContext.request.contextPath }/resources/img/icon/ic_close.svg" class="m_header-banner-close" width="30px" height="30px"></a>
+     </div>
+   <!--팝업 컨텐츠 영역-->
+      <div class="popup_cont">
+		<h2>포인트 충전</h2>
+		<p>		</p>
+			<table class="table table-sm">
+				<tr>
+					<td>
+						<label class="box-radio-input"><input type="radio" name="cp_item" value="1000"><span> 1,000원</span></label>
+					</td>
+					<td>
+						<label class="box-radio-input"><input type="radio" name="cp_item" value="5000"><span> 5,000원</span></label>
+					</td>
+					<td>
+		                <label class="box-radio-input"><input type="radio" name="cp_item" value="20000"><span> 20,000원</span></label>
+					</td>
+				</tr>
+				<tr>
+					<td>
+		                <label class="box-radio-input"><input type="radio" name="cp_item" value="25000"><span> 25,000원</span></label>
+					</td>
+					<td>
+                		<label class="box-radio-input"><input type="radio" name="cp_item" value="30000"><span> 30,000원</span></label>
+					</td>
+					<td>
+               			<label class="box-radio-input"><input type="radio" name="cp_item" value="35000"><span> 35,000원</span></label>
+					</td>
+				</tr>
+				<tr>
+					<td>
+		                <label class="box-radio-input"><input type="radio" name="cp_item" value="40000"><span> 40,000원</span></label>
+					</td>
+					<td>
+                		<label class="box-radio-input"><input type="radio" name="cp_item" value="50000"><span> 50,000원</span></label>
+					</td>
+					<td>
+					</td>
+				</tr>
+			</table>
+                <p  style="color: #ac2925; margin-top: 30px">최소 충전 금액은 1,000원이며 <br/>최대 충전 금액은 50,000원 입니다.</p>
+    	</div>
+                <button type="button" class="btn btn-lg btn-block btn-custom popup_btn" id="charge">충 전 하 기</button>
+</div>
+</div>
+
+<!-- 아임포트 API -->
+<script>
+    $('#charge').click(function () {
+        // getter
+        var IMP = window.IMP;
+        IMP.init('imp27865884');
+        var money = $('input[name="cp_item"]:checked').val();
+        console.log(money);
+
+        IMP.request_pay({
+            pg: 'html5_inicis',
+            merchant_uid: 'point' + new Date().getTime(),
+
+            name: '핏티드 포인트 충전',
+            amount: money,
+            buyer_name: '${memberDTO.userNm}',
+            buyer_tel: '${memberDTO.userPhone}'
+        }, function (rsp) {
+            console.log(rsp);
+
+            if (rsp.success) {
+                var msg = '결제가 완료되었습니다.';
+                msg += '고유 ID : ' + rsp.imp_uid;
+                msg += '상점 거래ID : ' + rsp.merchant_uid;
+                msg += '결제 금액 : ' + rsp.paid_amount;
+                msg += '카드 승인번호 : ' + rsp.apply_num;
+                $.ajax({
+                    url: "${pageContext.request.contextPath }/point/chargePro", //충전 금액값을 보낼 url 설정
+                    type: "POST",
+                    headers: { "Content-Type": "application/json" },
+		        	dataType:"json",
+		        	data: {
+		        		pointNum : rsp.merchant_uid,
+		            	userId : '${pointDTO.userId}',
+		            	pointType : "포인트 충전",
+		            	pointDate : rsp.paid_at,
+		            	pointNow : '${pointDTO.pointNow}' + rsp.paid_amount,
+		            	pointUsed : '${pointDTO.pointUsed}',
+						pointCharge : rsp.paid_amount
+		        	},
+		            contentType:"application/json; charset=utf-8"
+                });
+            } else {
+                var msg = '결제에 실패하였습니다.';
+                msg += '에러내용 : ' + rsp.error_msg;
+            }
+            alert(msg);
+            closePop();
+            //location.href="${pageContext.request.contextPath }/main/main"; //alert창 확인 후 이동할 url 설정
+        });
+    });
+</script>
 </header>

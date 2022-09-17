@@ -76,6 +76,7 @@
 					 ,ORD_L_QUANTITY
 					 ,ORD_L_PRICE
 					 ,ORD_L_DATE
+					 ,ORD_L_COUNUMCOUDC
 				   )
 			VALUES(
 				  (SELECT ORD_NUM
@@ -86,6 +87,7 @@
 				   ,#{sbCount}
 				   ,#{sbProdPrice}
 				   ,#{shoppingBasketDate}
+				   ,#{ordLCounumcoudc}
 				    )
 
 	</insert>
@@ -95,4 +97,26 @@
 	   	     WHERE  SB_PROD_CODE=#{sbProdCode}
 	   	     AND    SB_USER=#{sbUser}
 	</delete>
+<!-- 	수량변경시 디비 인서트 -->
+	<update id="updateBasket">
+		UPDATE  SHOPPING_BASKET
+		   SET  SB_COUNT    =#{sbCount}
+	     WHERE  SB_USER     =#{sbUser}
+	       AND	SB_PROD_CODE =#{sbProdCode}
+	</update>
+<!-- 	쿠폰 갖고오기 -->
+
+	<select  id="selectCouponList" resultType="com.itwillbs.domain.CouponDTO" parameterType="com.itwillbs.domain.CouponDTO">
+			SELECT 	  NUM
+					 ,COU_USER_NM
+					 ,COU_NUM
+					 ,COU_NM
+					 ,COU_DC
+					 ,COU_YN
+					 ,COU_DATE
+					 ,CONCAT(COU_NUM,'_',COU_DC) as couNumCouDc
+			  FROM 	 COUPON
+			 WHERE 	 COU_USER_NM =#{couUserNm}
+		</select>
+
 </mapper>

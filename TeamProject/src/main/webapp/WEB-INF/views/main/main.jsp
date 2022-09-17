@@ -462,11 +462,6 @@
   })();
   ChannelIO('boot', {
     "pluginKey": "f88963ba-cfd2-4f1a-bc5f-bd77a957f68b", //please fill with your plugin key
-    "memberId": "userId", //fill with user id
-    "profile": {
-      "name": "userNm", //fill with user name
-      "mobileNumber": "userPhone", //fill with user phone number
-    }
   });
 </script>
 <!-- End Channel Plugin -->
