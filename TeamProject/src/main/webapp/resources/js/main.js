@@ -160,6 +160,9 @@
     /*-------------------
 		Quantity change
 	--------------------- */
+
+
+
     var proQty = $('.pro-qty');
     proQty.prepend('<span class="fa fa-angle-up dec qtybtn"></span>');
     proQty.append('<span class="fa fa-angle-down inc qtybtn"></span>');
@@ -182,7 +185,9 @@
     var proQty = $('.pro-qty-2');
     proQty.prepend('<span class="fa fa-angle-left dec qtybtn"></span>');
     proQty.append('<span class="fa fa-angle-right inc qtybtn"></span>');
-    proQty.on('click', '.qtybtn', function () {
+    proQty.on('click', '.qtybtn', function(){
+		var myCouponDC =document.getElementById('myCouponList');
+		var myCouponDC1 = myCouponDC.options[myCouponDC.selectedIndex].value.split('_')[1]; // 옵션 value값
 
         var $button = $(this);
         var oldValue = $button.parent().find('input').val();
@@ -198,20 +203,52 @@
             }
         }
         $button.parent().find('input').val(newVal);
-        var price = $('#price_' + index).val();
-        var total = newVal * price;
-        $('#total_' + index).text(total);
+        var price = $('#price_' + index).val(); // 개별 가격
 
-		var totalSum = 0;
+        var total = newVal * price ; // 개별 가격 * 새로 바뀐 수량
+		var total = new Intl.NumberFormat('ko-KR', { style: 'currency', currency: 'KRW' }).format(total); // 원으로 바꾸기
+        $('#total_' + index).text(total); // total에 뿌려주기
 
+
+		var totalSum = 0;  // 총 합계 구하기
+		var itemDC = 0; // 할인 가격
 		for(var i = 0; i < $('.total').length ; i++){
-			totalSum += parseInt($('.total')[i].textContent)
+			totalSum += parseInt($('.total')[i].textContent.replace(/[^0-9]/g,''));
 		}
-		var totalSum = new Intl.NumberFormat('ko-KR', { style: 'currency', currency: 'KRW' }).format(totalSum);
-		$("#itemTotalPrice").html(totalSum);
+
+		if(myCouponDC1!=0){ // 할인율이 0이 아닐때 계산
+			itemDC=totalSum - totalSum * myCouponDC1;
+			totalSum=totalSum * myCouponDC1;
+		}
+		var totalSum = new Intl.NumberFormat('ko-KR', { style: 'currency', currency: 'KRW' }).format(totalSum); // 원으로 바꾸기
+		var itemDC = new Intl.NumberFormat('ko-KR', { style: 'currency', currency: 'KRW' }).format(itemDC); // 원으로 바꾸기
+		$("#itemTotalPrice").html(totalSum); //화면에 총합 표시
+		$("#itemDcPrice").html(itemDC); // 할인가격 표시
+		updateValue(index); // 수량 디비에 넣기
+	});
+
+	$('#myCouponList').change(function(){ // 할인 셀렉박스 바뀔때 동작
+		var total = 0;
+		var totalArr = $('.total');
+		var itemDC=0;
+		for(var i=0; i<totalArr.length; i++){ // 개별총합계를 더함
+			total += Number($(totalArr[i]).text().replace(/[^0-9]/g,''));
+		}
+
+		if(this.value.split('_')[1] != 0){ // 할인율 곱하기
+			var totalDc = this.value.split('_')[1]
+			itemDC= total - total*totalDc; // 할인된 가격
+			total *= totalDc;
 
 
-    });
+		}
+		var total = new Intl.NumberFormat('ko-KR', { style: 'currency', currency: 'KRW' }).format(total);
+		var itemDC = new Intl.NumberFormat('ko-KR', { style: 'currency', currency: 'KRW' }).format(itemDC);
+		$("#itemDcPrice").html(itemDC); // 할인가격 표시
+		$("#itemTotalPrice").html(total);
+
+	});
+
 
     /*------------------
         Achieve Counter

@@ -3,6 +3,7 @@ package com.itwillbs.service;
 import java.util.List;
 
 import com.itwillbs.domain.BasketDTO;
+import com.itwillbs.domain.CouponDTO;
 
 public interface BasketService {
 
@@ -17,5 +18,9 @@ public interface BasketService {
 	void deleteBasket(BasketDTO basketDTO); // 카트에 물건 삭제
 
 	BasketDTO prodCodeCheck(BasketDTO basketDTO);
+
+	void updateBasket(BasketDTO basketDTO);
+
+	List<CouponDTO> selectCouponList(CouponDTO couponDTO);
 
 }

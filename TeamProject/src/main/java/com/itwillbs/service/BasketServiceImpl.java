@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.itwillbs.dao.BasketDAO;
 import com.itwillbs.domain.BasketDTO;
+import com.itwillbs.domain.CouponDTO;
 
 @Service
 public class BasketServiceImpl implements BasketService {
@@ -48,6 +49,18 @@ public class BasketServiceImpl implements BasketService {
 	@Override //중복 물건 담겼는지 검사
 	public BasketDTO prodCodeCheck(BasketDTO basketDTO) {
 		return basketDAO.prodCodeCheck(basketDTO);
+	}
+
+	@Override
+	public void updateBasket(BasketDTO basketDTO) {
+		basketDAO.updateBasket(basketDTO);
+
+	}
+
+	@Override
+	public List<CouponDTO> selectCouponList(CouponDTO couponDTO) {
+
+		return basketDAO.selectCouponList(couponDTO);
 	}
 
 }

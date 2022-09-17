@@ -12,6 +12,7 @@ public class BasketDTO {
 	private int sbProdPrice;
 	private int sbTotalPrice;
 	private String sbProdNm;
+	private String ordLCounumcoudc;
 	private Timestamp shoppingBasketDate;
 
 
@@ -74,6 +75,14 @@ public class BasketDTO {
 	}
 	public void setProdLQuantity(int prodLQuantity) {
 		this.prodLQuantity = prodLQuantity;
+	}
+
+
+	public String getOrdLCounumcoudc() {
+		return ordLCounumcoudc;
+	}
+	public void setOrdLCounumcoudc(String ordLCounumcoudc) {
+		this.ordLCounumcoudc = ordLCounumcoudc;
 	}
 	@Override
 	public String toString() {

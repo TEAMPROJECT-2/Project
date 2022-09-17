@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.itwillbs.domain.BasketDTO;
+import com.itwillbs.domain.CouponDTO;
 
 @Repository
 public class BasketDAOImpl implements BasketDAO {
@@ -44,6 +45,16 @@ public class BasketDAOImpl implements BasketDAO {
 	@Override // 중복물건이 담겼는지 검사
 	public BasketDTO prodCodeCheck(BasketDTO basketDTO) {
 		return sqlSession.selectOne(namespace + ".prodCodeCheck", basketDTO);
+	}
+	// 수량변경 디비 저장
+	@Override
+	public void updateBasket(BasketDTO basketDTO) {
+		sqlSession.update(namespace + ".updateBasket", basketDTO);
+	}
+	// 쿠폰 갖고오기
+	@Override
+	public List<CouponDTO> selectCouponList(CouponDTO couponDTO) {
+		return sqlSession.selectList(namespace+".selectCouponList",couponDTO);
 	}
 
 

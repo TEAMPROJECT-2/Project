@@ -1,9 +1,12 @@
 package com.itwillbs.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.http.HttpStatus;
@@ -16,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.itwillbs.domain.BasketDTO;
+import com.itwillbs.domain.CommonDTO;
+import com.itwillbs.domain.CouponDTO;
 import com.itwillbs.domain.ProdDTO;
 import com.itwillbs.service.BasketService;
 
@@ -31,7 +36,6 @@ public class BasketController {
 
 		List<BasketDTO> basketList=basketService.getBasketList(basketDTO); // 물건 리스트 갖고오기
 		model.addAttribute("basketList", basketList);
-		System.out.println(basketList);
 		return "order/cart";
 
 	}
@@ -63,21 +67,22 @@ public class BasketController {
 				String[] sbCount=request.getParameterValues("select_vol");
 				String[] sbProdPrice=request.getParameterValues("sbProdPrice");
 				String userId = (String)session.getAttribute("userId");
-
+				String couNumCouDc =request.getParameter("myCouponList");
 				if(sbProdCode != null) {
 				for(int i =0 ; i < sbProdCode.length;i++ ) {
 					basketDTO.setSbProdCode(sbProdCode[i]);
 					basketDTO.setSbCount(Integer.parseInt(sbCount[i]));
 					basketDTO.setSbProdPrice(Integer.parseInt(sbProdPrice[i]));
 					basketDTO.setSbUser(userId);
+					basketDTO.setOrdLCounumcoudc(couNumCouDc);
 					basketService.insertOrder(basketDTO);   // order DB로 넘김
-					basketService.deleteBasket(basketDTO);  // basket DB 데이터 삭제
+//					basketService.deleteBasket(basketDTO);  // basket DB 데이터 삭제 -------------> 주문시 삭제 하기위애 주석처리
 				}
 				} else {
-					return "redirect:/order/cart";
+					return "redirect:/order/checkout";
 				}
 
-				return "redirect:/order/cart";
+				return "redirect:/order/checkout";
 			}
 
 			// 삭제기능 구현
@@ -97,6 +102,32 @@ public class BasketController {
 				ResponseEntity<String> entity=new ResponseEntity<String>("1" ,HttpStatus.OK);
 				return entity;
 			}
+			// 디비에 수정된 수량 넣기 구현
+			@ResponseBody
+			@RequestMapping(value = "/order/update",method = RequestMethod.POST)
+			public ResponseEntity<String> oderUpdateAjax(HttpSession session,HttpServletRequest request,BasketDTO basketDTO) {
+
+
+				basketService.updateBasket(basketDTO);
+				ResponseEntity<String> entity=new ResponseEntity<String>("1" ,HttpStatus.OK);
+				return entity;
+			}
+			// 쿠폰 리스트 갖고오기
+
+			@RequestMapping(value = "/order/myCoupon", method = RequestMethod.POST)
+			public @ResponseBody Map<String, Object> List(HttpServletRequest req, HttpServletResponse res, @ModelAttribute CouponDTO couponDTO) {
+
+				Map<String, Object> map = new HashMap<>();
+				try {
+					List<CouponDTO> couponList =  basketService.selectCouponList(couponDTO);
+					map.put("code", "S");
+					map.put("couponList", couponList);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+
+				return map;
+		    }
 
 
 }

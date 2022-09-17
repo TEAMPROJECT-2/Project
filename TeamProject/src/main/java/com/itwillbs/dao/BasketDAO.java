@@ -3,6 +3,7 @@ package com.itwillbs.dao;
 import java.util.List;
 
 import com.itwillbs.domain.BasketDTO;
+import com.itwillbs.domain.CouponDTO;
 
 public interface BasketDAO {
 	BasketDTO getMemberchk(BasketDTO basketDTO); // 유저체크
@@ -16,4 +17,8 @@ public interface BasketDAO {
 	void deleteBasket(BasketDTO basketDTO); // 카트에 물건 삭제
 
 	BasketDTO prodCodeCheck(BasketDTO basketDTO); // 중복물건이 담겼는지 검사
+
+	void updateBasket(BasketDTO basketDTO);
+
+	List<CouponDTO> selectCouponList(CouponDTO couponDTO);
 }
