@@ -68,8 +68,8 @@
 	<select id="emailAuthFail" resultType="int">
     	SELECT COUNT(*)
     	  FROM USER_INFO
-    	 WHERE USER_ID=#{userId}
-    	   AND USER_EMAIL_AUTH=1
+    	 WHERE USER_ID			=#{userId}
+    	   AND USER_EMAIL_AUTH	=1
 	</select>
 
 <!-- 로그인(유저) -->
@@ -83,8 +83,25 @@
 <!-- 마지막 로그인 체크 -->
 	<update id="loginCheck">
 		UPDATE USER_INFO
-		   SET USER_LAST_DATE=#{userLastDate}
+		   SET USER_LAST_DATE	=#{userLastDate}
+		 WHERE USER_ID			=#{userId}
 	</update>
+
+<!-- 휴면 계정 전환 -->
+	<update id="changeStatus">
+		UPDATE USER_INFO
+		   SET USER_STATUS	=1
+		 WHERE USER_ID 		=#{userId}
+		 <![CDATA[AND USER_LAST_DATE < DATE_SUB(NOW(), INTERVAL 1 YEAR)]]>
+	</update>
+
+<!--  로그인 시 휴면 계정 여부 체크 -->
+	<select id="statusCheck" resultType="int">
+    	SELECT COUNT(*)
+    	  FROM USER_INFO
+    	 WHERE USER_ID		=#{userId}
+    	   AND USER_STATUS	=1
+	</select>
 
 <!-- 멤버 불러오기 -->
 	<select id="getMember" resultType="com.itwillbs.domain.MemberDTO">

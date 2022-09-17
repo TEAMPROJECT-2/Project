@@ -87,10 +87,10 @@ public class MemberServiceImpl implements MemberService{
 		return memberDAO.userCheck(memberDTO);
 	}
 	@Override
-	public MemberDTO loginCheck(MemberDTO memberDTO) {
+	public void loginCheck(MemberDTO memberDTO) {
 		// 마지막 날짜 업데이트
 		memberDTO.setUserLastDate(new Timestamp(System.currentTimeMillis()));
-		return memberDAO.loginCheck(memberDTO);
+		memberDAO.loginCheck(memberDTO);
 	}
 
 	// 업체 회원가입
@@ -153,6 +153,17 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public void passMod(MemberDTO memberDTO) throws Exception {
 		memberDAO.passMod(memberDTO);
+	}
+
+	// 휴면 계정 전환
+	@Override
+	public void changeStatus(MemberDTO memberDTO) {
+		memberDAO.changeStatus(memberDTO);
+	}
+
+	// 휴면 계정 체크
+	public int statusCheck(String userId) {
+		return memberDAO.statusCheck(userId);
 	}
 
 

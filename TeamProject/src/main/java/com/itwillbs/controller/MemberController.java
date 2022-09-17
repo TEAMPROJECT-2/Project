@@ -1,6 +1,7 @@
 package com.itwillbs.controller;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -82,7 +83,7 @@ public class MemberController {
 	}
 	@RequestMapping(value = "/member/loginPro", method = RequestMethod.POST)
 	// jsp는 세션이 자동으로 만들어지지만 자바는 HttpSession으로 만들어야한다
-	public String loginPro(MemberDTO memberDTO, HttpSession session) throws Exception {
+	public String loginPro(MemberDTO memberDTO, HttpSession session, HttpServletRequest request) throws Exception {
 		// 메서드 호출
 		MemberDTO memberDTO2=memberService.userCheck(memberDTO);
 
@@ -95,9 +96,15 @@ public class MemberController {
         if (memberService.emailAuthFail(memberDTO.getUserId()) != 1) {
             return "/member/emailAuthFail";
         }
-
+        // 휴면 계정이면 상태 바꾸고 체크하기
+        memberService.changeStatus(memberDTO);
+        if (memberService.statusCheck(memberDTO.getUserId()) == 1) {
+        	return "member/statusmsg";
+        }
         // 로그인 세션값 생성
-		session.setAttribute("userId", memberDTO.getUserId());
+        session.setAttribute("userId", memberDTO.getUserId());
+        // 마지막 로그인
+        memberService.loginCheck(memberDTO);
 
 		// main/main 이동
 		return "redirect:/main/main";

@@ -10,7 +10,7 @@ public interface MemberService {
 	// 유저 로그인
 	public MemberDTO userCheck(MemberDTO memberDTO);
 	public MemberDTO getMember(String userId);
-	public MemberDTO loginCheck(MemberDTO memberDTO);
+	public void loginCheck(MemberDTO memberDTO);
 	int updateEmailKey(MemberDTO memberDTO) throws Exception;
 	int updateEmailAuth(MemberDTO memberDTO) throws Exception;
 	int emailAuthFail(String userId) throws Exception;
@@ -39,7 +39,10 @@ public interface MemberService {
 	// 회원 탈퇴
 	public void delUser(MemberDTO memberDTO);
 
-
+	// 휴면 계정 전환
+	public void changeStatus(MemberDTO memberDTO);
+	// 휴면 계정 체크
+	int statusCheck(String userId);
 
 
 }

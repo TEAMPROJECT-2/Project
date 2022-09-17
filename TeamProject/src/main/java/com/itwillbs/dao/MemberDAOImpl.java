@@ -51,10 +51,10 @@ public class MemberDAOImpl implements MemberDAO{
 		return sqlSession.selectOne(namespace+".compCheck", compDTO);
 	}
 
-	// 이메일 인증키 동작
+	// 마지막 로그인
 	@Override
-	public MemberDTO loginCheck(MemberDTO memberDTO) {
-		return sqlSession.selectOne(namespace+".loginCheck", memberDTO);
+	public void loginCheck(MemberDTO memberDTO) {
+		sqlSession.selectOne(namespace+".loginCheck", memberDTO);
 	}
 
 	// 이메일 인증키 동작
@@ -74,7 +74,6 @@ public class MemberDAOImpl implements MemberDAO{
 	// 이메일 인증 확인 동작
 	@Override
 	public int emailAuthFail(String userId) throws Exception {
-		System.out.println("MemberDAOImpl() emailAuthFail");
 		 return sqlSession.selectOne(namespace + ".emailAuthFail", userId);
 	}
 
@@ -110,6 +109,17 @@ public class MemberDAOImpl implements MemberDAO{
 	public void passMod(MemberDTO memberDTO) throws Exception {
 		sqlSession.update(namespace + ".passMod", memberDTO);
 
+	}
+
+	// 휴면 계정 전환 동작
+	@Override
+	public void changeStatus(MemberDTO memberDTO) {
+		sqlSession.update(namespace + ".changeStatus", memberDTO);
+	}
+	// 휴면 계정 체크 동작
+	@Override
+	public int statusCheck(String userId) {
+		return sqlSession.selectOne(namespace + ".statusCheck", userId);
 	}
 
 
