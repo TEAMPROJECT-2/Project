@@ -70,7 +70,7 @@
               </a>
             </li>
             <li class="menu-item">
-              <a href="${pageContext.request.contextPath }/comp/updateAccount" class="menu-link">
+              <a href="${pageContext.request.contextPath }/comp/modify" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-collection"></i>
                 <div data-i18n="Basic">업체 정보수정</div>
               </a>

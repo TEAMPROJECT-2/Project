@@ -41,10 +41,12 @@ public class CompServiceImpl implements CompService {
 
 		return compDAO.getProdList(pageDTO);
 	}
+	// 상품 수량
 	@Override
 	public int getProdCount(PageDTO pageDTO) {
 		return compDAO.getProdCount(pageDTO);
 	}
+	// 개별 상품 정보
 	@Override
 	public ProdDTO getProd(String prodLCode) {
 		return compDAO.getProd(prodLCode);
@@ -67,6 +69,24 @@ public class CompServiceImpl implements CompService {
 	@Override
 	public CompDTO getComp(CompDTO compDTO) {
 		return compDAO.getComp(compDTO);
+	}
+
+	// 업체 정보 수정
+	@Override
+	public void modComp(CompDTO compDTO) {
+		compDAO.modComp(compDTO);
+	}
+
+	// 업체 비밀번호 변경
+	@Override
+	public void passMod(CompDTO compDTO) throws Exception {
+		compDAO.passMod(compDTO);
+	}
+
+	// 업체 탈퇴
+	@Override
+	public void delComp(CompDTO compDTO) {
+		compDAO.delComp(compDTO);
 	}
 
 

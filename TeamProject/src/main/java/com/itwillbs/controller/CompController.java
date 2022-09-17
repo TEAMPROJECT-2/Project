@@ -65,7 +65,6 @@ public class CompController {
 
 	@RequestMapping(value = "/comp/insertGoodsPro", method = RequestMethod.POST)
 	public String insertPro(HttpServletRequest request,HttpSession session,MultipartFile prodLMainimg,MultipartFile prodLSubimg) throws Exception {
-		System.out.println("/comp/insertGoodsPro");
 
 		ProdDTO prodDTO = new ProdDTO();
 
@@ -83,7 +82,6 @@ public class CompController {
 
 		//		ProdDTO prodDTO,
 		// 로그인후 세션값, 업체 아이디 갖고옴
-		System.out.println("insertPro");
 		String CompNm = (String)session.getAttribute("compId");
 		prodDTO.setProdLCompnm(CompNm);
 //
@@ -97,7 +95,6 @@ public class CompController {
 		//업로드파일 file.getBytes() => upload/랜덤문자_파일이름 복사
 		File uploadMainFile=new File(compUploadPath, MainImg);
 		File uploadSubFile=new File(compUploadPath,SubImg);
-		System.out.println("메인사진이름 : "+MainImg);
 		FileCopyUtils.copy(prodLMainimg.getBytes(), uploadMainFile);
 		FileCopyUtils.copy(prodLSubimg.getBytes(), uploadSubFile);
 
@@ -153,13 +150,6 @@ public class CompController {
 		pageDTO.setColumnNm(request.getParameter("searchCol") == null ? "0" : request.getParameter("searchCol")); // 기준 컬럼
 		pageDTO.setSearchKeyWord(request.getParameter("searchKeyWord")); // 검색 키워드 갖고오기
 		pageDTO.setStatus(request.getParameter("status")); // 검색 양호,품절 상태 갖고오기
-		System.out.println("getSearchKeyWord() : "+pageDTO.getSearchKeyWord());
-		System.out.println("pageDTO.getColumnNm() : "+pageDTO.getColumnNm());
-		System.out.println("pageDTO.getStatus() : "+pageDTO.getStatus());
-//		pageDTO.setSearchKeyWord(searchKeyWord);
-//		pageDTO.setCompCode(request.getParameter(""));
-		//세션값 가져가기( 해당 업체 물건만 갖고 오려고)
-		System.out.println(pageDTO);
 		List<ProdDTO> prodList=compService.getProdList(pageDTO); // 물건 리스트 갖고오기
 		int count=compService.getProdCount(pageDTO);     // 업체 전체 물건 리스트 갯수
 		// 페이징
@@ -177,7 +167,6 @@ public class CompController {
 		pageDTO.setStartPage(startPage);
 		pageDTO.setEndPage(endPage);
 		pageDTO.setPageCount(pageCount);
-//		pageDTO.setStatus(status);
 		System.out.println("pageDTO.getStatus() : "+pageDTO.getStatus());
 
 		//데이터 담아서 list.jsp 이동
@@ -199,7 +188,6 @@ public class CompController {
 		// 삭제되는 데이터 만큼 for 문을 돌려 compService.deleteProd 호출
 		for(int i=0; i<ajaxMsg.length; i++) {
 			compService.deleteProd(ajaxMsg[i]);
-			System.out.println("compController : "+ ajaxMsg[i]);
 		}
 
 		ResponseEntity<String> entity=new ResponseEntity<String>("1" ,HttpStatus.OK);
@@ -214,7 +202,6 @@ public class CompController {
 		//파라미터 가져오기
 		String prodLCode=request.getParameter("CheckRow");
 		// 디비에서 조회
-		System.out.println(prodLCode);
 		ProdDTO prodDTO=compService.getProd(prodLCode);
 
 		// model에 데이터 저장
@@ -262,7 +249,6 @@ public class CompController {
 		CompDTO compDTO = new CompDTO();
 		String CompNm = (String)session.getAttribute("compId");
 		compDTO.setCompId(CompNm);
-		System.out.println("업체 아이디 : "+compDTO.getCompId());
 		compDTO=compService.getComp(compDTO);
 		if(compDTO!=null) {
 //			num pass 일치
@@ -283,10 +269,43 @@ public class CompController {
 	public String compProdRefund() {
 		return "comp/prodRefund";
 	}
-	@RequestMapping(value = "/comp/updateAccount", method = RequestMethod.GET)
-	public String compupdateAccount() {
-		return "comp/updateAccount";
+	// 업체 정보 수정
+	@RequestMapping(value = "/comp/modify", method = RequestMethod.GET)
+	public String compModify(HttpSession session, Model model,CompDTO compDTO) {
+		// 세션값 가져오기
+		String compId=(String)session.getAttribute("compId");
+		compDTO.setCompId(compId);
+		// id에 대한 정보를 디비에 가져오기
+		compDTO = compService.getComp(compDTO);
+		// 가져온 정보를 담아 info.jsp 이동
+
+		model.addAttribute("compDTO", compDTO);
+
+
+		return "comp/compModify";
 	}
+	@RequestMapping(value = "/comp/modifyPro", method = RequestMethod.POST)
+	public String modifyPro(CompDTO compDTO, HttpSession session) {
+		// 패스워드 아이디 일치 메서드 호출
+		CompDTO compDTO2=compService.getComp(compDTO);
+		if(compDTO2!=null) {
+			// 아이디 비밀번호 일치
+			// 수정작업
+			compService.modComp(compDTO);
+			// 주소변경 이동
+			return "redirect:/comp/modify";
+		}else {
+			//아이디 비밀번호 틀림
+			return "comp/msg";
+		}
+	}
+	// 업체페이지 - 비밀번호 변경 페이지
+		@RequestMapping(value = "/comp/passMod", method = RequestMethod.GET)
+		public String passModify() {
+			return "comp/passModify";
+	}
+
+
 	@RequestMapping(value = "/comp/prodList", method = RequestMethod.GET)
 	public String compProdList() {
 		return "comp/prodList";
@@ -296,6 +315,51 @@ public class CompController {
 		return "comp/ordList";
 	}
 
-}
+	// 회원 탈퇴
+	@RequestMapping(value = "/comp/deletePro", method = RequestMethod.POST)
+	public ResponseEntity<String> deletePro(CompDTO compDTO, HttpServletRequest request, HttpSession session) {
+		// 메서드 호출
+		CompDTO compDTO2=compService.getComp(compDTO);
+		String result="";
+		if(compDTO2!=null) {
+			compService.delComp(compDTO);
+			// 세션값 초기화
+			session.invalidate();
+			result="ok";
+		}else {
+			result="fail";
+		}
+		ResponseEntity<String> entity=new ResponseEntity<String>(result,HttpStatus.OK);
+		return entity;
+
+	}
+	// 비밀번호 체크
+	@RequestMapping(value = "/comp/passCheck", method = RequestMethod.POST)
+	public ResponseEntity<String> passCheck(CompDTO compDTO, HttpServletRequest request) throws Exception {
+		CompDTO compDTO2=compService.getComp(compDTO);
+		String result="";
+		if(compDTO2 == null) {
+			result="no";
+		}else {
+		result="ok";
+	}
+		ResponseEntity<String> entity=new ResponseEntity<String>(result,HttpStatus.OK);
+		return entity;
+	}
+	// 비밀번호 변경
+		@RequestMapping(value="/comp/passModPro" , method=RequestMethod.POST)
+		public String passMod(HttpSession session, HttpServletRequest request, CompDTO compDTO) throws Exception{
+			String compPass=request.getParameter("newPass");
+			compDTO.setCompPass(compPass);
+			String compId =(String)session.getAttribute("compId");
+			compDTO.setCompId(compId);
+			compService.passMod(compDTO);
+			session.invalidate();
+//			("msg", "정보 수정이 완료되었습니다. 다시 로그인해주세요.");
+
+			return "redirect:/member/login";
+		}
+
+} // 마지막 괄호
 
 

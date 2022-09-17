@@ -5,7 +5,7 @@
 
 <mapper namespace="com.itwillbs.mappers.compMapper">
 
-<!-- 회원가입 -->
+<!-- 상품 신규등록 -->
 	<insert id="insertProd">
 		INSERT INTO PRODUCT_LIST(
 				    PROD_L_NUM
@@ -44,7 +44,7 @@
 			       ,#{prodLQuantity}
 			  		)
 	</insert>
-
+<!-- 	개별 상품정보 갖고오기 -->
 	<select id="getProd" resultType="com.itwillbs.domain.ProdDTO">
 		   SELECT	*
 		    FROM    PRODUCT_LIST
@@ -108,12 +108,12 @@
 		   	  AND   ${columnNm} LIKE CONCAT('%', #{searchKeyWord}, '%')
 		    </if>
 	</select>
-
+<!-- 	상품 삭제 -->
 	<delete id="deleteProd">
 	   DELETE FROM  PRODUCT_LIST
 	   	     WHERE  PROD_L_CODE=#{prodLCode}
 	</delete>
-
+<!-- 상품 수정 -->
 	<update id="updateProd">
 		UPDATE  PRODUCT_LIST
 		   SET  PROD_L_PRICE    =#{prodLPrice}
@@ -123,25 +123,33 @@
 			   ,PROD_L_QUANTITY =#{prodLQuantity}
 	     WHERE  PROD_L_CODE     =#{prodLCode}
 	</update>
+<!-- 	업체정보 갖고오기-->
 	<select id="getComp" resultType="com.itwillbs.domain.CompDTO">
 		SELECT *
 		  FROM COMPANY_INFO
 		 WHERE COMP_ID=#{compId}
+		 <if test='compPass != null '>
+		   AND  COMP_PASS = ${compPass}
+		 </if>
 	</select>
-<!-- 	todo -->
-	<insert id="insertProdStock">
-		INSERT INTO PRODUCT_STOCK(
-			   		NUM
-				   ,PROD_S_PNUM
-				   ,PROD_S_COUNT
-				    )
-			 VALUES (
-				    #{num}
-			       ,#{prodSPnum}
-			       ,#{prodSCount}
-			)
-
-	</insert>
-
+<!-- 	업체정보 수정 -->
+	<update id="modComp">
+		UPDATE    COMPANY_INFO
+		   SET	  COMP_NM		=#{compNm}
+				 ,COMP_PHONE	=#{compPhone}
+		 WHERE    COMP_ID		=#{compId}
+	</update>
+<!-- 비밀번호 수정 -->
+	<update id="passMod">
+		UPDATE COMPANY_INFO
+		   SET COMP_PASS	=#{compPass}
+		 WHERE COMP_ID		=#{compId}
+	</update>
+<!-- 	업체 탈퇴 -->
+	<delete id="delComp">
+		DELETE FROM COMPANY_INFO
+		 WHERE 		COMP_ID		=#{compId}
+		   AND 		COMP_PASS	=#{compPass}
+	</delete>
 
 </mapper>
