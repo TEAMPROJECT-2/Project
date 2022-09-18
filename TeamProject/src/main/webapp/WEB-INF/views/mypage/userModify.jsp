@@ -35,7 +35,7 @@ $(document).ready(function(){
 			type:'POST',
 			data:{'userId':$('#userId1').val(),'userPass':$('#userPass1').val()},
 			success:function(rdata){
-				 if(rdata=="ok"){	// 아이디 없음
+				 if(rdata=="ok"){		// 아이디 없음
 					 window.location.href = "${pageContext.request.contextPath }/main/main"
 				 	}else{				// 아이디 있음
 				 	 alert("다시 입력해주세요!")

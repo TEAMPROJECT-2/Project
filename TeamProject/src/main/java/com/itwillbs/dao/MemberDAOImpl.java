@@ -91,6 +91,10 @@ public class MemberDAOImpl implements MemberDAO{
 	public void updatePass(MemberDTO memberDTO) {
 		sqlSession.update(namespace + ".updatePass", memberDTO);
 	}
+	@Override
+	public String pwCheck(MemberDTO memberDTO) {
+		return sqlSession.selectOne(namespace + ".pwCheck", memberDTO);
+	}
 
 	// 회원 정보 수정 동작
 	@Override

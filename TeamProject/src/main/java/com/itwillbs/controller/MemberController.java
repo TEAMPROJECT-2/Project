@@ -6,7 +6,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -32,6 +35,8 @@ public class MemberController {
 	private MemberService memberService;
 	@Inject
 	private PointService pointService;
+	@Autowired
+	private BCryptPasswordEncoder bcryptPasswordEncoder;
 
 	// 회원가입(유저)
 	@RequestMapping(value = "/member/join", method = RequestMethod.GET)
@@ -40,6 +45,9 @@ public class MemberController {
 	}
 	@RequestMapping(value = "/member/joinMemPro", method = RequestMethod.POST)
 	public String insertPro(MemberDTO memberDTO, PointDTO pointDTO, Model model) throws Exception {
+
+		memberDTO.setUserPass(bcryptPasswordEncoder.encode(memberDTO.getUserPass()));
+
 		memberService.insertMember(memberDTO);
 		pointService.insertMember(pointDTO);
 		model.addAttribute("memberDTO",memberDTO);
@@ -87,11 +95,6 @@ public class MemberController {
 		// 메서드 호출
 		MemberDTO memberDTO2=memberService.userCheck(memberDTO);
 
-		// 아이디 비밀번호 일치하지 않으면 오류 메세지 출력
-		if(memberDTO2==null) {
-			return "/member/msg";
-		}
-
         // 이메일 인증유무 확인 후 1이 아닌 경우, 인증확인 메세지
         if (memberService.emailAuthFail(memberDTO.getUserId()) != 1) {
             return "/member/emailAuthFail";
@@ -101,14 +104,20 @@ public class MemberController {
         if (memberService.statusCheck(memberDTO.getUserId()) == 1) {
         	return "member/statusmsg";
         }
-        // 로그인 세션값 생성
-        session.setAttribute("userId", memberDTO.getUserId());
-        // 마지막 로그인
-        memberService.loginCheck(memberDTO);
+        // 아이디 비밀번호 일치하지 않으면 오류 메세지 출력
+        if(memberDTO2 != null && bcryptPasswordEncoder.matches(memberDTO.getUserPass(), memberDTO2.getUserPass())) {
+	        // 로그인 세션값 생성
+	        session.setAttribute("userId", memberDTO.getUserId());
+	        // 마지막 로그인
+	        memberService.loginCheck(memberDTO);
+        } else {
+        	return "/member/msg";
+        }
 
 		// main/main 이동
 		return "redirect:/main/main";
 	}
+
 	// 로그인(업체)
 	@RequestMapping(value = "/member/loginCompPro", method = RequestMethod.POST)
 	public String loginCompPro(CompDTO compDTO, HttpSession session) {
@@ -121,7 +130,6 @@ public class MemberController {
 			return "/member/msg";
 		}
 	}
-
 
 	// 아이디 찾기 페이지
 	@RequestMapping(value = "/member/loginIdSearch", method = RequestMethod.GET)
@@ -141,7 +149,6 @@ public class MemberController {
 		}
 		return result;
 	}
-
 	// 비밀번호 찾기
 	@RequestMapping(value = "/member/passSearch", method = RequestMethod.GET)
 	public String findPass() throws Exception{
@@ -149,6 +156,9 @@ public class MemberController {
 	}
 	@RequestMapping(value = "/member/passSearchPro", method = RequestMethod.POST)
 	public String loginPassSearchPro(@ModelAttribute MemberDTO memberDTO, HttpServletResponse response) throws Exception{
+		if(memberService.pwCheck(memberDTO)==null){
+			return "member/msg";
+		}
 		memberService.updatePass(memberDTO);
 		return "redirect:/member/login";
 	}
@@ -181,15 +191,6 @@ public class MemberController {
 	@RequestMapping(value = "/main/main", method = RequestMethod.GET)
 	public String indexMain() {
 		return "main/main";
-	}
-
-	@RequestMapping(value = "/food/shop", method = RequestMethod.GET)
-	public String foodShop() {
-		return "food/shop";
-	}
-	@RequestMapping(value = "/food/details", method = RequestMethod.GET)
-	public String foodDetail() {
-		return "food/details";
 	}
 
 	@RequestMapping(value = "/member/cards-basic", method = RequestMethod.GET)

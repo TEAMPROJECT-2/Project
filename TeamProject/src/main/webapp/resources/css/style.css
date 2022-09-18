@@ -121,6 +121,12 @@ ol {
   Helper CSS
 -----------------------*/
 
+
+.soldout_img {
+	position: absolute;
+	opacity: 0.4;
+}
+
 .section-title {
 	margin-bottom: 45px;
 	text-align: center;

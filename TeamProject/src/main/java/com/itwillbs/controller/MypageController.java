@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -36,6 +37,8 @@ public class MypageController {
 	private MemberService memberService;
 	@Inject
 	private PointService pointService;
+	@Autowired
+	private BCryptPasswordEncoder bcryptPasswordEncoder;
 
 
 	// 마이페이지
@@ -65,11 +68,9 @@ public class MypageController {
 	public String modifyPro(MemberDTO memberDTO, HttpSession session) {
 		// 메서드 호출
 		MemberDTO memberDTO2=memberService.userCheck(memberDTO);
-		if(memberDTO2!=null) {
-			// 아이디 비밀번호 일치
-			// 수정작업
+		if(memberDTO2!=null && bcryptPasswordEncoder.matches(memberDTO.getUserPass(), memberDTO2.getUserPass())) {
+			// 아이디 비밀번호 일치하면 수정
 			memberService.modUser(memberDTO);
-			// 주소변경 이동
 			return "redirect:/mypage/modify";
 		}else {
 			//아이디 비밀번호 틀림
@@ -83,11 +84,12 @@ public class MypageController {
 		return "mypage/passModify";
 	}
 
+
 	// 비밀번호 변경
 	@RequestMapping(value="/mypage/passModPro" , method=RequestMethod.POST)
 	public String passMod(HttpSession session, HttpServletRequest request, MemberDTO memberDTO) throws Exception{
 		String userPass=request.getParameter("newPass");
-		memberDTO.setUserPass(userPass);
+		memberDTO.setUserPass(bcryptPasswordEncoder.encode(userPass));
 		String userId =(String)session.getAttribute("userId");
 		memberDTO.setUserId(userId);
 		memberService.passMod(memberDTO);
@@ -149,7 +151,7 @@ public class MypageController {
 
 	@RequestMapping(value = "/mypage/info", method = RequestMethod.GET)
 	public String info(HttpSession session, Model model) {
-//		// 세션값 가져오기
+		// 세션값 가져오기
 		String userId=(String)session.getAttribute("userId");
 		// id에 대한 정보를 디비에 가져오기
 		MemberDTO memberDTO = memberService.getMember(userId);

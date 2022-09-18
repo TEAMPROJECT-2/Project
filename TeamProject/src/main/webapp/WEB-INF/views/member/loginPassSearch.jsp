@@ -55,7 +55,7 @@
                     </div>
                 </div>
 
-				<!-- ID 찾기 -->
+				<!-- 비밀번호 찾기 -->
                 <div class="col-lg-6 col-md-6  bd-example">
 		              <div class="checkout__order">
 						<main class="form-signin ">

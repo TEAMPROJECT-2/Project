@@ -28,6 +28,7 @@ public interface MemberDAO {
 	public String idSearch(MemberDTO memberDTO);
 
 	// 비밀번호 찾기
+	public String pwCheck(MemberDTO memberDTO);
 	public void updatePass(MemberDTO memberDTO) throws Exception;
 
 	// 회원 정보 수정

@@ -8,6 +8,7 @@ import javax.mail.MessagingException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,6 +27,8 @@ public class MemberServiceImpl implements MemberService{
 	private MemberDAO memberDAO;
 	@Autowired
 	private JavaMailSender mailSender;
+	@Autowired
+	private BCryptPasswordEncoder bcryptPasswordEncoder;
 
 	@Transactional
 	@Override
@@ -116,9 +119,13 @@ public class MemberServiceImpl implements MemberService{
 
 	// 비밀번호 찾기
 	@Override
+	public String pwCheck(MemberDTO memberDTO) {
+		return memberDAO.pwCheck(memberDTO);
+	}
+	@Override
 	public void updatePass(MemberDTO memberDTO) throws Exception {
         String userPassKey = new TempKey().getKey(6,false); // 랜덤키 길이 설정
-        memberDTO.setUserPass(userPassKey);
+        memberDTO.setUserPass(bcryptPasswordEncoder.encode(userPassKey));
         memberDAO.updatePass(memberDTO);
 
         // 임시비밀번호 발송

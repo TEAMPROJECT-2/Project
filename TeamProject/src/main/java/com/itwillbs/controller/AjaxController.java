@@ -6,8 +6,10 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -21,6 +23,8 @@ public class AjaxController {
 
 	@Inject
 	private MemberService memberService;
+	@Autowired
+	private BCryptPasswordEncoder bcryptPasswordEncoder;
 
 	// 아이디 중복검사
 	@RequestMapping(value = "/member/idDupCheck", method = RequestMethod.POST)
@@ -84,11 +88,11 @@ public class AjaxController {
 	// 회원 탈퇴
 	@RequestMapping(value = "/mypage/deletePro", method = RequestMethod.POST)
 	public ResponseEntity<String> deletePro(MemberDTO memberDTO, HttpServletRequest request, HttpSession session) {
-		// 메서드 호출
+		memberDTO.setUserPass(request.getParameter("userPass"));
 		MemberDTO memberDTO2=memberService.userCheck(memberDTO);
 
 		String result="";
-		if(memberDTO2!=null) {
+		if(memberDTO2 != null && bcryptPasswordEncoder.matches(memberDTO.getUserPass(), memberDTO2.getUserPass())) {
 			memberService.delUser(memberDTO);
 			// 세션값 초기화
 			session.invalidate();
@@ -101,16 +105,16 @@ public class AjaxController {
 
 	}
 
-	// 비밀번호 변경
+	// 비밀번호 변경 - 비밀번호 체크
 	@RequestMapping(value = "/mypage/passCheck", method = RequestMethod.POST)
 	public ResponseEntity<String> passCheck(MemberDTO memberDTO, HttpServletRequest request) throws Exception {
-
+		memberDTO.setUserPass(request.getParameter("userPass"));
 		MemberDTO memberDTO2=memberService.userCheck(memberDTO);
 		String result="";
-		if(memberDTO2 == null) {
-			result="no";
+		if(memberDTO2 != null && bcryptPasswordEncoder.matches(memberDTO.getUserPass(), memberDTO2.getUserPass())) {
+			result="ok";
 		}else {
-		result="ok";
+			result="no";
 	}
 		ResponseEntity<String> entity=new ResponseEntity<String>(result,HttpStatus.OK);
 		return entity;

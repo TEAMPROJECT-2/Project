@@ -42,7 +42,7 @@ src="${pageContext.request.contextPath }/resources/js/jquery-3.6.0.js" ></script
 				$.ajax({
 					url : "${pageContext.request.contextPath}/mypage/passCheck",
 					type : "POST",
-					data : {'userId':$('#userId').val(),'userPass':$('#passModForm').val()},
+					data : {'userId':$('#userId').val(),'userPass':$('#userPass').val()},
 					success: function(rdata){
 
 						if(rdata=="no"){
@@ -104,7 +104,7 @@ src="${pageContext.request.contextPath }/resources/js/jquery-3.6.0.js" ></script
                     <hr class="my-0" />
                     <div class="card-body">
                       <form id="passModForm" name="passModForm" action="${pageContext.request.contextPath}/mypage/passModPro" method="POST">
-                            <input class="form-control form-control-lg" type="hidden" name="userId" id="userId" value="${memberDTO.userId}" />
+                            <input class="form-control form-control-lg" type="hidden" name="userId" id="userId" value="${userId}" />
 
                           <div class="mb-3 col-md-6">
                             <label for="userPass" class="form-label">비밀번호</label>
