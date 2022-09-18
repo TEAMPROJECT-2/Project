@@ -1,6 +1,24 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<script type="text/javascript"
+src="${pageContext.request.contextPath }/resources/js/jquery-3.6.0.js"></script>
+<script type="text/javascript">
+	$('#charge').click(function () {
+		$.ajax({
+			url:'${pageContext.request.contextPath }/member/iddup',
+			data:{'id':$('#id').val()},
+			success:function(rdata){
+				if(rdata=='iddup'){
+					rdata="아이디 중복";
+				}else{
+					rdata="아이디 사용가능";
+				}
+				$('#iddiv').html(rdata);
+			}
+		});
+	});
+</script>
 <!DOCTYPE html>
 <html
   lang="en"
@@ -15,10 +33,13 @@ function datecheck(){
 	
 	
 	var today = new Date();
+	
 	var startyear = $('#startyear').val(); 
 	var endyear = $('#endyear').val();
+	
 	var startmonth = $('#startmonth').val();
 	var endmonth = $('#endmonth').val();
+	
 	var startday = $('#startday').val();
 	var endday = $('#endday').val();
 	
@@ -74,47 +95,22 @@ function datecheck(){
                   </div>
                   <label for="html5-date-input" class="col-md-2 col-form-label">Date</label>
                 </div>
+								<input type="hidden" id="startdate" name="startdate">
+								<input type="hidden" id="enddate" name="enddate">
+								<input type="button" value="1개월" class="btn btn-outline-info" onclick="location.href='pointcheck.cp?searchmonth=1';">
+								<input type="button" value="3개월" class="btn btn-outline-info" onclick="location.href='pointcheck.cp?searchmonth=3';">
+								<input type="button" value="6개월" class="btn btn-outline-info" onclick="location.href='pointcheck.cp?searchmonth=6';">
 
-						<fieldset id="checkline">
-							<br>
-							<form action="pointcheck.cp" method="post"
-								onsubmit="return datecheck()">
-								<input type="hidden" id="startdate" name="startdate"> <input
-									type="hidden" id="enddate" name="enddate"> <input
-									type="button" value="1개월" class="btn btn-outline-info"
-									onclick="location.href='pointcheck.cp?searchmonth=1';">
-								<input type="button" value="3개월" class="btn btn-outline-info"
-									onclick="location.href='pointcheck.cp?searchmonth=3';">
-								<input type="button" value="6개월" class="btn btn-outline-info"
-									onclick="location.href='pointcheck.cp?searchmonth=6';">
-
-								<br>
-								<br> <select name="startyear" id="startyear"
-									class="custom-select" style="width: 100px;">
+								<select name="startyear" id="startyear">
 								</select>년
-								 <select name="startmonth" id="startmonth"
-									class="custom-select" style="width: 100px;">
+								 <select name="startmonth" id="startmonth">
 								</select>월
-								<select name="startday" id="startday"
-									class="custom-select" style="width: 100px;">
-								</select>일 ~ <select name="endyear" id="endyear"
-								</select>년 <select name="endmonth" id="endmonth"
-								</select>월 <select name="endday" id="endday"
-									class="custom-select" style="width: 100px;">
-									<%for(int i=1;i<32;i++) {%>
-									<option name="<%=i%>"><%=i %></option>
-									<%} %>
-								</select>일&nbsp;&nbsp; <input type="submit" value="조회하기"
-									class="btn btn-info">
-
-							</form>
-							<br>
-							<br>
-						</fieldset>
-
-
-
-
+								<select name="startday" id="startday" >
+								</select>일 ~ 
+								<select name="endyear" id="endyear"	></select>년
+								<select name="endmonth" id="endmonth"> </select>월
+								<select name="endday" id="endday" ></select>일
+								<input type="button" value="조회하기" class="btn btn-info">
 
               <!-- Basic Bootstrap Table -->
               <div class="card">

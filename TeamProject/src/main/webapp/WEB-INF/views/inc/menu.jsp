@@ -91,7 +91,13 @@
                 <div class="col-lg-6 col-md-7">
                     <div class="header__top__left">
                      <div class="offcanvas__links">
+						<c:if test="${(empty sessionScope)}">
+						<a href="${pageContext.request.contextPath }/member/msg" class="mr-3 ml-3" >포인트 충전</a> |
+						</c:if>
+						<c:if test="${!(empty sessionScope.userId)}">
+<%-- 						<a href="${pageContext.request.contextPath }/point/charge" class="mr-3 ml-3" >포인트 충전</a> | --%>
 						<a href="javascript:openPop();" class="mr-3 ml-3" >포인트 충전</a> |
+						</c:if>
 						<a href="${pageContext.request.contextPath }/order/cart" class="mr-3  ml-3">장바구니</a> |
 			            <a href="${pageContext.request.contextPath }/basic/basic-badge-button" class="mr-3  ml-3">버튼</a>
 			            <a href="${pageContext.request.contextPath }/basic/basic-form">폼</a>
@@ -214,6 +220,7 @@
 					</td>
 					<td>
                 		<label class="box-radio-input"><input type="radio" name="cp_item" value="50000"><span> 50,000원</span></label>
+                		<input type="hidden" value="포인트 충전" id="pointChar" name="pointChar">
 					</td>
 					<td>
 					</td>
@@ -227,53 +234,48 @@
 
 <!-- 아임포트 API -->
 <script>
-    $('#charge').click(function () {
-        // getter
-        var IMP = window.IMP;
-        IMP.init('imp27865884');
-        var money = $('input[name="cp_item"]:checked').val();
-        console.log(money);
-
-        IMP.request_pay({
-            pg: 'html5_inicis',
-            merchant_uid: 'point' + new Date().getTime(),
-
-            name: '핏티드 포인트 충전',
-            amount: money,
-            buyer_name: '${memberDTO.userNm}',
-            buyer_tel: '${memberDTO.userPhone}'
-        }, function (rsp) {
-            console.log(rsp);
-
-            if (rsp.success) {
-                var msg = '결제가 완료되었습니다.';
-                msg += '고유 ID : ' + rsp.imp_uid;
-                msg += '상점 거래ID : ' + rsp.merchant_uid;
-                msg += '결제 금액 : ' + rsp.paid_amount;
-                msg += '카드 승인번호 : ' + rsp.apply_num;
-                $.ajax({
-                    url: "${pageContext.request.contextPath }/point/chargePro", //충전 금액값을 보낼 url 설정
-                    type: "POST",
-                    headers: { "Content-Type": "application/json" },
-		        	dataType:"json",
+	$('#charge').click(function () {
+	    // getter
+	    var IMP = window.IMP;
+	    IMP.init('imp27865884');
+	    var money = $('input[name="cp_item"]:checked').val();
+	    console.log(money);
+	
+	    IMP.request_pay({
+	        pg: 'html5_inicis',
+	        merchant_uid: 'point' + new Date().getTime(),
+	        name: '핏티드 포인트 충전',
+	        amount: money,
+	        buyer_name: '${memberDTO.userNm}',
+	        buyer_tel: '${memberDTO.userPhone}'
+	    }, function (rsp) {
+	        console.log(rsp);
+	
+	        if (rsp.success) {
+	            var msg = '결제가 완료되었습니다.';
+	            msg += '고유ID : ' + rsp.imp_uid;
+	            msg += '상점 거래ID : ' + rsp.merchant_uid;
+	            msg += '결제 금액 : ' + rsp.paid_amount;
+	            msg += '카드 승인번호 : ' + rsp.apply_num;
+	            $.ajax({
+	                type: "POST",
+	                url: "insertChargePoint", //충전 금액값을 보낼 url 설정
+	                type: "POST",
+		        	dataType:"json", 
 		        	data: {
-		        		pointNum : rsp.merchant_uid,
-		            	userId : '${pointDTO.userId}',
-		            	pointType : "포인트 충전",
-		            	pointDate : rsp.paid_at,
-		            	pointNow : '${pointDTO.pointNow}' + rsp.paid_amount,
-		            	pointUsed : '${pointDTO.pointUsed}',
-						pointCharge : rsp.paid_amount
+		            	'userId' : '${sessionScope.userId}',
+		            	'pointType' : $('#pointChar').val(),
+		            	'pointNow' : '${pointDTO.pointNow}' + amount,
+						'pointCharge' : amount
 		        	},
 		            contentType:"application/json; charset=utf-8"
-                });
-            } else {
-                var msg = '결제에 실패하였습니다.';
-                msg += '에러내용 : ' + rsp.error_msg;
-            }
-            alert(msg);
+	            });
+	        } else {
+	            var msg = '결제에 실패하였습니다.';
+	            msg += '에러내용 : ' + rsp.error_msg;
+	        }
+	        alert(msg);
             closePop();
-            //location.href="${pageContext.request.contextPath }/main/main"; //alert창 확인 후 이동할 url 설정
         });
     });
 </script>

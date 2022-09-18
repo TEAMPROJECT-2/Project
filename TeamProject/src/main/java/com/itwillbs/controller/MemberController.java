@@ -117,7 +117,11 @@ public class MemberController {
 		// main/main 이동
 		return "redirect:/main/main";
 	}
-
+	// 로그인 경고 메세지
+	@RequestMapping(value = "/member/msg", method = RequestMethod.GET)
+	public String msg() {
+		return "member/msg";
+	}
 	// 로그인(업체)
 	@RequestMapping(value = "/member/loginCompPro", method = RequestMethod.POST)
 	public String loginCompPro(CompDTO compDTO, HttpSession session) {

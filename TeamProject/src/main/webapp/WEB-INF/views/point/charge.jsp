@@ -15,10 +15,6 @@ span {
 	display: inline-block;
 }
 
-/* textarea { */
-/* 	width: 40%; */
-/* 	height: 280px; */
-/* } */
 </style>
 </head>
 <body>
@@ -33,6 +29,7 @@ span {
                 <label class="box-radio-input"><input type="radio" name="cp_item" value="35000"><span>35,000원</span></label>
                 <label class="box-radio-input"><input type="radio" name="cp_item" value="40000"><span>40,000원</span></label>
                 <label class="box-radio-input"><input type="radio" name="cp_item" value="50000"><span>50,000원</span></label>
+                <input type="hidden" value="포인트 충전" id="pointChar" name="pointChar">
                 <p  style="color: #ac2925; margin-top: 30px">최소 충전금액은 1,000원이며 <br/>최대 충전금액은 50,000원 입니다.</p>
                 <button type="button" class="btn btn-lg btn-block  btn-custom" id="charge">충 전 하 기</button>
 </body>
@@ -61,15 +58,12 @@ span {
                 msg += '결제 금액 : ' + rsp.paid_amount;
                 msg += '카드 승인번호 : ' + rsp.apply_num;
                 $.ajax({
-                    url: "${pageContext.request.contextPath }/point/chargePro", //충전 금액값을 보낼 url 설정
-                    type: "POST",
-                    headers: { "Content-Type": "application/json" },
                     url: "insertChargePoint", //충전 금액값을 보낼 url 설정
                     type: "POST",
 		        	dataType:"json",
 		        	data: {
 		            	'userId' : '${pointDTO.userId}',
-		            	'pointType' : 's{pointType}',
+		            	'pointType' : $('#pointChar').val(),
 		            	'pointNow' : '${pointDTO.pointNow}' + 'money',
 						'pointCharge' : 'money'
 		        	},
@@ -86,4 +80,3 @@ span {
     });
 </script>
 </html>
-
