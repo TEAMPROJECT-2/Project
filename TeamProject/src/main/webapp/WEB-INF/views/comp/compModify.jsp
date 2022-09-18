@@ -11,41 +11,10 @@
   data-template="vertical-menu-template-free"
 >
   <head>
-<script type="text/javascript"
-src="${pageContext.request.contextPath }/resources/js/jquery-3.6.0.js"></script>
-<script type="text/javascript">
+<script type="text/javascript" src="${pageContext.request.contextPath }/resources/js/jquery-3.6.0.js"></script>
+<script src="${pageContext.request.contextPath }/resources/jsPro/compModify.js"></script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
-// 탈퇴 비밀번호 입력창 나오게
-$(document).ready(function(){
-	$('#delCheck').change(function(){
-		if ($('#delCheck').is(':checked')) {
-			$('#delDiv1').show();
-		}else {
-			$('#delDiv1').hide();
-
-		}
-	});
-});
-
-// 탈퇴
-$(document).ready(function(){
-	$('#delBtn').click(function(){
-		$.ajax({
-			url:'/web/comp/deletePro',
-			type:'POST',
-			data:{'compId':$('#compId1').val(),'compPass':$('#compPass1').val()},
-			success:function(rdata){
-				 if(rdata=="ok"){	// 아이디 없음
-					 window.location.href = "${pageContext.request.contextPath }/main/main"
-				 	}else{				// 아이디 있음
-				 	 alert("다시 입력해주세요!")
-				 	}
-			}
-		});
-	});
-});
-
-</script>
 
   </head>
 
@@ -89,23 +58,39 @@ $(document).ready(function(){
                             <input class="form-control form-control-lg" type="hidden" name="compId" id="compId" value="${compDTO.compId}" readonly />
                           <div class="mb-3 col-md-6">
                             <label for="compNm" class="form-label">업체이름</label>
-                            <input class="form-control form-control-lg" type="text" name="compNm" id="compNm" value="${compDTO.compNm}"/>
-                          </div>
-                          <div class="mb-3 col-md-6">
-                            <label for="compEmail" class="form-label">이메일</label>
-                            <input class="form-control form-control-lg" type="email" name="compEmail" id="compEmail" value="${compDTO.compEmail}" readonly />
+                            <input class="form-control form-control-lg" type="text" name="compNm" id="compNm" value="${compDTO.compNm}" readonly/>
                           </div>
                           <div class="mb-3 col-md-6">
                             <label for="compPass" class="form-label">비밀번호</label>
                             <input class="form-control form-control-lg" type="password" name="compPass" id="compPass" />
                           </div>
                           <div class="mb-3 col-md-6">
+                            <label for="compEmail" class="form-label">이메일</label>
+                            <input class="form-control form-control-lg" type="email" name="compEmail" id="compEmail" value="${compDTO.compEmail}" readonly />
+                          </div>
+                          <div class="mb-3 col-md-6">
                             <label for="compPhone" class="form-label">연락처</label>
                             <input class="form-control form-control-lg" type="text" name="compPhone" id="compPhone" placeholder="012-3456-7890" value="${compDTO.compPhone}"/>
                           </div>
+                          <div class="mb-3 col-md-3">
+                            <label for="compAddress" class="form-label">주소</label>
+                            <input class="form-control form-control-lg" type="text" onclick="sample6_execDaumPostcode()" name="compZipcode" id="sample6_postcode" placeholder="우편번호" value="${compDTO.compZipcode}"/>
+						  </div>
+                          <div class="mb-3 col-md-3">
+                            <label for="compAddress" class="form-label">&nbsp;</label>
+                            <input class="form-control form-control-lg" type="text" onclick="sample6_execDaumPostcode()" name="compAddress" id="sample6_address" placeholder="주소" value="${compDTO.compAddress}"/>
+                          </div>
+                          <div class="mb-3 col-md-3">
+                          	<label for="compAddress" class="form-label">&nbsp;</label>
+                            <input class="form-control form-control-lg" type="text" name="compDetaddress" id="sample6_detailAddress" placeholder="상세주소" value="${compDTO.compDetaddress}"/>
+                          </div>
+                          <div class="mb-3 col-md-3">
+                          	<label for="compAddress" class="form-label">&nbsp;</label>
+                            <input class="form-control form-control-lg" type="text" name="compExtaddress" id="sample6_extraAddress" placeholder="참고항목" value="${compDTO.compExtaddress}"/>
+                          </div>
                         </div>
                         <div class="mt-2">
-                          <button type="submit" class="btn btn-primary me-2">정보 수정</button>
+                          <button type="submit" class="btn btn-primary me-2" >정보 수정</button>
                           <button type="reset" class="btn btn-outline-secondary">취소</button>
                         </div>
                       </form>
@@ -133,7 +118,7 @@ $(document).ready(function(){
                           <label class="form-check-label" for="delCheck">안내사항을 숙지했고 탈퇴를 계속 진행할래요.</label>
                         </div>
 
-                          <div class="mb-3 col-md-4" id="delDiv" >
+                          <div class="mb-3 col-md-4" id="delDiv" style="display: none" >
                             <label for="compPass" class="form-label">비밀번호를 입력하세요</label>
                             <input class="form-control form-control-lg" type="hidden" name="compId1" id="compId1" value="${compDTO.compId}"/>
                             <input class="form-control form-control-lg" type="password" name="compPass1" id="compPass1"/>

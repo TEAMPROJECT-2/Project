@@ -29,6 +29,7 @@ import com.itwillbs.domain.BoardDTO;
 import com.itwillbs.domain.CommonDTO;
 import com.itwillbs.domain.CompDTO;
 import com.itwillbs.domain.MemberDTO;
+import com.itwillbs.domain.OrderListDTO;
 import com.itwillbs.domain.PageDTO;
 import com.itwillbs.domain.ProdDTO;
 import com.itwillbs.domain.ProdStockDTO;
@@ -124,7 +125,7 @@ public class CompController {
 	}
 	//업로드 경로 servlet-context.mxl upload폴더 경로 이름
 
-
+	// 물품목록페이지
 	@RequestMapping(value = "/comp/deleteProd", method = RequestMethod.GET)
 	public String list(HttpServletRequest request, Model model,HttpSession session,@ModelAttribute ProdDTO prodDTO) {
 		// 한화면에 보여줄 글개수
@@ -296,7 +297,7 @@ public class CompController {
 			return "redirect:/comp/modify";
 		}else {
 			//아이디 비밀번호 틀림
-			return "comp/msg";
+			return "member/msg";
 		}
 	}
 	// 업체페이지 - 비밀번호 변경 페이지
@@ -310,10 +311,7 @@ public class CompController {
 	public String compProdList() {
 		return "comp/prodList";
 	}
-	@RequestMapping(value = "/comp/ordList", method = RequestMethod.GET)
-	public String compOrdList() {
-		return "comp/ordList";
-	}
+
 
 	// 회원 탈퇴
 	@RequestMapping(value = "/comp/deletePro", method = RequestMethod.POST)
@@ -359,6 +357,65 @@ public class CompController {
 
 			return "redirect:/member/login";
 		}
+		// 주문 목록 페이지
+		@RequestMapping(value = "/comp/ordList", method = RequestMethod.GET)
+		public String ordList(HttpServletRequest request, Model model,HttpSession session,@ModelAttribute OrderListDTO orderListDTO) {
+
+			// 한화면에 보여줄 글개수
+			int pageSize=10;
+			//현페이지 번호
+			String pageNum=request.getParameter("pageNum");
+			String compId = (String)session.getAttribute("compId");
+
+
+			if(pageNum==null) {
+				pageNum="1";
+			}
+
+			//현페이지 번호를 정수형으로 변경
+			int currentPage=Integer.parseInt(pageNum);
+			// PageDTO 객체생성
+			PageDTO pageDTO=new PageDTO();
+			pageDTO.setPageSize(pageSize);
+			pageDTO.setPageNum(pageNum);
+			pageDTO.setCurrentPage(currentPage);
+			pageDTO.setCompNm(compId);
+			List<OrderListDTO> ordList=compService.getOrdList(pageDTO); // 주문 물건 리스트 갖고오기
+			int count=compService.getOrdCount(pageDTO);     // 업체 전체 물건 리스트 갯수
+			// 페이징
+			int pageBlock=10;
+			int startPage=(currentPage-1)/pageBlock*pageBlock+1;
+			int endPage=startPage+pageBlock-1;
+			int pageCount=count / pageSize +(count % pageSize==0?0:1);
+			if(endPage > pageCount){
+				endPage = pageCount;
+			}
+
+
+			pageDTO.setCount(count);
+			pageDTO.setPageBlock(pageBlock);
+			pageDTO.setStartPage(startPage);
+			pageDTO.setEndPage(endPage);
+			pageDTO.setPageCount(pageCount);
+			//데이터 담아서 list.jsp 이동
+			model.addAttribute("ordList", ordList);
+			model.addAttribute("pageDTO", pageDTO);
+
+			// 주소변경없이 이동
+			// WEB-INF/views/board/list.jsp 이동
+			return "/comp/ordList";
+		}
+
+		@RequestMapping(value = {"/comp/delivNumberInsert"}, method = {RequestMethod.POST})
+		  public String delivNumberInsert(OrderListDTO orderListDTO)throws Exception{
+
+//			  clientService.delivNumberInsert(orderListDTO);
+//			  orderedVO.setOrdered_delivstate(2);
+//			  clientService.delivNumberUpdate(orderListDTO);
+
+			  return "redirect:/comp/ordList";
+		  }
+
 
 } // 마지막 괄호
 

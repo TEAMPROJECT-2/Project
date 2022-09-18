@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.itwillbs.domain.CompDTO;
 import com.itwillbs.domain.MemberDTO;
+import com.itwillbs.domain.OrderListDTO;
 import com.itwillbs.domain.PageDTO;
 import com.itwillbs.domain.ProdDTO;
 import com.itwillbs.domain.ProdStockDTO;
@@ -76,6 +77,14 @@ public class CompDAOImpl implements CompDAO {
 	public void passMod(CompDTO compDTO) throws Exception {
 		sqlSession.update(namespace + ".passMod", compDTO);
 
+	}
+	@Override
+	public List<OrderListDTO> getOrdList(PageDTO pageDTO) {
+		return sqlSession.selectList(namespace+".getOrdList",pageDTO);
+	}
+	@Override
+	public int getOrdCount(PageDTO pageDTO) {
+		return sqlSession.selectOne(namespace+".getOrdCount",pageDTO);
 	}
 
 }

@@ -6,6 +6,7 @@ import java.util.Map;
 import com.itwillbs.domain.CommonDTO;
 import com.itwillbs.domain.CompDTO;
 import com.itwillbs.domain.MemberDTO;
+import com.itwillbs.domain.OrderListDTO;
 import com.itwillbs.domain.PageDTO;
 import com.itwillbs.domain.ProdDTO;
 import com.itwillbs.domain.ProdStockDTO;
@@ -34,5 +35,9 @@ public interface CompService {
 
 	// 업체 탈퇴
 	public void delComp(CompDTO compDTO);
+	// 주문 목록
+	public List<OrderListDTO> getOrdList(PageDTO pageDTO);
+	// 주문 목록 페이징
+	public int getOrdCount(PageDTO pageDTO);
 
 }

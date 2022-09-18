@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.itwillbs.dao.CompDAO;
 import com.itwillbs.domain.CompDTO;
+import com.itwillbs.domain.OrderListDTO;
 import com.itwillbs.domain.PageDTO;
 import com.itwillbs.domain.ProdDTO;
 import com.itwillbs.domain.ProdStockDTO;
@@ -87,6 +88,20 @@ public class CompServiceImpl implements CompService {
 	@Override
 	public void delComp(CompDTO compDTO) {
 		compDAO.delComp(compDTO);
+	}
+
+
+	@Override
+	public List<OrderListDTO> getOrdList(PageDTO pageDTO) {
+
+		return compDAO.getOrdList(pageDTO);
+	}
+
+
+	@Override
+	public int getOrdCount(PageDTO pageDTO) {
+
+		return compDAO.getOrdCount(pageDTO);
 	}
 
 

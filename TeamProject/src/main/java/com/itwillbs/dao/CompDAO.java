@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.itwillbs.domain.CompDTO;
+import com.itwillbs.domain.OrderListDTO;
 import com.itwillbs.domain.PageDTO;
 import com.itwillbs.domain.ProdDTO;
 import com.itwillbs.domain.ProdStockDTO;
@@ -35,6 +36,10 @@ public interface CompDAO {
 
 	// 업체 비밀번호 변경
 	void passMod(CompDTO compDTO) throws Exception;
+	// 주문 리스트 갖고 오기
+	public List<OrderListDTO> getOrdList(PageDTO pageDTO);
+	// 주문 리스트 페이징 처리
+	public int getOrdCount(PageDTO pageDTO);
 
 
 

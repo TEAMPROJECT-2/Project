@@ -12,6 +12,37 @@ public class CompDTO {
 	private String compRegNum;
 	private int userType;
 	private String compPhone;
+	private String compZipcode;
+	private String compAddress;
+	private String compDetaddress;
+	private String compExtaddress;
+
+
+	public String getCompZipcode() {
+		return compZipcode;
+	}
+	public void setCompZipcode(String compZipcode) {
+		this.compZipcode = compZipcode;
+	}
+	public String getCompDetaddress() {
+		return compDetaddress;
+	}
+	public void setCompDetaddress(String compDetaddress) {
+		this.compDetaddress = compDetaddress;
+	}
+	public String getCompExtaddress() {
+		return compExtaddress;
+	}
+	public void setCompExtaddress(String compExtaddress) {
+		this.compExtaddress = compExtaddress;
+	}
+	public String getCompAddress() {
+		return compAddress;
+	}
+	public void setCompAddress(String compAddress) {
+		this.compAddress = compAddress;
+	}
+
 	private Timestamp compDate;
 
 	public int getCompanyInfoNum() {

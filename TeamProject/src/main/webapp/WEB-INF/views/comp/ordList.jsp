@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html
   lang="en"
@@ -11,6 +12,11 @@
   data-template="vertical-menu-template-free"
 >
   <head>
+  <script src="http://code.jquery.com/jquery-3.6.0.js"></script>
+  <script src="${pageContext.request.contextPath }/resources/jsPro/ordList.js"></script>
+<!--   전체선택, 선택삭제 자바스크립트 -->
+
+
   </head>
 
   <body>
@@ -23,110 +29,155 @@
 <!-- 		큰화면 버티컬 시작-->
 		<jsp:include page="../inc/comp-menu.jsp"/>
 <!-- 		큰화면 버티컬 끝 -->
-           
-           
-           <!-- Content wrapper -->
-          <div class="content-wrapper">
-            <!-- Content -->
-<!-- 화면줄였을때 버티컬 메뉴 및 큰화면에서는 시작 -->
-            <div class="container-xxl flex-grow-1 container-p-y">
-              <h4 class="fw-bold py-3 mb-4">
-                <span class="text-muted fw-light">상품관리 </span> 
-              </h4>
 
-              <div class="row">
+
+			<!-- Content wrapper -->
+			<div class="content-wrapper">
+				<!-- Content -->
+				<!-- 화면줄였을때 버티컬 메뉴 및 큰화면에서는 시작 -->
+            <div class="container-xxl flex-grow-1 container-p-y">
+              <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">상품 관리 /</span> 상품 목록</h4>
+
+			<div class="row">
                 <div class="col-md-12">
                   <ul class="nav nav-pills flex-column flex-md-row mb-3">
                     <li class="nav-item">
-                      <a class="nav-link" href="${pageContext.request.contextPath }/comp/updateProd"
-                        ><i class="bx bx-user me-1"></i>주문목록 </a
-                      >
-                   
-                    
+                      <a class="nav-link" href="${pageContext.request.contextPath }/comp/insertGoods">
+                      <i class="bx bx-user me-1"></i> 상품 등록</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link active" href="${pageContext.request.contextPath }/comp/deleteProd">
+                      <i class="bx bx-user me-1"></i> 상품 목록</a>
+                    </li>
                   </ul>
 <!--  화면줄였을때 버티컬 및 큰화면에서는 시작 매뉴끝                  -->
-                  
-                  
-                  
+
+
+
                 <div class="card">
-                <h5 class="card-header">주문목록</h5>
-                <form> 
-                <table class="table table-striped">        
-                 <tbody class="table-border-bottom-0"> 
-                  <tr>  
-                  	 <td></td> 
-                     <td class="mb-3">
-                        <select id="defaultSelect" class="form-select">
-                          <option>주문상태 선택</option>
-                          <option value="1">배송완료</option>
-                          <option value="2">배송중</option>
-                          <option value="3">미배송</option>
-                        </select>
-                     </td>
-                     <td colspan="2" class="input-group input-group-merge">
-                        <span class="input-group-text" id="basic-addon-search31"><i class="bx bx-search"></i></span>
-                        <input
-                          type="text"
-                          class="form-control"
-                          placeholder="검색..."
-                          aria-label="Search..."
-                          aria-describedby="basic-addon-search31"/>
-                	</td>
-                	<td><button type="submit" class="btn btn-primary">검색</button> </td>
-                  </tr>
-                 </tbody>  
-               </table> 
-               </form> 
-                <div class="table-responsive text-nowrap">
-                  <table class="table table-striped">
+                <h5 class="card-header">상품목록</h5>
+<!--                 <form> -->
+<!--                 <table class="table table-borderless"> -->
+<!--                  <tbody class="table-border-bottom-0"> -->
+<!--                   <tr> -->
+<!--                   	 <td></td> -->
+<!--                      <td class="mb-3"> -->
+<!--                         <select id="defaultSelect" class="form-select" name="status"> -->
+<!--                           <option value="0">재고상태 선택</option> -->
+<!--                           <option value="1">양호</option> -->
+<!--                           <option value="2">품절임박</option> -->
+<!--                           <option value="3">품절</option> -->
+<!--                         </select> -->
+<!--                      </td> -->
+<!--                      <td class="mb-3"> -->
+<!--                         <select id="defaultSelect" class="form-select" name="searchCol"> -->
+<!--                           <option value="0">검색 테이블 선택</option> -->
+<!--                           <option value="PROD_L_CODE">상품코드</option> -->
+<!--                           <option value="PROD_L_PRODNM">상품이름</option> -->
+<!--                           <option value="PROD_L_PRICE">가격</option> -->
+<!--                         </select> -->
+<!--                      </td> -->
+<!--                      <td colspan="2" class="input-group input-group-merge"> -->
+<!--                         <span class="input-group-text" id="basic-addon-search31"><i class="bx bx-search"></i></span> -->
+<!--                         <input type="text" class="form-control" placeholder="상품 번호 검색" aria-describedby="basic-addon-search31" name="searchKeyWord"/> -->
+<!--                 	</td> -->
+<!--                 	<td><button type="submit" class="btn btn-primary">검색</button> </td> -->
+<!--                   </tr> -->
+<!--                  </tbody> -->
+<!--                </table> -->
+<!--                </form> -->
+
+
+                <div class="table-responsive text-nowrap" id="Context">
+                 <form>
+<!--                   <button type="submit" class="btn btn-primary " onclick="deleteValue();">선택 삭제</button> -->
+                  <table class="table table-striped" >
                     <thead>
                       <tr>
+<!--                         <th>&nbsp;&nbsp;<input class="form-check-input" type="checkbox" id="allCheck" name="allCheck" />&nbsp;&nbsp;&nbsp;전체선택 </th> -->
+                        <th>주문일</th>
                         <th>주문번호</th>
-                        <th>고객아이디</th>
-                        <th>상품코드</th>
-                        <th>구입날짜</th>
-                        <th>주문수량</th>
-                        <th>주문상태</th>
+                        <th>주문자</th>
+                        <th>총금액</th>
+                        <th>배송</th>
                       </tr>
                     </thead>
                     <tbody class="table-border-bottom-0">
-                      <tr>
-                        <td>1234</td>
-                        <td>kim</td>
-                        <td>shake0001</td>
-                        <td>22-02-13</td>
-                        <td>1개</td>
-<!--                         <td><span class="badge bg-label-info me-1">배송완료</span></td> -->
-                        <td><span class="badge bg-label-warning me-1">배송중</span></td>
-<!--                         <td><span class="badge bg-label-danger me-1">배송완료</span></td> -->
+					  <c:forEach var="orderListDTO" items="${ordList }" varStatus="status">
+                      <tr onClick="location.href='${pageContext.request.contextPath }/comp/update?CheckRow=${orderListDTO.ordNum }'" style="cursor:pointer;">
+<%--                       	<td onclick="event.cancelBubble=true">&nbsp;&nbsp;&nbsp;&nbsp;<input class="form-check-input" type="checkbox" value="${orderListDTO.ordNum }" name="CheckRow" id="defaultCheck1" /> --%>
+<!--                       	<label class="form-check-label" for="defaultCheck1"></label></td> -->
+                        <td>${orderListDTO.ordLDate }</td>
+                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>${orderListDTO.ordNum }</strong></td>
+                        <td>
+                        ${orderListDTO.ordLUser }
+                        </td>
+                        <td>
+                          ${orderListDTO.ordFinalprice }
+                        </td>
+
+                        <td>
+<!-- 					  		<form action="/comp/delivNumberInsert" method="post"> -->
+<%--                       			<input type="hidden" value="${orderListDTO.ordLCode}" name="ordered_no" id="ordered_no"> --%>
+<!--                       			<div id="delivNumber"> -->
+                    	  		<c:if test='${orderListDTO.ordDeliveryStatus  < "2" } '>
+                      				물품준비중
+<!--                       				<button class="btn btn-round btn-g" id="delivNumberAdd_btn" type="button"> -->
+<!--                       				송장번호입력 -->
+<!--                       				</button> -->
+                      			</c:if>
+<%--                    				<c:if test="${orderListDTO.ordDeliveryStatus == '2'}"> --%>
+<!--                       				배송중 -->
+<%--                       			</c:if> --%>
+<%--                      			<c:if test="${orderListDTO.ordDeliveryStatus == '3'}"> --%>
+<!--                       				배송완료 -->
+<%--                       			</c:if> --%>
+<!--                 				</div> -->
+<!--                  			</form> -->
+
+						</td>
                       </tr>
-                      
-                      <tr>
-                        <td>1235</td>
-                        <td>lee</td>
-                        <td>shake0003</td>
-                        <td>22-02-20</td>
-                        <td>2개</td>
-                        <td><span class="badge bg-label-danger me-1">미배송</span></td>
-                      </tr>
-                      
-                      <tr>
-                        <td>1235</td>
-                        <td>lee</td>
-                        <td>shake0003</td>
-                        <td>22-02-20</td>
-                        <td>2개</td>
-                        <td><span class="badge bg-label-info me-1">배송완료</span></td>
-                      </tr>
-                    
+                      </c:forEach>
+
+
                     </tbody>
                   </table>
+
+			        <div class="bd-example-snippet bd-code-snippet"><div class="bd-example " >
+			        <nav aria-label="Standard pagination example">
+			          <ul class="pagination">
+			            <li class="page-item">
+			              <c:if test="${pageDTO.startPage > pageDTO.pageBlock }">
+			              <a class="page-link" href="${pageContext.request.contextPath }
+							/board/list?pageNum=${pageDTO.startPage - pageDTO.pageBlock}&status=${pageDTO.status }&searchCol=${pageDTO.columnNm }&searchKeyWord=${pageDTO.searchKeyWord }" aria-label="Previous">
+			                <span aria-hidden="true">&laquo;</span>
+			              </a>
+			              </c:if>
+			            </li>
+
+			            <c:forEach var="i" begin="${pageDTO.startPage }" end="${pageDTO.endPage }" step="1">
+			            <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath }/comp/deleteProd?pageNum=${i}&status=${pageDTO.status }&searchCol=${pageDTO.columnNm }&searchKeyWord=${pageDTO.searchKeyWord }">${i}</a></li>
+			            </c:forEach>
+
+			            <li class="page-item">
+			              <c:if test="${pageDTO.endPage < pageDTO.pageCount }">
+			              <a class="page-link" href="${pageContext.request.contextPath }
+						 /comp/deleteProd?pageNum=${pageDTO.startPage + pageDTO.pageBlock}&status=${pageDTO.status }&searchCol=${pageDTO.columnNm }&searchKeyWord=${pageDTO.searchKeyWord }" aria-label="Next">
+			                <span aria-hidden="true">&raquo;</span>
+			              </a>
+			              </c:if>
+			            </li>
+			          </ul>
+			        </nav>
+			        </div></div>
+
+                 </form>
                 </div>
               </div>
-                
-                
-                
-                
+
+
+
+
                 </div>
               </div>
             </div>
@@ -195,7 +246,7 @@
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
-    
+
     <!-- Footer Section Begin -->
     <jsp:include page="../inc/footer.jsp"/>
 </body>
