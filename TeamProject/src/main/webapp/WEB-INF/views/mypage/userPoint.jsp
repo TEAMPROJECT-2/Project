@@ -3,22 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script type="text/javascript"
 src="${pageContext.request.contextPath }/resources/js/jquery-3.6.0.js"></script>
-<script type="text/javascript">
-	$('#charge').click(function () {
-		$.ajax({
-			url:'${pageContext.request.contextPath }/member/iddup',
-			data:{'id':$('#id').val()},
-			success:function(rdata){
-				if(rdata=='iddup'){
-					rdata="아이디 중복";
-				}else{
-					rdata="아이디 사용가능";
-				}
-				$('#iddiv').html(rdata);
-			}
-		});
-	});
-</script>
 <!DOCTYPE html>
 <html
   lang="en"
@@ -30,7 +14,6 @@ src="${pageContext.request.contextPath }/resources/js/jquery-3.6.0.js"></script>
 >
 <script type="text/javascript">
 function datecheck(){
-	
 	
 	var today = new Date();
 	
@@ -68,6 +51,7 @@ function datecheck(){
 		return false;
 	}
 	
+	
 }
 </script>
   <head>
@@ -90,28 +74,28 @@ function datecheck(){
 
                 <div class="mb-3 row">
                   <div class="col-md-10">
-                    <input class="form-control" type="date" id="html5-date-input" />
-                    <input class="form-control" type="date" id="html5-date-input" />
-                  </div>
-                  <label for="html5-date-input" class="col-md-2 col-form-label">Date</label>
-                </div>
+                    <form action="${pageContext.request.contextPath }/point/pointCheck" method="get">
+                    <input class="form-control" type="date" id="startdate" />
+                    <input class="form-control" type="date" id="enddate" />
+                    <br>
+<!-- 								<select name="startyear" id="startyear"> -->
+<!-- 								</select>년 -->
+<!-- 								 <select name="startmonth" id="startmonth"> -->
+<!-- 								</select>월 -->
+<!-- 								<select name="startday" id="startday" > -->
+<!-- 								</select>일 ~  -->
+<!-- 								<select name="endyear" id="endyear"	></select>년 -->
+<!-- 								<select name="endmonth" id="endmonth"> </select>월 -->
+<!-- 								<select name="endday" id="endday" ></select>일 -->
 								<input type="hidden" id="startdate" name="startdate">
 								<input type="hidden" id="enddate" name="enddate">
 								<input type="button" value="1개월" class="btn btn-outline-info" onclick="location.href='pointcheck.cp?searchmonth=1';">
 								<input type="button" value="3개월" class="btn btn-outline-info" onclick="location.href='pointcheck.cp?searchmonth=3';">
 								<input type="button" value="6개월" class="btn btn-outline-info" onclick="location.href='pointcheck.cp?searchmonth=6';">
-
-								<select name="startyear" id="startyear">
-								</select>년
-								 <select name="startmonth" id="startmonth">
-								</select>월
-								<select name="startday" id="startday" >
-								</select>일 ~ 
-								<select name="endyear" id="endyear"	></select>년
-								<select name="endmonth" id="endmonth"> </select>월
-								<select name="endday" id="endday" ></select>일
-								<input type="button" value="조회하기" class="btn btn-info">
-
+								<input type="submit" value="조회하기" class="btn btn-info" id="searchPoint">
+					</form>
+                  </div>
+                </div>
               <!-- Basic Bootstrap Table -->
               <div class="card">
                 <h5 class="card-header">포인트 조회</h5>
@@ -131,12 +115,12 @@ function datecheck(){
                         <td><i class="fab fa-angular fa-lg text-danger me-3"></i> ${pointDTO.pointDate }</td>
                         <td>${pointDTO.pointType }</td>
                         <c:if test="${ pointDTO.pointUsed ne 0}">
-                        <td>-${pointDTO.pointUsed }</td>
+                        <td><span class="badge bg-danger">-${pointDTO.pointUsed }</span></td>
                         </c:if>
                         <c:if test="${ pointDTO.pointCharge ne 0}">
-                        <td>${pointDTO.pointCharge }</td>
+                        <td><span class="badge bg-label-primary me-1">${pointDTO.pointCharge }</span></td>
                         </c:if>
-                        <td><span class="badge bg-label-primary me-1">${pointDTO.pointNow }</span></td>
+                        <td><strong>${pointDTO.pointNow }</strong></td>
                       </tr>
 					 </c:forEach>					
                     </tbody>
@@ -144,6 +128,27 @@ function datecheck(){
                 </div>
               </div>
               <!--/ Basic Bootstrap Table -->
+               	  <div class="row">
+                        <div class="col-lg-12">
+                            <div class="product__pagination">
+								<c:if test="${pageDTO.startPage > pageDTO.pageBlock }">
+								<a href="${pageContext.request.contextPath }
+								/mypage/point?pageNum=${pageDTO.startPage - pageDTO.pageBlock}">Prev</a>
+								</c:if>
+								
+								<c:forEach var="i" begin="${pageDTO.startPage }" end="${pageDTO.endPage }" step="1">
+								<a href="${pageContext.request.contextPath }/mypage/point?pageNum=${i}">${i}</a>  
+								</c:forEach>
+								
+								<c:if test="${pageDTO.endPage < pageDTO.pageCount }">
+								<a href="${pageContext.request.contextPath }
+								/mypage/point?pageNum=${pageDTO.startPage + pageDTO.pageBlock}">Next</a>
+								</c:if>                               
+                           	</div>
+                       	 </div>
+                   	</div>
+              
+              
 			</div>
 
 

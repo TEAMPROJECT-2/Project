@@ -32,6 +32,7 @@
 	<select id="getPointCount" resultType="java.lang.Integer">
 		SELECT COUNT(*)
 		  FROM POINT
+   		 WHERE USER_ID= #{userId}
 	</select>
 
 	<select id="getPointList" resultType="com.itwillbs.domain.PointDTO">
@@ -61,4 +62,27 @@
 			,#{pointCharge}
 			)
 	</insert>
+	
+		<insert id="insertUsePoint">
+			INSERT INTO POINT(
+			 POINT_NUM
+			,USER_ID
+			,POINT_DATE
+			,POINT_TYPE
+			,POINT_NOW
+			,POINT_USED
+			) 
+		values(
+			 (SELECT A.POINTNUM
+			    FROM (SELECT MAX(POINT_NUM) + 1 AS POINTNUM
+			    	    FROM POINT) A)
+			,#{userId}
+			,#{pointDate}
+			,#{pointType}
+			,#{pointNow}
+			,#{pointUsed}
+			)
+	</insert>
+	
+	
 </mapper>

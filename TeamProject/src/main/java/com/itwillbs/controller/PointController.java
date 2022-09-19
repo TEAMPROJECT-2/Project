@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.Map;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.http.HttpStatus;
@@ -56,7 +57,7 @@ public class PointController {
 			return "/member/msg";
 		} else {
 		PointDTO pointDTO = pointService.getMember(userId);	
-		MemberDTO memberDTO = memberService.getMember(userId); 
+		MemberDTO memberDTO = memberService.getMember(userId);
 		model.addAttribute("memberDTO", memberDTO);
 		model.addAttribute("pointDTO", pointDTO);
 		return "point/charge";
@@ -64,10 +65,10 @@ public class PointController {
 	}
 	 @ResponseBody
 	   @RequestMapping(value="/point/insertChargePoint", method = RequestMethod.POST)
-	   public String paymenByImpUid (@RequestParam Map<String, Object> para){
-	      
+	   public String paymenByImpUid (HttpSession session, HttpServletRequest request, @RequestParam Map<String, Object> para){
 	      Map<String, Object> sMap = para;
-
+	      sMap.put("userId", (String)session.getAttribute("userId"));
+	      sMap.put("pointType", request.getParameter("pointType"));
 	      sMap.put("pointDate", new FunctionClass().nowTime("yyyy-MM-dd HH:mm:ss"));
 	      System.out.println(sMap);
 	      pointService.insertChargePoint(sMap);
@@ -75,11 +76,17 @@ public class PointController {
 	      return "redirect:/main/main";
 	 }
 
-//	SimpleDateFormat format1 = new SimpleDateFormat ( "yyyy-MM-dd HH:mm:ss");
-//	Date time = new Date();
-//	String time1 = format1.format(time.getTime());
-
-
-	
+	 @ResponseBody
+	   @RequestMapping(value="/point/insertUsePoint", method = RequestMethod.POST)
+	   public String insertUsePoint (HttpSession session, HttpServletRequest request, @RequestParam Map<String, Object> para){
+	      Map<String, Object> sMap = para;
+	      sMap.put("userId", (String)session.getAttribute("userId"));
+	      sMap.put("pointType", request.getParameter("pointType"));
+	      sMap.put("pointDate", new FunctionClass().nowTime("yyyy-MM-dd HH:mm:ss"));
+	      System.out.println(sMap);
+	      pointService.insertUsePoint(sMap);
+	      
+	      return "redirect:/main/main";
+	 }
 	
 }

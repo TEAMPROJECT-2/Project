@@ -11,7 +11,7 @@ public interface PointDAO {
 
 	PointDTO getMember(String userId);
 
-	int getPointCount();
+	int getPointCount(String userId);
 
 	List<PointDTO> getPointList(PageDTO pageDTO);
 
@@ -20,5 +20,7 @@ public interface PointDAO {
 	void insertMember(PointDTO pointDTO);
 
 	void insertChargePoint(Map<String, Object> sMap);
+
+	void insertUsePoint(Map<String, Object> sMap);
 
 }

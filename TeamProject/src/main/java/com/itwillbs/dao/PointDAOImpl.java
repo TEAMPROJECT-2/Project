@@ -27,7 +27,7 @@ public class PointDAOImpl implements PointDAO {
 
 
 	@Override
-	public int getPointCount() {
+	public int getPointCount(String userId) {
 		return sqlSession.selectOne(namespace+".getPointCount");
 	}
 
@@ -53,6 +53,12 @@ public class PointDAOImpl implements PointDAO {
 	@Override
 	public void insertChargePoint(Map<String, Object> sMap) {
 		sqlSession.insert(namespace+".insertChargePoint", sMap);
+	}
+
+
+	@Override
+	public void insertUsePoint(Map<String, Object> sMap) {
+		sqlSession.insert(namespace+".insertUsePoint", sMap);
 	}
 
 }
