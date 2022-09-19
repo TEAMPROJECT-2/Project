@@ -2,14 +2,17 @@ package com.itwillbs.service;
 
 import org.springframework.stereotype.Service;
 
-import com.itwillbs.domain.BasketDTO;
+import com.itwillbs.domain.OrderDTO;
+
 
 @Service
 public class OrderServiceImpl implements OrderService {
 
 	@Override
-	public void getTotalPrice(BasketDTO basketDTO) {
+	public void insertOrder(OrderDTO orderDTO) {
 		
 	}
 
+	
+	
 }

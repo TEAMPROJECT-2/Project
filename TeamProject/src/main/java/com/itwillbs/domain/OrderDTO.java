@@ -4,33 +4,41 @@ import java.sql.Timestamp;
 
 public class OrderDTO {
 	private int num;
-	private String ordGetUser;
+	
+	private String ordUser;
+	private String ordGetNm;
 	private String ordGetAddress;
-	private String ordGetEmail;
 	private String ordGetPhone;
 	private String ordDeliveryMessage;
 	private Timestamp ordDate;
 	private String ordPayment;
 	private int ordTotalPrice;
 	private int ordSavedpoint;
-	private int ordCouponDiscountPrice;
+	private int ordCouponDc;
 	private int ordUsepoint;
 	private int ordFinalPrice;
 	private String ordPurchaseStatus;
 	private int ordDeliveryPrice;
 	
+
 	
+	public String getOrdUser() {
+		return ordUser;
+	}
+	public void setOrdUser(String ordUser) {
+		this.ordUser = ordUser;
+	}
 	public int getNum() {
 		return num;
 	}
 	public void setNum(int num) {
 		this.num = num;
 	}
-	public String getOrdGetUser() {
-		return ordGetUser;
+	public String getOrdGetNm() {
+		return ordGetNm;
 	}
-	public void setOrdGetUser(String ordGetUser) {
-		this.ordGetUser = ordGetUser;
+	public void setOrdGetNm(String ordGetNm) {
+		this.ordGetNm = ordGetNm;
 	}
 	public String getOrdGetAddress() {
 		return ordGetAddress;
@@ -38,12 +46,7 @@ public class OrderDTO {
 	public void setOrdGetAddress(String ordGetAddress) {
 		this.ordGetAddress = ordGetAddress;
 	}
-	public String getOrdGetEmail() {
-		return ordGetEmail;
-	}
-	public void setOrdGetEmail(String ordGetEmail) {
-		this.ordGetEmail = ordGetEmail;
-	}
+	
 	public String getOrdGetPhone() {
 		return ordGetPhone;
 	}
@@ -80,11 +83,11 @@ public class OrderDTO {
 	public void setOrdSavedpoint(int ordSavedpoint) {
 		this.ordSavedpoint = ordSavedpoint;
 	}
-	public int getOrdCouponDiscountPrice() {
-		return ordCouponDiscountPrice;
+	public int getOrdCouponDc() {
+		return ordCouponDc;
 	}
-	public void setOrdCouponDiscountPrice(int ordCouponDiscountPrice) {
-		this.ordCouponDiscountPrice = ordCouponDiscountPrice;
+	public void setOrdCouponDc(int ordCouponDc) {
+		this.ordCouponDc = ordCouponDc;
 	}
 	public int getOrdUsepoint() {
 		return ordUsepoint;
@@ -111,17 +114,19 @@ public class OrderDTO {
 		this.ordDeliveryPrice = ordDeliveryPrice;
 	}
 	
+	
 	@Override
 	public String toString() {
-		return "OrderDTO [num=" + num + ", ordGetUser=" + ordGetUser + ", ordGetAddress=" + ordGetAddress
-				+ ", ordGetEmail=" + ordGetEmail + ", ordGetPhone=" + ordGetPhone + ", ordDeliveryMessage="
-				+ ordDeliveryMessage + ", ordDate=" + ordDate + ", ordPayment=" + ordPayment + ", ordTotalPrice="
-				+ ordTotalPrice + ", ordSavedpoint=" + ordSavedpoint + ", ordCouponDiscountPrice="
-				+ ordCouponDiscountPrice + ", ordUsepoint=" + ordUsepoint + ", ordFinalPrice=" + ordFinalPrice
-				+ ", ordPurchaseStatus=" + ordPurchaseStatus + ", ordDeliveryPrice=" + ordDeliveryPrice + "]";
+		return "OrderDTO [num=" + num + ", ordUser=" + ordUser + ", ordGetNm=" + ordGetNm + ", ordGetAddress="
+				+ ordGetAddress + ", ordGetPhone=" + ordGetPhone + ", ordDeliveryMessage=" + ordDeliveryMessage
+				+ ", ordDate=" + ordDate + ", ordPayment=" + ordPayment + ", ordTotalPrice=" + ordTotalPrice
+				+ ", ordSavedpoint=" + ordSavedpoint + ", ordCouponDc=" + ordCouponDc
+				+ ", ordUsepoint=" + ordUsepoint + ", ordFinalPrice=" + ordFinalPrice + ", ordPurchaseStatus="
+				+ ordPurchaseStatus + ", ordDeliveryPrice=" + ordDeliveryPrice + "]";
 	}
-
 	
+	
+
 	
 	
 	

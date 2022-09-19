@@ -4,19 +4,18 @@ package com.itwillbs.controller;
 import java.util.List;
 
 import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.itwillbs.domain.AddressDTO;
 import com.itwillbs.domain.BasketDTO;
 import com.itwillbs.domain.MemberDTO;
+import com.itwillbs.domain.OrderDTO;
 import com.itwillbs.domain.PointDTO;
 import com.itwillbs.domain.ProdDTO;
 import com.itwillbs.service.AddressService;
@@ -43,20 +42,17 @@ public class OrderController {
 	private PointService pointService;
 	
 	
-//	@Inject
-//	private ProdService prodService;
 	
 	@RequestMapping(value = "/order/checkout", method = RequestMethod.GET)
-	public String orderCheckout(HttpSession session, Model model, @ModelAttribute BasketDTO basketDTO, @ModelAttribute ProdDTO prodDTO, @ModelAttribute PointDTO pointDTO) {
+	public String orderCheckout(HttpSession session, Model model, @ModelAttribute BasketDTO basketDTO, @ModelAttribute ProdDTO prodDTO, @ModelAttribute PointDTO pointDTO, @ModelAttribute OrderDTO orderDTO) {
 		String userId = (String) session.getAttribute("userId");
-//		String sbProdCode = (String) session.getAttribute("sbProdCode");
 		basketDTO.setSbUser(userId);
 		pointDTO.setUserId(userId);
-//		prodDTO.setProdLCode(sbProdCode);
 		AddressDTO addressDTO = addressService.getAddress(userId);
 		MemberDTO memberDTO = memberService.getMember(userId);
 		List<BasketDTO> basketList=basketService.getBasketList(basketDTO);
-		PointDTO pointDTO2 = pointService.getMember(userId); 
+		PointDTO pointDTO2 = pointService.getMember(userId);	
+		
 		
 		// 상품 가격 총합
 		int total = 0;
@@ -64,12 +60,11 @@ public class OrderController {
 			total+=dto.getSbProdPrice() * dto.getSbCount();
 		}
 		
-//		List<ProdDTO> prodList=prodService.selectProdList(prodDTO); 
 		model.addAttribute("addressDTO", addressDTO);
 		model.addAttribute("memberDTO", memberDTO);
 		model.addAttribute("basketList", basketList);
 		model.addAttribute("total", total);
-//		model.addAttribute("ProdList", prodList);
+		model.addAttribute("pointDTO2", pointDTO2);
 		return "order/checkout";
 	}
 		
