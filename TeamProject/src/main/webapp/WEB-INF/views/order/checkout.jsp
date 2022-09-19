@@ -17,70 +17,25 @@
 
 </head>
 <body>
-<script type="text/javascript">
 
-  $(function(){
 
-	    $("#addressGetPhone").on('keydown', function(e){
-	       // 숫자만 입력받기
-	        var trans_num = $(this).val().replace(/-/gi,'');
-		var k = e.keyCode;
-					
-		if(trans_num.length >= 11 && ((k >= 48 && k <=126) || (k >= 12592 && k <= 12687 || k==32 || k==229 || (k>=45032 && k<=55203)) ))
-		{
-	  	    e.preventDefault();
-		}
-	    }).on('blur', function(){ // 포커스를 잃었을때 실행합니다.
-	        if($(this).val() == '') return;
+<script>
+// 포인트사용
+function pointUseAll(){
+	document.getElementById('textUsePoint').value = ${pointDTO2.pointNow};
+}
 
-	        // 기존 번호에서 - 를 삭제합니다.
-	        var trans_num = $(this).val().replace(/-/gi,'');
-	      
-	        // 입력값이 있을때만 실행합니다.
-	        if(trans_num != null && trans_num != '')
-	        {
-	            // 총 핸드폰 자리수는 11글자이거나, 10자여야 합니다.
-	            if(trans_num.length==11 || trans_num.length==10) 
-	            {   
-	                // 유효성 체크
-	                var regExp_ctn = /^(01[016789]{1}|02|0[3-9]{1}[0-9]{1})([0-9]{3,4})([0-9]{4})$/;
-	                if(regExp_ctn.test(trans_num))
-	                {
-	                    // 유효성 체크에 성공하면 하이픈을 넣고 값을 바꿔줍니다.
-	                    trans_num = trans_num.replace(/^(01[016789]{1}|02|0[3-9]{1}[0-9]{1})-?([0-9]{3,4})-?([0-9]{4})$/, "$1-$2-$3");                  
-	                    $(this).val(trans_num);
-	                }
-	                else
-	                {
-	                    alert("유효하지 않은 전화번호 입니다.");
-	                    $(this).val("");
-	                    $(this).focus();
-	                }
-	            }
-	            else 
-	            {
-	                alert("유효하지 않은 전화번호 입니다.");
-	                $(this).val("");
-	                $(this).focus();
-	            }
-	      }
-	  });  
-	});
-  </script>
+</script>
 
 	<script type="text/javascript">
 		var path = "${pageContext.request.contextPath }";
 
-		$(function() {
-			$("#resTb tbody").append($("#resInfoTr").html());
+		$(function() { 
+			$("#resTb tbody").append($("#resInfoTr").html()); 
 
 		});
 
-		function resOpenPopup() {
-			var pop = window.open("/web/order/updateAddress", "resPopup",
-					"width=500,height=500, scrollbars=yes, resizable=yes");
-		}
-	</script>
+	</script> 
 
 
 	<script>
@@ -103,28 +58,28 @@
            console.log(rsp);
            
            
-//              var reservation = {
-//                 reservationNum: rsp.merchant_uid,
-//                    checkin: '${date1}',
-//                    checkout: '${date2}',
-//               paymentPrice: '${prePayment}',
-//                    roomNum: '${room.roomNum}',
-//                    userid: '${user.userId}',
-//                    pensionid: '${pension.pensionid}'
-//                    };
-                   
             if (rsp.success) {
                 var msg = '결제가 완료되었습니다.';
                 console.log(reservation);
                 alert(msg);
               
                 $.ajax({
-                    url: "/verifyIamport/" + rsp.imp_uid,
+                    url: "orderComplete",
                    type: "POST",
-                   headers: { "Content-Type": "application/json" },
-                   data: JSON.stringify(reservation),
+                   data: { 'user_id'    :'${sessionScope.user_id}',
+	                       'user_type'    :'${sessionScope.user_type}',
+	                       'pen_id'    :'${businessDTO.PEN_ID }',
+	                       'room_id'    :'${param.room_id}',
+	                       'rm_name'    :'${businessDTO.RM_NAME }',
+	                       'check_in_d' :'${rm_checkin}',
+	                       'check_out_d':'${rm_checkout}',
+	                       'check_in_t' :'${businessDTO.RM_CHECKIN }',
+	                       'check_out_t':'${businessDTO.RM_CHECKOUT }',
+	                        'rm_price'    :'${total }',
+	                        'res_status' :'1'
+                       },
+
                    dataType:"json",
-                    contentType:"application/json; charset=utf-8"
                 })
               
                 location.href = '${pageContext.request.contextPath}/mypage/order';
@@ -136,7 +91,7 @@
      }
   </script>
   <script>
-     var point = '${user.point}';
+     var point = '${pointDTO2.pointNow}';
      var prePayment = '${prePayment}';
      $(function() {
         $('#point').val((point * 1).toLocaleString());
@@ -144,7 +99,7 @@
            if($('#usePoint').val() - $('#point').val() > 0) {
               alert('사용 가능 포인트를 초과하였습니다.')
               $('#point').val(point.toLocaleString());
-              $('#usePoint').val(0);
+              $('#usePoint').val(point);
               $('#discount').html('0 원');
               $('#payment').text(prePayment + ' 원');
            }
@@ -209,7 +164,7 @@
 	<section class="checkout spad">
 		<div class="container">
 			<div class="checkout__form">
-				<form action="#">
+<!-- 				<form action="#"> -->
 					<div class="row">
 						<div class="col-lg-8 col-md-6">
 
@@ -285,58 +240,18 @@
                         
                         <div class="mt-3" id="mt-3" name="mt-3">
                          <c:if test="${addressDTO.address ne null }">
-                          <button type="submit" class="btn btn-primary me-2">배송지 수정</button>
+                          <button type="submit" class="btn btn-primary me-2">배송지 저장</button>
                           <button type="reset" class="btn btn-outline-secondary">취소</button>
                       </form>
                       </c:if>
                       <c:if test="${addressDTO.address eq null }">
-                          <button type="submit" class="btn btn-primary me-2">배송지 입력</button>
+                          <button type="submit" class="btn btn-primary me-2">배송지 저장</button>
                           <button type="reset" class="btn btn-outline-secondary">취소</button>
                       </form>
                       </c:if>
                         </div>
                       
                     </div>
-
-
-
-
-<!-- 											회원일때 -->
-<!-- 											<div class="aaaaaaaaaaaaaaaaaaaaa"> -->
-
-
-
-<!-- 												<table> -->
-<%-- 													<colgroup> --%>
-<%-- 														<col style="width: 115px"> --%>
-<%-- 														<col> --%>
-<%-- 													</colgroup> --%>
-<!-- 													<tbody> -->
-<!-- 														<tr> -->
-<!-- 															<th scope="row">받는분</th> -->
-<!-- 															<td><input type=text name="addressGetNm123" -->
-<%-- 																value="${addressDTO.addressGetNm}"></td> --%>
-<!-- 														</tr> -->
-<!-- 														<tr> -->
-<!-- 															<th scope="row">주소</th> -->
-<%-- 															<td>${addressDTO.address} --%>
-<%-- 																&nbsp;${addressDTO.addressDetails}</td> --%>
-<!-- 														</tr> -->
-<!-- 														<tr> -->
-<!-- 															<th scope="row">휴대전화</th> -->
-<%-- 															<td>${addressDTO.addressGetPhone}</td> --%>
-<!-- 														</tr> -->
-<!-- 													</tbody> -->
-<!-- 												</table> -->
-<!-- 											</div> -->
-
-<!-- 									<div class="text-center"> -->
-<!-- 										<a href="javascript:void(0);" -->
-<!-- 											onclick="resOpenPopup();return false;" -->
-<!-- 											class="btn btn-outline-primary">배송지 수정</a> -->
-<!-- 									</div> -->
-<!-- 								</div> -->
-
 
 								<div class="order-info">
 									<div class="list-head">
@@ -345,7 +260,6 @@
 									<!--// list-head -->
 									<div class="lineless-table type1">
 										<table>
-											<caption>쿠폰/할인 사용</caption>
 											<colgroup>
 												<col style="width: 190px">
 												<col>
@@ -361,18 +275,18 @@
 																	<input type="hidden" id="currentPoint"
 																		name="currentPoint" value="0"> <input
 																		type="hidden" id="usePoint" name="usePoint" value="0">
-																	<input type="text" title=""
+																	<input type="number" title=""
 																		class="input-text ui-point-input" id="textUsePoint"
 																		name="textUsePoint" placeholder="1,000P부터 사용가능"
-																		onkeydown="return numberOnly(event)"
-																		onkeyup="removeChar(event)" onblur="fnUsePoint()">
+																		min='1000' max="${pointDTO2.pointNow}" >
+<!-- 																		onKeyPress="return checkNum(event)" -->
+<!-- 																		onkeyup="removeChar(event)" onblur="fnUsePoint()" -->
 																	<span class="input-group-btn">
-																		<button type="button" class="btn-x-xs btn-input-del"
-																			title="">
-																			<i class="ico-x-normal"></i><span class="blind">삭제</span>
+																		<button type="reset" class="btn-x-xs btn-input-del"
+																			title=""><span>삭제</span>
 																		</button>
 																		<button type="button" class="btn-ex-grey"
-																			onclick="fnUsePoint('all')">
+																			onclick="pointUseAll();">
 																			<span>전액사용</span>
 																		</button>
 																	</span>
@@ -381,7 +295,7 @@
 															</div>
 															<!--// input-group-wrap -->
 															<p class="point-guide">
-																사용 가능 포인트 <em class="text-num-bold">${pointDTO.pointNow}</em>P
+																사용 가능 포인트 <em class="text-num-bold">${pointDTO2.pointNow}</em>P
 															</p>
 														</div> <!--// order-point -->
 													</td>
@@ -424,7 +338,7 @@
 									<p>
 										배송시 요구사항<span>*</span>
 									</p>
-									<input type="checkbo x" placeholder="메세지를 입력하세요."> 
+									<input type="checkbo x" id="ordDeliveryMessage" name="ordDeliveryMessage" placeholder="메세지를 입력하세요."> 
 								</div>
 							</div>
 
@@ -446,22 +360,8 @@
 										</ul>
 									</c:forEach>
 									
-									
-			
-<%-- 									<c:set var = "total" value = "0" /> --%>
-
-<%-- 									<c:forEach var="basketDTO" items="${basketList}" varStatus="status">      --%>
-									
-<%-- 									<c:set var= "total" value="${total + (basketDTO.sbProdPrice *basketDTO.sbCount)}"/> --%>
-									
-<%-- 									</c:forEach> --%>
-									
-									
-									
-									
-									
 									<ul class="checkout__total__all">
-										<li>할인 금액<span>0000원</span></li>
+										<li>할인 금액<span>원</span></li>
 										<li>Total <span>${total}원</span></li>
 									</ul>
 									
@@ -519,6 +419,56 @@
 		}
 	</script>
 
+<script type="text/javascript">
+
+  $(function(){
+
+	    $("#addressGetPhone").on('keydown', function(e){
+	       // 숫자만 입력받기
+	        var trans_num = $(this).val().replace(/-/gi,'');
+		var k = e.keyCode;
+					
+		if(trans_num.length >= 11 && ((k >= 48 && k <=126) || (k >= 12592 && k <= 12687 || k==32 || k==229 || (k>=45032 && k<=55203)) ))
+		{
+	  	    e.preventDefault();
+		}
+	    }).on('blur', function(){ // 포커스를 잃었을때 실행합니다.
+	        if($(this).val() == '') return;
+
+	        // 기존 번호에서 - 를 삭제합니다.
+	        var trans_num = $(this).val().replace(/-/gi,'');
+	      
+	        // 입력값이 있을때만 실행합니다.
+	        if(trans_num != null && trans_num != '')
+	        {
+	            // 총 핸드폰 자리수는 11글자이거나, 10자여야 합니다.
+	            if(trans_num.length==11 || trans_num.length==10) 
+	            {   
+	                // 유효성 체크
+	                var regExp_ctn = /^(01[016789]{1}|02|0[3-9]{1}[0-9]{1})([0-9]{3,4})([0-9]{4})$/;
+	                if(regExp_ctn.test(trans_num))
+	                {
+	                    // 유효성 체크에 성공하면 하이픈을 넣고 값을 바꿔줍니다.
+	                    trans_num = trans_num.replace(/^(01[016789]{1}|02|0[3-9]{1}[0-9]{1})-?([0-9]{3,4})-?([0-9]{4})$/, "$1-$2-$3");                  
+	                    $(this).val(trans_num);
+	                }
+	                else
+	                {
+	                    alert("유효하지 않은 전화번호 입니다.");
+	                    $(this).val("");
+	                    $(this).focus();
+	                }
+	            }
+	            else 
+	            {
+	                alert("유효하지 않은 전화번호 입니다.");
+	                $(this).val("");
+	                $(this).focus();
+	            }
+	      }
+	  });  
+	});
+  </script>
 
 <!-- jQuery -->
 <script type="text/javascript"

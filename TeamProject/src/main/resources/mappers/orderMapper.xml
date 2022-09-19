@@ -5,35 +5,47 @@
 
 <mapper namespace="com.itwillbs.mappers.orderMapper">
 	
-	<insert id="insertAddress">
-		INSERT INTO ORDER_BOARD(
-					ORD_USER_NM
+	
+	<select id="insertOrder" allowMultiQueries=true>
+	
+			INSERT INTO ORDER_BOARD(
+					ORD_USER
+				   ,ORD_GET_NM
 				   ,ORD_GET_ADDRESS
-				   ,ORD_GET_ADDRESS2
-				   ,ORD_GET_ADDRESS3
-				   ,ORD_USER_PHONE
-				   
+				   ,ORD_GET_PHONE
+				   ,ORD_DELIVERY_MESSAGE
+				   ,ORD_DATE
+				   ,ORD_PAYMENT
+				   ,ORD_TOTAL_PRICE
+				   ,ORD_SAVEDPOINT
+				   ,ORD_COUPONDDC
+				   ,ORD_USE_POINT
+				   ,ORD_FINALPRICE
+				   ,ORD_PURCHASESTATUS
+				   ,ORD_DELIVERY_PRICE
 				   )
 			VALUES(
-					#{ordUserNm}
+					#{ordUser}
+				   ,#{ordGetNm}
 				   ,#{ordGetAddress}
-				   ,#{ordGetAddress2}
-				   ,#{ordGetAddress3}
-				   ,#{ordUserPhone}
+				   ,#{ordGetPhone}
+				   ,#{ordDeliveryMessage}
+				   ,#{ordDate}
+				   ,#{ordPayment}
+				   ,#{ordTotalPrice}
+				   ,#{ordSavedpoint}
+				   ,#{ordCouponDc}
+				   ,#{ordUsepoint}
+				   ,#{ordFinalPrice}
+				   ,#{ordPurchaseStatus}
+				   ,#{ordDeliveryPrice}
 				    )
-	</insert>
-	
-	<select id="updateAddress" resultType="com.itwillbs.domain.MemberDTO">
-		UPDATE USER_INFO
-		   SET USER_ADDRESS			=#{userAddress}
-		      ,USER_ADDRESS_DETAILS	=#{userAddressDetails}
-		      ,USER_ZIPCODE 		=#{userZipcode}
-		      ,USER_NM 				=#{userNm}
-		      ,USER_PHONE 			=#{userPhone}
-	 	 WHERE USER_ID				=#{userId}
-		   
+				    
+			UPDATE PRODDTO
+				SET PROD_L_QUANTITY=#{prodLQuantity - basketDTO.sbCount}
+			WHERE SB_PROD_CODE
+				    
 	</select>
-	
 	
 	
 
