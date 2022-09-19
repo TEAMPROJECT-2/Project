@@ -307,10 +307,9 @@ $(document).ready(function(){
                     	<c:forEach var="prodList" items="${prodList}">
                         <div class="col-lg-4 col-md-6 col-sm-6">
                             <div class="product__item">
-                                <div class="product__item__pic set-bg" style="position: relative;">
+                                <div class="product__item__pic set-bg">
                                 <a href="${pageContext.request.contextPath }/product/details?prodLNum=${prodList.prodLNum}">
-									<img src="${pageContext.request.contextPath }/resources/img/product/${prodList.prodLMainimg}" alt="위의 이미지를 누르면 연결됩니다." style="position: absolute;opacity: 0.4;"/>
-                                    <img src="${pageContext.request.contextPath }/resources/img/icon/soldout.png" class="sold" style="position: absolute;">
+									<img src="${pageContext.request.contextPath }/resources/img/product/${prodList.prodLMainimg}" alt="위의 이미지를 누르면 연결됩니다."/>
 								</a>
                                     <ul class="product__hover">
                     	 	           <li><a href="#"><img src="${pageContext.request.contextPath }/resources/img/icon/heart.png" alt=""><span>찜하기</span></a></li>
