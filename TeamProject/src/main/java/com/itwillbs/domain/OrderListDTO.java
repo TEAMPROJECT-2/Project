@@ -1,9 +1,10 @@
 package com.itwillbs.domain;
 
-import com.google.protobuf.Timestamp;
+import java.sql.Timestamp;
 
-public class OrderListDTO extends OrderDTO{
-	private int ordNum          ;
+public class OrderListDTO {
+	private int trnum;
+	private int num          ;
 	private String ordLCode        ;
 	private String ordLUser        ;
 	private int ordLQuantity    ;
@@ -13,12 +14,22 @@ public class OrderListDTO extends OrderDTO{
 	private String compId;
 	private String ordDeliveryStatus;
 	private int ordFinalprice;
+	private String ordLDelivNumber;
+	private int count;
+	private String ordPurchasestatus;
 
-	public int getOrdNum() {
-		return ordNum;
+
+	public int getTrnum() {
+		return trnum;
 	}
-	public void setOrdNum(int ordNum) {
-		this.ordNum = ordNum;
+	public void setTrnum(int trnum) {
+		this.trnum = trnum;
+	}
+	public int getNum() {
+		return num;
+	}
+	public void setNum(int num) {
+		this.num = num;
 	}
 	public String getOrdLCode() {
 		return ordLCode;
@@ -74,9 +85,30 @@ public class OrderListDTO extends OrderDTO{
 	public void setOrdFinalprice(int ordFinalprice) {
 		this.ordFinalprice = ordFinalprice;
 	}
+
+	public String getOrdLDelivNumber() {
+		return ordLDelivNumber;
+	}
+	public void setOrdLDelivNumber(String ordLDelivNumber) {
+		this.ordLDelivNumber = ordLDelivNumber;
+	}
+
+	public int getCount() {
+		return count;
+	}
+	public void setCount(int count) {
+		this.count = count;
+	}
+
+	public String getOrdPurchasestatus() {
+		return ordPurchasestatus;
+	}
+	public void setOrdPurchasestatus(String ordPurchasestatus) {
+		this.ordPurchasestatus = ordPurchasestatus;
+	}
 	@Override
 	public String toString() {
-		return "OrderListDTO [ordNum=" + ordNum + ", ordLCode=" + ordLCode + ", ordLUser=" + ordLUser
+		return "OrderListDTO [ordNum=" + num + ", ordLCode=" + ordLCode + ", ordLUser=" + ordLUser
 				+ ", ordLQuantity=" + ordLQuantity + ", ordLPrice=" + ordLPrice + ", ordLCounumcoudc=" + ordLCounumcoudc
 				+ ", ordLDate=" + ordLDate + ", compId=" + compId + ", ordDeliveryStatus=" + ordDeliveryStatus
 				+ ", ordFinalprice=" + ordFinalprice + "]";

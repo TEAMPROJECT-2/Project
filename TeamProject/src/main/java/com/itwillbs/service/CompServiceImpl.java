@@ -104,6 +104,24 @@ public class CompServiceImpl implements CompService {
 		return compDAO.getOrdCount(pageDTO);
 	}
 
+	// 송장번호 입력
+	@Override
+	public void delivNumberInsert(OrderListDTO orderListDTO) {
+		compDAO.delivNumberInsert(orderListDTO);
+	}
+
+	// 배송상태 변경
+	@Override
+	public void delivNumberUpdate(OrderListDTO orderListDTO) {
+		compDAO.delivNumberUpdate(orderListDTO);
+	}
+
+
+	@Override
+	public int getOrdCountDeliv(OrderListDTO orderListDTO) {
+		return compDAO.getOrdCountMain(orderListDTO);
+	}
+
 
 
 }

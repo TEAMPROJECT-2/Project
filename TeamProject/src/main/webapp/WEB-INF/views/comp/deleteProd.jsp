@@ -134,19 +134,6 @@
                       </tr>
                       </c:forEach>
 
-					  <c:if test="${pageDTO.startPage > pageDTO.pageBlock }">
-						<a href="${pageContext.request.contextPath }
-							/board/list?pageNum=${pageDTO.startPage - pageDTO.pageBlock}&status=${pageDTO.status }&searchCol=${pageDTO.columnNm }&searchKeyWord=${pageDTO.searchKeyWord }">Prev</a>
-					  </c:if>
-
-						<c:forEach var="i" begin="${pageDTO.startPage }" end="${pageDTO.endPage }" step="1">
-						<a href="${pageContext.request.contextPath }/comp/deleteProd?pageNum=${i}&status=${pageDTO.status }&searchCol=${pageDTO.columnNm }&searchKeyWord=${pageDTO.searchKeyWord }">${i}</a>
-						</c:forEach>
-
-					  <c:if test="${pageDTO.endPage < pageDTO.pageCount }">
-						<a href="${pageContext.request.contextPath }
-						 /comp/deleteProd?pageNum=${pageDTO.startPage + pageDTO.pageBlock}&status=${pageDTO.status }&searchCol=${pageDTO.columnNm }&searchKeyWord=${pageDTO.searchKeyWord }">Next</a>
-					  </c:if>
                     </tbody>
                   </table>
 
@@ -154,17 +141,23 @@
 			        <nav aria-label="Standard pagination example">
 			          <ul class="pagination">
 			            <li class="page-item">
-			              <a class="page-link" href="#" aria-label="Previous">
+			               <c:if test="${pageDTO.startPage > pageDTO.pageBlock }">
+			              <a class="page-link" href="${pageContext.request.contextPath }
+							/board/list?pageNum=${pageDTO.startPage - pageDTO.pageBlock}&status=${pageDTO.status }&searchCol=${pageDTO.columnNm }&searchKeyWord=${pageDTO.searchKeyWord }" aria-label="Previous">
 			                <span aria-hidden="true">&laquo;</span>
 			              </a>
+			              </c:if>
 			            </li>
-			            <li class="page-item"><a class="page-link" href="#">1</a></li>
-			            <li class="page-item"><a class="page-link" href="#">2</a></li>
-			            <li class="page-item"><a class="page-link" href="#">3</a></li>
-			            <li class="page-item">
-			              <a class="page-link" href="#" aria-label="Next">
+			            <c:forEach var="i" begin="${pageDTO.startPage }" end="${pageDTO.endPage }" step="1">
+			            <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath }/comp/deleteProd?pageNum=${i}&status=${pageDTO.status }&searchCol=${pageDTO.columnNm }&searchKeyWord=${pageDTO.searchKeyWord }">${i}</a></li>
+			            </c:forEach>
+			           <li class="page-item">
+			              <c:if test="${pageDTO.endPage < pageDTO.pageCount }">
+			              <a class="page-link" href="${pageContext.request.contextPath }
+						 /comp/deleteProd?pageNum=${pageDTO.startPage + pageDTO.pageBlock}&status=${pageDTO.status }&searchCol=${pageDTO.columnNm }&searchKeyWord=${pageDTO.searchKeyWord }" aria-label="Next">
 			                <span aria-hidden="true">&raquo;</span>
 			              </a>
+			              </c:if>
 			            </li>
 			          </ul>
 			        </nav>

@@ -40,7 +40,12 @@ public interface CompDAO {
 	public List<OrderListDTO> getOrdList(PageDTO pageDTO);
 	// 주문 리스트 페이징 처리
 	public int getOrdCount(PageDTO pageDTO);
-
+	// 송장 번호 입력
+	public void delivNumberInsert(OrderListDTO orderListDTO);
+	// 배송 상태 변경
+	public void delivNumberUpdate(OrderListDTO orderListDTO);
+	// 미배송/배송완료 수
+	public int getOrdCountMain(OrderListDTO orderListDTO);
 
 
 

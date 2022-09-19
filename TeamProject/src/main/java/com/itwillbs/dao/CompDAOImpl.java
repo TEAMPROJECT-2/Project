@@ -26,7 +26,6 @@ public class CompDAOImpl implements CompDAO {
 	// 상품 신규등록
 	@Override
 	public void insertProd(ProdDTO prodDTO) {
-		System.out.println("MemberDAOImpl insertProd()");
 		// 마이바티스 메서드 호출
 		sqlSession.insert(namespace + ".insertProd", prodDTO);
 	}
@@ -78,13 +77,30 @@ public class CompDAOImpl implements CompDAO {
 		sqlSession.update(namespace + ".passMod", compDTO);
 
 	}
+	// 주문리스트
 	@Override
 	public List<OrderListDTO> getOrdList(PageDTO pageDTO) {
 		return sqlSession.selectList(namespace+".getOrdList",pageDTO);
 	}
+	// 주문목록 갯수
 	@Override
 	public int getOrdCount(PageDTO pageDTO) {
 		return sqlSession.selectOne(namespace+".getOrdCount",pageDTO);
+	}
+	// 송장번호 입력
+	@Override
+	public void delivNumberInsert(OrderListDTO orderListDTO) {
+		sqlSession.insert(namespace + ".delivNumberInsert", orderListDTO);
+	}
+	// 배송 상태 변경
+	@Override
+	public void delivNumberUpdate(OrderListDTO orderListDTO) {
+		System.out.println("delivNumberUpdate : " + orderListDTO.getOrdDeliveryStatus());
+		sqlSession.update(namespace + ".delivNumberUpdate", orderListDTO);
+	}
+	@Override
+	public int getOrdCountMain(OrderListDTO orderListDTO) {
+		return sqlSession.selectOne(namespace+".getOrdCountMain",orderListDTO);
 	}
 
 }
