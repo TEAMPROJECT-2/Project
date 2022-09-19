@@ -87,12 +87,6 @@
                 <div data-i18n="Tables">비밀번호 변경</div>
               </a>
            </li>
-            <li class="menu-item">
-              <a href="${pageContext.request.contextPath }/mypage/connection" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-link"></i>
-                <div data-i18n="Tables">연결</div>
-              </a>
-            </li>
 
             <!-- Components -->
             <li class="menu-header small text-uppercase"><span class="menu-header-text">주문</span></li>
@@ -120,7 +114,7 @@
               </a>
             </li>
              <li class="menu-item">
-              <a href="${pageContext.request.contextPath }/mypage/comment" class="menu-link">
+              <a href="${pageContext.request.contextPath }/mypage/coupon" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-dock-top"></i>
                 <div data-i18n="Tables">쿠폰</div>
               </a>
@@ -157,53 +151,6 @@
                   </a>
                 </li>
               </ul>
-            </li>
-
-            <!-- Forms & Tables -->
-            <li class="menu-header small text-uppercase"><span class="menu-header-text">Forms &amp; Tables</span></li>
-            <!-- Forms -->
-            <li class="menu-item">
-              <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-detail"></i>
-                <div data-i18n="Form Elements">Form Elements</div>
-              </a>
-              <ul class="menu-sub">
-                <li class="menu-item">
-                  <a href="${pageContext.request.contextPath }/member/forms-basic-inputs" class="menu-link">
-                    <div data-i18n="Basic Inputs">Basic Inputs</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="${pageContext.request.contextPath }/member/forms-input-groups" class="menu-link">
-                    <div data-i18n="Input groups">Input groups</div>
-                  </a>
-                </li>
-              </ul>
-            </li>
-            <li class="menu-item">
-              <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-detail"></i>
-                <div data-i18n="Form Layouts">Form Layouts</div>
-              </a>
-              <ul class="menu-sub">
-                <li class="menu-item">
-                  <a href="${pageContext.request.contextPath }/member/form-layouts-vertical" class="menu-link">
-                    <div data-i18n="Vertical Form">Vertical Form</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="${pageContext.request.contextPath }/member/form-layouts-horizontal" class="menu-link">
-                    <div data-i18n="Horizontal Form">Horizontal Form</div>
-                  </a>
-                </li>
-              </ul>
-            </li>
-            <!-- Tables -->
-            <li class="menu-item">
-              <a href="${pageContext.request.contextPath }/member/tables" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-table"></i>
-                <div data-i18n="Tables">Tables</div>
-              </a>
             </li>
             </ul>
         </aside>

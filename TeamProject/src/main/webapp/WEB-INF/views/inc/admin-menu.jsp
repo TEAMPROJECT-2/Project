@@ -117,19 +117,13 @@
 
 
 
-            <!-- Components -->
-            <li class="menu-header small text-uppercase"><span class="menu-header-text">포인트 / 쿠폰</span></li>
-            <!-- Cards -->
-            <li class="menu-item">
-              <a href="${pageContext.request.contextPath }/member/cards-basic" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-collection"></i>
-                <div data-i18n="Basic">포인트</div>
-              </a>
-            </li>
+            <!-- coupon -->
+            <li class="menu-header small text-uppercase"><span class="menu-header-text">쿠폰</span></li>
+            <!-- coupon -->
             <li class="menu-item">
               <a href="${pageContext.request.contextPath }/admin/coupon" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-collection"></i>
-                <div data-i18n="Basic">쿠폰</div>
+                <div data-i18n="Basic">쿠폰 관리</div>
               </a>
             </li>
             <!-- Forms & Tables -->

@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.itwillbs.domain.AddressDTO;
 import com.itwillbs.domain.BoardDTO;
 import com.itwillbs.domain.CompDTO;
 import com.itwillbs.domain.MemberDTO;
@@ -27,6 +28,7 @@ import com.itwillbs.domain.PageDTO;
 import com.itwillbs.domain.PointDTO;
 import com.itwillbs.mail.MailUtils;
 import com.itwillbs.mail.TempKey;
+import com.itwillbs.service.AddressService;
 import com.itwillbs.service.MemberService;
 import com.itwillbs.service.PointService;
 
@@ -37,6 +39,8 @@ public class MypageController {
 	private MemberService memberService;
 	@Inject
 	private PointService pointService;
+	@Inject
+	private AddressService addressService;
 	@Autowired
 	private BCryptPasswordEncoder bcryptPasswordEncoder;
 
@@ -44,9 +48,13 @@ public class MypageController {
 	// 마이페이지
 	@RequestMapping(value = "/mypage", method = RequestMethod.GET)
 	public String mypage(HttpSession session, Model model) {
-		String userId=(String)session.getAttribute("userId");
+		String userId = (String)session.getAttribute("userId");
+		MemberDTO memberDTO = memberService.getMember(userId);
 		PointDTO pointDTO = pointService.getMember(userId);
+		AddressDTO addressDTO = addressService.getAddress(userId);
+		model.addAttribute("memberDTO", memberDTO);
 		model.addAttribute("pointDTO", pointDTO);
+		model.addAttribute("addressDTO", addressDTO);
 		return "mypage/mypage";
 	}
 

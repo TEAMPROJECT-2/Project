@@ -40,7 +40,7 @@
                         	<hr><br>
                         	<h4>SNS 로그인</h4><br>
                         	<a class="p-2" href="https://kauth.kakao.com/oauth/authorize?client_id=2aad40910868e3c5fa9594f8de34a07b&redirect_uri=http://localhost:8080/oauth/kakao&response_type=code">
-							  <img th:src="@{/images/kakao_login_medium_wide .png}" style="height:60px"/>
+							  <img src='${pageContext.request.contextPath }/resources/img/kakao_login_medium_wide.png' style="height:60px"/>
 							</a>
 							<br><br>
                         <ul>
@@ -78,7 +78,6 @@
 				                     </label>
 				                        <input type="password" id="userPass" name="userPass" placeholder="비밀번호">
 				                    </div>
-<%-- 				                     <input type="hidden" name="userLastDate" id="userLastDate" value="${userLastDate }" > --%>
 								     <button type="submit" class="site-btn w-100 btn-lg">로그인</button><br>
 								  </form><br>
 								  <div class= "text-center">

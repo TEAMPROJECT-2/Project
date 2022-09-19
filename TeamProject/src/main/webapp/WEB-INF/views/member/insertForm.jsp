@@ -118,6 +118,14 @@ $(document).ready(function () {
             <input type="text" class="form-control" name="userId" id="userId" placeholder="ID" onkeyup="uidCheck(this.value)">
             <label for="userId">ID</label>
           </div>
+           <div class="form-floating mb-3">
+            <input type="text" class="form-control" name="userNm" id="userNm" placeholder="홍길동">
+            <label for="userNm">이름</label>
+          </div>
+           <div class="form-floating mb-3">
+            <input type="text" class="form-control" name="userNicknm" id="userNicknm" placeholder="홍길동">
+            <label for="userNicknm">닉네임</label>
+          </div>
           <div class="form-floating mb-3">
             <input type="email" class="form-control" name="userEmail" id="userEmail" placeholder="name@example.com" onkeyup="uemailCheck(this.value)">
             <label for="userEmail">이메일 주소</label>

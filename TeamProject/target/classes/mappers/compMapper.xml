@@ -135,9 +135,12 @@
 <!-- 	업체정보 수정 -->
 	<update id="modComp">
 		UPDATE    COMPANY_INFO
-		   SET	  COMP_NM		=#{compNm}
-				 ,COMP_PHONE	=#{compPhone}
-		 WHERE    COMP_ID		=#{compId}
+		   SET	  COMP_ZIPCODE		=#{compZipcode}
+			   	 ,COMP_ADDRESS		=#{compAddress}
+			   	 ,COMP_DETADDRESS	=#{compDetaddress}
+			   	 ,COMP_EXTADDRESS	=#{compExtaddress}
+				 ,COMP_PHONE		=#{compPhone}
+		 WHERE    COMP_ID			=#{compId}
 	</update>
 <!-- 비밀번호 수정 -->
 	<update id="passMod">
@@ -151,5 +154,40 @@
 		 WHERE 		COMP_ID		=#{compId}
 		   AND 		COMP_PASS	=#{compPass}
 	</delete>
+<!-- 주문 목록 갖고오기 -->
+	<select id="getOrdList" resultType="com.itwillbs.domain.OrderListDTO">
+		SELECT   OB.NUM                 as ordNum
+			    ,OL.ORD_L_USER          as ordLUser
+			    ,OL.ORD_L_CODE          as ordLCode
+				,OL.ORD_L_QUANTITY      as ordLQuantity
+<!-- 				,OB.ORD_L_PRICE         as ORD_L_PRICE -->
+				,OL.ORD_L_DATE          as ordLDate
+				,OL.ORD_DELIVERY_STATUS as ordDeliveryStatus
+				,OB.ORD_FINALPRICE      as ordFinalprice
+		  FROM   ORDER_LIST as OL JOIN ORDER_BOARD as OB
+		    ON   (OL.ORD_L_USER = OB.ORD_USER)
+		 WHERE   OL.ORD_L_CODE IN (SELECT PROD_L_CODE
+                        			 FROM PRODUCT_LIST
+                        			WHERE PROD_L_COMPNM=#{compNm})
+           AND   OL.ORD_DELIVERY_STATUS = "1"
+<!-- SELECT * -->
+<!-- 		  FROM   ORDER_LIST -->
 
+
+	</select>
+	<select id="getOrdCount" resultType="java.lang.Integer">
+SELECT
+			    count(ORD_L_CODE)
+<!-- 				,OB.ORD_L_PRICE         AS ORD_L_PRICE -->
+<!-- 				,ORD_FINALPRICE -->
+		  FROM   ORDER_LIST
+
+<!-- 		SELECT   COUNT(OL.ORD_L_CODE) -->
+<!-- 		  FROM   ORDER_LIST OL -->
+<!-- 		  JOIN   ORDER_BOARD OB -->
+<!-- 		    ON   (OL.ORD_L_USER=OB.ORD_USER) -->
+<!-- 		 WHERE   OL.ORD_L_CODE IN (SELECT PROD_L_CODE -->
+<!--                         			 FROM PRODUCT_LIST -->
+<!--                         			WHERE PROD_L_COMPNM = #{compNm}) -->
+	</select>
 </mapper>
