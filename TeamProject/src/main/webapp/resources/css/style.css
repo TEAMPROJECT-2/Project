@@ -124,7 +124,7 @@ ol {
 
 .soldout_img {
 	position: absolute;
-	opacity: 0.4;
+	/* opacity: 0.4; */
 }
 
 .section-title {
@@ -422,7 +422,7 @@ ol {
 }
 
 .header__logo {
-	padding: 2px 0;
+	padding: 24px 0;
     margin-left: 70px;
 }
 
@@ -432,7 +432,7 @@ ol {
 
 .header__menu {
 	text-align: right;
-	padding: 26px 0 25px;
+	padding: 34px 0;
 }
 
 .header__menu ul li {
@@ -524,7 +524,7 @@ ol {
 
 .header__nav__option {
 	text-align: right;
-	padding: 30px 0;
+	padding: 34px 0;
 }
 
 .header__nav__option a {

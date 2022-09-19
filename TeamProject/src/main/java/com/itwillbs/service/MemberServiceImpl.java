@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.itwillbs.dao.MemberDAO;
 import com.itwillbs.domain.CompDTO;
 import com.itwillbs.domain.MemberDTO;
+import com.itwillbs.domain.PageDTO;
 import com.itwillbs.mail.MailUtils;
 import com.itwillbs.mail.TempKey;
 
@@ -173,6 +174,30 @@ public class MemberServiceImpl implements MemberService{
 		return memberDAO.statusCheck(userId);
 	}
 
+	@Override
+	public int getUserCount() {
+		return memberDAO.getUserCount();
+	}
+
+	@Override
+	public List<MemberDTO> getUserList(PageDTO pageDTO) {
+		// pageSize  pageNum  currentPage
+		int startRow=(pageDTO.getCurrentPage()-1)*pageDTO.getPageSize()+1;
+		int endRow=startRow+pageDTO.getPageSize()-1;
+
+		// sql => limit #{startRow -1}, #{pageSize}
+
+		pageDTO.setStartRow(startRow-1);
+		pageDTO.setEndRow(endRow);
+		return memberDAO.getUserList(pageDTO);
+	}
+
+	// 유저 삭제
+	@Override
+	public void deleteUser(String userId) {
+		memberDAO.deleteUser(userId);
+
+	}
 
 
 

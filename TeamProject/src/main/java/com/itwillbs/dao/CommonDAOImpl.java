@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.itwillbs.domain.CommonDTO;
+import com.itwillbs.domain.PageDTO;
 
 @Repository
 public class CommonDAOImpl implements CommonDAO {
@@ -29,7 +30,7 @@ public class CommonDAOImpl implements CommonDAO {
 
 	@Override
 	public int getCount(CommonDTO commonDTO) {
-		return sqlSession.selectOne(namespace+".getCount",commonDTO);
+		return sqlSession.selectOne(namespace+".getCount" ,commonDTO);
 	}
 
 

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import com.itwillbs.domain.CompDTO;
 import com.itwillbs.domain.MemberDTO;
+import com.itwillbs.domain.PageDTO;
 
 @Repository
 public class MemberDAOImpl implements MemberDAO{
@@ -125,6 +126,24 @@ public class MemberDAOImpl implements MemberDAO{
 	public int statusCheck(String userId) {
 		return sqlSession.selectOne(namespace + ".statusCheck", userId);
 	}
+
+	// 유저 리스트
+	@Override
+	public int getUserCount() {
+		return sqlSession.selectOne(namespace + ".getUserCount");
+	}
+	@Override
+	public List<MemberDTO> getUserList(PageDTO pageDTO) {
+		return sqlSession.selectList(namespace + ".getUserList", pageDTO);
+	}
+
+	// 유저 삭제
+	@Override
+	public void deleteUser(String userId) {
+		sqlSession.update(namespace + ".deleteUser", userId);
+
+	}
+
 
 
 

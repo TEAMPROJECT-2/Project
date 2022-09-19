@@ -24,10 +24,9 @@
 		</select>
 
 
-	<!-- 수 세기 -->
+	<!-- 카운트 -->
 		<select id="getCount" resultType="int">
 			SELECT	COUNT(*)
 			FROM	projectdb.${tableNm}
 		</select>
-
 </mapper>

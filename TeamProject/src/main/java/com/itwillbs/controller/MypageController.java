@@ -9,6 +9,8 @@ import javax.servlet.http.HttpSession;
 
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -157,16 +159,17 @@ public class MypageController {
 		return "mypage/userPoint";
 	}
 
-	@RequestMapping(value = "/mypage/info", method = RequestMethod.GET)
-	public String info(HttpSession session, Model model) {
-		// 세션값 가져오기
-		String userId=(String)session.getAttribute("userId");
-		// id에 대한 정보를 디비에 가져오기
-		MemberDTO memberDTO = memberService.getMember(userId);
-		// 가져온 정보를 담아 info.jsp 이동
-		model.addAttribute("memberDTO",memberDTO);
-		// WEB-INF/views/member/info.jsp 이동
-		return "member/info";
+	// 삭제기능
+	@RequestMapping(value = "/admin/delete")
+	public ResponseEntity<String> compProdDeleteAjax(HttpServletRequest request) {
+		String[] ajaxMsg = request.getParameterValues("valueArr");
+		// 삭제되는 데이터 만큼 for 문을 돌려 compService.deleteProd 호출
+		for(int i=0; i<ajaxMsg.length; i++) {
+			memberService.deleteUser(ajaxMsg[i]);
+		}
+
+		ResponseEntity<String> entity=new ResponseEntity<String>("1" ,HttpStatus.OK);
+		return entity;
 	}
 
 

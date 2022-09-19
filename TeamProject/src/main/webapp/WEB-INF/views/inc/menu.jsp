@@ -98,10 +98,7 @@
 <%-- 						<a href="${pageContext.request.contextPath }/point/charge" class="mr-3 ml-3" >포인트 충전</a> | --%>
 						<a href="javascript:openPop();" class="mr-3 ml-3" >포인트 충전</a> |
 						</c:if>
-						<a href="${pageContext.request.contextPath }/order/cart" class="mr-3  ml-3">장바구니</a> |
-			            <a href="${pageContext.request.contextPath }/basic/basic-badge-button" class="mr-3  ml-3">버튼</a>
-			            <a href="${pageContext.request.contextPath }/basic/basic-form">폼</a>
-			            <a href="${pageContext.request.contextPath }/basic/basic-menu-table">테이블</a>
+						<a href="${pageContext.request.contextPath }/order/cart" class="mr-3  ml-3">장바구니</a>
 
                     </div>
                     </div>
@@ -240,7 +237,7 @@
 	    IMP.init('imp27865884');
 	    var money = $('input[name="cp_item"]:checked').val();
 	    console.log(money);
-	
+
 	    IMP.request_pay({
 	        pg: 'html5_inicis',
 	        merchant_uid: 'point' + new Date().getTime(),
@@ -250,7 +247,7 @@
 	        buyer_tel: '${memberDTO.userPhone}'
 	    }, function (rsp) {
 	        console.log(rsp);
-	
+
 	        if (rsp.success) {
 	            var msg = '결제가 완료되었습니다.';
 	            msg += '고유ID : ' + rsp.imp_uid;
@@ -261,7 +258,7 @@
 	                type: "POST",
 	                url: "insertChargePoint", //충전 금액값을 보낼 url 설정
 	                type: "POST",
-		        	dataType:"json", 
+		        	dataType:"json",
 		        	data: {
 		            	'userId' : '${sessionScope.userId}',
 		            	'pointType' : $('#pointChar').val(),

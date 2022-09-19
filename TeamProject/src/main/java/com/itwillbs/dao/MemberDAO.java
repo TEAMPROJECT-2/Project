@@ -1,7 +1,10 @@
 package com.itwillbs.dao;
 
+import java.util.List;
+
 import com.itwillbs.domain.CompDTO;
 import com.itwillbs.domain.MemberDTO;
+import com.itwillbs.domain.PageDTO;
 
 public interface MemberDAO {
 	// 유저 회원가입
@@ -44,6 +47,14 @@ public interface MemberDAO {
 	public void changeStatus(MemberDTO memberDTO);
 	// 휴면 계정 체크
 	int statusCheck(String userId);
+
+	// 유저 리스트
+	public int getUserCount();
+	public List<MemberDTO> getUserList(PageDTO pageDTO);
+
+	// 유저 삭제
+	public void deleteUser(String userId);
+
 
 
 

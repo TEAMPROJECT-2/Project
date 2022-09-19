@@ -6,8 +6,10 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,6 +18,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.itwillbs.domain.CommonDTO;
 import com.itwillbs.domain.CompDTO;
 import com.itwillbs.domain.MemberDTO;
+import com.itwillbs.domain.PageDTO;
+import com.itwillbs.domain.PointDTO;
 import com.itwillbs.domain.ProdDTO;
 import com.itwillbs.domain.ProdStockDTO;
 import com.itwillbs.service.CommonService;
@@ -61,61 +65,44 @@ public class AdminController {
 	}
 
 	// 회원 리스트
-//	@RequestMapping(value = "/admin/user", method = RequestMethod.GET)
-//	public ModelAndView userList(HttpServletRequest req, HttpServletResponse res, @ModelAttribute MemberDTO memberDTO) throws Exception {
+	@RequestMapping(value = "/admin/user", method = RequestMethod.GET)
+	public String userList(HttpServletRequest request, Model model, HttpSession session) {
+		// 한 화면에 보여줄 글개수
+		int pageSize=10;
+		// 현페이지 번호
+		String pageNum=request.getParameter("pageNum");
+		if(pageNum==null) {
+			pageNum="1";
+		}
+		// 현페이지 번호를 정수형으로 변경
+		int currentPage=Integer.parseInt(pageNum);
+		// PageDTO 객체생성
+		PageDTO pageDTO=new PageDTO();
+		pageDTO.setPageSize(pageSize);
+		pageDTO.setPageNum(pageNum);
+		pageDTO.setCurrentPage(currentPage);
 
-//		try {
-//			ModelAndView mv = new ModelAndView();
-//
-//			//코드 생성 > "코드" + YYMMDD + max(000)+1
-//			CommonDTO commonDTO =  new CommonDTO();
-//			commonDTO.setColumnNum("USER_INFO_NUM");	// 기준 컬럼 정의
-//			commonDTO.setTableNm("USER_INFO");		// 테이블 정의
-//			CommonDTO cd = commonService.getList(commonDTO);
-//			// 조회해온 코드값을 원하는 DTO에 Set 처리
-//
-//			List<CommonDTO> commonList =  commonService.selectCommonList(commonDTO);
-//
-//			int pageSize = 10;
-//			String pageNum = prodDTO.getPageNum();
-//			if(pageNum == null) {
-//				pageNum = "1";
-//			}
-//			int currentPage=Integer.parseInt(pageNum);
-//
-//			int count = prodService.selectProdListCnt(prodDTO);
-//			int pageBlock = 10;
-//			int startPage = (currentPage-1)/pageBlock*pageBlock+1;
-//			int endPage=startPage+pageBlock-1;
-//			int pageCount=count / pageSize +(count % pageSize==0?0:1);
-//			if(endPage > pageCount){
-//				endPage = pageCount;
-//			}
-//
-//			prodDTO.setCurrentPage(currentPage);
-//			prodDTO.setPageSize(10);
-//
-//			List<ProdDTO> prodList = prodService.selectProdList(prodDTO);
-//
-//			prodDTO.setCount(count);
-//			prodDTO.setPageBlock(pageBlock);
-//			prodDTO.setStartPage(startPage);
-//			prodDTO.setEndPage(endPage);
-//			prodDTO.setPageCount(pageCount);
-//
-//			mv.addObject("cd", cd);
-//			mv.addObject("prodList", prodList);
-//			mv.addObject("prodDTO", prodDTO);
-//			mv.setViewName("product/shop");
-//
-//			return mv;
-//		}catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		return null;
+		List<MemberDTO> userList=memberService.getUserList(pageDTO);
 
-//		return "admin/userList";
-//	}
+		// pageBlock  startPage endPage count pageCount
+		int count=memberService.getUserCount();
+		int pageBlock=10;
+		int startPage=(currentPage-1)/pageBlock*pageBlock+1;
+		int endPage=startPage+pageBlock-1;
+		int pageCount=count / pageSize +(count % pageSize==0?0:1);
+		if(endPage > pageCount){
+			endPage = pageCount;
+		}
+		pageDTO.setCount(count);
+		pageDTO.setPageBlock(pageBlock);
+		pageDTO.setStartPage(startPage);
+		pageDTO.setEndPage(endPage);
+		pageDTO.setPageCount(pageCount);
+		model.addAttribute("userList", userList);
+		model.addAttribute("pageDTO", pageDTO);
+
+		return "admin/userList";
+	}
 
 	// 쿠폰 페이지
 	@RequestMapping(value = "/admin/coupon", method = RequestMethod.GET)

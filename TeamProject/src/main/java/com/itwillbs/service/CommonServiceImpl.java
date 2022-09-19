@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.itwillbs.dao.CommonDAO;
 import com.itwillbs.domain.CommonDTO;
+import com.itwillbs.domain.PageDTO;
 
 @Service
 public class CommonServiceImpl implements CommonService {
@@ -29,5 +30,6 @@ public class CommonServiceImpl implements CommonService {
 	public int getCount(CommonDTO commonDTO) {
 		return commonDAO.getCount(commonDTO);
 	}
+
 
 }

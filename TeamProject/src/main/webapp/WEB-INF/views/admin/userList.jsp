@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html
   lang="en"
@@ -12,7 +12,8 @@
 >
   <head>
   </head>
-
+  <script src="http://code.jquery.com/jquery-3.6.0.js"></script>
+  <script src="${pageContext.request.contextPath }/resources/jsPro/deleteUser.js"></script>
   <body>
   <!-- 메뉴단 -->
 <jsp:include page="../inc/menu.jsp"/>
@@ -26,72 +27,55 @@
             <!-- Content -->
 
             <div class="container-xxl flex-grow-1 container-p-y">
-              <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Tables /</span> Basic Tables</h4>
+              <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">회원 /</span> 회원 관리</h4>
 			   <div class="row">
                 <div class="col-md-12">
                   <ul class="nav nav-pills flex-column flex-md-row mb-3">
                     <li class="nav-item">
-                      <a class="nav-link" href="${pageContext.request.contextPath }/admin/deleteProd"
-                        ><i class="bx bx-user me-1"></i>상품삭제 </a>
+                      <a class="nav-link" href="${pageContext.request.contextPath }/admin/user"
+                        ><i class="bx bx-user me-1"></i>회원 관리 </a>
                   </ul>
 
 
                  <div class="card">
-                <h5 class="card-header">상품목록</h5>
+                <h5 class="card-header">회원 관리</h5>
                 <div class="table-responsive text-nowrap">
+                 <button type="submit" class="btn btn-primary " onclick="deleteValue();">선택 삭제</button>
                   <table class="table table-striped">
                     <thead>
                       <tr>
+                      	<th>&nbsp;&nbsp;<input class="form-check-input" type="checkbox" id="allCheck" name="allCheck" />&nbsp;&nbsp;&nbsp;전체선택 </th>
                         <th>번호</th>
-                        <th>회원 아이디</th>
-                        <th>회원 이름</th>
-                        <th>회원 이메일</th>
-                        <th>가입 날짜</th>
+                        <th>아이디</th>
+                        <th>이름</th>
+                        <th>닉네임</th>
+                        <th>이메일</th>
+                        <th>가입일</th>
+                        <th>상태</th>
                       </tr>
                     </thead>
                     <tbody class="table-border-bottom-0">
-                      <tr>
-                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>shake상품구분</strong></td>
-                        <td>초코쉐이크-상품이름</td>
-                        <td>
-                          20000원-가격
-                        </td>
-                        <td>
-                          1000개-재고수량
-                        </td>
+                     <c:forEach var="memberDTO" items="${userList}" >
+                      <tr onClick="location.href='${pageContext.request.contextPath }/comp/update?CheckRow=${memberDTO.userInfoNum }'" style="cursor:pointer;">
+                      	<td onclick="event.cancelBubble=true">&nbsp;&nbsp;&nbsp;&nbsp;<input class="form-check-input" type="checkbox" value="${memberDTO.userInfoNum }" name="CheckRow" id="defaultCheck1" />
+                      	<label class="form-check-label" for="defaultCheck1"></label></td>
 
-                        <td><span class="badge bg-label-info me-1">양호</span></td>
-
+                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> ${memberDTO.userInfoNum }</td>
+                        <td>${memberDTO.userId}</td>
+                        <td>${memberDTO.userNm}</td>
+                        <td>${memberDTO.userNicknm}</td>
+                        <td>${memberDTO.userEmail}</td>
+                        <td>${memberDTO.userDate}</td>
+                        <td>
+                        <c:if test="${memberDTO.userStatus eq 0}">
+                        	<span class="badge bg-label-primary me-1">정상</span>
+                        </c:if>
+                        <c:if test="${memberDTO.userStatus eq 1}">
+                        	<span class="badge bg-label-danger me-1">휴면</span>
+                        </c:if>
+                        </td>
                       </tr>
-                      <tr>
-                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>shake0023상품구분</strong></td>
-                        <td>밀크쉐이크-상품이름</td>
-                        <td>
-                          10000원-가격
-                        </td>
-                        <td>
-                          10개-재고수량
-                        </td>
-
-                        <td><span class="badge bg-label-warning me-1">품절임박</span></td>
-
-                      </tr>
-
-                      <tr>
-                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>shake0023상품구분</strong></td>
-                        <td>밀크쉐이크-상품이름</td>
-                        <td>
-                          10000원-가격
-                        </td>
-                        <td>
-                          10개-재고수량
-                        </td>
-
-                        <td><span class="badge bg-label-danger me-1">품절</span></td>
-
-                      </tr>
-
-
+					 </c:forEach>
                     </tbody>
                   </table>
                 </div>

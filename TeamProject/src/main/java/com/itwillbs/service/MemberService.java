@@ -1,7 +1,11 @@
 package com.itwillbs.service;
 
+import java.util.List;
+
 import com.itwillbs.domain.CompDTO;
 import com.itwillbs.domain.MemberDTO;
+import com.itwillbs.domain.PageDTO;
+import com.itwillbs.domain.PointDTO;
 
 public interface MemberService {
 	// 유저 회원가입
@@ -44,6 +48,12 @@ public interface MemberService {
 	public void changeStatus(MemberDTO memberDTO);
 	// 휴면 계정 체크
 	int statusCheck(String userId);
+
+	// 유저 리스트
+	List<MemberDTO> getUserList(PageDTO pageDTO);
+	int getUserCount();
+	// 유저 삭제
+	public void deleteUser(String userId);
 
 
 }
