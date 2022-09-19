@@ -1,6 +1,8 @@
 package com.itwillbs.dao;
 
 
+import java.util.Map;
+
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
@@ -24,6 +26,13 @@ public class OrderDAOImpl implements OrderDAO {
 	public void insertOrder(OrderDTO orderDTO) {
 		sqlSession.insert(namespace + ".insertOrder", orderDTO);		
 	}
+
+	@Override
+	public void orderComplete(Map<String, Object> sMap) {
+		sqlSession.insert(namespace+".orderComplete", sMap);		
+	}
+	
+	
 	
 	
 

@@ -64,19 +64,19 @@ function pointUseAll(){
                 alert(msg);
               
                 $.ajax({
-                    url: "/verifyIamport/" + rsp.imp_uid,
+                    url: "orderComplete",
                    type: "POST",
                    data: { 'user_id'    :'${sessionScope.user_id}',
-                       'user_type'    :'${sessionScope.user_type}',
-                       'pen_id'    :'${businessDTO.PEN_ID }',
-                       'room_id'    :'${param.room_id}',
-                       'rm_name'    :'${businessDTO.RM_NAME }',
-                       'check_in_d' :'${rm_checkin}',
-                       'check_out_d':'${rm_checkout}',
-                       'check_in_t' :'${businessDTO.RM_CHECKIN }',
-                       'check_out_t':'${businessDTO.RM_CHECKOUT }',
-                        'rm_price'    :'${total }',
-                        'res_status' :'1'
+	                       'user_type'    :'${sessionScope.user_type}',
+	                       'pen_id'    :'${businessDTO.PEN_ID }',
+	                       'room_id'    :'${param.room_id}',
+	                       'rm_name'    :'${businessDTO.RM_NAME }',
+	                       'check_in_d' :'${rm_checkin}',
+	                       'check_out_d':'${rm_checkout}',
+	                       'check_in_t' :'${businessDTO.RM_CHECKIN }',
+	                       'check_out_t':'${businessDTO.RM_CHECKOUT }',
+	                        'rm_price'    :'${total }',
+	                        'res_status' :'1'
                        },
 
                    dataType:"json",
@@ -99,7 +99,7 @@ function pointUseAll(){
            if($('#usePoint').val() - $('#point').val() > 0) {
               alert('사용 가능 포인트를 초과하였습니다.')
               $('#point').val(point.toLocaleString());
-              $('#usePoint').val(0);
+              $('#usePoint').val(point);
               $('#discount').html('0 원');
               $('#payment').text(prePayment + ' 원');
            }
@@ -338,7 +338,7 @@ function pointUseAll(){
 									<p>
 										배송시 요구사항<span>*</span>
 									</p>
-									<input type="checkbo x" placeholder="메세지를 입력하세요."> 
+									<input type="checkbo x" id="ordDeliveryMessage" name="ordDeliveryMessage" placeholder="메세지를 입력하세요."> 
 								</div>
 							</div>
 
