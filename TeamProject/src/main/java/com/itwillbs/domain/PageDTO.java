@@ -13,11 +13,11 @@ public class PageDTO {
 	private int endPage;
 	private int count;
 	private int pageCount;
-	
+
 	private String userId;
-	
+
 	// 삭제하는 물건 검색시 필요한것추가 업체 아이디
-	private String compNm;
+	private String compId;
 	private String status;
 	private String searchKeyWord;
 	private String columnNm;
@@ -88,11 +88,12 @@ public class PageDTO {
 	public void setPageCount(int pageCount) {
 		this.pageCount = pageCount;
 	}
-	public String getCompNm() {
-		return compNm;
+
+	public String getCompId() {
+		return compId;
 	}
-	public void setCompNm(String compNm) {
-		this.compNm = compNm;
+	public void setCompId(String compId) {
+		this.compId = compId;
 	}
 	public String getStatus() {
 		return status;

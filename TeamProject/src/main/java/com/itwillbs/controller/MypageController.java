@@ -140,7 +140,7 @@ public class MypageController {
 		List<PointDTO> pointList=pointService.getPointList(pageDTO);
 
 		// pageBlock  startPage endPage count pageCount
-		int count=pointService.getPointCount();
+		int count=pointService.getPointCount(userId);
 		int pageBlock=10;
 		int startPage=(currentPage-1)/pageBlock*pageBlock+1;
 		int endPage=startPage+pageBlock-1;
@@ -158,6 +158,7 @@ public class MypageController {
 		model.addAttribute("pageDTO", pageDTO);
 		return "mypage/userPoint";
 	}
+
 
 	// 삭제기능
 	@RequestMapping(value = "/admin/delete")

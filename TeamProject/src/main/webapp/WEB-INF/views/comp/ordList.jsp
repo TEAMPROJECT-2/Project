@@ -36,26 +36,23 @@
 				<!-- Content -->
 				<!-- 화면줄였을때 버티컬 메뉴 및 큰화면에서는 시작 -->
             <div class="container-xxl flex-grow-1 container-p-y">
-              <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">상품 관리 /</span> 상품 목록</h4>
+              <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">주문 관리 </span> </h4>
 
 			<div class="row">
                 <div class="col-md-12">
                   <ul class="nav nav-pills flex-column flex-md-row mb-3">
                     <li class="nav-item">
-                      <a class="nav-link" href="${pageContext.request.contextPath }/comp/insertGoods">
-                      <i class="bx bx-user me-1"></i> 상품 등록</a>
+                      <a class="nav-link" href="${pageContext.request.contextPath }/comp/ordList">
+                      <i class="bx bx-user me-1"></i> 주문 목록</a>
                     </li>
-                    <li class="nav-item">
-                      <a class="nav-link active" href="${pageContext.request.contextPath }/comp/deleteProd">
-                      <i class="bx bx-user me-1"></i> 상품 목록</a>
-                    </li>
+
                   </ul>
 <!--  화면줄였을때 버티컬 및 큰화면에서는 시작 매뉴끝                  -->
 
 
 
                 <div class="card">
-                <h5 class="card-header">상품목록</h5>
+                <h5 class="card-header">주문목록</h5>
 <!--                 <form> -->
 <!--                 <table class="table table-borderless"> -->
 <!--                  <tbody class="table-border-bottom-0"> -->
@@ -89,7 +86,7 @@
 
 
                 <div class="table-responsive text-nowrap" id="Context">
-                 <form>
+
 <!--                   <button type="submit" class="btn btn-primary " onclick="deleteValue();">선택 삭제</button> -->
                   <table class="table table-striped" >
                     <thead>
@@ -97,18 +94,23 @@
 <!--                         <th>&nbsp;&nbsp;<input class="form-check-input" type="checkbox" id="allCheck" name="allCheck" />&nbsp;&nbsp;&nbsp;전체선택 </th> -->
                         <th>주문일</th>
                         <th>주문번호</th>
+                        <th>주문물품</th>
                         <th>주문자</th>
                         <th>총금액</th>
                         <th>배송</th>
+                        <th></th>
                       </tr>
                     </thead>
                     <tbody class="table-border-bottom-0">
 					  <c:forEach var="orderListDTO" items="${ordList }" varStatus="status">
-                      <tr onClick="location.href='${pageContext.request.contextPath }/comp/update?CheckRow=${orderListDTO.ordNum }'" style="cursor:pointer;">
-<%--                       	<td onclick="event.cancelBubble=true">&nbsp;&nbsp;&nbsp;&nbsp;<input class="form-check-input" type="checkbox" value="${orderListDTO.ordNum }" name="CheckRow" id="defaultCheck1" /> --%>
-<!--                       	<label class="form-check-label" for="defaultCheck1"></label></td> -->
-                        <td>${orderListDTO.ordLDate }</td>
-                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>${orderListDTO.ordNum }</strong></td>
+<%--                       <tr onClick="location.href='${pageContext.request.contextPath }/comp/update?CheckRow=${orderListDTO.num }'" style="cursor:pointer;"> --%>
+                      <tr >
+
+                        <td><fmt:formatDate pattern="yy-MM-dd" value="${orderListDTO.ordLDate }"/></td>
+                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>${orderListDTO.num }</strong></td>
+                        <td>
+                        ${orderListDTO.ordLCode }
+                        </td>
                         <td>
                         ${orderListDTO.ordLUser }
                         </td>
@@ -116,24 +118,29 @@
                           ${orderListDTO.ordFinalprice }
                         </td>
 
-                        <td>
-<!-- 					  		<form action="/comp/delivNumberInsert" method="post"> -->
-<%--                       			<input type="hidden" value="${orderListDTO.ordLCode}" name="ordered_no" id="ordered_no"> --%>
-<!--                       			<div id="delivNumber"> -->
-                    	  		<c:if test='${orderListDTO.ordDeliveryStatus  < "2" } '>
-                      				물품준비중
-<!--                       				<button class="btn btn-round btn-g" id="delivNumberAdd_btn" type="button"> -->
-<!--                       				송장번호입력 -->
-<!--                       				</button> -->
-                      			</c:if>
-<%--                    				<c:if test="${orderListDTO.ordDeliveryStatus == '2'}"> --%>
-<!--                       				배송중 -->
-<%--                       			</c:if> --%>
-<%--                      			<c:if test="${orderListDTO.ordDeliveryStatus == '3'}"> --%>
-<!--                       				배송완료 -->
-<%--                       			</c:if> --%>
-<!--                 				</div> -->
-<!--                  			</form> -->
+                        <td colspan="2">
+					  		<form action="${pageContext.request.contextPath }/comp/delivNumberInsert" method="post">
+                      			<input type="hidden" value="${orderListDTO.ordLCode }" name="ordLCode" id="ordLCode">
+                      			<input type="hidden" value="${orderListDTO.ordLUser }" name="ordLUser" id="ordLUser">
+                      			<div id="delivNumber_${orderListDTO.trnum}">
+                     	  		<c:set var="num" value="${orderListDTO.ordDeliveryStatus }" />
+                         		<c:choose>
+						 			<c:when test="${num eq '1'}">
+						  				물품준비중&nbsp;&nbsp;
+                       					<button class="btn btn-primary" id="delivNumberAdd_btn_${orderListDTO.trnum}" type="button">
+                       					송장번호입력
+                       					</button>
+                       					<div></div>
+						 			</c:when>
+						 			<c:when test="${num eq '2'}">
+						  				배송중
+						 			</c:when>
+						 			<c:when test="${num eq '3'}">
+						  				배송완료
+						 			</c:when>
+						 		</c:choose>
+                				</div>
+                 			</form>
 
 						</td>
                       </tr>
@@ -149,20 +156,20 @@
 			            <li class="page-item">
 			              <c:if test="${pageDTO.startPage > pageDTO.pageBlock }">
 			              <a class="page-link" href="${pageContext.request.contextPath }
-							/board/list?pageNum=${pageDTO.startPage - pageDTO.pageBlock}&status=${pageDTO.status }&searchCol=${pageDTO.columnNm }&searchKeyWord=${pageDTO.searchKeyWord }" aria-label="Previous">
+							/board/list?pageNum=${pageDTO.startPage - pageDTO.pageBlock}" aria-label="Previous">
 			                <span aria-hidden="true">&laquo;</span>
 			              </a>
 			              </c:if>
 			            </li>
 
 			            <c:forEach var="i" begin="${pageDTO.startPage }" end="${pageDTO.endPage }" step="1">
-			            <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath }/comp/deleteProd?pageNum=${i}&status=${pageDTO.status }&searchCol=${pageDTO.columnNm }&searchKeyWord=${pageDTO.searchKeyWord }">${i}</a></li>
+			            <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath }/comp/ordList?pageNum=${i}">${i}</a></li>
 			            </c:forEach>
 
 			            <li class="page-item">
 			              <c:if test="${pageDTO.endPage < pageDTO.pageCount }">
 			              <a class="page-link" href="${pageContext.request.contextPath }
-						 /comp/deleteProd?pageNum=${pageDTO.startPage + pageDTO.pageBlock}&status=${pageDTO.status }&searchCol=${pageDTO.columnNm }&searchKeyWord=${pageDTO.searchKeyWord }" aria-label="Next">
+						 /comp/deleteProd?pageNum=${pageDTO.startPage + pageDTO.pageBlock}" aria-label="Next">
 			                <span aria-hidden="true">&raquo;</span>
 			              </a>
 			              </c:if>
@@ -171,7 +178,7 @@
 			        </nav>
 			        </div></div>
 
-                 </form>
+
                 </div>
               </div>
 

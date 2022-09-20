@@ -12,6 +12,7 @@ import java.util.UUID;
 import javax.annotation.Resource;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.http.HttpStatus;
@@ -48,10 +49,7 @@ public class CompController {
 	@Resource(name = "compUploadPath")
 	private String compUploadPath;
 
-	@RequestMapping(value = "/comp/compMain", method = RequestMethod.GET)
-	public String compAdinMain() {
-		return "comp/compMain";
-	}
+
 	@RequestMapping(value = "/comp/updateProd", method = RequestMethod.GET)
 	public String compUpdateProd() {
 		return "comp/updateProd";
@@ -134,7 +132,6 @@ public class CompController {
 		String pageNum=request.getParameter("pageNum");
 		String CompNm = (String)session.getAttribute("compId");
 
-		System.out.println("CompNm : " + CompNm);
 
 		if(pageNum==null) {
 			pageNum="1";
@@ -147,7 +144,7 @@ public class CompController {
 		pageDTO.setPageSize(pageSize);
 		pageDTO.setPageNum(pageNum);
 		pageDTO.setCurrentPage(currentPage);
-		pageDTO.setCompNm(CompNm);
+		pageDTO.setCompId(CompNm);
 		pageDTO.setColumnNm(request.getParameter("searchCol") == null ? "0" : request.getParameter("searchCol")); // 기준 컬럼
 		pageDTO.setSearchKeyWord(request.getParameter("searchKeyWord")); // 검색 키워드 갖고오기
 		pageDTO.setStatus(request.getParameter("status")); // 검색 양호,품절 상태 갖고오기
@@ -379,7 +376,7 @@ public class CompController {
 			pageDTO.setPageSize(pageSize);
 			pageDTO.setPageNum(pageNum);
 			pageDTO.setCurrentPage(currentPage);
-			pageDTO.setCompNm(compId);
+			pageDTO.setCompId(compId);
 			List<OrderListDTO> ordList=compService.getOrdList(pageDTO); // 주문 물건 리스트 갖고오기
 			int count=compService.getOrdCount(pageDTO);     // 업체 전체 물건 리스트 갯수
 			// 페이징
@@ -405,18 +402,54 @@ public class CompController {
 			// WEB-INF/views/board/list.jsp 이동
 			return "/comp/ordList";
 		}
-
+		// 송장번호 입력과 배송중으로 바꿈
 		@RequestMapping(value = {"/comp/delivNumberInsert"}, method = {RequestMethod.POST})
 		  public String delivNumberInsert(OrderListDTO orderListDTO)throws Exception{
-
-//			  clientService.delivNumberInsert(orderListDTO);
-//			  orderedVO.setOrdered_delivstate(2);
-//			  clientService.delivNumberUpdate(orderListDTO);
+			  compService.delivNumberInsert(orderListDTO); // 송장번호 입력
+			  orderListDTO.setOrdDeliveryStatus("2"); // 배송중으로 셋팅
+			  compService.delivNumberUpdate(orderListDTO); //배송중으로 셋팅
 
 			  return "redirect:/comp/ordList";
 		  }
 
+//		 업체 페이지 메인화면
+		@RequestMapping(value = "/comp/compMain", method = RequestMethod.GET)
+		public ModelAndView complist(HttpSession session,HttpServletRequest req, HttpServletResponse res,
+								@ModelAttribute OrderListDTO orderListDTO ,
+								@ModelAttribute PageDTO pageDTO) throws Exception {
+			try {
+				ModelAndView mv = new ModelAndView();
+				// 주문 현황- 미배송
+//				CommonDTO commonDTO =  new CommonDTO();
+				String compId =(String)session.getAttribute("compId");
+				orderListDTO.setCompId(compId); 	// 기준 업체
+				// 1 미배송 갯수
+				orderListDTO.setOrdDeliveryStatus("1");
+				int ordCount1 = compService.getOrdCountDeliv(orderListDTO);
+				mv.addObject("ordCount1", ordCount1);
+				mv.setViewName("comp/compMain");
+				// 3 배송완료 갯수
+				orderListDTO.setOrdDeliveryStatus("3");
+				int ordCount3 = compService.getOrdCountDeliv(orderListDTO);
+				mv.addObject("ordCount3", ordCount3);
+				// 총 매출
+//				int price = compService.
+//				int amount =
+//				int totalsum =
 
+				// 총 물건 등록갯수
+				pageDTO.setCompId(compId);
+				int totalProd = compService.getProdCount(pageDTO);
+				mv.addObject("totalProd",totalProd);
+
+
+				return mv;
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
+			return null;
+
+		}
 } // 마지막 괄호
 
 

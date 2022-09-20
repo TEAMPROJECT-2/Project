@@ -39,7 +39,7 @@ span {
         var IMP = window.IMP;
         IMP.init('imp27865884');
         var money = $('input[name="cp_item"]:checked').val();
-        console.log(money);
+        var pointNow = parseInt(${pointDTO.pointNow}) + parseInt(money);
 
         IMP.request_pay({
             pg: 'html5_inicis',
@@ -50,7 +50,8 @@ span {
             buyer_tel: '${memberDTO.userPhone}'
         }, function (rsp) {
             console.log(rsp);
-
+			alert(${pointDTO.pointNow});
+			alert($('#pointChar').val());
             if (rsp.success) {
                 var msg = '결제가 완료되었습니다.';
                 msg += '고유ID : ' + rsp.imp_uid;
@@ -62,12 +63,10 @@ span {
                     type: "POST",
 		        	dataType:"json",
 		        	data: {
-		            	'userId' : '${pointDTO.userId}',
 		            	'pointType' : $('#pointChar').val(),
-		            	'pointNow' : '${pointDTO.pointNow}' + 'money',
-						'pointCharge' : 'money'
+		            	'pointNow' : pointNow,
+						'pointCharge' : money
 		        	},
-		            contentType:"application/json; charset=utf-8"
                 });
             } else {
                 var msg = '결제에 실패하였습니다.';
@@ -75,7 +74,7 @@ span {
             }
             alert(msg);
             location.href="${pageContext.request.contextPath }/main/main"; //alert창 확인 후 이동할 url 설정
-            window.close();
+//             window.close();
         });
     });
 </script>

@@ -62,7 +62,7 @@
 			       ,PROD_L_PRICE
 			       ,PROD_L_QUANTITY
 		     FROM   PRODUCT_LIST
-		    WHERE   PROD_L_COMPNM=#{compNm}
+		    WHERE   PROD_L_COMPNM=#{compId}
 		   	<if test="status != null and status !='0' ">
 		   	  <choose>
 			     <when test='status.equals("1") '>
@@ -89,7 +89,7 @@
 	<select id="getProdCount" resultType="java.lang.Integer">
 		   SELECT   COUNT(PROD_L_CODE)
 		     FROM   PRODUCT_LIST
-		    WHERE   PROD_L_COMPNM=#{compNm}
+		    WHERE   PROD_L_COMPNM=#{compId}
 	<if test="status != null and status !='0' ">
 		   	  <choose>
 			     <when test='status.equals("1") '>
@@ -156,38 +156,61 @@
 	</delete>
 <!-- 주문 목록 갖고오기 -->
 	<select id="getOrdList" resultType="com.itwillbs.domain.OrderListDTO">
-		SELECT   OB.NUM                 as ordNum
-			    ,OL.ORD_L_USER          as ordLUser
-			    ,OL.ORD_L_CODE          as ordLCode
-				,OL.ORD_L_QUANTITY      as ordLQuantity
-<!-- 				,OB.ORD_L_PRICE         as ORD_L_PRICE -->
-				,OL.ORD_L_DATE          as ordLDate
-				,OL.ORD_DELIVERY_STATUS as ordDeliveryStatus
-				,OB.ORD_FINALPRICE      as ordFinalprice
-		  FROM   ORDER_LIST as OL JOIN ORDER_BOARD as OB
-		    ON   (OL.ORD_L_USER = OB.ORD_USER)
+		SELECT 	 @rownum:=@rownum+1 as trnum
+<!-- 				 게시판에 tr반복이라 구분숫자를 주기 위해	 -->
+				,OB.NUM 									as num
+				,OL.ORD_L_USER 								as ordLUser
+				,OL.ORD_L_CODE                              as ordLCode
+				,OL.ORD_L_QUANTITY                          as ordLQuantity
+				,OL.ORD_L_DATE                              as ordLDate
+				,OL.ORD_DELIVERY_STATUS                     as ordDeliveryStatus
+				,(OL.ORD_L_QUANTITY * OL.ORD_L_PRICE)      as ordFinalprice
+		  FROM	ORDER_LIST as OL JOIN ORDER_BOARD as OB
+			ON  (OL.ORD_L_USER = OB.ORD_USER)
+		 WHERE   (@rownum:=0)=0
+		 <!-- 				 게시판에 tr반복이라 구분숫자를 주기 위해	 -->
+		   AND   OL.ORD_L_CODE IN (SELECT PROD_L_CODE
+		 							FROM PRODUCT_LIST
+		 						   WHERE PROD_L_COMPNM=#{compId})
+	</select>
+
+	<select id="getOrdCount" resultType="java.lang.Integer">
+
+		SELECT   count(OL.ORD_L_CODE)
+		  FROM   ORDER_LIST OL
+		  JOIN   ORDER_BOARD OB
+		    ON   (OL.ORD_L_USER=OB.ORD_USER)
 		 WHERE   OL.ORD_L_CODE IN (SELECT PROD_L_CODE
                         			 FROM PRODUCT_LIST
-                        			WHERE PROD_L_COMPNM=#{compNm})
-           AND   OL.ORD_DELIVERY_STATUS = "1"
-<!-- SELECT * -->
-<!-- 		  FROM   ORDER_LIST -->
-
-
+                        			WHERE PROD_L_COMPNM = #{compId})
 	</select>
-	<select id="getOrdCount" resultType="java.lang.Integer">
-SELECT
-			    count(ORD_L_CODE)
-<!-- 				,OB.ORD_L_PRICE         AS ORD_L_PRICE -->
-<!-- 				,ORD_FINALPRICE -->
-		  FROM   ORDER_LIST
+<!-- 	송장번호입력 -->
+	<update id="delivNumberInsert">
+		UPDATE ORDER_LIST
+		   SET ORD_L_DELIV_NUMBER	=#{ordLDelivNumber}
+		 WHERE ORD_L_USER	=#{ordLUser}
+		   AND ORD_L_CODE	=#{ordLCode}
+		   AND ORD_DELIVERY_STATUS ="0"
+	</update>
+	<!-- 	배송 상태 변경 -->
+	<update id="delivNumberUpdate">
+		UPDATE ORDER_LIST
+		   SET ORD_DELIVERY_STATUS	=#{ordDeliveryStatus}
+		 WHERE ORD_L_USER	=#{ordLUser}
+		   AND ORD_L_CODE	=#{ordLCode}
+		   AND ORD_PURCHASESTATUS ="0"
+	</update>
+<!-- 	미배송, 배송완료 검색 -->
+	<select id="getOrdCountMain" resultType="java.lang.Integer">
 
-<!-- 		SELECT   COUNT(OL.ORD_L_CODE) -->
-<!-- 		  FROM   ORDER_LIST OL -->
-<!-- 		  JOIN   ORDER_BOARD OB -->
-<!-- 		    ON   (OL.ORD_L_USER=OB.ORD_USER) -->
-<!-- 		 WHERE   OL.ORD_L_CODE IN (SELECT PROD_L_CODE -->
-<!--                         			 FROM PRODUCT_LIST -->
-<!--                         			WHERE PROD_L_COMPNM = #{compNm}) -->
+		SELECT   count(OL.ORD_L_CODE)
+		  FROM   ORDER_LIST OL
+		  JOIN   ORDER_BOARD OB
+		    ON   (OL.ORD_L_USER=OB.ORD_USER)
+		 WHERE   OL.ORD_L_CODE IN (SELECT PROD_L_CODE
+                        			 FROM PRODUCT_LIST
+                        			WHERE PROD_L_COMPNM = #{compId})
+		   AND   ORD_DELIVERY_STATUS =#{ordDeliveryStatus}
 	</select>
+
 </mapper>

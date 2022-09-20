@@ -11,6 +11,8 @@
   data-template="vertical-menu-template-free"
 >
   <head>
+
+
   </head>
 
   <body>
@@ -19,253 +21,241 @@
     <!-- Layout wrapper -->
     <div class="layout-wrapper layout-content-navbar">
       <div class="layout-container">
-
-<!-- 		큰화면 버티컬 시작-->
 		<jsp:include page="../inc/comp-menu.jsp"/>
-<!-- 		큰화면 버티컬 끝 -->
-           
-           
-           <!-- Content wrapper -->
+
+          <!-- Content wrapper -->
           <div class="content-wrapper">
             <!-- Content -->
-<!-- 화면줄였을때 버티컬 메뉴 시작 -->
-            <div class="container-xxl flex-grow-1 container-p-y">
-              <h4 class="fw-bold py-3 mb-4">
-                <span class="text-muted fw-light">상품관리 </span> 연결
-              </h4>
 
+            <div class="container-xxl flex-grow-1 container-p-y">
               <div class="row">
-                <div class="col-md-12">
-                  <ul class="nav nav-pills flex-column flex-md-row mb-3">
-                    <li class="nav-item">
-                      <a class="nav-link" href="pages-account-settings-account.html"
-                        ><i class="bx bx-user me-1"></i>상품신규등록 </a
-                      >
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link active" href="javascript:void(0);"
-                        ><i class="bx bx-link-alt me-1"></i>상품수정</a
-                      >
-                    </li>
-                  </ul>
-<!--  화면줄였을때 버티컬 매뉴끝                  -->
-                  
+                <div class="col-lg-12 col-md-4 order-1">
                   <div class="row">
-                    <div class="col-md-6 col-12 mb-md-0 mb-4">
+                    <div class="col-lg-3 col-md-12 col-6 mb-4">
                       <div class="card">
-                        <h5 class="card-header">Connected Accounts</h5>
                         <div class="card-body">
-                          <p>Display content from your connected accounts on your site</p>
-                          <!-- Connections -->
-                          <div class="d-flex mb-3">
-                            <div class="flex-shrink-0">
-                              <img src="${pageContext.request.contextPath }/resources/assets/img/icons/brands/google.png" alt="google" class="me-3" height="30" />
-                            </div>
-                            <div class="flex-grow-1 row">
-                              <div class="col-9 mb-sm-0 mb-2">
-                                <h6 class="mb-0">Google</h6>
-                                <small class="text-muted">Calendar and contacts</small>
-                              </div>
-                              <div class="col-3 text-end">
-                                <div class="form-check form-switch">
-                                  <input class="form-check-input float-end" type="checkbox" role="switch" />
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="d-flex mb-3">
-                            <div class="flex-shrink-0">
-                              <img src="${pageContext.request.contextPath }/resources/assets/img/icons/brands/slack.png" alt="slack" class="me-3" height="30" />
-                            </div>
-                            <div class="flex-grow-1 row">
-                              <div class="col-9 mb-sm-0 mb-2">
-                                <h6 class="mb-0">Slack</h6>
-                                <small class="text-muted">Communication</small>
-                              </div>
-                              <div class="col-3 text-end">
-                                <div class="form-check form-switch">
-                                  <input class="form-check-input float-end" type="checkbox" role="switch" checked />
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="d-flex mb-3">
-                            <div class="flex-shrink-0">
-                              <img src="${pageContext.request.contextPath }/resources/assets/img/icons/brands/github.png" alt="github" class="me-3" height="30" />
-                            </div>
-                            <div class="flex-grow-1 row">
-                              <div class="col-9 mb-sm-0 mb-2">
-                                <h6 class="mb-0">Github</h6>
-                                <small class="text-muted">Manage your Git repositories</small>
-                              </div>
-                              <div class="col-3 text-end">
-                                <div class="form-check form-switch">
-                                  <input class="form-check-input float-end" type="checkbox" role="switch" />
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="d-flex mb-3">
-                            <div class="flex-shrink-0">
+                          <div class="card-title d-flex align-items-start justify-content-between">
+                            <div class="avatar flex-shrink-0">
                               <img
-                                src="${pageContext.request.contextPath }/resources/assets/img/icons/brands/mailchimp.png"
-                                alt="mailchimp"
-                                class="me-3"
-                                height="30"
+                                src="${pageContext.request.contextPath }/resources/assets/img/icons/unicons/chart-success.png"
+                                alt="chart success"
+                                class="rounded"
                               />
                             </div>
-                            <div class="flex-grow-1 row">
-                              <div class="col-9 mb-sm-0 mb-2">
-                                <h6 class="mb-0">Mailchimp</h6>
-                                <small class="text-muted">Email marketing service</small>
-                              </div>
-                              <div class="col-3 text-end">
-                                <div class="form-check form-switch">
-                                  <input class="form-check-input float-end" type="checkbox" role="switch" checked />
-                                </div>
-                              </div>
-                            </div>
                           </div>
-                          <div class="d-flex">
-                            <div class="flex-shrink-0">
-                              <img src="${pageContext.request.contextPath }/resources/assets/img/icons/brands/asana.png" alt="asana" class="me-3" height="30" />
-                            </div>
-                            <div class="flex-grow-1 row">
-                              <div class="col-9 mb-sm-0 mb-2">
-                                <h6 class="mb-0">Asana</h6>
-                                <small class="text-muted">Communication</small>
-                              </div>
-                              <div class="col-3 text-end">
-                                <div class="form-check form-switch">
-                                  <input class="form-check-input float-end" type="checkbox" role="switch" checked />
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <!-- /Connections -->
+                          <span class="fw-semibold d-block mb-1">매출</span>
+                          <h2 class="card-title mb-2">${totalMember}원</h2>
                         </div>
                       </div>
                     </div>
-                    <div class="col-md-6 col-12">
+                    <div class="col-lg-3 col-md-12 col-6 mb-4">
                       <div class="card">
-                        <h5 class="card-header">ㅇㅇㅇㅇㅇㅇㅇㅇ</h5>
                         <div class="card-body">
-                          <p>Display content from social accounts on your site</p>
-                          <!-- Social Accounts -->
-                          <div class="d-flex mb-3">
-                            <div class="flex-shrink-0">
+                          <div class="card-title d-flex align-items-start justify-content-between">
+                            <div class="avatar flex-shrink-0">
                               <img
-                                src="${pageContext.request.contextPath }/resources/assets/img/icons/brands/facebook.png"
-                                alt="facebook"
-                                class="me-3"
-                                height="30"
+                                src="${pageContext.request.contextPath }/resources/assets/img/icons/unicons/chart-success.png"
+                                alt="chart success"
+                                class="rounded"
                               />
                             </div>
-                            <div class="flex-grow-1 row">
-                              <div class="col-8 col-sm-7 mb-sm-0 mb-2">
-                                <h6 class="mb-0">Facebook</h6>
-                                <small class="text-muted">Not Connected</small>
-                              </div>
-                              <div class="col-4 col-sm-5 text-end">
-                                <button type="button" class="btn btn-icon btn-outline-secondary">
-                                  <i class="bx bx-link-alt"></i>
-                                </button>
+                          </div>
+                          <span class="fw-semibold d-block mb-1">등록상품</span>
+                          <h2 class="card-title mb-2">${totalProd}개</h2 >
+
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-3 col-md-12 col-12 mb-4">
+                      <div class="card">
+                        <div class="card-body">
+                          <div class="card-title d-flex align-items-start justify-content-between">
+                            <div class="avatar flex-shrink-0">
+                              <img
+                                src="${pageContext.request.contextPath }/resources/assets/img/icons/unicons/wallet-info.png"
+                                alt="Credit Card"
+                                class="rounded"
+                              />
+                            </div>
+                          </div>
+                          <span class="fw-semibold d-block mb-1">최근 주문 현황 - 미배송</span>
+                          <h2 class="card-title mb-2">${ordCount1}건</h2>
+
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-3 col-md-12 col-12 mb-4">
+                      <div class="card">
+                        <div class="card-body">
+                          <div class="card-title d-flex align-items-start justify-content-between">
+                            <div class="avatar flex-shrink-0">
+                              <img
+                                src="${pageContext.request.contextPath }/resources/assets/img/icons/unicons/wallet-info.png"
+                                alt="Credit Card"
+                                class="rounded"
+                              />
+                            </div>
+                          </div>
+                          <span class="fw-semibold d-block mb-1">최근 주문 현황 - 배송완료</span>
+                          <h2 class="card-title mb-2">${ordCount3}건</h2>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+
+                <!-- Total Revenue -->
+                <div class="col-12 col-lg-12 order-2 order-md-3 order-lg-2 mb-4">
+                  <div class="card">
+                    <div class="row row-bordered g-0">
+                      <div class="col-md-8">
+                        <h5 class="card-header m-0 me-2 pb-3">나의 정보</h5>
+                        <div id="totalRevenueChart" class="px-2"></div>
+                      </div>
+
+
+
+
+
+                    </div>
+                  </div>
+                </div>
+                <!--/ Total Revenue -->
+                <div class="col-12 col-md-8 col-lg-12 order-3 order-md-2">
+                  <div class="row">
+                    <div class="col-3 mb-4">
+                      <div class="card">
+                        <div class="card-body">
+                          <div class="card-title d-flex align-items-start justify-content-between">
+                            <div class="avatar flex-shrink-0">
+                              <img src="${pageContext.request.contextPath }/resources/assets/img/icons/unicons/paypal.png" alt="Credit Card" class="rounded" />
+                            </div>
+                            <div class="dropdown">
+                              <button
+                                class="btn p-0"
+                                type="button"
+                                id="cardOpt4"
+                                data-bs-toggle="dropdown"
+                                aria-haspopup="true"
+                                aria-expanded="false"
+                              >
+                                <i class="bx bx-dots-vertical-rounded"></i>
+                              </button>
+                              <div class="dropdown-menu dropdown-menu-end" aria-labelledby="cardOpt4">
+                                <a class="dropdown-item" href="javascript:void(0);">View More</a>
+                                <a class="dropdown-item" href="javascript:void(0);">Delete</a>
                               </div>
                             </div>
                           </div>
-                          <div class="d-flex mb-3">
-                            <div class="flex-shrink-0">
-                              <img
-                                src="${pageContext.request.contextPath }/resources/assets/img/icons/brands/twitter.png"
-                                alt="twitter"
-                                class="me-3"
-                                height="30"
-                              />
+                          <span class="d-block mb-1">나의 글</span>
+                          <h3 class="card-title text-nowrap mb-2">$2,456</h3>
+                          <small class="text-danger fw-semibold"><i class="bx bx-down-arrow-alt"></i> -14.82%</small>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-3 mb-4">
+                      <div class="card">
+                        <div class="card-body">
+                          <div class="card-title d-flex align-items-start justify-content-between">
+                            <div class="avatar flex-shrink-0">
+                              <img src="${pageContext.request.contextPath }/resources/assets/img/icons/unicons/cc-primary.png" alt="Credit Card" class="rounded" />
                             </div>
-                            <div class="flex-grow-1 row">
-                              <div class="col-8 col-sm-7 mb-sm-0 mb-2">
-                                <h6 class="mb-0">Twitter</h6>
-                                <a href="https://twitter.com/Theme_Selection" target="_blank">@ThemeSelection</a>
-                              </div>
-                              <div class="col-4 col-sm-5 text-end">
-                                <button type="button" class="btn btn-icon btn-outline-danger">
-                                  <i class="bx bx-trash-alt"></i>
-                                </button>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="d-flex mb-3">
-                            <div class="flex-shrink-0">
-                              <img
-                                src="${pageContext.request.contextPath }/resources/assets/img/icons/brands/instagram.png"
-                                alt="instagram"
-                                class="me-3"
-                                height="30"
-                              />
-                            </div>
-                            <div class="flex-grow-1 row">
-                              <div class="col-8 col-sm-7 mb-sm-0 mb-2">
-                                <h6 class="mb-0">instagram</h6>
-                                <a href="https://www.instagram.com/themeselection/" target="_blank">@ThemeSelection</a>
-                              </div>
-                              <div class="col-4 col-sm-5 text-end">
-                                <button type="button" class="btn btn-icon btn-outline-danger">
-                                  <i class="bx bx-trash-alt"></i>
-                                </button>
+                            <div class="dropdown">
+                              <button
+                                class="btn p-0"
+                                type="button"
+                                id="cardOpt1"
+                                data-bs-toggle="dropdown"
+                                aria-haspopup="true"
+                                aria-expanded="false"
+                              >
+                                <i class="bx bx-dots-vertical-rounded"></i>
+                              </button>
+                              <div class="dropdown-menu" aria-labelledby="cardOpt1">
+                                <a class="dropdown-item" href="javascript:void(0);">View More</a>
+                                <a class="dropdown-item" href="javascript:void(0);">Delete</a>
                               </div>
                             </div>
                           </div>
-                          <div class="d-flex mb-3">
-                            <div class="flex-shrink-0">
-                              <img
-                                src="${pageContext.request.contextPath }/resources/assets/img/icons/brands/dribbble.png"
-                                alt="dribbble"
-                                class="me-3"
-                                height="30"
-                              />
+                          <span class="fw-semibold d-block mb-1">나의 댓글</span>
+                          <h3 class="card-title mb-2">$14,857</h3>
+                          <small class="text-success fw-semibold"><i class="bx bx-up-arrow-alt"></i> +28.14%</small>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-3 mb-4">
+                      <div class="card">
+                        <div class="card-body">
+                          <div class="card-title d-flex align-items-start justify-content-between">
+                            <div class="avatar flex-shrink-0">
+                              <img src="${pageContext.request.contextPath }/resources/assets/img/icons/unicons/paypal.png" alt="Credit Card" class="rounded" />
                             </div>
-                            <div class="flex-grow-1 row">
-                              <div class="col-8 col-sm-7 mb-sm-0 mb-2">
-                                <h6 class="mb-0">Dribbble</h6>
-                                <small class="text-muted">Not Connected</small>
-                              </div>
-                              <div class="col-4 col-sm-5 text-end">
-                                <button type="button" class="btn btn-icon btn-outline-secondary">
-                                  <i class="bx bx-link-alt"></i>
-                                </button>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="d-flex">
-                            <div class="flex-shrink-0">
-                              <img
-                                src="${pageContext.request.contextPath }/resources/assets/img/icons/brands/behance.png"
-                                alt="behance"
-                                class="me-3"
-                                height="30"
-                              />
-                            </div>
-                            <div class="flex-grow-1 row">
-                              <div class="col-8 col-sm-7 mb-sm-0 mb-2">
-                                <h6 class="mb-0">Behance</h6>
-                                <small class="text-muted">Not Connected</small>
-                              </div>
-                              <div class="col-4 col-sm-5 text-end">
-                                <button type="button" class="btn btn-icon btn-outline-secondary">
-                                  <i class="bx bx-link-alt"></i>
-                                </button>
+                            <div class="dropdown">
+                              <button
+                                class="btn p-0"
+                                type="button"
+                                id="cardOpt4"
+                                data-bs-toggle="dropdown"
+                                aria-haspopup="true"
+                                aria-expanded="false"
+                              >
+                                <i class="bx bx-dots-vertical-rounded"></i>
+                              </button>
+                              <div class="dropdown-menu dropdown-menu-end" aria-labelledby="cardOpt4">
+                                <a class="dropdown-item" href="javascript:void(0);">View More</a>
+                                <a class="dropdown-item" href="javascript:void(0);">Delete</a>
                               </div>
                             </div>
                           </div>
-                          <!-- /Social Accounts -->
+                          <span class="d-block mb-1">좋아요</span>
+                          <h3 class="card-title text-nowrap mb-2">$2,456</h3>
+                          <small class="text-danger fw-semibold"><i class="bx bx-down-arrow-alt"></i> -14.82%</small>
+                        </div>
+                      </div>
+                    </div>
+                   <div class="col-3 mb-4">
+                      <div class="card">
+                        <div class="card-body">
+                          <div class="card-title d-flex align-items-start justify-content-between">
+                            <div class="avatar flex-shrink-0">
+                              <img src="${pageContext.request.contextPath }/resources/assets/img/icons/unicons/paypal.png" alt="Credit Card" class="rounded" />
+                            </div>
+                            <div class="dropdown">
+                              <button
+                                class="btn p-0"
+                                type="button"
+                                id="cardOpt4"
+                                data-bs-toggle="dropdown"
+                                aria-haspopup="true"
+                                aria-expanded="false"
+                              >
+                                <i class="bx bx-dots-vertical-rounded"></i>
+                              </button>
+                              <div class="dropdown-menu dropdown-menu-end" aria-labelledby="cardOpt4">
+                                <a class="dropdown-item" href="javascript:void(0);">View More</a>
+                                <a class="dropdown-item" href="javascript:void(0);">Delete</a>
+                              </div>
+                            </div>
+                          </div>
+                          <span class="d-block mb-1">찜</span>
+                          <h3 class="card-title text-nowrap mb-2">$2,456</h3>
+                          <small class="text-danger fw-semibold"><i class="bx bx-down-arrow-alt"></i> -14.82%</small>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
+              <div class="row">
+
+
+
+
+
+              </div>
             </div>
-            <!--/ Content -->
+            <!-- / Content -->
 
             <!-- Footer -->
             <footer class="content-footer footer bg-footer-theme">
@@ -302,7 +292,7 @@
 
             <div class="content-backdrop fade"></div>
           </div>
-          <!-- 화면 줄였을때 Content wrapper -->
+          <!-- Content wrapper -->
         </div>
         <!-- / Layout page -->
       </div>
@@ -322,15 +312,17 @@
     <!-- endbuild -->
 
     <!-- Vendors JS -->
+    <script src="${pageContext.request.contextPath }/resources/assets/vendor/libs/apex-charts/apexcharts.js"></script>
 
     <!-- Main JS -->
     <script src="${pageContext.request.contextPath }/resources/assets/js/main.js"></script>
 
     <!-- Page JS -->
+    <script src="${pageContext.request.contextPath }/resources/assets/js/dashboards-analytics.js"></script>
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
-    
+
     <!-- Footer Section Begin -->
     <jsp:include page="../inc/footer.jsp"/>
 </body>

@@ -25,8 +25,8 @@ public class PointServiceImpl implements PointService {
 	}
 
 	@Override
-	public int getPointCount() {
-		return pointDAO.getPointCount();
+	public int getPointCount(String userId) {
+		return pointDAO.getPointCount(userId);
 	}
 
 	@Override
@@ -59,6 +59,11 @@ public class PointServiceImpl implements PointService {
 	@Override
 	public void insertChargePoint(Map<String, Object> sMap) {
 		pointDAO.insertChargePoint(sMap);
+	}
+
+	@Override
+	public void insertUsePoint(Map<String, Object> sMap) {
+		pointDAO.insertUsePoint(sMap);
 	}
 
 }

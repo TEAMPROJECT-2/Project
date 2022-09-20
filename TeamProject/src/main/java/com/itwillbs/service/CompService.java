@@ -39,5 +39,11 @@ public interface CompService {
 	public List<OrderListDTO> getOrdList(PageDTO pageDTO);
 	// 주문 목록 페이징
 	public int getOrdCount(PageDTO pageDTO);
+	// 송장번호입력
+	public void delivNumberInsert(OrderListDTO orderListDTO);
+	// 주문 상태 변경
+	public void delivNumberUpdate(OrderListDTO orderListDTO);
+	// 미배송/배송완료 수량
+	public int getOrdCountDeliv(OrderListDTO orderListDTO);
 
 }
