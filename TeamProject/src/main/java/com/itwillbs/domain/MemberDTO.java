@@ -17,12 +17,21 @@ public class MemberDTO {
 	private int userPoint;
 	private int myCouponNum;
 	private String userRank;
-	private int userType;
+	private String userType;
 	private int userStatus;
 	private Timestamp userLastDate;
 	private int userEmailAuth;
 	private String userEmailKey;
+	private int userKakaoLogin;
 
+
+
+	public int getUserKakaoLogin() {
+		return userKakaoLogin;
+	}
+	public void setUserKakaoLogin(int userKakaoLogin) {
+		this.userKakaoLogin = userKakaoLogin;
+	}
 	public int getUserInfoNum() {
 		return userInfoNum;
 	}
@@ -101,10 +110,10 @@ public class MemberDTO {
 	public void setUserRank(String userRank) {
 		this.userRank = userRank;
 	}
-	public int getUserType() {
+	public String getUserType() {
 		return userType;
 	}
-	public void setUserType(int userType) {
+	public void setUserType(String userType) {
 		this.userType = userType;
 	}
 	public int getUserStatus() {
