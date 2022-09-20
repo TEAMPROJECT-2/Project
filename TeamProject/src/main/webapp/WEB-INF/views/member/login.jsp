@@ -5,7 +5,8 @@
 <head>
 <!-- 부트스트랩 -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-
+<!-- 네이버로그인 -->
+<script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js" charset="utf-8"></script>
 </head>
 <body>
 <!-- 메뉴단 -->
@@ -39,11 +40,11 @@
                             <h5>회원가입 시 기입했던 ID와 이메일을 적어주세요!</h5>
                         	<hr><br>
                         	<h4>SNS 로그인</h4><br>
-							<!--     네이버 로그인 -->
-							    <script src="${pageContext.request.contextPath}/resources/js/apilogin/naver_login.js"></script>
+								<!--     네이버 로그인 -->
+							    	<script src="${pageContext.request.contextPath}/resources/js/apilogin/naver_login.js"></script>
 								<!--     카카오 로그인 -->
 							    <a href="https://kauth.kakao.com/oauth/authorize?client_id=d7b448253a75eb1ebba5ccf3936ad5ea&redirect_uri=http://localhost:8080/web/auth/kakao&response_type=code">
-							    	<img src="${pageContext.request.contextPath}/resources/img/kakao_login_medium_wide.png" style="width: 300px; height: 45px">
+							    	<img src="${pageContext.request.contextPath}/resources/img/kakao_login_medium_wide.png" style="width: 70px; height: 70px">
 							    </a>
 							<br><br>
                         <ul>
