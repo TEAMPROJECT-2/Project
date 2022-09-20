@@ -19,46 +19,45 @@ public class PointDAOImpl implements PointDAO {
 	private SqlSession sqlSession;
 
 	private static final String namespace="com.itwillbs.mappers.pointMapper";
-	
+	//포인트 회원정보 가져오기
 	@Override
 	public PointDTO getMember(String userId) {
 		return sqlSession.selectOne(namespace + ".getMember", userId);
 	}
-
-
+	//포인트(아이디) 수 조회
 	@Override
 	public int getPointCount(String userId) {
 		return sqlSession.selectOne(namespace+".getPointCount");
 	}
-
-
+	//포인트 리스트 조회 
 	@Override
 	public List<PointDTO> getPointList(PageDTO pageDTO) {
 		return sqlSession.selectList(namespace+".getPointList",pageDTO);
 	}
-
-
+	//포인트DB POINT_NUM 조회
 	@Override
 	public Integer getMaxNum() {
 		return sqlSession.selectOne(namespace+".getMaxNum");
 	}
-
-
+	//포인트 DB 저장
 	@Override
 	public void insertMember(PointDTO pointDTO) {
 		sqlSession.insert(namespace+".insertMember", pointDTO);
 	}
-
-
+	//포인트 충전 DB 저장
 	@Override
 	public void insertChargePoint(Map<String, Object> sMap) {
 		sqlSession.insert(namespace+".insertChargePoint", sMap);
 	}
-
-
+	//포인트 사용 DB 저장
 	@Override
 	public void insertUsePoint(Map<String, Object> sMap) {
 		sqlSession.insert(namespace+".insertUsePoint", sMap);
+	}
+	//포인트 날짜 리스트조회
+	@Override
+	public List<PointDTO> getPointCheckList(PageDTO pageDTO) {
+		return sqlSession.selectList(namespace+".getPointCheckList",pageDTO);
 	}
 
 }
