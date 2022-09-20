@@ -1,6 +1,7 @@
 package com.itwillbs.controller;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.itwillbs.dao.PointDAO;
 import com.itwillbs.dao.PointDAOImpl;
 import com.itwillbs.domain.MemberDTO;
+import com.itwillbs.domain.PageDTO;
 import com.itwillbs.domain.PointDTO;
 import com.itwillbs.function.FunctionClass;
 import com.itwillbs.service.MemberService;
@@ -50,6 +52,7 @@ public class PointController {
 	      this.api = new IamportClient("6077548071335284", "dCktE2HC7a2YUwzkDWeeqfuZvZdDen3Sm66vMQja5xQTpoAsMz9YUPZ42kuSyxReMbEXbvtEvOjllVjQ");
 	}   
 	
+	// 포인트 충전
 	@RequestMapping(value = "/point/charge", method = RequestMethod.GET)
 	public String charge(HttpSession session, Model model) {
 		String userId = (String)session.getAttribute("userId");
@@ -63,6 +66,7 @@ public class PointController {
 		return "point/charge";
 		}
 	}
+	// 포인트 충전 DB저장
 	 @ResponseBody
 	   @RequestMapping(value="/point/insertChargePoint", method = RequestMethod.POST)
 	   public String paymenByImpUid (HttpSession session, HttpServletRequest request, @RequestParam Map<String, Object> para){
@@ -75,7 +79,7 @@ public class PointController {
 	      
 	      return "redirect:/main/main";
 	 }
-
+	 // 포인트 사용 후 DB저장
 	 @ResponseBody
 	   @RequestMapping(value="/point/insertUsePoint", method = RequestMethod.POST)
 	   public String insertUsePoint (HttpSession session, HttpServletRequest request, @RequestParam Map<String, Object> para){
@@ -88,5 +92,53 @@ public class PointController {
 	      
 	      return "redirect:/main/main";
 	 }
-	
+	 // 포인트 기간별 조회
+	@RequestMapping(value = "/point/pointCheck", method = RequestMethod.GET)
+	public String pointCheck(HttpSession session, HttpServletRequest request, Model model) {
+		String userId=(String)session.getAttribute("userId");
+		// 한화면에 보여줄 글개수
+		int pageSize=10;
+		//현페이지 번호
+		String pageNum=request.getParameter("pageNum");
+		if(pageNum==null) {
+			pageNum="1";
+		}
+
+		String startDate=request.getParameter("startDate");
+		String endDate=request.getParameter("endDate");
+
+		//현페이지 번호를 정수형으로 변경
+		int currentPage=Integer.parseInt(pageNum);
+		// PageDTO 객체생성
+		PageDTO pageDTO=new PageDTO();
+		pageDTO.setPageSize(pageSize);
+		pageDTO.setPageNum(pageNum);
+		pageDTO.setCurrentPage(currentPage);
+		pageDTO.setUserId(userId);
+		pageDTO.setStartDate(startDate);
+		pageDTO.setEndDate(endDate);
+
+		List<PointDTO> pointList=pointService.getPointCheckList(pageDTO);
+
+		// pageBlock  startPage endPage count pageCount
+		int count=pointService.getPointCount(userId);
+		int pageBlock=10;
+		int startPage=(currentPage-1)/pageBlock*pageBlock+1;
+		int endPage=startPage+pageBlock-1;
+		int pageCount=count / pageSize +(count % pageSize==0?0:1);
+		if(endPage > pageCount){
+			endPage = pageCount;
+		}
+		pageDTO.setCount(count);
+		pageDTO.setPageBlock(pageBlock);
+		pageDTO.setStartPage(startPage);
+		pageDTO.setEndPage(endPage);
+		pageDTO.setPageCount(pageCount);
+
+		model.addAttribute("pointList", pointList);
+		model.addAttribute("pageDTO", pageDTO);
+		System.out.println(endDate);
+		System.out.println(startDate);
+		return "mypage/userPoint";
+	}
 }
