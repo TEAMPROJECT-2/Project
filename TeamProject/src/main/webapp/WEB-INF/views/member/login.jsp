@@ -6,7 +6,8 @@
 <!-- 부트스트랩 -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 <!-- 네이버로그인 -->
-<script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js" charset="utf-8"></script>
+<script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
 </head>
 <body>
 <!-- 메뉴단 -->
@@ -40,8 +41,11 @@
                             <h5>회원가입 시 기입했던 ID와 이메일을 적어주세요!</h5>
                         	<hr><br>
                         	<h4>SNS 로그인</h4><br>
+
 								<!--     네이버 로그인 -->
-							    	<script src="${pageContext.request.contextPath}/resources/js/apilogin/naver_login.js"></script>
+
+								<div id="naver_id_login" style="display:inline-block;">
+								</div>
 								<!--     카카오 로그인 -->
 							    <a href="https://kauth.kakao.com/oauth/authorize?client_id=d7b448253a75eb1ebba5ccf3936ad5ea&redirect_uri=http://localhost:8080/web/auth/kakao&response_type=code">
 							    	<img src="${pageContext.request.contextPath}/resources/img/kakao_login_medium_wide.png" style="width: 70px; height: 70px">
@@ -130,6 +134,16 @@
     <!-- Footer -->
     <jsp:include page="../inc/footer.jsp"/>
 </body>
+<!-- // 네이버 로그인 버튼 노출 영역 -->
+<script type="text/javascript">
+    var naver_id_login = new naver_id_login("J1pjWpChS9vxGVOirvL0", "http://localhost:8080/web/auth/naver2");
+    var state = naver_id_login.getUniqState();
+    naver_id_login.setButton("green", 1, 70);
+    naver_id_login.setDomain("http://localhost:8080/");
+    naver_id_login.setState(state);
+    naver_id_login.setPopup();
+    naver_id_login.init_naver_id_login();
+</script>
 <!-- 부트스트랩 JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 

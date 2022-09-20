@@ -57,6 +57,18 @@
 	<delete id="deleteBoard">
 		delete from BOARD where BOARD_PASS=#{boardPass} and USER_NICKNM=#{userNicknm}
 	</delete>
+	
+	<update id="rCount">
+		UPDATE BOARD SET 
+		BOARD_RCOUNT = BOARD_RCOUNT + 1 
+		where BOARD_NUM=#{boardNum}
+	</update>
+	
+	<update id="rCountsub">
+		UPDATE BOARD SET 
+		BOARD_RCOUNT = BOARD_RCOUNT - 1 
+		where BOARD_NUM=#{boardNum}
+	</update>
 
 	<!-- view -->
 	<insert id="viewinsert">
@@ -79,5 +91,11 @@
 		BOARD_READCOUNT = BOARD_READCOUNT + 1 
 		where BOARD_NUM=#{boardNum}
 	</update>
+	
+	<!-- mypage  -->
+	
+	
+	
+	
 	
 </mapper>

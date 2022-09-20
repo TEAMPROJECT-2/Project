@@ -1,15 +1,24 @@
 package com.itwillbs.controller;
 
+import java.io.IOException;
 import java.util.Map;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.github.scribejava.core.model.OAuth2AccessToken;
+import com.google.protobuf.TextFormat.ParseException;
 import com.itwillbs.domain.MemberDTO;
 import com.itwillbs.service.ApiService;
 import com.itwillbs.service.MemberService;
@@ -19,6 +28,13 @@ public class ApiController {
 
 	@Inject
 	private MemberService memberService;
+
+	// 네이버 콜백
+    @RequestMapping(value="/auth/naver", method=RequestMethod.GET)
+    public String callBack(){
+        return "auth/naver";
+    }
+
 
 	// 카카오 콜백
 	@RequestMapping(value = "/auth/kakao", method = RequestMethod.GET)
@@ -36,13 +52,13 @@ public class ApiController {
 		memberDTO.setUserType(userType);
 		memberDTO.setUserKakaoLogin(1);
 
-		sessionSet(session, memberDTO, userId, userNm, userType);
+		setSession(session, memberDTO, userId, userNm, userType);
 
 		return "redirect:/main/main";
 	}
 
 	// 카카오 회원가입
-	private void sessionSet(HttpSession session, MemberDTO memberDTO, String user_id, String user_name, String user_type) throws Exception{
+	private void setSession(HttpSession session, MemberDTO memberDTO, String user_id, String user_name, String user_type) throws Exception{
 		memberDTO.setUserId(user_id);
 		memberDTO.setUserNm(user_name);
 		memberDTO.setUserType(user_type);
