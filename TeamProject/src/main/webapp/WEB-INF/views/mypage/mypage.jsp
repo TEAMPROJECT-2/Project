@@ -183,6 +183,8 @@
                   </div>
                 </div>
                 <!--/ Total Revenue -->
+                
+               <input type="hidden" value="${sessionScope.userId}">
                 <div class="col-12 col-md-8 col-lg-12 order-3 order-md-2">
                   <div class="row">
                     <div class="col-4 mb-4">
@@ -194,10 +196,11 @@
                             </div>
                           </div>
                           <span class="d-block mb-1">나의 글</span>
-                          <h3 class="card-title text-nowrap mb-2">000 개</h3>
+                          <h3 class="card-title text-nowrap mb-2">${mypageDTO2.boardCount}개</h3>
                         </div>
                       </div>
                     </div>
+                 
                     <div class="col-4 mb-4">
                       <div class="card">
                         <div class="card-body">
@@ -207,7 +210,7 @@
                             </div>
                           </div>
                           <span class="fw-semibold d-block mb-1">나의 댓글</span>
-                          <h3 class="card-title mb-2">000 개</h3>
+                          <h3 class="card-title mb-2">${mypageDTO2.replyCount}개</h3>
                         </div>
                       </div>
                     </div>
@@ -220,7 +223,7 @@
                             </div>
                           </div>
                           <span class="d-block mb-1">찜</span>
-                          <h3 class="card-title text-nowrap mb-2">000 개</h3>
+                          <h3 class="card-title text-nowrap mb-2">${mypageDTO2.productLike}개</h3>
                         </div>
                       </div>
                     </div>

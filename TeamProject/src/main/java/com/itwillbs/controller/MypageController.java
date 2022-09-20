@@ -26,12 +26,14 @@ import com.itwillbs.domain.AddressDTO;
 import com.itwillbs.domain.BoardDTO;
 import com.itwillbs.domain.CompDTO;
 import com.itwillbs.domain.MemberDTO;
+import com.itwillbs.domain.MypageDTO;
 import com.itwillbs.domain.PageDTO;
 import com.itwillbs.domain.PointDTO;
 import com.itwillbs.mail.MailUtils;
 import com.itwillbs.mail.TempKey;
 import com.itwillbs.service.AddressService;
 import com.itwillbs.service.MemberService;
+import com.itwillbs.service.MypageService;
 import com.itwillbs.service.PointService;
 
 @Controller
@@ -43,6 +45,8 @@ public class MypageController {
 	private PointService pointService;
 	@Inject
 	private AddressService addressService;
+	@Inject
+	private MypageService mypageService;
 	@Autowired
 	private BCryptPasswordEncoder bcryptPasswordEncoder;
 
@@ -54,6 +58,13 @@ public class MypageController {
 		MemberDTO memberDTO = memberService.getMember(userId);
 		PointDTO pointDTO = pointService.getMember(userId);
 		AddressDTO addressDTO = addressService.getAddress(userId);
+		
+		MypageDTO mypageDTO =new MypageDTO();
+		mypageDTO.setUserId((String)session.getAttribute("userId"));
+		MypageDTO mypageDTO2 = mypageService.mypageselect(mypageDTO);
+		
+		model.addAttribute("mypageDTO2",mypageDTO2);
+		
 		model.addAttribute("memberDTO", memberDTO);
 		model.addAttribute("pointDTO", pointDTO);
 		model.addAttribute("addressDTO", addressDTO);

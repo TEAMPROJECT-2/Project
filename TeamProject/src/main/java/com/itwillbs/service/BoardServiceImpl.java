@@ -110,6 +110,16 @@ public class BoardServiceImpl implements BoardService{
 		
 	}
 
+	@Override
+	public void rCountsub(int boardNum) {
+		boardDAO.rCountsub(boardNum);		
+	}
+
+	@Override
+	public void rCount(int boardNum) {
+		boardDAO.rCount(boardNum);		
+	}
+
 	
 
 	

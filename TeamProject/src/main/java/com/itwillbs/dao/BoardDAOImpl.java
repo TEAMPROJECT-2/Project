@@ -94,6 +94,16 @@ public class BoardDAOImpl implements BoardDAO{
 		
 	}
 
+	@Override
+	public void rCountsub(int boardNum) {
+		sqlSession.update(namespace+".rCountsub", boardNum);		
+	}
+
+	@Override
+	public void rCount(int boardNum) {
+		sqlSession.update(namespace+".rCount", boardNum);		
+	}
+
 
 
 

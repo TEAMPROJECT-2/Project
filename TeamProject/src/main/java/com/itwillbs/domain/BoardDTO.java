@@ -11,7 +11,14 @@ public class BoardDTO {
 	private String boardContent;
 	private int boardLikecount;
 	private int boardReadcount;
+	private int boardRcount;
 	private Timestamp boardDate;
+	public int getBoardRcount() {
+		return boardRcount;
+	}
+	public void setBoardRcount(int boardRcount) {
+		this.boardRcount = boardRcount;
+	}
 	private String boardFile;
 	public int getBoardNum() {
 		return boardNum;
@@ -71,9 +78,10 @@ public class BoardDTO {
 	public String toString() {
 		return "BoardDTO [boardNum=" + boardNum + ", userNicknm=" + userNicknm + ", boardPass=" + boardPass
 				+ ", boardSubject=" + boardSubject + ", boardContent=" + boardContent + ", boardLikecount="
-				+ boardLikecount + ", boardReadcount=" + boardReadcount + ", boardDate=" + boardDate + ", boardFile="
-				+ boardFile + "]";
+				+ boardLikecount + ", boardReadcount=" + boardReadcount + ", boardRcount=" + boardRcount
+				+ ", boardDate=" + boardDate + ", boardFile=" + boardFile + "]";
 	}
+	
 	
 	
 	

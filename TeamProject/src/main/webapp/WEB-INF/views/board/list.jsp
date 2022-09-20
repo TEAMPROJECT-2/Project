@@ -85,7 +85,7 @@
 					<td>${boardDTO.boardNum }</td>
 					<td>${boardDTO.userNicknm}</td>
 					<td><a href="${pageContext.request.contextPath }/board/content?boardNum=${boardDTO.boardNum }&userId=${sessionScope.userId}">
-					${boardDTO.boardSubject } </a></td>
+					${boardDTO.boardSubject }(${boardDTO.boardRcount}) </a></td>
 					<td>${boardDTO.boardDate }</td>
 					<td>${boardDTO.boardReadcount }</td>
 					<td>${boardDTO.boardLikecount }</td>
