@@ -85,6 +85,10 @@
 		SELECT MAX(LIKE_NUM) FROM BOARD_LIKE where BOARD_NUM = #{boardNum} and USER_ID = #{userId} 
 	</select>
 	
+	<select id="getLikeList" resultType="com.itwillbs.domain.LikeDTO">
+		SELECT * FROM BOARD_LIKE
+	</select>
+	
 	<!-- 게시글 추천 시 회원포인트 증가 -->
 	<!-- <update id="memberPointPlus">
 	update MP_MEMBER set MEMBER_POINT = MEMBER_POINT + 1 where MEMBER_ID = #{writerId}

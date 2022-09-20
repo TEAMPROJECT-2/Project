@@ -1,6 +1,7 @@
 package com.itwillbs.dao;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -64,6 +65,17 @@ public class LikeDAOImpl implements LikeDAO {
 		sqlSession.update(namespace+".updateLikeCancel", boardDTO);
 		
 	}
+
+
+
+	@Override
+	public List<LikeDTO> getLikeList(LikeDTO likeDTO) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList(namespace+".getLikeList", likeDTO);
+	}
+
+
+
 
 	
 	

@@ -3,6 +3,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <script type="text/javascript"
 src="${pageContext.request.contextPath }/resources/js/jquery-3.6.0.js"></script>
+<script type="text/javascript">
+let startDate = $('#startDate').val();
+let endDate = $('#endDate').val();
+</script>
+
 <!DOCTYPE html>
 <html
   lang="en"
@@ -12,49 +17,7 @@ src="${pageContext.request.contextPath }/resources/js/jquery-3.6.0.js"></script>
   data-assets-path="../assets/"
   data-template="vertical-menu-template-free"
 >
-<script type="text/javascript">
-function datecheck(){
-	
-	var today = new Date();
-	
-	var startyear = $('#startyear').val(); 
-	var endyear = $('#endyear').val();
-	
-	var startmonth = $('#startmonth').val();
-	var endmonth = $('#endmonth').val();
-	
-	var startday = $('#startday').val();
-	var endday = $('#endday').val();
-	
-	
-	var startdate1 = new Date();
-	startdate1.setFullYear(startyear,startmonth-1,startday);
-
-	var enddate1 = new Date();
-	enddate1.setFullYear(endyear,endmonth-1,endday);
-	
-
-	var startdate = startyear +"-"+ startmonth +"-"+ startday;
-	var enddate = endyear + "-" + endmonth +"-"+ endday
-	
-	$('#startdate').val(startdate);
-	$('#enddate').val(enddate);
-	
-	if(startdate1 > enddate1){
-		alert('검색 종료일을 검색 시작일 보다 늦은 날짜로 지정해주세요.');
-		return false;
-	}else if(endyear - startyear > 2){
-		alert('최대 검색 가능 기간은 1년 입니다.');
-		return false;
-	}else if(startdate1 > today || enddate1 > today){
-		alert('오늘 이전의 날짜만 검색이 가능합니다.');
-		return false;
-	}
-	
-	
-}
-</script>
-  <head>
+   <head>
   </head>
 
   <body>
@@ -74,24 +37,16 @@ function datecheck(){
 
                 <div class="mb-3 row">
                   <div class="col-md-10">
-                    <form action="${pageContext.request.contextPath }/point/pointCheck" method="get">
-                    <input class="form-control" type="date" id="startdate" />
-                    <input class="form-control" type="date" id="enddate" />
+                    <form action="${pageContext.request.contextPath }/point/pointCheck" method="get" > <!-- onsubmit="return datecheck()" -->
+<!--                     <input class="form-control" type="text" onKeyup="inputYMDNumber(this);" value="" placeholder="YYYY-MM-DD"/> -->
+                    <input class="form-control" type="date" id="startDate" name="startDate" value="${pageDTO.startDate }"/>
+                    <input class="form-control" type="date" id="endDate" name="endDate" value="${pageDTO.endDate }"/>
                     <br>
-<!-- 								<select name="startyear" id="startyear"> -->
-<!-- 								</select>년 -->
-<!-- 								 <select name="startmonth" id="startmonth"> -->
-<!-- 								</select>월 -->
-<!-- 								<select name="startday" id="startday" > -->
-<!-- 								</select>일 ~  -->
-<!-- 								<select name="endyear" id="endyear"	></select>년 -->
-<!-- 								<select name="endmonth" id="endmonth"> </select>월 -->
-<!-- 								<select name="endday" id="endday" ></select>일 -->
-								<input type="hidden" id="startdate" name="startdate">
-								<input type="hidden" id="enddate" name="enddate">
-								<input type="button" value="1개월" class="btn btn-outline-info" onclick="location.href='pointcheck.cp?searchmonth=1';">
-								<input type="button" value="3개월" class="btn btn-outline-info" onclick="location.href='pointcheck.cp?searchmonth=3';">
-								<input type="button" value="6개월" class="btn btn-outline-info" onclick="location.href='pointcheck.cp?searchmonth=6';">
+<!-- 								<input type="hidden" id="startdate" name="startdate"> -->
+<!-- 								<input type="hidden" id="enddate" name="enddate"> -->
+								<input type="button" value="1개월" class="btn btn-outline-info" > <!--onclick="location.href='pointcheck.cp?searchmonth=1';" -->
+								<input type="button" value="3개월" class="btn btn-outline-info" > <!--onclick="location.href='pointcheck.cp?searchmonth=3';" -->
+								<input type="button" value="6개월" class="btn btn-outline-info" > <!--onclick="location.href='pointcheck.cp?searchmonth=6';" -->
 								<input type="submit" value="조회하기" class="btn btn-info" id="searchPoint">
 					</form>
                   </div>
@@ -222,3 +177,34 @@ function datecheck(){
 </body>
 
 </html>
+<script type="text/javascript">
+// function datecheck(){
+	
+// 	var today = new Date();
+	
+// 	var startyear = $('#startyear').val(); 
+// 	var endyear = $('#endyear').val();
+// 	var startmonth = $('#startmonth').val();
+// 	var endmonth = $('#endmonth').val();
+// 	var startday = $('#startday').val();
+// 	var endday = $('#endday').val();
+// 	var startdate1 = new Date();
+// 	startdate1.setFullYear(startyear,startmonth-1,startday);
+// 	var enddate1 = new Date();
+// 	enddate1.setFullYear(endyear,endmonth-1,endday);
+// 	var startdate = startyear +"-"+ startmonth +"-"+ startday;
+// 	var enddate = endyear + "-" + endmonth +"-"+ endday
+// 	$('#startdate').val();
+// 	$('#enddate').val();
+// 	if(startdate1 > enddate1){
+// 		alert('검색 종료일을 검색 시작일 보다 늦은 날짜로 지정해주세요.');
+// 		return false;
+// 	}else if(endyear - startyear > 2){
+// 		alert('최대 검색 가능 기간은 1년 입니다.');
+// 		return false;
+// 	}else if(startdate1 > today || enddate1 > today){
+// 		alert('오늘 이전의 날짜만 검색이 가능합니다.');
+// 		return false;
+// 	}
+// }
+</script>

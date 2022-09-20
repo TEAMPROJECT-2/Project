@@ -24,14 +24,12 @@
 			 R_NUM
 			,BOARD_NUM
 			,USER_ID
-			,R_PASS
 			,R_CONTENT
 			)
 		values(
 		     #{rNum}
 			,#{boardNum}
 			,#{userId}
-			,#{rPass}
 			,#{rContent}
 			)
 		</insert>

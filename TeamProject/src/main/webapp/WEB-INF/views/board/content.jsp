@@ -15,7 +15,11 @@
   border-spacing: 0 10px;
 }
 </style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript">
 
+
+</script>
 </head>
 <body>
 
@@ -71,8 +75,27 @@
                         </tbody>
                     </table>
                     <form action="${pageContext.request.contextPath }/board/likeinset">
-                    <input type="hidden" name="boardNum" value="${boardDTO.boardNum}">
-                    <input type="submit" value="추천">
+                    <input type="hidden" name="boardNum" value="${boardDTO.boardNum}"></input>
+                    
+                   	<c:set var="userId" scope="session" value="${sessionScope.userId}"/>
+                   	<c:set var="lId" target="${likeList}" value="${likeDTO.userId}" />
+                   	
+	                   	<c:choose>
+	                   		<c:when test="${userId!=likeList}">
+	                   			<input type="image" id="pic" src="${pageContext.request.contextPath }/resources/img/icon/redhart.png" value="추천">
+	                   		</c:when>
+	                   		<c:when test="${userId==likeList}">
+	                   			<input type="image" id="pic" src="${pageContext.request.contextPath }/resources/img/icon/heart.png" value="추천">
+	                   		</c:when>
+	                   	</c:choose>
+                   	
+        			<%-- <c:if test="${userId == lId}">
+                    
+                    </c:if>
+                    
+                    <c:if test="${userId != lId}">
+                    
+                    </c:if> --%>
                     </form>
                     
                     
@@ -116,10 +139,8 @@
                                 <td>
                                     <span style='float:right'>
                                         <a href="${pageContext.request.contextPath }/board/list"><button type="button" id="list" class="btn btn-secondary">목록</button></a>
-                                        <c:if test="${userId == rId}">
                                         <button type="button" id="modify" class="btn btn-secondary" onclick="location.href='${pageContext.request.contextPath }/board/update?boardNum=${boardDTO.boardNum }'">수정</button>
                                         <button type="button" id="delete" class="btn btn-secondary" onclick="location.href='${pageContext.request.contextPath }/board/delete?boardNum=${boardDTO.boardNum }'">삭제</button>
-                                    	</c:if>
                                     </span>
                                 </td>
                             </tr>

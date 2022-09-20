@@ -2,6 +2,7 @@ package com.itwillbs.controller;
 
 import java.lang.System.Logger;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -23,14 +24,16 @@ import com.itwillbs.domain.LikeDTO;
 import com.itwillbs.domain.MemberDTO;
 import com.itwillbs.domain.ReplyDTO;
 import com.itwillbs.service.LikeService;
+import com.itwillbs.service.MypageService;
 
 @Controller
 public class LikeController {
 	
 	@Inject 
-	
 	private  LikeService likeService;
 	
+	@Inject
+	private MypageService mypageService;
 	
 	@RequestMapping(value = "/board/likeinset", method = RequestMethod.GET)
 	public String likeinset(HttpServletRequest request, HttpSession session, Model model) {
@@ -42,7 +45,7 @@ public class LikeController {
 		BoardDTO boardDTO=new BoardDTO();
 		boardDTO.setBoardNum(boardNum);
 		
-		
+		List<LikeDTO> likeList = likeService.getLikeList(likeDTO);
 		LikeDTO likeDTO2=likeService.likeCheck(likeDTO);
 		
 		
@@ -56,6 +59,7 @@ public class LikeController {
 		}
 		
 		
+		model.addAttribute("likeList",likeList);
 		return "redirect:/board/content?boardNum="+boardNum;
 	}
 	

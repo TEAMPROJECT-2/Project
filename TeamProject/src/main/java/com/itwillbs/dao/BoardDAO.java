@@ -37,6 +37,10 @@ public interface BoardDAO {
 
 	void viewup(int boardNum);
 
+	void rCountsub(int boardNum);
+
+	void rCount(int boardNum);
+
 	
 
 

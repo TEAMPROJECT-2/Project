@@ -20,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.itwillbs.domain.BoardDTO;
 import com.itwillbs.domain.LikeDTO;
 import com.itwillbs.domain.MemberDTO;
+import com.itwillbs.domain.MypageDTO;
 import com.itwillbs.domain.PageDTO;
 import com.itwillbs.domain.ReplyDTO;
 import com.itwillbs.domain.ViewDTO;
@@ -27,6 +28,7 @@ import com.itwillbs.service.BoardService;
 import com.itwillbs.service.LikeService;
 import com.itwillbs.service.LikeServiceImpl;
 import com.itwillbs.service.MemberService;
+import com.itwillbs.service.MypageService;
 import com.itwillbs.service.ReplyService;
 
 @Controller
@@ -40,6 +42,9 @@ public class BoardController {
 	@Inject
 	private LikeService likeService;
 
+	@Inject
+	private MypageService mypageService;
+	
 	//업로드 경로 servlet-context.mxl upload폴더 경로 이름
 	@Resource(name = "uploadPath")
 	private String uploadPath;
@@ -118,9 +123,13 @@ public class BoardController {
 		boardDTO.setBoardContent(request.getParameter("boardContent"));
 		boardDTO.setBoardFile(filename);
 		
+		MypageDTO mypageDTO =new MypageDTO();
+		mypageDTO.setUserId((String)session.getAttribute("userId"));
 		
 		
 		
+		
+		mypageService.boardCount(mypageDTO);
 		boardService.insertBoard(boardDTO);
 		
 		// 주소변경하면서 이동 /board/list 이동
@@ -276,7 +285,7 @@ public class BoardController {
 	
 	//가상주소 시작점 http://localhost:8080/myweb2/board/deletePro
 	@RequestMapping(value = "/board/deletePro", method = RequestMethod.POST)
-	public String deletePro(HttpServletRequest request) {
+	public String deletePro(HttpServletRequest request, HttpSession session) {
 		//num pass 일치 확인
 		BoardDTO boardDTO=new BoardDTO();
 		boardDTO.setBoardNum(Integer.parseInt(request.getParameter("boardNum")));
@@ -287,10 +296,12 @@ public class BoardController {
 		memberDTO.setUserPass(request.getParameter("userPass"));
 		//num pass 일치 확인
 		BoardDTO boardDTO2=boardService.numCheck(boardDTO);
-		
+		MypageDTO mypageDTO =new MypageDTO();
+		mypageDTO.setUserId((String)session.getAttribute("userId"));
 	
 		if(boardDTO2 != null) {
-			
+				
+				mypageService.boardsub(mypageDTO);
 				boardService.deleteBoard(boardDTO);
 			
 			return "redirect:/board/list";

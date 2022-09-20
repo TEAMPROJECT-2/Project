@@ -13,9 +13,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.itwillbs.domain.BoardDTO;
+import com.itwillbs.domain.MypageDTO;
 import com.itwillbs.domain.PageDTO;
 import com.itwillbs.domain.ReplyDTO;
 import com.itwillbs.service.BoardService;
+import com.itwillbs.service.MypageService;
 import com.itwillbs.service.ReplyService;
 
 @Controller
@@ -24,6 +26,12 @@ public class ReplyController {
 	//객체생성 부모인터페이스 = 자식클래스
 	@Inject
 	private  ReplyService replyService;
+	
+	@Inject
+	private MypageService mypageService;
+	
+	@Inject
+	private BoardService boardService;
 
 
 	@RequestMapping(value = "/board/isnertPro", method = RequestMethod.POST)
@@ -33,10 +41,12 @@ public class ReplyController {
 
 		replyDTO.setBoardNum(boardNum);
 		replyDTO.setUserId((String)session.getAttribute("userId"));
-		replyDTO.setrPass(request.getParameter("rPass"));
 		replyDTO.setrContent(request.getParameter("rContent"));
+		MypageDTO mypageDTO =new MypageDTO();
+		mypageDTO.setUserId((String)session.getAttribute("userId"));
 		
-
+		boardService.rCount(boardNum);
+		mypageService.replyCount(mypageDTO);
 		replyService.insetreply(replyDTO);
 
 
@@ -53,7 +63,8 @@ public class ReplyController {
 		replyDTO.setUserId((String)session.getAttribute("userId"));
 		replyDTO.setrNum(Integer.parseInt(request.getParameter("rNum")));
 		
-		
+		MypageDTO mypageDTO =new MypageDTO();
+		mypageDTO.setUserId((String)session.getAttribute("userId"));
 		
 		model.addAttribute("boardNum", boardNum);
 		
@@ -62,6 +73,8 @@ public class ReplyController {
 
 		if(replyDTO2!=null) {
 			replyService.Replydelete(replyDTO);
+			mypageService.replysub(mypageDTO);
+			boardService.rCountsub(boardNum);
 		}else {
 			return "board/msg2";
 		}
