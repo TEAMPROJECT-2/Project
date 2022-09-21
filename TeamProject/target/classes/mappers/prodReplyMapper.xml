@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.itwillbs.mappers.prodReplyMapper">
+
+	<!-- 댓글등록 시작 -->
+  	<insert id="enrollReply">
+  		INSERT INTO PRODUCT_REPLY(PROD_L_NUM, USER_ID, CONTENT, RATING)
+  		VALUES (#{prodLNum}, #{userId}, #{content}, #{rating})
+  	</insert>
+	<!-- 댓글등록 끝 -->
+
+</mapper>
