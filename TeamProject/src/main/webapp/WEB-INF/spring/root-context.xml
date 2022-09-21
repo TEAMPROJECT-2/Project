@@ -9,7 +9,7 @@
 <!-- 	1,2단계 디비연결 객체생성 -->
 	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.mysql.cj.jdbc.Driver"></property>
-		<property name="url" value="jdbc:mysql://database-project.ck4uen3kgbhg.ap-northeast-2.rds.amazonaws.com:3306/projectdb?serverTimezone=UTC"></property>
+		<property name="url" value="jdbc:mysql://database-project.ck4uen3kgbhg.ap-northeast-2.rds.amazonaws.com:3306/projectdb?serverTimezone=Asia/Seoul"></property>
 		<property name="username" value="admin"></property>
 		<property name="password" value="xlavmf123"></property>
 	</bean>

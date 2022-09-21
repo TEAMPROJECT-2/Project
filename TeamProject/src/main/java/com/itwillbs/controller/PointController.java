@@ -1,6 +1,8 @@
 package com.itwillbs.controller;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Map;
 
@@ -53,7 +55,7 @@ public class PointController {
 	}   
 	
 	// 포인트 충전
-	@RequestMapping(value = "/point/charge", method = RequestMethod.GET)
+	@RequestMapping(value = "/point/char1ge", method = RequestMethod.GET)
 	public String charge(HttpSession session, Model model) {
 		String userId = (String)session.getAttribute("userId");
 		if(userId==null) {
@@ -94,7 +96,7 @@ public class PointController {
 	 }
 	 // 포인트 기간별 조회
 	@RequestMapping(value = "/point/pointCheck", method = RequestMethod.GET)
-	public String pointCheck(HttpSession session, HttpServletRequest request, Model model) {
+	public String pointCheck(HttpSession session, HttpServletRequest request, Model model)  {
 		String userId=(String)session.getAttribute("userId");
 		// 한화면에 보여줄 글개수
 		int pageSize=10;
@@ -106,7 +108,6 @@ public class PointController {
 
 		String startDate=request.getParameter("startDate");
 		String endDate=request.getParameter("endDate");
-
 		//현페이지 번호를 정수형으로 변경
 		int currentPage=Integer.parseInt(pageNum);
 		// PageDTO 객체생성
@@ -116,7 +117,7 @@ public class PointController {
 		pageDTO.setCurrentPage(currentPage);
 		pageDTO.setUserId(userId);
 		pageDTO.setStartDate(startDate);
-		pageDTO.setEndDate(endDate);
+		pageDTO.setEndDate(endDate); 
 
 		List<PointDTO> pointList=pointService.getPointCheckList(pageDTO);
 
@@ -137,8 +138,6 @@ public class PointController {
 
 		model.addAttribute("pointList", pointList);
 		model.addAttribute("pageDTO", pageDTO);
-		System.out.println(endDate);
-		System.out.println(startDate);
 		return "mypage/userPoint";
 	}
 }

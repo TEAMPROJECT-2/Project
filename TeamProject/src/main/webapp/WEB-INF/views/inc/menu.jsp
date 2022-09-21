@@ -95,7 +95,6 @@
 						<a href="${pageContext.request.contextPath }/member/msg" class="mr-3 ml-3" >포인트 충전</a> |
 						</c:if>
 						<c:if test="${!(empty sessionScope.userId)}">
-<%-- 						<a href="${pageContext.request.contextPath }/point/charge" class="mr-3 ml-3" >포인트 충전</a> | --%>
 						<a href="javascript:openPop();" class="mr-3 ml-3" >포인트 충전</a> |
 						</c:if>
 						<a href="${pageContext.request.contextPath }/order/cart" class="mr-3  ml-3">장바구니</a>
@@ -236,8 +235,8 @@
 	    var IMP = window.IMP;
 	    IMP.init('imp27865884');
 	    var money = $('input[name="cp_item"]:checked').val();
-	    console.log(money);
-
+	    var pointNow = parseInt(${pointDTO.pointNow}) + parseInt(money);
+	
 	    IMP.request_pay({
 	        pg: 'html5_inicis',
 	        merchant_uid: 'point' + new Date().getTime(),
@@ -247,7 +246,8 @@
 	        buyer_tel: '${memberDTO.userPhone}'
 	    }, function (rsp) {
 	        console.log(rsp);
-
+			alert(${pointDTO.pointNow});
+			alert($('#pointChar').val());
 	        if (rsp.success) {
 	            var msg = '결제가 완료되었습니다.';
 	            msg += '고유ID : ' + rsp.imp_uid;
@@ -255,17 +255,14 @@
 	            msg += '결제 금액 : ' + rsp.paid_amount;
 	            msg += '카드 승인번호 : ' + rsp.apply_num;
 	            $.ajax({
-	                type: "POST",
-	                url: "insertChargePoint", //충전 금액값을 보낼 url 설정
+	                url: "${pageContext.request.contextPath }/point/insertChargePoint", //충전 금액값을 보낼 url 설정
 	                type: "POST",
 		        	dataType:"json",
 		        	data: {
-		            	'userId' : '${sessionScope.userId}',
 		            	'pointType' : $('#pointChar').val(),
-		            	'pointNow' : '${pointDTO.pointNow}' + amount,
-						'pointCharge' : amount
+		            	'pointNow' : pointNow,
+						'pointCharge' : money
 		        	},
-		            contentType:"application/json; charset=utf-8"
 	            });
 	        } else {
 	            var msg = '결제에 실패하였습니다.';

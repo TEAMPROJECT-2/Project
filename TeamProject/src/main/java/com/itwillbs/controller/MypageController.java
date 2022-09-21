@@ -139,6 +139,8 @@ public class MypageController {
 		if(pageNum==null) {
 			pageNum="1";
 		}
+		String startDate=request.getParameter("startDate");
+		String endDate=request.getParameter("endDate");
 		//현페이지 번호를 정수형으로 변경
 		int currentPage=Integer.parseInt(pageNum);
 		// PageDTO 객체생성
@@ -147,7 +149,8 @@ public class MypageController {
 		pageDTO.setPageNum(pageNum);
 		pageDTO.setCurrentPage(currentPage);
 		pageDTO.setUserId(userId);
-
+		pageDTO.setStartDate(startDate);
+		pageDTO.setEndDate(endDate); 
 		List<PointDTO> pointList=pointService.getPointList(pageDTO);
 
 		// pageBlock  startPage endPage count pageCount

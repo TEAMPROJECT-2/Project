@@ -113,7 +113,9 @@ public class MemberController {
         } else {
         	return "/member/msg";
         }
-
+        
+        PointDTO pointDTO = pointService.getMember(memberDTO.getUserId());
+        session.setAttribute("pointDTO",pointDTO);
 		// main/main 이동
 		return "redirect:/main/main";
 	}
