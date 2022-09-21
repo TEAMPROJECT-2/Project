@@ -15,7 +15,10 @@ import org.springframework.transaction.annotation.Transactional;
 import com.itwillbs.dao.MemberDAO;
 import com.itwillbs.domain.CompDTO;
 import com.itwillbs.domain.MemberDTO;
+import com.itwillbs.domain.OrderDTO;
+import com.itwillbs.domain.OrderListDTO;
 import com.itwillbs.domain.PageDTO;
+import com.itwillbs.domain.ProdDTO;
 import com.itwillbs.mail.MailUtils;
 import com.itwillbs.mail.TempKey;
 
@@ -174,11 +177,11 @@ public class MemberServiceImpl implements MemberService{
 		return memberDAO.statusCheck(userId);
 	}
 
+	// 유저 리스트
 	@Override
 	public int getUserCount() {
 		return memberDAO.getUserCount();
 	}
-
 	@Override
 	public List<MemberDTO> getUserList(PageDTO pageDTO) {
 		// pageSize  pageNum  currentPage
@@ -197,6 +200,40 @@ public class MemberServiceImpl implements MemberService{
 	public void deleteUser(String userId) {
 		memberDAO.deleteUser(userId);
 
+	}
+	// 주문 리스트
+	@Override
+	public List<OrderListDTO> getOrderList(PageDTO pageDTO) {
+		// pageSize  pageNum  currentPage
+		int startRow=(pageDTO.getCurrentPage()-1)*pageDTO.getPageSize()+1;
+		int endRow=startRow+pageDTO.getPageSize()-1;
+
+		// sql => limit #{startRow -1}, #{pageSize}
+
+		pageDTO.setStartRow(startRow-1);
+		pageDTO.setEndRow(endRow);
+		return memberDAO.getOrderList(pageDTO);
+	}
+	@Override
+	public int getOrderCount() {
+		return memberDAO.getOrderCount();
+	}
+	// 상품 리스트
+	@Override
+	public List<ProdDTO> getProductList(PageDTO pageDTO) {
+		// pageSize  pageNum  currentPage
+		int startRow=(pageDTO.getCurrentPage()-1)*pageDTO.getPageSize()+1;
+		int endRow=startRow+pageDTO.getPageSize()-1;
+
+		// sql => limit #{startRow -1}, #{pageSize}
+
+		pageDTO.setStartRow(startRow-1);
+		pageDTO.setEndRow(endRow);
+		return memberDAO.getProductList(pageDTO);
+	}
+	@Override
+	public int getProductCount() {
+		return memberDAO.getProductCount();
 	}
 
 

@@ -64,7 +64,7 @@
 
           <ul class="menu-inner py-1">
             <!-- Dashboard -->
-            <li class="menu-item active">
+            <li class="menu-item">
               <a href="${pageContext.request.contextPath }/adminpage" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
                 <div data-i18n="Analytics">관리자 홈</div>
@@ -103,15 +103,9 @@
               </a>
             </li>
             <li class="menu-item">
-              <a href="${pageContext.request.contextPath }/admin/prodRefund" class="menu-link">
+              <a href="${pageContext.request.contextPath }/admin/product" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-collection"></i>
                 <div data-i18n="Basic">상품 관리</div>
-              </a>
-            </li>
-            <li class="menu-item">
-              <a href="${pageContext.request.contextPath }/admin/prodRefund" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-collection"></i>
-                <div data-i18n="Basic">리뷰 관리</div>
               </a>
             </li>
 

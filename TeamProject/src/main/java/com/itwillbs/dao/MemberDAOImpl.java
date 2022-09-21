@@ -11,7 +11,10 @@ import org.springframework.stereotype.Repository;
 
 import com.itwillbs.domain.CompDTO;
 import com.itwillbs.domain.MemberDTO;
+import com.itwillbs.domain.OrderDTO;
+import com.itwillbs.domain.OrderListDTO;
 import com.itwillbs.domain.PageDTO;
+import com.itwillbs.domain.ProdDTO;
 
 @Repository
 public class MemberDAOImpl implements MemberDAO{
@@ -141,7 +144,26 @@ public class MemberDAOImpl implements MemberDAO{
 	@Override
 	public void deleteUser(String userId) {
 		sqlSession.update(namespace + ".deleteUser", userId);
+	}
 
+	// 주문 리스트
+	@Override
+	public List<OrderListDTO> getOrderList(PageDTO pageDTO) {
+		return sqlSession.selectList(namespace + ".getOrderList", pageDTO);
+	}
+	@Override
+	public int getOrderCount() {
+		return sqlSession.selectOne(namespace + ".getOrderCount");
+	}
+
+	// 상품 리스트
+	@Override
+	public List<ProdDTO> getProductList(PageDTO pageDTO) {
+		return sqlSession.selectList(namespace + ".getProductList", pageDTO);
+	}
+	@Override
+	public int getProductCount() {
+		return sqlSession.selectOne(namespace + ".getProductCount");
 	}
 
 

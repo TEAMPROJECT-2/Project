@@ -4,7 +4,10 @@ import java.util.List;
 
 import com.itwillbs.domain.CompDTO;
 import com.itwillbs.domain.MemberDTO;
+import com.itwillbs.domain.OrderDTO;
+import com.itwillbs.domain.OrderListDTO;
 import com.itwillbs.domain.PageDTO;
+import com.itwillbs.domain.ProdDTO;
 
 public interface MemberDAO {
 	// 유저 회원가입
@@ -55,7 +58,12 @@ public interface MemberDAO {
 	// 유저 삭제
 	public void deleteUser(String userId);
 
-
+	// 주문 리스트
+	public List<OrderListDTO> getOrderList(PageDTO pageDTO);
+	public int getOrderCount();
+	// 상품 리스트
+	public List<ProdDTO> getProductList(PageDTO pageDTO);
+	public int getProductCount();
 
 
 

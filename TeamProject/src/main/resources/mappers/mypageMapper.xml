@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.itwillbs.mappers.mypageMapper">
 
-	
+
 	<insert id="insertMypage">
 		INSERT INTO USER_MYPAGE(
 		USER_ID
@@ -12,48 +12,47 @@
 		#{userId}
 		)
 	</insert>
-	
+
 	<select id="mypageselect" resultType="com.itwillbs.domain.MypageDTO">
 		SELECT * FROM USER_MYPAGE WHERE USER_ID=#{userId}
 	</select>
-		
+
 	<update id="boardCount">
-		UPDATE USER_MYPAGE SET 
-		BOARD_COUNT = BOARD_COUNT + 1 
+		UPDATE USER_MYPAGE SET
+		BOARD_COUNT = BOARD_COUNT + 1
 		where USER_ID=#{userId}
 	</update>
-	
+
 	<update id="replyCount">
-		UPDATE USER_MYPAGE SET 
-		REPLY_COUNT = REPLY_COUNT + 1 
+		UPDATE USER_MYPAGE SET
+		REPLY_COUNT = REPLY_COUNT + 1
 		where USER_ID=#{userId}
 	</update>
-	
+
 	<update id="productLike">
-		UPDATE USER_MYPAGE SET 
-		PRODUCT_LIKE = PRODUCT_LIKE + 1 
+		UPDATE USER_MYPAGE SET
+		PRODUCT_LIKE = PRODUCT_LIKE + 1
 		where USER_ID=#{userId}
 	</update>
-	
+
 	<update id="boardsub">
-		UPDATE USER_MYPAGE SET 
-		BOARD_COUNT = BOARD_COUNT - 1 
+		UPDATE USER_MYPAGE SET
+		BOARD_COUNT = BOARD_COUNT - 1
 		where USER_ID=#{userId}
 	</update>
-	
+
 	<update id="replysub">
-		UPDATE USER_MYPAGE SET 
-		REPLY_COUNT = REPLY_COUNT - 1 
+		UPDATE USER_MYPAGE SET
+		REPLY_COUNT = REPLY_COUNT - 1
 		where USER_ID=#{userId}
 	</update>
-	
-	
+
 	<update id="productLikesub">
-		UPDATE USER_MYPAGE SET 
-		PRODUCT_LIKE = PRODUCT_LIKE - 1 
+		UPDATE USER_MYPAGE SET
+		PRODUCT_LIKE = PRODUCT_LIKE - 1
 		where USER_ID=#{userId}
 	</update>
-	
-	
-	
+
+
+
 </mapper>

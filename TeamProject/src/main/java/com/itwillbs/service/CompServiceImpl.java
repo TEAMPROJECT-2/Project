@@ -147,6 +147,7 @@ public class CompServiceImpl implements CompService {
 		return compDAO.getProdAmount(orderListDTO);
 	}
 
+	// 업체 리스트
 	@Override
 	public List<CompDTO> getCompList(PageDTO pageDTO) {
 		// pageSize  pageNum  currentPage
@@ -159,14 +160,12 @@ public class CompServiceImpl implements CompService {
 		pageDTO.setEndRow(endRow);
 		return compDAO.getCompList(pageDTO);
 	}
-
-
 	@Override
 	public int getCompCount() {
 		return compDAO.getCompCount();
 	}
 
-
+	// 업체 삭제
 	@Override
 	public void deleteComp(String compId) {
 		compDAO.deleteComp(compId);

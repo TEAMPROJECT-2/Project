@@ -202,7 +202,7 @@
 		 WHERE USER_ID		=#{userId}
 	</delete>
 
-<!-- 리스트 -->
+<!-- 회원 리스트 -->
 	<select id="getUserCount" resultType="java.lang.Integer">
 		SELECT COUNT(*)
 		  FROM USER_INFO
@@ -218,5 +218,28 @@
 		DELETE FROM USER_INFO
 		 WHERE USER_INFO_NUM	=#{userInfoNum}
 	</delete>
+
+
+<!-- 상품 리스트 -->
+	<select id="getProductCount" resultType="java.lang.Integer">
+		SELECT COUNT(*)
+		  FROM PRODUCT_LIST
+	</select>
+	<select id="getProductList" resultType="com.itwillbs.domain.ProdDTO">
+		SELECT *
+		  FROM PRODUCT_LIST
+	  ORDER BY PROD_L_CODE DESC LIMIT #{startRow}, #{pageSize}
+	</select>
+
+<!-- 주문 리스트 -->
+	<select id="getOrderCount" resultType="java.lang.Integer">
+		SELECT COUNT(*)
+		  FROM ORDER_LIST
+	</select>
+	<select id="getOrderList" resultType="com.itwillbs.domain.OrderListDTO">
+		SELECT *
+		  FROM ORDER_LIST
+	  ORDER BY ORD_L_DATE DESC LIMIT #{startRow}, #{pageSize}
+	</select>
 
 </mapper>

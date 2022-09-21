@@ -76,10 +76,10 @@
                     </table>
                     <form action="${pageContext.request.contextPath }/board/likeinset">
                     <input type="hidden" name="boardNum" value="${boardDTO.boardNum}"></input>
-                    
+
                    	<c:set var="userId" scope="session" value="${sessionScope.userId}"/>
                    	<c:set var="lId" target="${likeList}" value="${likeDTO.userId}" />
-                   	
+
 	                   	<c:choose>
 	                   		<c:when test="${userId!=likeList}">
 	                   			<input type="image" id="pic" src="${pageContext.request.contextPath }/resources/img/icon/redhart.png" value="추천">
@@ -88,21 +88,21 @@
 	                   			<input type="image" id="pic" src="${pageContext.request.contextPath }/resources/img/icon/heart.png" value="추천">
 	                   		</c:when>
 	                   	</c:choose>
-                   	
+
         			<%-- <c:if test="${userId == lId}">
-                    
+
                     </c:if>
-                    
+
                     <c:if test="${userId != lId}">
-                    
+
                     </c:if> --%>
                     </form>
-                    
-                    
-                    
+
+
+
+                    <table class="table table-striped" >
                <c:forEach items="${replyList}" var="replyDTO">
 				<!-- 댓글 테이블 -->
-                    <table class="table table-striped" >
                    		 <tr>
                    		 		<input type="hidden" name="rNum" value="${replyDTO.rNum}">
                             	<th width="5%" style="text-align:right;">${replyDTO.userId}</th>
@@ -115,11 +115,11 @@
                                   </c:if>
                                 </td>
                          </tr>
-                    </table>
                 </c:forEach>
+                    </table>
 			<!-- 댓글 작성 -->
 				<form name="comment-form" action="${pageContext.request.contextPath }/board/isnertPro" method="post" autocomplete="off">
-				
+
                     <table class="table table-condensed">
                         <tr>
                             <td>
