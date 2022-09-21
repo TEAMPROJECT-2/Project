@@ -90,14 +90,10 @@ public class BasketController {
 			public ResponseEntity<String> compProdDeleteAjax(HttpSession session,HttpServletRequest request,BasketDTO basketDTO) {
 				String userId = (String)session.getAttribute("userId"); // 삭제 할때 필요한 유저 아이디
 
-				String[] ajaxMsg = request.getParameterValues("valueArr");
-				System.out.println("compController : "+ajaxMsg[0]);
-				// 삭제되는 데이터 만큼 for 문을 돌려  호출
-				for(int i=0; i<ajaxMsg.length; i++) {
-					basketDTO.setSbProdCode(ajaxMsg[i]); // 삭제 코드
+
 					basketDTO.setSbUser(userId);         // 삭제 하는 유저 아이디
 					basketService.deleteBasket(basketDTO);
-				}
+
 
 				ResponseEntity<String> entity=new ResponseEntity<String>("1" ,HttpStatus.OK);
 				return entity;
