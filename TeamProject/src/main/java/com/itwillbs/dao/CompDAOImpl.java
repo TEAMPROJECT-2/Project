@@ -98,6 +98,7 @@ public class CompDAOImpl implements CompDAO {
 		System.out.println("delivNumberUpdate : " + orderListDTO.getOrdDeliveryStatus());
 		sqlSession.update(namespace + ".delivNumberUpdate", orderListDTO);
 	}
+	// 미배송/배송완료 수량
 	@Override
 	public int getOrdCountMain(OrderListDTO orderListDTO) {
 		return sqlSession.selectOne(namespace+".getOrdCountMain",orderListDTO);
@@ -117,6 +118,21 @@ public class CompDAOImpl implements CompDAO {
 		sqlSession.update(namespace + ".deleteComp", compId);
 
 	}
+	//총 매출
+	@Override
+	public int getTotalsum(OrderListDTO orderListDTO) {
+		return sqlSession.selectOne(namespace+".getTotalsum",orderListDTO);
+	}
+	// 품절,품절임박, 양호 상품 갯수
+//	@Override
+//	public List<OrderListDTO> getProdAmount(OrderListDTO orderListDTO) {
+//		return sqlSession.selectList(namespace+".getProdAmount",orderListDTO);
+//	}
+	@Override
+	public OrderListDTO getProdAmount(OrderListDTO orderListDTO) {
+		return sqlSession.selectOne(namespace + ".getProdAmount", orderListDTO);
+	}
+
 
 
 }

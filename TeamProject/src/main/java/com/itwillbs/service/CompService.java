@@ -50,5 +50,10 @@ public interface CompService {
 	int getCompCount();
 	// 업체 삭제
 	public void deleteComp(String compId);
+	// 총 매출
+	public int getTotalsum(OrderListDTO orderListDTO);
+	//	품절,품절임박, 양호 상품 갯수
+//	public List<OrderListDTO> getProdAmount (OrderListDTO orderListDTO);
+	public OrderListDTO getProdAmount(OrderListDTO orderListDTO);
 
 }

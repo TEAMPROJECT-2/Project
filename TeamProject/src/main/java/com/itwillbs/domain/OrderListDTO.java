@@ -18,6 +18,11 @@ public class OrderListDTO {
 	private int count;
 	private String ordPurchasestatus;
 
+	private String ge50Count;
+	private String ne50Count;
+	private String eq50Couunt;
+
+
 
 	public int getTrnum() {
 		return trnum;
@@ -105,6 +110,26 @@ public class OrderListDTO {
 	}
 	public void setOrdPurchasestatus(String ordPurchasestatus) {
 		this.ordPurchasestatus = ordPurchasestatus;
+	}
+
+
+	public String getGe50Count() {
+		return ge50Count;
+	}
+	public void setGe50Count(String ge50Count) {
+		this.ge50Count = ge50Count;
+	}
+	public String getNe50Count() {
+		return ne50Count;
+	}
+	public void setNe50Count(String ne50Count) {
+		this.ne50Count = ne50Count;
+	}
+	public String getEq50Couunt() {
+		return eq50Couunt;
+	}
+	public void setEq50Couunt(String eq50Couunt) {
+		this.eq50Couunt = eq50Couunt;
 	}
 	@Override
 	public String toString() {

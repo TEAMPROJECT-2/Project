@@ -54,4 +54,9 @@ public interface CompDAO {
 
 
 
+	// 총매출
+	public int getTotalsum(OrderListDTO orderListDTO);
+	// 상품 임박
+//	List<OrderListDTO> getProdAmount(OrderListDTO orderListDTO);
+	public OrderListDTO getProdAmount(OrderListDTO orderListDTO);
 }

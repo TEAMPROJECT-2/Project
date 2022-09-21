@@ -39,6 +39,8 @@ import com.itwillbs.service.CompService;
 import com.itwillbs.service.MemberService;
 import com.mysql.cj.x.protobuf.MysqlxDatatypes.Array;
 
+import okhttp3.Request;
+
 @Controller
 public class CompController {
 
@@ -59,11 +61,27 @@ public class CompController {
 		System.out.println("comp/insertGoods");
 		return "comp/insertGoods";
 	}
+	// 제품코드 중복검사
+		@RequestMapping(value = "/comp/idDupCheck", method = RequestMethod.POST)
+		public ResponseEntity<String> compidCheck(HttpServletRequest request) {
+			String prodLCode=request.getParameter("prodLCode");
+			ProdDTO prodDTO=compService.getProd(prodLCode);
+			String result="";
+			if(prodDTO!=null) {	// 상품코드 중복
+				result="iddup";
+			}else {					// 상품코드 사용가능
+				result="idok";
+			}
+
+			ResponseEntity<String> entity=new ResponseEntity<String>(result,HttpStatus.OK);
+			return entity;
+		}
+
 
 
 
 	@RequestMapping(value = "/comp/insertGoodsPro", method = RequestMethod.POST)
-	public String insertPro(HttpServletRequest request,HttpSession session,MultipartFile prodLMainimg,MultipartFile prodLSubimg) throws Exception {
+	public String insertPro(HttpServletRequest request,HttpSession session,MultipartFile prodLMainimg,MultipartFile prodLSubimg,@ModelAttribute CompDTO compDTO) throws Exception {
 
 		ProdDTO prodDTO = new ProdDTO();
 
@@ -78,12 +96,9 @@ public class CompController {
 		prodDTO.setProdLCode(cd.getPkCd());
 
 
-
 		//		ProdDTO prodDTO,
 		// 로그인후 세션값, 업체 아이디 갖고옴
-		String CompNm = (String)session.getAttribute("compId");
-		prodDTO.setProdLCompnm(CompNm);
-//
+
 		//파일 이름  => 랜덤문자_파일이름
 
 		UUID uuid=UUID.randomUUID();
@@ -165,7 +180,6 @@ public class CompController {
 		pageDTO.setStartPage(startPage);
 		pageDTO.setEndPage(endPage);
 		pageDTO.setPageCount(pageCount);
-		System.out.println("pageDTO.getStatus() : "+pageDTO.getStatus());
 
 		//데이터 담아서 list.jsp 이동
 		model.addAttribute("prodList", prodList);
@@ -415,32 +429,45 @@ public class CompController {
 //		 업체 페이지 메인화면
 		@RequestMapping(value = "/comp/compMain", method = RequestMethod.GET)
 		public ModelAndView complist(HttpSession session,HttpServletRequest req, HttpServletResponse res,
-								@ModelAttribute OrderListDTO orderListDTO ,
+								@ModelAttribute OrderListDTO orderListDTO ,@ModelAttribute CompDTO compDTO,@ModelAttribute ProdDTO prodDTO,
 								@ModelAttribute PageDTO pageDTO) throws Exception {
 			try {
 				ModelAndView mv = new ModelAndView();
 				// 주문 현황- 미배송
 //				CommonDTO commonDTO =  new CommonDTO();
 				String compId =(String)session.getAttribute("compId");
-				orderListDTO.setCompId(compId); 	// 기준 업체
+				orderListDTO.setCompId(compId); // 기준 업체
+
 				// 1 미배송 갯수
 				orderListDTO.setOrdDeliveryStatus("1");
 				int ordCount1 = compService.getOrdCountDeliv(orderListDTO);
 				mv.addObject("ordCount1", ordCount1);
 				mv.setViewName("comp/compMain");
+
 				// 3 배송완료 갯수
 				orderListDTO.setOrdDeliveryStatus("3");
 				int ordCount3 = compService.getOrdCountDeliv(orderListDTO);
 				mv.addObject("ordCount3", ordCount3);
+
 				// 총 매출
-//				int price = compService.
-//				int amount =
-//				int totalsum =
+				int totalsum= compService.getTotalsum(orderListDTO); // 물건개별 총합 리스트 갖고오기
+				mv.addObject("totalsum", totalsum);
+
+				// 품절,품절임박, 양호 상품 갯수
+				orderListDTO.setCompId(compId);
+
+				OrderListDTO prodAmount = compService.getProdAmount(orderListDTO);
+
+				mv.addObject("prodAmount", prodAmount);
 
 				// 총 물건 등록갯수
 				pageDTO.setCompId(compId);
 				int totalProd = compService.getProdCount(pageDTO);
 				mv.addObject("totalProd",totalProd);
+				// 업체 정보
+				compDTO.setCompId(compId);
+				CompDTO compDTO1 = compService.getComp(compDTO);
+				mv.addObject("compDTO1",compDTO1);
 
 
 				return mv;
