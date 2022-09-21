@@ -102,5 +102,21 @@ public class CompDAOImpl implements CompDAO {
 	public int getOrdCountMain(OrderListDTO orderListDTO) {
 		return sqlSession.selectOne(namespace+".getOrdCountMain",orderListDTO);
 	}
+	// 업체 리스트
+	@Override
+	public List<CompDTO> getCompList(PageDTO pageDTO) {
+		return sqlSession.selectList(namespace + ".getCompList", pageDTO);
+	}
+	@Override
+	public int getCompCount() {
+		return sqlSession.selectOne(namespace + ".getCompCount");
+	}
+	// 업체 삭제
+	@Override
+	public void deleteComp(String compId) {
+		sqlSession.update(namespace + ".deleteComp", compId);
+
+	}
+
 
 }

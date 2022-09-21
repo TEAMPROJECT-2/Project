@@ -123,6 +123,34 @@ public class CompServiceImpl implements CompService {
 	}
 
 
+	@Override
+	public List<CompDTO> getCompList(PageDTO pageDTO) {
+		// pageSize  pageNum  currentPage
+		int startRow=(pageDTO.getCurrentPage()-1)*pageDTO.getPageSize()+1;
+		int endRow=startRow+pageDTO.getPageSize()-1;
+
+		// sql => limit #{startRow -1}, #{pageSize}
+
+		pageDTO.setStartRow(startRow-1);
+		pageDTO.setEndRow(endRow);
+		return compDAO.getCompList(pageDTO);
+	}
+
+
+	@Override
+	public int getCompCount() {
+		return compDAO.getCompCount();
+	}
+
+
+	@Override
+	public void deleteComp(String compId) {
+		compDAO.deleteComp(compId);
+
+	}
+
+
+
 
 }
 

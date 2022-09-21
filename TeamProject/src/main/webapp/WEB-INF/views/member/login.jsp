@@ -43,7 +43,6 @@
                         	<h4>SNS 로그인</h4><br>
 
 								<!--     네이버 로그인 -->
-
 								<div id="naver_id_login" style="display:inline-block;">
 								</div>
 								<!--     카카오 로그인 -->

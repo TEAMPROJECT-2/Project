@@ -58,13 +58,13 @@ public class MypageController {
 		MemberDTO memberDTO = memberService.getMember(userId);
 		PointDTO pointDTO = pointService.getMember(userId);
 		AddressDTO addressDTO = addressService.getAddress(userId);
-		
+
 		MypageDTO mypageDTO =new MypageDTO();
 		mypageDTO.setUserId((String)session.getAttribute("userId"));
 		MypageDTO mypageDTO2 = mypageService.mypageselect(mypageDTO);
-		
+
 		model.addAttribute("mypageDTO2",mypageDTO2);
-		
+
 		model.addAttribute("memberDTO", memberDTO);
 		model.addAttribute("pointDTO", pointDTO);
 		model.addAttribute("addressDTO", addressDTO);
@@ -168,20 +168,6 @@ public class MypageController {
 		model.addAttribute("pointList", pointList);
 		model.addAttribute("pageDTO", pageDTO);
 		return "mypage/userPoint";
-	}
-
-
-	// 삭제기능
-	@RequestMapping(value = "/admin/delete")
-	public ResponseEntity<String> compProdDeleteAjax(HttpServletRequest request) {
-		String[] ajaxMsg = request.getParameterValues("valueArr");
-		// 삭제되는 데이터 만큼 for 문을 돌려 compService.deleteProd 호출
-		for(int i=0; i<ajaxMsg.length; i++) {
-			memberService.deleteUser(ajaxMsg[i]);
-		}
-
-		ResponseEntity<String> entity=new ResponseEntity<String>("1" ,HttpStatus.OK);
-		return entity;
 	}
 
 

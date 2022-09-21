@@ -45,5 +45,10 @@ public interface CompService {
 	public void delivNumberUpdate(OrderListDTO orderListDTO);
 	// 미배송/배송완료 수량
 	public int getOrdCountDeliv(OrderListDTO orderListDTO);
+	// 업체 리스트
+	public List<CompDTO> getCompList(PageDTO pageDTO);
+	int getCompCount();
+	// 업체 삭제
+	public void deleteComp(String compId);
 
 }

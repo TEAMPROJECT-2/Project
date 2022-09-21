@@ -17,7 +17,6 @@
 				   ,USER_NICKNM
 				   ,USER_PHONE
 				   ,USER_DATE
-				   ,USER_POINT
 				   ,MY_COUPON_NUM
 				   ,USER_RANK
 				   ,USER_TYPE
@@ -37,7 +36,6 @@
 				   ,#{userNicknm}
 				   ,#{userPhone}
 				   ,#{userDate}
-				   ,#{userPoint}
 				   ,#{myCouponNum}
 				   ,#{userRank}
 				   ,#{userType}
@@ -94,10 +92,12 @@
 		 WHERE USER_ID 		=#{userId}
 		 <![CDATA[AND USER_LAST_DATE < DATE_SUB(NOW(), INTERVAL 1 YEAR)]]>
 	</update>
+
 <!-- INSERT INTO USER_DORMANT -->
 <!-- 	SELECT *  -->
 <!--     FROM USER_INFO -->
 <!--     WHERE USER_ID = #{userId}; -->
+
 <!--  로그인 시 휴면 계정 여부 체크 -->
 	<select id="statusCheck" resultType="int">
     	SELECT COUNT(*)

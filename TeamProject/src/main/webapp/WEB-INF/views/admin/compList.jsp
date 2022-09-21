@@ -26,27 +26,23 @@
           <div class="content-wrapper">
             <!-- Content -->
             <div class="container-xxl flex-grow-1 container-p-y">
-              <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">회원 /</span> 회원 관리</h4>
+              <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">업체 /</span> 업체 관리</h4>
 
               <div class="row">
                 <div class="col-md-12">
                   <ul class="nav nav-pills flex-column flex-md-row mb-3">
                     <li class="nav-item">
-                      <a class="nav-link active" href="${pageContext.request.contextPath }/admin/user">
-                      <i class="bx bx-buildings me-1"></i> 회원 관리</a>
+                      <a class="nav-link active" href="${pageContext.request.contextPath }/admin/comp">
+                      <i class="bx bx-buildings me-1"></i> 업체 관리</a>
                     </li>
                     <li class="nav-item">
                       <a class="nav-link" href="${pageContext.request.contextPath }/mypage/addr">
-                      <i class="bx bx-buildings me-1"></i> 주문 관리</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="${pageContext.request.contextPath }/mypage/passMod">
-                      <i class="bx bx-detail me-1"></i> 배송 관리</a>
+                      <i class="bx bx-buildings me-1"></i> 상품 관리</a>
                     </li>
                   </ul>
 
                  <div class="card">
-                <h5 class="card-header">회원 관리</h5>
+                <h5 class="card-header">업체 관리</h5>
                 <hr class="my-0" />
                 <div class="card-body">
                 <div class="table-responsive text-nowrap">
@@ -57,35 +53,27 @@
                     <thead>
                       <tr>
                       	<th>&nbsp;&nbsp;<input class="form-check-input" type="checkbox" id="allCheck" name="allCheck" />&nbsp;&nbsp;&nbsp;전체선택 </th>
-                        <th>번호</th>
                         <th>아이디</th>
                         <th>이름</th>
-                        <th>닉네임</th>
+                        <th>사업자등록번호</th>
                         <th>이메일</th>
+                        <th>연락처</th>
                         <th>가입일</th>
-                        <th>상태</th>
                       </tr>
                     </thead>
                     <tbody class="table-border-bottom-0">
-                     <c:forEach var="memberDTO" items="${userList}" >
+                     <c:forEach var="compDTO" items="${compList}" >
                       <tr>
-                      	<td onclick="event.cancelBubble=true">&nbsp;&nbsp;&nbsp;&nbsp;<input class="form-check-input" type="checkbox" value="${memberDTO.userInfoNum }" name="CheckRow" id="defaultCheck1" />
+                      	<td onclick="event.cancelBubble=true">&nbsp;&nbsp;&nbsp;&nbsp;<input class="form-check-input" type="checkbox" value="${compDTO.companyInfoNum }" name="CheckRow" id="defaultCheck1" />
                       	<label class="form-check-label" for="defaultCheck1"></label></td>
 
-                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> ${memberDTO.userInfoNum }</td>
-                        <td>${memberDTO.userId}</td>
-                        <td>${memberDTO.userNm}</td>
-                        <td>${memberDTO.userNicknm}</td>
-                        <td>${memberDTO.userEmail}</td>
-                        <td>${memberDTO.userDate}</td>
+                        <td>${compDTO.compId}</td>
+                        <td>${compDTO.compNm}</td>
+                        <td>${compDTO.compRegNum}</td>
+                        <td>${compDTO.compEmail}</td>
+                        <td>${compDTO.compPhone}</td>
+                        <td>${compDTO.compDate}</td>
                         <td>
-                        <c:if test="${memberDTO.userStatus eq 0}">
-                        	<span class="badge bg-label-primary me-1">정상</span>
-                        </c:if>
-                        <c:if test="${memberDTO.userStatus eq 1}">
-                        	<span class="badge bg-label-danger me-1">휴면</span>
-                        </c:if>
-                        </td>
                       </tr>
 					 </c:forEach>
                     </tbody>
@@ -97,21 +85,20 @@
 			          <ul class="pagination" style="margin-left: 45%; margin-rightt: 55%;">
 			            <li class="page-item">
                             <c:if test="${pageDTO.startPage > pageDTO.pageBlock }">
-								<a class="page-link" href="${pageContext.request.contextPath }
-							/admin/user?pageNum=${pageDTO.startPage - pageDTO.pageBlock}" aria-label="Previous">
+								<a class="page-link" href="${pageContext.request.contextPath }/admin/comp?pageNum=${pageDTO.startPage - pageDTO.pageBlock}" aria-label="Previous">
 								<span aria-hidden="true">&laquo;</span>
 							</a>
 							</c:if>
 						 </li>
 							<c:forEach var="i" begin="${pageDTO.startPage }" end="${pageDTO.endPage }" step="1">
 						 <li class="page-item">
-						 		<a class="page-link" href="${pageContext.request.contextPath }/admin/user?pageNum=${i}">${i}</a>
+						 		<a class="page-link" href="${pageContext.request.contextPath }/admin/comp?pageNum=${i}">${i}</a>
 						 </li>
 							</c:forEach>
 
 						 <li class="page-item">
 							<c:if test="${pageDTO.endPage < pageDTO.pageCount }">
-								<a class="page-link" href="${pageContext.request.contextPath }/admin/user?pageNum=${pageDTO.startPage + pageDTO.pageBlock}" aria-label="Next">
+								<a class="page-link" href="${pageContext.request.contextPath }/admin/comp?pageNum=${pageDTO.startPage + pageDTO.pageBlock}" aria-label="Next">
 									<span aria-hidden="true">&raquo;</span>
 								</a>
 							</c:if>

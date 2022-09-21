@@ -46,6 +46,11 @@ public interface CompDAO {
 	public void delivNumberUpdate(OrderListDTO orderListDTO);
 	// 미배송/배송완료 수
 	public int getOrdCountMain(OrderListDTO orderListDTO);
+	// 업체 리스트
+	public List<CompDTO> getCompList(PageDTO pageDTO);
+	public int getCompCount();
+	// 업체 삭제
+	public void deleteComp(String compId);
 
 
 

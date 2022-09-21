@@ -97,7 +97,7 @@
         <li class="menu-header small text-uppercase"><span class="menu-header-text">업체</span></li>
             <!-- Cards -->
             <li class="menu-item">
-              <a href="${pageContext.request.contextPath }/admin/ordList" class="menu-link">
+              <a href="${pageContext.request.contextPath }/admin/comp" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-collection"></i>
                 <div data-i18n="Basic">업체 관리</div>
               </a>
