@@ -43,7 +43,7 @@
                         	<h4>SNS 로그인</h4><br>
 
 								<!--     네이버 로그인 -->
-								<div id="naver_id_login" style="display:inline-block;"></div>
+								<div class="mr-3" id="naver_id_login" style="display:inline-block;"></div>
 								<!--     카카오 로그인 -->
 							    <a href="https://kauth.kakao.com/oauth/authorize?client_id=d7b448253a75eb1ebba5ccf3936ad5ea&redirect_uri=http://localhost:8080/web/auth/kakao&response_type=code">
 							    	<img src="${pageContext.request.contextPath}/resources/img/kakao_login_medium_wide.png" style="width: 70px; height: 70px">
