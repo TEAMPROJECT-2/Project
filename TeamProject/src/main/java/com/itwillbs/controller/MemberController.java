@@ -1,5 +1,8 @@
 package com.itwillbs.controller;
 
+import java.math.BigInteger;
+import java.security.SecureRandom;
+
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -86,7 +89,17 @@ public class MemberController {
 
 	// 로그인(유저)
 	@RequestMapping(value = "/member/login", method = RequestMethod.GET)
-	public String login() {
+	public String login(Model model, HttpSession session) {
+    	String clientId = "J1pjWpChS9vxGVOirvL0";//애플리케이션 클라이언트 아이디값";
+        String redirectURI = "http://localhost:8080/web/auth/naver";
+        SecureRandom random = new SecureRandom();
+        String state = new BigInteger(130, random).toString();
+
+        String apiURL = "https://nid.naver.com/oauth2.0/authorize?response_type=code";
+        apiURL += "&client_id=" + clientId;
+        apiURL += "&redirect_uri=" + redirectURI;
+        apiURL += "&state=" + state;
+        model.addAttribute("naver_url",apiURL);
 		return "member/login";
 	}
 	@RequestMapping(value = "/member/loginPro", method = RequestMethod.POST)
@@ -113,7 +126,7 @@ public class MemberController {
         } else {
         	return "/member/msg";
         }
-        
+
         PointDTO pointDTO = pointService.getMember(memberDTO.getUserId());
         session.setAttribute("pointDTO",pointDTO);
 		// main/main 이동

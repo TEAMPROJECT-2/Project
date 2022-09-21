@@ -29,12 +29,6 @@ public class ApiController {
 	@Inject
 	private MemberService memberService;
 
-	// 네이버 콜백
-    @RequestMapping(value="/auth/naver", method=RequestMethod.GET)
-    public String callBack(){
-        return "auth/naver";
-    }
-
 
 	// 카카오 콜백
 	@RequestMapping(value = "/auth/kakao", method = RequestMethod.GET)
@@ -85,4 +79,26 @@ public class ApiController {
 		return memberDTO;
 	}
 
+	// 네이버 콜백
+//	@RequestMapping(value = "/auth/naver", method = RequestMethod.GET)
+//	public String naverLogin(String code, HttpSession session, MemberDTO memberDTO) throws Exception{
+//		return "member/naverlogin";
+//	}
+	@RequestMapping(value = "/auth/naver", method = RequestMethod.GET)
+	public String naverCallback(HttpSession session) {
+		return "member/naverLogin";
+	}
+
+	@RequestMapping(value = "/auth/naverlogin", method = RequestMethod.GET)
+	public String naverlogin(HttpServletRequest request, HttpSession session) throws Exception {
+		String userId = request.getParameter("userId");
+		String userNm = request.getParameter("userNm");
+		String userType = request.getParameter("userType");
+
+		MemberDTO memberDTO = new MemberDTO();
+
+		setSession(session, memberDTO, userId, userNm, userType);
+
+		return "redirect:/main/main";
+	}
 }
