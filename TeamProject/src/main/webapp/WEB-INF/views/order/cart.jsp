@@ -78,8 +78,8 @@
 												<div id="total_${basketDTO.num}" class="total"><fmt:formatNumber value="${basketDTO.sbTotalPrice }" pattern="₩###,###,###"/></div>
 											</td>
 <!-- 											삭제 구현 -->
-											<td class="cart__close" id="delProd_${basketDTO.num}"></td>
-											<a onclick="cartDelete(${basketDTO.sbProdCode}); return false;" title="Remove"><i class="fa fa-close"></i></a>
+											<td class="cart__close" id="delProd_${basketDTO.num}">
+											<a onclick="cartDelete();" title="Remove"><i class="fa fa-close"></i></a></td>
 										</tr>
 
 										<input type="hidden" name="sbProdCode_" value="${basketDTO.sbProdCode}" id="sbProdCode_${basketDTO.num}">
