@@ -29,19 +29,27 @@
               ,PR.PROD_L_DETAIL
               ,PR.PROD_L_QUANTITY
 		  FROM projectdb.PRODUCT_LIST PR
-		  ) PROD
 		 WHERE 1=1
+		 <!-- 검색 기능 -->
 		 <if test="srhText != null and srhText != ''">
 		 	AND (
-		 		REGEXP_LIKE (PROD.nm1 , #{srhText})
-		 	  	OR REGEXP_LIKE (PROD.nm2 , #{srhText})
-		 	 	OR REGEXP_LIKE (PROD.nm3 , #{srhText})
-		 	 	OR REGEXP_LIKE (PROD.nm4 , #{srhText})
-		 	 	OR REGEXP_LIKE (PROD.nm5 , #{srhText})
-		 	 	OR REGEXP_LIKE (PROD.PROD_L_PRODNM , #{srhText})
+		 		REGEXP_LIKE (PR.nm1 , #{srhText})
+		 	  	OR REGEXP_LIKE (PR.nm2 , #{srhText})
+		 	 	OR REGEXP_LIKE (PR.nm3 , #{srhText})
+		 	 	OR REGEXP_LIKE (PR.nm4 , #{srhText})
+		 	 	OR REGEXP_LIKE (PR.nm5 , #{srhText})
+		 	 	OR REGEXP_LIKE (PR.PROD_L_PRODNM , #{srhText})
 		 	 	)
 		 </if>
-		 ORDER BY PROD.PROD_L_NUM DESC LIMIT #{startRow}, #{pageSize}
+		 <!-- 검색 기능 -->
+		 <!-- 카테고리 기능 -->
+		 <if test="category != null and category != ''">
+		 	AND PROD_L_OPTION3 = #{category}
+		 </if>
+		 <!-- 카테고리 기능 -->
+		 ORDER BY PR.PROD_L_NUM DESC
+		 ) PROD
+		 LIMIT #{startRow}, #{pageSize}
 
 		 <!--
 		 정렬 방법 높은가격,낮은가격
@@ -86,6 +94,7 @@
 		  FROM projectdb.PRODUCT_LIST PR
 		  ) PROD
 		 WHERE 1=1
+		 <!-- 검색 기능 -->
 		 <if test="srhText != null and srhText != ''">
 		 	AND (
 		 		REGEXP_LIKE (PROD.nm1 , #{srhText})
@@ -96,6 +105,13 @@
 		 	 	OR REGEXP_LIKE (PROD.PROD_L_PRODNM , #{srhText})
 		 	 	)
 		 </if>
+		 <!-- 검색 기능 -->
+		 <!-- 카테고리 기능 -->
+		 <if test="category != null and category != ''">
+		 	AND PROD_L_OPTION3 = #{category}
+		 </if>
+		 <!-- 카테고리 기능 -->
+<!-- 		 ORDER BY PROD.PROD_L_NUM DESC LIMIT #{startRow}, #{pageSize} -->
 	</select>
 
 	<select id="selectProdDetail" parameterType="com.itwillbs.domain.ProdDTO" resultType="com.itwillbs.domain.ProdDTO">
@@ -117,5 +133,20 @@
 		  FROM projectdb.PRODUCT_LIST
 		 WHERE PROD_L_NUM = #{prodLNum}
 	</select>
+
+	<!-- '리뷰 등록(팝업창)' 뷰로 보내줄 정보 (prodLNum값을 통해 prodLProdnm값을 반환) -->
+	<select id="getProdNumName" resultType="com.itwillbs.domain.ProdDTO">
+		SELECT R.REPLY_NUM
+		      ,L.PROD_L_NUM
+		      ,U.USER_ID
+		      ,R.CONTENT
+		      ,R.RATING
+		      ,R.REPLY_DATE
+	      FROM PRODUCT_REPLY R
+	      LEFT OUTER JOIN PRODUCT_LIST L ON R.PROD_L_NUM = L.PROD_L_NUM
+	      LEFT OUTER JOIN USER_INFO U ON R.USER_ID = U.USER_ID
+	     WHERE 1=1;
+	</select>
+
 
 </mapper>

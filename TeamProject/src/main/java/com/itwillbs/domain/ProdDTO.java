@@ -20,6 +20,8 @@ public class ProdDTO extends PageDTO {
 	private String prodLDetail;
 	private int prodLQuantity;
 	private String srhText;
+	private String category;
+
 
 	public int getProdLNum() {
 		return prodLNum;
@@ -117,6 +119,12 @@ public class ProdDTO extends PageDTO {
 	}
 	public void setSrhText(String srhText) {
 		this.srhText = srhText;
+	}
+	public String getCategory() {
+		return category;
+	}
+	public void setCategory(String category) {
+		this.category = category;
 	}
 
 }

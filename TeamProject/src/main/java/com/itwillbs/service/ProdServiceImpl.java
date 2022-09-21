@@ -26,17 +26,33 @@ public class ProdServiceImpl implements ProdService{
 		prodDTO.setStartRow(startRow-1);
 		prodDTO.setEndRow(endRow);
 
+		PageDTO test = (PageDTO)prodDTO;
+		System.out.println("=============================");
+		System.out.println(test);
+
 		return prodDAO.selectProdList(prodDTO);
 	}
 
 	@Override
 	public int selectProdListCnt(ProdDTO prodDTO) {
+		int startRow=(prodDTO.getCurrentPage()-1)*prodDTO.getPageSize()+1;
+		int endRow=startRow+prodDTO.getPageSize()-1;
+
+		prodDTO.setStartRow(startRow-1);
+		prodDTO.setEndRow(endRow);
+
 		return prodDAO.selectProdListCnt(prodDTO);
 	}
 
 	@Override
 	public ProdDTO selectProdDetail(ProdDTO prodDTO) {
 		return prodDAO.selectProdDetail(prodDTO);
+	}
+
+	/* 상품 id 이름 */
+	@Override
+	public ProdDTO getProdNumName(int prodLNum) {
+		return prodDAO.getProdNumName(prodLNum);
 	}
 
 }
