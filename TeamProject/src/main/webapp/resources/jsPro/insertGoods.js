@@ -151,5 +151,5 @@ const formatPrice = (target) => {
   // 숫자만 남긴 후 포맷
  target.value = Number(target.value
    .replace(/[^0-9]/g, ''))
-   .toLocaleString();
+//   .toLocaleString();
 }
