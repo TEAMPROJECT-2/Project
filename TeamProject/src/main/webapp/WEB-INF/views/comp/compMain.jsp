@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
 <html
@@ -36,15 +38,14 @@
                         <div class="card-body">
                           <div class="card-title d-flex align-items-start justify-content-between">
                             <div class="avatar flex-shrink-0">
-                              <img
-                                src="${pageContext.request.contextPath }/resources/assets/img/icons/unicons/chart-success.png"
-                                alt="chart success"
-                                class="rounded"
-                              />
+                               <div class="avatar flex-shrink-0">
+                              <img src="${pageContext.request.contextPath }/resources/assets/img/icons/unicons/cc-primary.png" alt="Credit Card" class="rounded" />
+                            </div>
                             </div>
                           </div>
                           <span class="fw-semibold d-block mb-1">매출</span>
-                          <h2 class="card-title mb-2">${totalMember}원</h2>
+
+                          <h2 class="card-title mb-2"><fmt:formatNumber value="${totalsum}" pattern="###,###,###원"/></h2>
                         </div>
                       </div>
                     </div>
@@ -71,11 +72,7 @@
                         <div class="card-body">
                           <div class="card-title d-flex align-items-start justify-content-between">
                             <div class="avatar flex-shrink-0">
-                              <img
-                                src="${pageContext.request.contextPath }/resources/assets/img/icons/unicons/wallet-info.png"
-                                alt="Credit Card"
-                                class="rounded"
-                              />
+                              <img src="${pageContext.request.contextPath }/resources/assets/img/icons/unicons/paypal.png" alt="Credit Card" class="rounded" />
                             </div>
                           </div>
                           <span class="fw-semibold d-block mb-1">최근 주문 현황 - 미배송</span>
@@ -109,22 +106,66 @@
                 <div class="col-12 col-lg-12 order-2 order-md-3 order-lg-2 mb-4">
                   <div class="card">
                     <div class="row row-bordered g-0">
-                      <div class="col-md-8">
-                        <h5 class="card-header m-0 me-2 pb-3">나의 정보</h5>
-                        <div id="totalRevenueChart" class="px-2"></div>
+                      <div class="col-md-12">
+                        <h5 class="card-body m-0 me-2 pb-3">업체 정보</h5>
+                         <div class="card-body">
+
+<!--                          게시판 -->
+<table class="table table">
+                             <tr>
+                         		<th>
+                         			<span class="d-block">ID</span>
+                         		</th>
+                         		 <td>
+                         			<span class="d-block">${compDTO1.compId}</span>
+                         		</td>
+                         		<th>
+                         			<span class="d-block">업체이름</span>
+                         		</th>
+                         		<td>
+                         			<span class="d-block">${compDTO1.compNm}</span>
+                         		</td>
+                         	</tr>
+                         	<tr>
+                         		<th>
+                         			<span class="d-block">메일</span>
+                         		</th>
+                         		 <td>
+                         			<span class="d-block">${compDTO1.compEmail}</span>
+                         		</td>
+                         		<th>
+                         			<span class="d-block">연락처</span>
+                         		</th>
+                         		<td>
+                         			<span class="d-block">${compDTO1.compPhone}</span>
+                         		</td>
+                         	</tr>
+                         	<tr>
+                         		<th>
+                         			<span class="d-block">우편번호</span>
+                         		</th>
+                         		 <td>
+                         			<span class="d-block">${compDTO1.compZipcode} </span>
+                         		</td>
+                         		<th>
+                         			<span class="d-block">주소</span>
+                         		</th>
+                         		<td>
+                         			<span class="d-block">${compDTO1.compAddress} ${compDTO1.compDetaddress} ${compDTO1.compExtaddress}</span>
+                         		</td>
+                         	</tr>
+                         </table>
+
+<!--                          게시판 -->
+                         </div>
                       </div>
-
-
-
-
-
                     </div>
                   </div>
                 </div>
                 <!--/ Total Revenue -->
                 <div class="col-12 col-md-8 col-lg-12 order-3 order-md-2">
                   <div class="row">
-                    <div class="col-3 mb-4">
+                    <div class="col-4 mb-4">
                       <div class="card">
                         <div class="card-body">
                           <div class="card-title d-flex align-items-start justify-content-between">
@@ -148,13 +189,12 @@
                               </div>
                             </div>
                           </div>
-                          <span class="d-block mb-1">나의 글</span>
-                          <h3 class="card-title text-nowrap mb-2">$2,456</h3>
-                          <small class="text-danger fw-semibold"><i class="bx bx-down-arrow-alt"></i> -14.82%</small>
+                          <span class="d-block mb-1">품절 상품</span>
+                          <h3 class="card-title text-nowrap mb-2">${prodAmount.eq50Couunt}</h3>
                         </div>
                       </div>
                     </div>
-                    <div class="col-3 mb-4">
+                    <div class="col-4 mb-4">
                       <div class="card">
                         <div class="card-body">
                           <div class="card-title d-flex align-items-start justify-content-between">
@@ -178,18 +218,21 @@
                               </div>
                             </div>
                           </div>
-                          <span class="fw-semibold d-block mb-1">나의 댓글</span>
-                          <h3 class="card-title mb-2">$14,857</h3>
-                          <small class="text-success fw-semibold"><i class="bx bx-up-arrow-alt"></i> +28.14%</small>
+                          <span class="fw-semibold d-block mb-1">품절 임박</span>
+                          <h3 class="card-title mb-2">${prodAmount.ne50Count}</h3>
                         </div>
                       </div>
                     </div>
-                    <div class="col-3 mb-4">
+                    <div class="col-4 mb-4">
                       <div class="card">
                         <div class="card-body">
                           <div class="card-title d-flex align-items-start justify-content-between">
                             <div class="avatar flex-shrink-0">
-                              <img src="${pageContext.request.contextPath }/resources/assets/img/icons/unicons/paypal.png" alt="Credit Card" class="rounded" />
+                              <img
+                                src="${pageContext.request.contextPath }/resources/assets/img/icons/unicons/wallet-info.png"
+                                alt="Credit Card"
+                                class="rounded"
+                              />
                             </div>
                             <div class="dropdown">
                               <button
@@ -208,39 +251,8 @@
                               </div>
                             </div>
                           </div>
-                          <span class="d-block mb-1">좋아요</span>
-                          <h3 class="card-title text-nowrap mb-2">$2,456</h3>
-                          <small class="text-danger fw-semibold"><i class="bx bx-down-arrow-alt"></i> -14.82%</small>
-                        </div>
-                      </div>
-                    </div>
-                   <div class="col-3 mb-4">
-                      <div class="card">
-                        <div class="card-body">
-                          <div class="card-title d-flex align-items-start justify-content-between">
-                            <div class="avatar flex-shrink-0">
-                              <img src="${pageContext.request.contextPath }/resources/assets/img/icons/unicons/paypal.png" alt="Credit Card" class="rounded" />
-                            </div>
-                            <div class="dropdown">
-                              <button
-                                class="btn p-0"
-                                type="button"
-                                id="cardOpt4"
-                                data-bs-toggle="dropdown"
-                                aria-haspopup="true"
-                                aria-expanded="false"
-                              >
-                                <i class="bx bx-dots-vertical-rounded"></i>
-                              </button>
-                              <div class="dropdown-menu dropdown-menu-end" aria-labelledby="cardOpt4">
-                                <a class="dropdown-item" href="javascript:void(0);">View More</a>
-                                <a class="dropdown-item" href="javascript:void(0);">Delete</a>
-                              </div>
-                            </div>
-                          </div>
-                          <span class="d-block mb-1">찜</span>
-                          <h3 class="card-title text-nowrap mb-2">$2,456</h3>
-                          <small class="text-danger fw-semibold"><i class="bx bx-down-arrow-alt"></i> -14.82%</small>
+                          <span class="d-block mb-1">양호</span>
+                          <h3 class="card-title text-nowrap mb-2">${prodAmount.ge50Count}</h3>
                         </div>
                       </div>
                     </div>

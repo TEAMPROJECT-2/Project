@@ -46,7 +46,9 @@ public interface CompDAO {
 	public void delivNumberUpdate(OrderListDTO orderListDTO);
 	// 미배송/배송완료 수
 	public int getOrdCountMain(OrderListDTO orderListDTO);
-
-
-
+	// 총매출
+	public int getTotalsum(OrderListDTO orderListDTO);
+	// 상품 임박
+//	List<OrderListDTO> getProdAmount(OrderListDTO orderListDTO);
+	public OrderListDTO getProdAmount(OrderListDTO orderListDTO);
 }

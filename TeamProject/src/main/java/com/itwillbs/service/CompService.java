@@ -45,5 +45,10 @@ public interface CompService {
 	public void delivNumberUpdate(OrderListDTO orderListDTO);
 	// 미배송/배송완료 수량
 	public int getOrdCountDeliv(OrderListDTO orderListDTO);
+	// 총 매출
+	public int getTotalsum(OrderListDTO orderListDTO);
+	//	품절,품절임박, 양호 상품 갯수
+//	public List<OrderListDTO> getProdAmount (OrderListDTO orderListDTO);
+	public OrderListDTO getProdAmount(OrderListDTO orderListDTO);
 
 }

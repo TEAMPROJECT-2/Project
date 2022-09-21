@@ -93,7 +93,14 @@ public class CompServiceImpl implements CompService {
 
 	@Override
 	public List<OrderListDTO> getOrdList(PageDTO pageDTO) {
+		// pageSize  pageNum  currentPage
+				int startRow=(pageDTO.getCurrentPage()-1)*pageDTO.getPageSize()+1;
+				int endRow=startRow+pageDTO.getPageSize()-1;
 
+				// sql => limit #{startRow -1}, #{pageSize}
+
+				pageDTO.setStartRow(startRow-1);
+				pageDTO.setEndRow(endRow);
 		return compDAO.getOrdList(pageDTO);
 	}
 
@@ -116,12 +123,29 @@ public class CompServiceImpl implements CompService {
 		compDAO.delivNumberUpdate(orderListDTO);
 	}
 
-
+	// 미배송/배송완료 수량
 	@Override
 	public int getOrdCountDeliv(OrderListDTO orderListDTO) {
 		return compDAO.getOrdCountMain(orderListDTO);
 	}
 
+	// 총매출
+	@Override
+	public int getTotalsum (OrderListDTO orderListDTO) {
+		return compDAO.getTotalsum(orderListDTO);
+	}
+
+
+	//	품절,품절임박, 양호 상품 갯수
+//	@Override
+//	public List<OrderListDTO> getProdAmount(OrderListDTO orderListDTO) {
+//		return compDAO.getProdAmount(orderListDTO);
+//	}
+
+	@Override
+	public OrderListDTO getProdAmount(OrderListDTO orderListDTO) {
+		return compDAO.getProdAmount(orderListDTO);
+	}
 
 
 }

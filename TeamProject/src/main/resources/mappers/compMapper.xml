@@ -162,16 +162,17 @@
 				,OL.ORD_L_USER 								as ordLUser
 				,OL.ORD_L_CODE                              as ordLCode
 				,OL.ORD_L_QUANTITY                          as ordLQuantity
-				,OL.ORD_L_DATE                              as ordLDate
+				,OB.ORD_DATE                              as ordLDate
 				,OL.ORD_DELIVERY_STATUS                     as ordDeliveryStatus
 				,(OL.ORD_L_QUANTITY * OL.ORD_L_PRICE)      as ordFinalprice
 		  FROM	ORDER_LIST as OL JOIN ORDER_BOARD as OB
-			ON  (OL.ORD_L_USER = OB.ORD_USER)
+			ON  (OL.ORD_L_USER = OB.USER_ID)
 		 WHERE   (@rownum:=0)=0
 		 <!-- 				 게시판에 tr반복이라 구분숫자를 주기 위해	 -->
 		   AND   OL.ORD_L_CODE IN (SELECT PROD_L_CODE
 		 							FROM PRODUCT_LIST
 		 						   WHERE PROD_L_COMPNM=#{compId})
+		 LIMIT 	#{startRow}	,#{pageSize}
 	</select>
 
 	<select id="getOrdCount" resultType="java.lang.Integer">
@@ -179,7 +180,7 @@
 		SELECT   count(OL.ORD_L_CODE)
 		  FROM   ORDER_LIST OL
 		  JOIN   ORDER_BOARD OB
-		    ON   (OL.ORD_L_USER=OB.ORD_USER)
+		    ON   (OL.ORD_L_USER=OB.USER_ID)
 		 WHERE   OL.ORD_L_CODE IN (SELECT PROD_L_CODE
                         			 FROM PRODUCT_LIST
                         			WHERE PROD_L_COMPNM = #{compId})
@@ -206,11 +207,38 @@
 		SELECT   count(OL.ORD_L_CODE)
 		  FROM   ORDER_LIST OL
 		  JOIN   ORDER_BOARD OB
-		    ON   (OL.ORD_L_USER=OB.ORD_USER)
+		    ON   (OL.ORD_L_USER=OB.USER_ID)
 		 WHERE   OL.ORD_L_CODE IN (SELECT PROD_L_CODE
                         			 FROM PRODUCT_LIST
                         			WHERE PROD_L_COMPNM = #{compId})
 		   AND   ORD_DELIVERY_STATUS =#{ordDeliveryStatus}
 	</select>
+<!-- 	총합계를 구하기 위한 개별 합계 -->
+	<select id="getTotalsum" resultType="java.lang.Integer">
+		SELECT   sum((ORD_L_QUANTITY * ORD_L_PRICE)) as ordFinalprice
+		  FROM   ORDER_LIST
+		 WHERE   ORD_L_CODE IN (SELECT PROD_L_CODE
+                        		  FROM PRODUCT_LIST
+                        		 WHERE PROD_L_COMPNM = #{compId})
+	</select>
+
+	<!-- column은 DB의 출력하는 칼럼명, property는 Key값 -->
+	<select id="getProdAmount" resultType="com.itwillbs.domain.OrderListDTO" >
+		   SELECT 	(SELECT  count(PROD_L_CODE)
+					   FROM  PRODUCT_LIST
+					  WHERE  PROD_L_COMPNM=#{compId}
+					    AND  PROD_L_QUANTITY <![CDATA[ >= ]]> 50) as ge50Count
+				   ,(SELECT  count(PROD_L_CODE)
+					   FROM  PRODUCT_LIST
+					  WHERE  PROD_L_COMPNM=#{compId}
+					    AND  PROD_L_QUANTITY <![CDATA[ < ]]> 50
+					    AND  PROD_L_QUANTITY <![CDATA[ > ]]> 0) as ne50Count
+				   ,(SELECT  count(PROD_L_CODE)
+					   FROM  PRODUCT_LIST
+					  WHERE  PROD_L_COMPNM=#{compId}
+					    AND  PROD_L_QUANTITY <![CDATA[ = ]]> 0) as eq50Couunt
+			 FROM  dual
+	</select>
+
 
 </mapper>
