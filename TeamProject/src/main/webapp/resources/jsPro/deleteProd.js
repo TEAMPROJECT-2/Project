@@ -2,33 +2,10 @@
  *
  */
 
-//전체체크시작
 
-$(function(){
-	var chkObj = document.getElementsByName("CheckRow");
-	var rowCnt = chkObj.length;
-
-	$("input[name='allCheck']").click(function(){
-		var chk_listArr = $("input[name='CheckRow']");
-		for (var i=0; i<chk_listArr.length;i++){
-			chk_listArr[i].checked = this.checked;
-		}
-	});
-	$("input[name='CheckRow']").click(function(){
-
-			if($("input[name='RowCheck']:checked").length == rowCnt){
-				$("input[name='allCheck']")[0].checked =true;
-			}
-			else {
-				$("input[name='allCheck']")[0].checked = false;
-			}
-	});
-});
-
-// 전체 체크 끝
 
 // 삭제 코드 시작
-function deleteValue(){
+function cartDelete(){
 	var sendUrl = "delete";       // Controller로 보내는 URL Controller에 /delete로 전송되고 매핑함
 	var valueArr = new Array();   // valueArr에 체크된 데이터가 배열로 저장
 	var list = $("input[name='CheckRow']"); // list는 CheckRow(그페이지에 있는 행수)가 저장됨

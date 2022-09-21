@@ -33,11 +33,123 @@
 <!-- ------------ AJAX 카테고리 구현 ------------ -->
 <script src="http://code.jquery.com/jquery-3.6.0.js"></script>
 <script type="text/javascript">
+var category = "";
 
-<!-- 검색어 기능 START -->
+function searchProd(comp){
+
+	var pageNum = "1";
+
+	if(comp.classList.contains('page')){ // page 눌럿을때
+		pageNum = comp.getAttribute('data-value');
+	} else { // 카테고리 눌렀을 때
+		category = comp.id;
+	}
+	var srhText = $('#srhText').val();
+
+	$.ajax({
+    	url: '${pageContext.request.contextPath }/product/shopAjax',
+		type: 'post',
+		data : {
+			"category":category,
+			"srhText":srhText,
+			"pageNum":pageNum
+		},
+		dataType: "json",
+// 		async: false,
+		success:function( data ) {
+// 			debugger;
+			// 상품 뿌려주기
+			printProdList(data.prodList);
+
+			// 페이징 처리
+			printPaging(data.prodDTO);
+
+		}
+	});
+}
+
+// 상품 뿌려주기
+
+function printProdList(data){
+	$('#prodContainer').empty();
+	data.forEach((e, i) => {
+// 		debugger;
+    // 상품가격의 가독성을 높이기 위해 숫자 3자리마다 콤마(,)를 찍어주도록 처리함 -->
+
+	var prodLPrice = e.prodLPrice;
+	var price = prodLPrice.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+	    $('#prodContainer').append(
+    		'<div class="col-lg-4 col-md-6 col-sm-6">'
+    		+	'<div class="product__item">'
+    		+		'<div class="product__item__pic set-bg" style="background-image: url(&quot;undefined&quot;);">'
+    		+		'<a href="/web/product/details?prodLNum='+ e.prodLNum +'">'
+    		+ 			'<img src="/web/resources/img/product/'+ e.prodLMainimg +'" alt="위의 이미지를 누르면 연결됩니다.">'
+    		+ 		'</a>'
+    		+ 			'<ul class="product__hover">'
+    		+ 			   '<li><a href="#"><img src="/web/resources/img/icon/heart.png" alt=""><span>찜하기</span></a></li>'
+    		+ 			   '<li><a href="/web/order/cart"><img src="/web/resources/img/icon/cart.png" alt=""><span>장바구니 담기</span></a></li>'
+    		+ 		   '</ul>'
+    		+ 		'</div>'
+    		+ 		'<div class="product__item__text">'
+    		+ 		   '<h7>'+ e.prodLProdnm +'</h7><br>'
+    		+ 		   '<h5>'
+    		+ 			price
+    		+ 			'원</h5><br>'
+    		+ 			'<div class="rating">'
+    		+ 				'<i class="fa fa-star-o"></i>'
+    		+ 				'<i class="fa fa-star-o"></i>'
+    		+ 				'<i class="fa fa-star-o"></i>'
+    		+ 				'<i class="fa fa-star-o"></i>'
+    		+ 				'<i class="fa fa-star-o"></i>'
+    		+ 			'</div>'
+    		+ 		'</div>'
+    		+ 	'</div>'
+    		+ '</div>'
+	    );
+	});
+
+}
+
+// 페이징 처리
+function printPaging(dto){
+
+	$('#product__pagination').empty();
+	var context = '${pageContext.request.contextPath }';
+
+	// <<
+	if(dto.startPage > dto.pageBlock) {
+		var pageNum = dto.startPage - dto.pageBlock
+		$('#product__pagination').append('<a class="search page" data-value="' + pageNum + '"  href="#">&lt; &lt;</a> ')
+	}
+
+	// for
+	for(var i = dto.startPage; i <= dto.endPage; i++){
+		$('#product__pagination').append(
+				'<a class="active search page" data-value="' + i + '"  href="#">'+ i +'</a> '
+		);
+	}
+
+	// >>
+	if(dto.endPage < dto.pageCount) {
+		var pageNum = dto.startPage + dto.pageBlock
+		$('#product__pagination').append('<a class="search page" data-value="' + pageNum + '"  href="#">&gt; &gt;</a> ')
+	}
+
+	$('.search').click(function(){
+		searchProd(this);
+	});
+
+}
+
+<!-- 이벤트 시작 -->
+// 검색창 클릭 이벤트
 $(document).ready(function(){
+
+	$('.search').click(function(){
+		searchProd(this);
+	});
+
 	$('#submit').click(function() {
-// 		alert("TEST");
 		if($("#srhText").val().length==''){
 			alert("검색어를 입력해주세요.");
 			$("#srhText").focus();
@@ -45,9 +157,8 @@ $(document).ready(function(){
 		}
 	});
 });
-<!-- 검색어 기능 END -->
 
-<!-- 카테고리 기능 -->
+// 카테고리 클릭 이벤트
 $(document).ready(function(){
 	$(".clothes").click(function(){
 // 		alert("TEST");
@@ -59,7 +170,6 @@ $(document).ready(function(){
 	    }
 	});
 	$(".instrument").click(function(){
-// 		alert("TEST");
 	    if($(".sub2").is(":visible")){
 	        $(".sub2").slideUp();
 	    }
@@ -68,7 +178,6 @@ $(document).ready(function(){
 	    }
 	});
 	$(".stuff").click(function(){
-// 		alert("TEST");
 	    if($(".sub3").is(":visible")){
 	        $(".sub3").slideUp();
 	    }
@@ -76,8 +185,24 @@ $(document).ready(function(){
 	        $(".sub3").slideDown();
 	    }
 	});
+	$(".supplement").click(function(){
+	    if($(".sub4").is(":visible")){
+	        $(".sub4").slideUp();
+	    }
+	    else{
+	        $(".sub4").slideDown();
+	    }
+	});
+	$(".meal").click(function(){
+	    if($(".sub5").is(":visible")){
+	        $(".sub5").slideUp();
+	    }
+	    else{
+	        $(".sub5").slideDown();
+	    }
+	});
 });
-<!-- 카테고리 기능 -->
+<!-- 이벤트 끝 -->
 
 </script>
 
@@ -109,13 +234,13 @@ $(document).ready(function(){
         <div class="container">
             <div class="row">
                 <div class="col-lg-3">
+<%--                 	<form action="${pageContext.request.contextPath }/product/shop"> --%>
                     <div class="shop__sidebar">
                         <div class="shop__sidebar__search">
-                            <form action="${pageContext.request.contextPath }/product/shop">
+
                                 <input type="text" id="srhText" name="srhText">
-                                <button type="submit" id="submit">
+                                <button type="submit" id="submit" class="search">
                                 <span class="icon_search"></span></button>
-                            </form>
                         </div>
                         <!-- 화면 왼쪽 카테고리 시작 -->
                         <div class="shop__sidebar__accordion">
@@ -132,22 +257,22 @@ $(document).ready(function(){
                                                 <!-- to do -->
                                                		<li><a href="#" id="clothes" class="clothes">옷</a>
                                                			<ul class="sub1" style="display: none">
-                                               				<li><a href="#" id="top">ㅡ　상의</a></li>
-                                               				<li><a href="#" id="bottoms">ㅡ　하의</a></li>
+                                               				<li><a class="search" href="#" id="P0101">ㅡ　상의</a></li>
+                                               				<li><a class="search" href="#" id="P0102">ㅡ　하의</a></li>
                                                			</ul>
                                                		</li>
                                                		<li><a href="#" id="instrument" class="instrument">기구</a>
                                                			<ul class="sub2" style="display: none">
-                                               				<li><a href="#" id="dumbbell">ㅡ　덤벨</a></li>
-                                               				<li><a href="#" id="mat">ㅡ　매트</a></li>
-                                               				<li><a href="#" id="roller">ㅡ　폼롤러</a></li>
+                                               				<li><a class="search" href="#" id="P0201">ㅡ　덤벨</a></li>
+                                               				<li><a class="search" href="#" id="P0202">ㅡ　매트</a></li>
+                                               				<li><a class="search" href="#" id="P0203">ㅡ　폼롤러</a></li>
                                                			</ul>
                                                		</li>
                                                		<li><a href="#" id="stuff" class="stuff">잡화</a>
                                                			<ul class="sub3" style="display: none">
-                                               				<li><a href="#" id="protector">ㅡ　보호대</a></li>
-                                               				<li><a href="#" id="bottle">ㅡ　보틀</a></li>
-                                               				<li><a href="#" id="bag">ㅡ　가방</a></li>
+                                               				<li><a class="search" href="#" id="P0301">ㅡ　보호대</a></li>
+                                               				<li><a class="search" href="#" id="P0302">ㅡ　보틀</a></li>
+                                               				<li><a class="search" href="#" id="P0303">ㅡ　가방</a></li>
                                                			</ul>
                                                		</li>
                                                 </ul>
@@ -161,22 +286,24 @@ $(document).ready(function(){
                                     <div class="card-heading">
                                         <a data-toggle="collapse" data-target="#collapseTwo">식품</a>
                                     </div>
-
                                     <div id="collapseTwo" class="collapse show" data-parent="#accordionExample">
                                         <div class="card-body">
                                             <div class="shop__sidebar__brand">
                                                 <ul class="nice-scroll">
-                                                	<!-- 선택지 1 -->
-                                               		<li><a href="#" id="supplement" class="supplement">보충제</a></li>
-                                                    <li><a href="#" id="meal" class="meal">식단</a></li>
-                                                    <!-- 선택지 1 -> supplement 클릭 시 -> 선택지 2 -->
-                                                    <li><a href="#" id="protein" class="protein" style="display: none">프로틴</a></li>
-                                                    <li><a href="#" id="booster" class="booster" style="display: none">부스터</a></li>
-                                                    <li><a href="#" id="nutritive" class="nutritive" style="display: none">영양제</a></li>
-                                                    <!-- 선택지 1 -> meal 클릭 시 -> 선택지 2 -->
-                                                    <li><a href="#" id="chicken" class="chicken" style="display: none">닭가슴살</a></li>
-                                                    <li><a href="#" id="salad" class="salad" style="display: none">샐러드</a></li>
-                                                    <li><a href="#" id="lunchbox" class="lunchbox" style="display: none">도시락</a></li>
+                                                	<li><a href="#" id="supplement" class="supplement">보충제</a>
+                                               			<ul class="sub4" style="display: none">
+                                               				<li><a href="#" id="protein">ㅡ　프로틴</a></li>
+                                               				<li><a href="#" id="booster">ㅡ　부스터</a></li>
+                                               				<li><a href="#" id="nutritive">ㅡ　영양제</a></li>
+                                               			</ul>
+                                               		</li>
+                                               		<li><a href="#" id="meal" class="meal">식단</a>
+                                               			<ul class="sub5" style="display: none">
+                                               				<li><a href="#" id="chicken">ㅡ　닭가슴살</a></li>
+                                               				<li><a href="#" id="salad">ㅡ　샐러드</a></li>
+                                               				<li><a href="#" id="lunchbox">ㅡ　도시락</a></li>
+                                               			</ul>
+                                               		</li>
                                                 </ul>
                                             </div>
                                         </div>
@@ -273,6 +400,7 @@ $(document).ready(function(){
                             </div>
                         </div>
                     </div>
+<!--                     </form> -->
                 </div>
                 <div class="col-lg-9">
                     <div class="shop__product__option">
@@ -302,8 +430,7 @@ $(document).ready(function(){
                     </div>
 
                     <!-- 상품 뿌려주는 곳 시작 -->
-                    <%-- <c:if test=""> --%>
-                    <div class="row">
+                    <div class="row" id="prodContainer">
                     	<c:forEach var="prodList" items="${prodList}">
                         <div class="col-lg-4 col-md-6 col-sm-6">
                             <div class="product__item">
@@ -312,8 +439,7 @@ $(document).ready(function(){
 									<img src="${pageContext.request.contextPath }/resources/img/product/${prodList.prodLMainimg}" alt="위의 이미지를 누르면 연결됩니다."/>
 								</a>
                                     <ul class="product__hover">
-                    	 	           <li><a href="${pageContext.request.contextPath }/product/likeinsert?prodLCode=${prodList.prodLCode}&userId=${sessionScope.userId}">
-                    	 	           <img src="${pageContext.request.contextPath }/resources/img/icon/heart.png" alt=""><span>찜하기</span></a></li>
+                    	 	           <li><a href="#"><img src="${pageContext.request.contextPath }/resources/img/icon/heart.png" alt=""><span>찜하기</span></a></li>
                     		           <li><a href="${pageContext.request.contextPath }/order/cart"><img src="${pageContext.request.contextPath }/resources/img/icon/cart.png" alt=""><span>장바구니 담기</span></a></li>
                                    </ul>
                                 </div>
@@ -321,6 +447,7 @@ $(document).ready(function(){
                                    <h7>${prodList.prodLProdnm}</h7>
                                    <!-- 상품가격의 가독성을 높이기 위해 숫자 3자리마다 콤마(,)를 찍어주도록 처리함 -->
                                    <h5> <fmt:formatNumber value="${prodList.prodLPrice}" pattern="###,###,###원"/></h5>
+<%-- 									<h5>${prodList.prodLPrice}원</h5> --%>
                                     <div class="rating">
                                         <i class="fa fa-star-o"></i>
                                         <i class="fa fa-star-o"></i>
@@ -333,23 +460,20 @@ $(document).ready(function(){
                         </div>
                         </c:forEach>
                     </div>
-                    <%-- </c:if> --%>
                     <!-- 상품 뿌려주는 곳 끝 -->
 
                     <!-- 페이지 (페이징 처리) 시작 -->
                     <div class="row">
                         <div class="col-lg-12">
-                            <div class="product__pagination">
+                            <div id="product__pagination" class="product__pagination">
                                <c:if test="${prodDTO.startPage > prodDTO.pageBlock }">
-									<a href="${pageContext.request.contextPath }
-									/product/shop?pageNum=${prodDTO.startPage - prodDTO.pageBlock}">&lt; &lt;</a>
+									<a class="search page" data-value="${prodDTO.startPage - prodDTO.pageBlock}" href="#">&lt; &lt;</a>
 									</c:if>
 									<c:forEach var="i" begin="${prodDTO.startPage }" end="${prodDTO.endPage }" step="1">
-									<a class="active" href="${pageContext.request.contextPath }/product/shop?pageNum=${i}">${i}</a>
+									<a class="active search page" data-value="${i}" href="#">${i}</a>
 									</c:forEach>
 									<c:if test="${prodDTO.endPage < prodDTO.pageCount }">
-									<a href="${pageContext.request.contextPath }
-									/product/shop?pageNum=${prodDTO.startPage + prodDTO.pageBlock}">&gt; &gt;</a>
+									<a class="search page" data-value="${prodDTO.startPage + prodDTO.pageBlock}" href="#">&gt; &gt;</a>
 								</c:if>
                             </div>
                         </div>

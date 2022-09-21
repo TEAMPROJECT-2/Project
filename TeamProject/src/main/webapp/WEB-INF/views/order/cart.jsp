@@ -39,20 +39,16 @@
 						<table>
 							<thead>
 								<tr>
-									<th>&nbsp;&nbsp;&nbsp;&nbsp;<input class="form-check-input" type="checkbox" id="allCheck" name="allCheck" />
-									</th>
 									<th>&nbsp;&nbsp;&nbsp;&nbsp;상품</th>
 									<th>수량</th>
 									<th>Total</th>
+									<th></th>
 								</tr>
 							</thead>
 							<tbody>
 								<form action="${pageContext.request.contextPath }/order/insertOrder" method="post">
 									<c:forEach items="${basketList }" var="basketDTO" varStatus="status">
 										<tr>
-											<td onclick="event.cancelBubble=true">
-												&nbsp;&nbsp;&nbsp;&nbsp;
-												<input class="form-check-input" type="checkbox" value="${basketDTO.sbProdCode }" name="CheckRow" id="defaultCheck1" />
 											<td class="product__cart__item">
 												<div class="product__cart__item__pic">
 													<img src="img/shopping-cart/cart-1.jpg" alt="">
@@ -79,9 +75,11 @@
 											<td class="cart__price">
 												<input type="hidden" id="price_${basketDTO.num}" value="${basketDTO.sbProdPrice }">
 <!-- 												수량증가시 증가버튼 누른 가격만 갖고오기 -->
-<%-- 												<div id="total_${basketDTO.num}" class="total">${basketDTO.sbTotalPrice }</div> --%>
 												<div id="total_${basketDTO.num}" class="total"><fmt:formatNumber value="${basketDTO.sbTotalPrice }" pattern="₩###,###,###"/></div>
 											</td>
+<!-- 											삭제 구현 -->
+											<td class="cart__close" id="delProd_${basketDTO.num}"></td>
+											<a onclick="cartDelete(${basketDTO.sbProdCode}); return false;" title="Remove"><i class="fa fa-close"></i></a>
 										</tr>
 
 										<input type="hidden" name="sbProdCode_" value="${basketDTO.sbProdCode}" id="sbProdCode_${basketDTO.num}">
@@ -104,11 +102,8 @@
 							</div>
 						</div>
 						<div class="col-lg-6 col-md-6 col-sm-6">
-							<div class="continue__btn update__btn">
-<!-- 								<button type="submit" class="btn btn-primary" onclick="updateValue();">수량 수정</button> -->
-								<button type="submit" class="btn btn-primary" onclick="deleteValue();">선택 삭제</button>
 
-							</div>
+
 						</div>
 					</div>
 				</div>

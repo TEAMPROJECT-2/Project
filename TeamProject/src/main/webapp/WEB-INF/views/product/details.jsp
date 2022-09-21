@@ -6,20 +6,29 @@
 <head>
 <script src="http://code.jquery.com/jquery-3.6.0.js"></script>
 <script src="${pageContext.request.contextPath }/resources/jsPro/insertBasket.js"></script>
+<script type="text/javascript"></script>
+<script src="http://code.jquery.com/jquery-3.6.0.js"></script>
 <script type="text/javascript">
 
-function BbsList(){
-    $.ajax({
-        type:"GET",
-        url:"/bbs/BbsList",
-        dataType:"JSON",
-        success : function(obj) {
-            BbsListCallback(obj);
-        },
-        error : function(xhr, status, error) {}
-     });
-}
+<!-- 리뷰쓰기 -->
+$(document).ready(function(){
+	$(".reply_button_wrap").on("click", function(e){
+// 		alert("1");
+	e.preventDefault();
+
+	const userId = '${userInfo.userId}';
+	const prodLNum = '${productList.prodLNum}';
+
+	let popUrl = "/replyEnroll/" + userId + "?prodLNum=" + prodLNum;
+	console.log(popUrl);
+	let popOption = "width = 490px, height=490px, top=300px, left=300px, scrollbars=yes";
+
+	window.open(popUrl,"리뷰 쓰기",popOption);
+	});
+});
+
 </script>
+
 
     <meta charset="UTF-8">
     <meta name="description" content="Male_Fashion Template">
@@ -63,29 +72,31 @@ function BbsList(){
         <div class="col-lg-5 col-xl-4">
           <div class="product__details__text">
             <!-- <h3>Faded SkyBlu Denim Jeans</h3> -->
+            <br><br><br>
             <h3>${details.prodLProdnm}</h3>
             <!-- 상품가격의 가독성을 높이기 위해 숫자 3자리마다 콤마(,)를 찍어주도록 처리함 -->
-             <h2><fmt:formatNumber value="${details.prodLPrice}" pattern="###,###,###원"/></h2>
+             <h4><fmt:formatNumber value="${details.prodLPrice}" pattern="###,###,###원"/></h4>
             <div class="rating">
-            <h5><%-- (괄호안에 몇명이 했는지 넣으면 좋을듯 ${details.prodLPrice}) --%>
+            <h4><%-- (괄호안에 몇명이 했는지 넣으면 좋을듯 ${details.prodLPrice}) --%>
 		        <i class="fa fa-star-o"></i>
 		        <i class="fa fa-star-o"></i>
 		        <i class="fa fa-star-o"></i>
 		        <i class="fa fa-star-o"></i>
 		        <i class="fa fa-star-o"></i>
 		        ()
-		        </h5>
+		        </h4>
+		        <br><br>
 	      	</div>
             <ul class="list">
               <li>
-                <span>남은 수량</span> : ${details.prodLQuantity}
+                <span>남은 수량</span> : <b>${details.prodLQuantity}</b>
               </li>
               <li>
               <!-- 내가 찜한 목록들 리스트 볼수있게 이동? -->
-                <span>찜하기</span> : <a href="#"> ${details.prodLQuantity}</a>
+                <span>찜하기</span> : <a class="btn btn-light btn-sm" id="prodLike">클릭</a>
               </li>
 	            <li>
-	              장바구니에 넣기 : <a class="btn_3" id="insertBasket" >카트add to cart</a>
+	              장바구니에 넣기 : <a class="btn btn-light btn-sm" id="insertBasket">클릭</a>
 <!-- 	              장바구니에 가져갈 히든 값. 제품 코드와 가격, 수량 1개 -->
 				  <input type="hidden" name="prodLcount" type="text" id="prodLcount" value="1">
 	              <input type="hidden" name="prodLCode" value="${details.prodLCode}" id="prodLCode">
@@ -104,30 +115,32 @@ function BbsList(){
   <section class="product_description_area">
     <div class="container">
       <ul class="nav nav-tabs" id="myTab" role="tablist">
-
         <li class="nav-item">
           <a class="nav-link active" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile"
             aria-selected="false">상품 정보</a>
-
         <li class="nav-item">
           <a class="nav-link" id="review-tab" data-toggle="tab" href="#review" role="tab" aria-controls="review"
             aria-selected="false">상품 후기</a>
         </li>
       </ul>
+      <!-- 상품 정보 뿌려주는 부분 시작 -->
       <div class="tab-content" id="myTabContent">
         <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
           <div class="table-responsive">
-					<style>div { text-align: center; }</style>
-                <img src="${pageContext.request.contextPath }/resources/img/product/${details.prodLSubimg}"/>
+			<div style="text-align: center;">
+            	<img src="${pageContext.request.contextPath }/resources/img/product/${details.prodLSubimg}"/>
+            </div>
           </div>
         </div>
+        <!-- 상품 정보 뿌려주는 부분 끝 -->
+         <!-- 상품 후기 부분 시작 -->
         <div class="tab-pane fade" id="review" role="tabpanel" aria-labelledby="review-tab">
           <div class="row">
             <div class="col-lg-6">
               <div class="row total_rate">
                 <div class="col-6">
                   <div class="box_total">
-                    <h5>Overall</h5>
+                    <h5>별점 평균</h5>
                     <h4>4.0</h4>
                     <h6>(03 Reviews)</h6>
                   </div>
@@ -201,8 +214,19 @@ function BbsList(){
             </div>
             <div class="col-lg-6">
               <div class="review_box">
-                <h4>후기 남기기</h4>
-                <p>별점 :</p>
+                <div class="reply_subject">
+					<br><br><h2>리뷰</h2>
+				</div>
+
+				<!-- 이 리뷰 버튼은 로그인한 회원에게만 보이도록함 -->
+<%-- 				<c:if test="${userId != null}"> --%>
+				<div class="reply_button_wrap">
+					<br><button>리뷰 쓰기</button>
+				</div>
+<%-- 				</c:if> --%>
+				<!-- 이 리뷰 버튼은 로그인한 회원에게만 보이도록함 -->
+
+                <br><p>별점 :</p>
                 <ul class="list">
                   <li>
                     <a href="#">
@@ -234,6 +258,7 @@ function BbsList(){
             </div>
           </div>
         </div>
+        <!-- 상품 후기 부분 끝 -->
       </div>
     </div>
   </section>
