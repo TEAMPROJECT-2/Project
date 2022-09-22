@@ -21,44 +21,35 @@
     <!-- Layout wrapper -->
     <div class="layout-wrapper layout-content-navbar">
       <div class="layout-container">
-		<jsp:include page="../inc/admin-menu.jsp"/>
+		<jsp:include page="../inc/mypage-menu.jsp"/>
 
           <!-- Content wrapper -->
           <div class="content-wrapper">
             <!-- Content -->
             <div class="container-xxl flex-grow-1 container-p-y">
-              <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">업체 /</span> 상품 관리</h4>
+              <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">포인트/쿠폰 /</span> 포인트</h4>
 
               <div class="row">
                 <div class="col-md-12">
-                  <ul class="nav nav-pills flex-column flex-md-row mb-3">
-                    <li class="nav-item">
-                      <a class="nav-link" href="${pageContext.request.contextPath }/admin/comp">
-                      <i class="bx bx-buildings me-1"></i> 업체 관리</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link active" href="${pageContext.request.contextPath }/mypage/addr">
-                      <i class="bx bx-buildings me-1"></i> 상품 관리</a>
-                    </li>
-                  </ul>
 
                 <div class="mb-3 row">
                   <div class="col-md-10">
-                    <form action="${pageContext.request.contextPath }/mypage/pointCheck" method="get" onsubmit="return datecheck()">
-                    <input class="form-control" type="date" id="startDate" name="startDate" value="${pageDTO.startDate }" required/>
-                    <input class="form-control" type="date" id="endDate" name="endDate" value="${pageDTO.endDate }" required/>
+                    <form action="${pageContext.request.contextPath }/mypage/point" method="get" onsubmit="return datecheck()">
+                    <input class="form-control" type="date" id="startDate" name="startDate" max="${pageDTO.endDate }"  required/>
+                    <input class="form-control" type="date" id="endDate" name="endDate"  required/>
 								<br>
 						<input type="button" value="1개월" id="searchMonth1" class="btn btn-outline-info" >
 						<input type="button" value="3개월" id="searchMonth3" class="btn btn-outline-info" >
 						<input type="button" value="6개월" id="searchMonth6" class="btn btn-outline-info" >
 						<input type="submit" value="조회하기" class="btn btn-info" id="searchPoint">
-					</form>
+						
+					</form><br>
 					</div>
 				</div>
 
               <!-- Basic Bootstrap Table -->
                <div class="card">
-                <h5 class="card-header">상품 관리</h5>
+                <h5 class="card-header">포인트 조회 </h5>
                 <hr class="my-0" />
                 <div class="card-body">
                 <div class="table-responsive text-nowrap">
@@ -94,20 +85,22 @@
 			          <ul class="pagination" style="margin-left: 45%; margin-right: 55%;">
 			            <li class="page-item">
                             <c:if test="${pageDTO.startPage > pageDTO.pageBlock }">
-								<a class="page-link" href="${pageContext.request.contextPath }/mypage/point?pageNum=${pageDTO.startPage - pageDTO.pageBlock}" aria-label="Previous">
+								<a class="page-link" href="${pageContext.request.contextPath }
+								/mypage/point?pageNum=${pageDTO.startPage - pageDTO.pageBlock}&startDate=${pageDTO.startDate}&endDate=${pageDTO.endDate}" aria-label="Previous">
 								<span aria-hidden="true">&laquo;</span>
 							</a>
 							</c:if>
 						 </li>
 							<c:forEach var="i" begin="${pageDTO.startPage }" end="${pageDTO.endPage }" step="1">
 						 <li class="page-item">
-						 		<a class="page-link" href="${pageContext.request.contextPath }/mypage/point?pageNum=${i}">${i}</a>
+						 		<a class="page-link" href="${pageContext.request.contextPath }/mypage/point?pageNum=${i}&startDate=${pageDTO.startDate}&endDate=${pageDTO.endDate}">${i}</a>
 						 </li>
 							</c:forEach>
 
 						 <li class="page-item">
 							<c:if test="${pageDTO.endPage < pageDTO.pageCount }">
-								<a class="page-link" href="${pageContext.request.contextPath }/mypage/point?pageNum=${pageDTO.startPage + pageDTO.pageBlock}" aria-label="Next">
+								<a class="page-link" href="${pageContext.request.contextPath }
+								/mypage/point?pageNum=${pageDTO.startPage + pageDTO.pageBlock}&startDate=${pageDTO.startDate}&endDate=${pageDTO.endDate}" aria-label="Next">
 									<span aria-hidden="true">&raquo;</span>
 								</a>
 							</c:if>
@@ -170,7 +163,6 @@
     <!-- Footer Section Begin -->
     <jsp:include page="../inc/footer.jsp"/>
 </body>
-
 <script type="text/javascript">
 function datecheck(){
 	function dateFormat(){

@@ -1,5 +1,7 @@
 package com.itwillbs.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -135,7 +137,7 @@ public class MypageController {
 
 	// 마이페이지 - 포인트
 	@RequestMapping(value = "/mypage/point", method = RequestMethod.GET)
-	public String point(HttpServletRequest request, Model model, HttpSession session) {
+	public String point(HttpServletRequest request, Model model, HttpSession session) throws Exception {
 		String userId=(String)session.getAttribute("userId");
 		// 한화면에 보여줄 글개수
 		int pageSize=10;
@@ -146,6 +148,11 @@ public class MypageController {
 		}
 		String startDate=request.getParameter("startDate");
 		String endDate=request.getParameter("endDate");
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		if(startDate ==null && endDate ==null) {
+			startDate=simpleDateFormat.format(new Date().getYear());
+			endDate=simpleDateFormat.format(new Date());
+		}
 		//현페이지 번호를 정수형으로 변경
 		int currentPage=Integer.parseInt(pageNum);
 		// PageDTO 객체생성
@@ -156,8 +163,7 @@ public class MypageController {
 		pageDTO.setUserId(userId);
 		pageDTO.setStartDate(startDate);
 		pageDTO.setEndDate(endDate);
-		List<PointDTO> pointList=pointService.getPointList(pageDTO);
-
+		List<PointDTO> pointList=pointService.getPointCheckList(pageDTO);
 		// pageBlock  startPage endPage count pageCount
 		int count=pointService.getPointCount(userId);
 		int pageBlock=10;

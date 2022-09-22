@@ -28,19 +28,7 @@ public class PointServiceImpl implements PointService {
 	public int getPointCount(String userId) {
 		return pointDAO.getPointCount(userId);
 	}
-	//포인트 리스트 조회
-	@Override
-	public List<PointDTO> getPointList(PageDTO pageDTO) {
-		// pageSize  pageNum  currentPage
-		int startRow=(pageDTO.getCurrentPage()-1)*pageDTO.getPageSize()+1;
-		int endRow=startRow+pageDTO.getPageSize()-1;
 
-		// sql => limit #{startRow -1}, #{pageSize}
-
-		pageDTO.setStartRow(startRow-1);
-		pageDTO.setEndRow(endRow);
-		return pointDAO.getPointList(pageDTO);
-	}
 	//포인트 DB 저장
 	@Override
 	public void insertMember(PointDTO pointDTO) {
