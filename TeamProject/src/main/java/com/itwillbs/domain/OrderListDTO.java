@@ -6,11 +6,10 @@ public class OrderListDTO {
 	private int trnum;
 	private int num          ;
 	private String ordLCode        ;
-	private String ordLUser        ;
-	private int ordLQuantity    ;
-	private int ordLPrice       ;
-	private String ordLCounumcoudc ;
-	private Timestamp ordLDate        ;
+	private String ordLUser;
+	private int ordLQuantity;
+	private int ordLPrice;
+	private Timestamp ordLDate;
 	private String compId;
 	private String ordDeliveryStatus;
 	private int ordFinalprice;
@@ -21,7 +20,7 @@ public class OrderListDTO {
 	private String ge50Count;
 	private String ne50Count;
 	private String eq50Couunt;
-
+	private String ordLCouponnum; //사용 쿠폰 넘버
 
 
 	public int getTrnum() {
@@ -60,12 +59,7 @@ public class OrderListDTO {
 	public void setOrdLPrice(int ordLPrice) {
 		this.ordLPrice = ordLPrice;
 	}
-	public String getOrdLCounumcoudc() {
-		return ordLCounumcoudc;
-	}
-	public void setOrdLCounumcoudc(String ordLCounumcoudc) {
-		this.ordLCounumcoudc = ordLCounumcoudc;
-	}
+
 	public Timestamp getOrdLDate() {
 		return ordLDate;
 	}
@@ -131,13 +125,14 @@ public class OrderListDTO {
 	public void setEq50Couunt(String eq50Couunt) {
 		this.eq50Couunt = eq50Couunt;
 	}
-	@Override
-	public String toString() {
-		return "OrderListDTO [ordNum=" + num + ", ordLCode=" + ordLCode + ", ordLUser=" + ordLUser
-				+ ", ordLQuantity=" + ordLQuantity + ", ordLPrice=" + ordLPrice + ", ordLCounumcoudc=" + ordLCounumcoudc
-				+ ", ordLDate=" + ordLDate + ", compId=" + compId + ", ordDeliveryStatus=" + ordDeliveryStatus
-				+ ", ordFinalprice=" + ordFinalprice + "]";
+
+	public String getOrdLCouponnum() {
+		return ordLCouponnum;
 	}
+	public void setOrdLCouponnum(String ordLCouponnum) {
+		this.ordLCouponnum = ordLCouponnum;
+	}
+
 
 
 }

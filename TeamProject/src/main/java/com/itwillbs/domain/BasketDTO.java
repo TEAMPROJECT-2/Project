@@ -84,6 +84,9 @@ public class BasketDTO {
 	public void setOrdLCounumcoudc(String ordLCounumcoudc) {
 		this.ordLCounumcoudc = ordLCounumcoudc;
 	}
+
+
+
 	@Override
 	public String toString() {
 		return "BasketDTO [sbBasketNum=" + sbBasketNum + ", sbUser=" + sbUser + ", sbProdCode=" + sbProdCode

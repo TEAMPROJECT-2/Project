@@ -34,12 +34,12 @@ public class BasketServiceImpl implements BasketService {
 		return basketDAO.getBasketList(basketDTO);
 	}
 
-	@Override // 주문 디비에 인서트
-	public void insertOrder(BasketDTO basketDTO) {
-		basketDTO.setShoppingBasketDate(new Timestamp(System.currentTimeMillis()));
-		basketDAO.insertOrder(basketDTO);
-	}
-
+//	@Override // 주문 디비에 인서트
+//	public void insertOrder(BasketDTO basketDTO) {
+//		basketDTO.setShoppingBasketDate(new Timestamp(System.currentTimeMillis()));
+//		basketDAO.insertOrder(basketDTO);
+//	}
+//
 	@Override // 카트에 물건 삭제
 	public void deleteBasket(BasketDTO basketDTO) {
 		basketDAO.deleteBasket(basketDTO);

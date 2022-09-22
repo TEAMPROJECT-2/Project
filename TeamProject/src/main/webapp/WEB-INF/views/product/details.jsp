@@ -27,6 +27,17 @@ $(document).ready(function(){
 	});
 });
 
+// 관련 상품 뿌려주기
+// function printProdList(data){
+// 	$('#detailsContainer').empty();
+// 	data.forEach((e, i) => {
+// 		var prodLPrice = e.prodLPrice;
+// 		var price = prodLPrice.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+// 		$('#prodContainer').append(
+
+// 		);
+// 	});
+// }
 </script>
 
 
@@ -272,6 +283,44 @@ $(document).ready(function(){
                 </div>
             </div>
             <div class="row">
+
+            	<!-- 관련상품 뿌려주는 곳 시작 -->
+            	<div class="row" id="detailsContainer">
+<%--                    	<c:forEach var="details" items="${details}"> --%>
+	                   	<div class="col-lg-3 col-md-6 col-sm-6 col-sm-6">
+	                    	<div class="product__item">
+	                        	<div class="product__item__pic set-bg">
+		                        	<a href="${pageContext.request.contextPath }/product/details?prodLNum=${details.prodLNum}">
+									<img src="${pageContext.request.contextPath }/resources/img/product/${details.prodLMainimg}" alt="위의 이미지를 누르면 연결됩니다."/></a>
+	                            	<ul class="product__hover">
+	                  	 	           <li><a href="#">
+	                  	 	           	   <img src="${pageContext.request.contextPath }/resources/img/icon/heart.png" alt=""><span>찜하기</span></a>
+	                  	 	           </li>
+	                  		           <li><a href="${pageContext.request.contextPath }/order/cart">
+	                  		           	   <img src="${pageContext.request.contextPath }/resources/img/icon/cart.png" alt=""><span>장바구니 담기</span></a>
+	                  		           </li>
+	                                </ul>
+	                           	</div>
+	                            <div class="product__item__text">
+	                            	<h6>${details.prodLProdnm}</h6>
+	                            	<a href="${pageContext.request.contextPath }/order/cart" class="add-cart">+ Add To Cart</a>
+	                                <!-- 상품가격의 가독성을 높이기 위해 숫자 3자리마다 콤마(,)를 찍어주도록 처리함 -->
+	                                <h5> <fmt:formatNumber value="${details.prodLPrice}" pattern="###,###,###원"/></h5>
+	                                <div class="rating">
+	                                      <i class="fa fa-star-o"></i>
+	                                      <i class="fa fa-star-o"></i>
+	                                      <i class="fa fa-star-o"></i>
+	                                      <i class="fa fa-star-o"></i>
+	                                      <i class="fa fa-star-o"></i>
+	                            	</div>
+	                        	</div>
+	                    	</div>
+	                	</div>
+<%-- 	            	</c:forEach> --%>
+	            </div>
+            	<!-- 관련상품 뿌려주는 곳 끝 -->
+
+
                 <div class="col-lg-3 col-md-6 col-sm-6 col-sm-6">
                     <div class="product__item">
                         <div class="product__item__pic set-bg" data-setbg="${pageContext.request.contextPath }/resources/img/product/product-1.jpg">
@@ -307,6 +356,7 @@ $(document).ready(function(){
                         </div>
                     </div>
                 </div>
+
                 <div class="col-lg-3 col-md-6 col-sm-6 col-sm-6">
                     <div class="product__item">
                         <div class="product__item__pic set-bg" data-setbg="${pageContext.request.contextPath }/resources/img/product/product-2.jpg">

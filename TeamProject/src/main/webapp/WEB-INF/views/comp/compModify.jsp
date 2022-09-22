@@ -73,20 +73,19 @@
                             <input class="form-control form-control-lg" type="text" name="compPhone" id="compPhone" placeholder="012-3456-7890" value="${compDTO.compPhone}"/>
                           </div>
                           <div class="mb-3 col-md-3">
-                            <label for="compAddress" class="form-label">주소</label>
-                            <input class="form-control form-control-lg" type="text" onclick="sample6_execDaumPostcode()" name="compZipcode" id="sample6_postcode" placeholder="우편번호" value="${compDTO.compZipcode}"/>
-						  </div>
-                          <div class="mb-3 col-md-3">
-                            <label for="compAddress" class="form-label">&nbsp;</label>
-                            <input class="form-control form-control-lg" type="text" onclick="sample6_execDaumPostcode()" name="compAddress" id="sample6_address" placeholder="주소" value="${compDTO.compAddress}"/>
+                            <label for="userNicknm" class="form-label">우편번호</label>
+                            <input class="form-control form-control-lg" type="text" onclick="sample6_execDaumPostcode()" name="compZipcode" id="sample6_postcode"  value="${compDTO.compZipcode}" />
                           </div>
-                          <div class="mb-3 col-md-3">
-                          	<label for="compAddress" class="form-label">&nbsp;</label>
-                            <input class="form-control form-control-lg" type="text" name="compDetaddress" id="sample6_detailAddress" placeholder="상세주소" value="${compDTO.compDetaddress}"/>
+                          <div class="mb-3 col-md-7">
+                            <label for="userNicknm" class="form-label">주소</label>
+                            <input class="form-control form-control-lg" type="text" name="compAddress" id="sample6_address"  value="${compDTO.compAddress}" />
                           </div>
-                          <div class="mb-3 col-md-3">
-                          	<label for="compAddress" class="form-label">&nbsp;</label>
-                            <input class="form-control form-control-lg" type="text" name="compExtaddress" id="sample6_extraAddress" placeholder="참고항목" value="${compDTO.compExtaddress}"/>
+                          <div class="mb-3 col-md-2">
+                          	<button type="button" class="btn btn-outline-primary me-2" onclick="sample6_execDaumPostcode();" style="margin-top: 1.8rem; height:60%">주소 검색</button>
+                          </div>
+                          <div class="mb-3 col-md-12">
+                            <label for="userNicknm" class="form-label">상세주소</label>
+                            <input class="form-control form-control-lg" type="text" name="compDetaddress" id="sample6_detailAddress"  value="${compDTO.compDetaddress}"/>
                           </div>
                         </div>
                         <div class="mt-2">

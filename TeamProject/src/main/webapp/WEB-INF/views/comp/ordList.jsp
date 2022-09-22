@@ -53,45 +53,10 @@
 
                 <div class="card">
                 <h5 class="card-header">주문목록</h5>
-<!--                 <form> -->
-<!--                 <table class="table table-borderless"> -->
-<!--                  <tbody class="table-border-bottom-0"> -->
-<!--                   <tr> -->
-<!--                   	 <td></td> -->
-<!--                      <td class="mb-3"> -->
-<!--                         <select id="defaultSelect" class="form-select" name="status"> -->
-<!--                           <option value="0">재고상태 선택</option> -->
-<!--                           <option value="1">양호</option> -->
-<!--                           <option value="2">품절임박</option> -->
-<!--                           <option value="3">품절</option> -->
-<!--                         </select> -->
-<!--                      </td> -->
-<!--                      <td class="mb-3"> -->
-<!--                         <select id="defaultSelect" class="form-select" name="searchCol"> -->
-<!--                           <option value="0">검색 테이블 선택</option> -->
-<!--                           <option value="PROD_L_CODE">상품코드</option> -->
-<!--                           <option value="PROD_L_PRODNM">상품이름</option> -->
-<!--                           <option value="PROD_L_PRICE">가격</option> -->
-<!--                         </select> -->
-<!--                      </td> -->
-<!--                      <td colspan="2" class="input-group input-group-merge"> -->
-<!--                         <span class="input-group-text" id="basic-addon-search31"><i class="bx bx-search"></i></span> -->
-<!--                         <input type="text" class="form-control" placeholder="상품 번호 검색" aria-describedby="basic-addon-search31" name="searchKeyWord"/> -->
-<!--                 	</td> -->
-<!--                 	<td><button type="submit" class="btn btn-primary">검색</button> </td> -->
-<!--                   </tr> -->
-<!--                  </tbody> -->
-<!--                </table> -->
-<!--                </form> -->
 
-
-                <div class="table-responsive text-nowrap" id="Context">
-
-<!--                   <button type="submit" class="btn btn-primary " onclick="deleteValue();">선택 삭제</button> -->
                   <table class="table table-striped" >
                     <thead>
                       <tr>
-<!--                         <th>&nbsp;&nbsp;<input class="form-check-input" type="checkbox" id="allCheck" name="allCheck" />&nbsp;&nbsp;&nbsp;전체선택 </th> -->
                         <th>주문일</th>
                         <th>주문번호</th>
                         <th>주문물품</th>
@@ -103,7 +68,6 @@
                     </thead>
                     <tbody class="table-border-bottom-0">
 					  <c:forEach var="orderListDTO" items="${ordList }" varStatus="status">
-<%--                       <tr onClick="location.href='${pageContext.request.contextPath }/comp/update?CheckRow=${orderListDTO.num }'" style="cursor:pointer;"> --%>
                       <tr >
 
                         <td><fmt:formatDate pattern="yy-MM-dd" value="${orderListDTO.ordLDate }"/></td>
@@ -177,14 +141,8 @@
 			          </ul>
 			        </nav>
 			        </div></div>
-
-
                 </div>
               </div>
-
-
-
-
                 </div>
               </div>
             </div>

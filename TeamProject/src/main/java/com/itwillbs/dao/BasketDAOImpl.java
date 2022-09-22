@@ -32,11 +32,11 @@ public class BasketDAOImpl implements BasketDAO {
 		return sqlSession.selectList(namespace+".getBasketList",basketDTO);
 	}
 
-	@Override // 주문 디비에 인서트
-	public void insertOrder(BasketDTO basketDTO) {
-		sqlSession.insert(namespace + ".insertOrder", basketDTO);
-	}
-
+//	@Override // 주문 디비에 인서트
+//	public void insertOrder(BasketDTO basketDTO) {
+//		sqlSession.insert(namespace + ".insertOrder", basketDTO);
+//	}
+//
 	@Override // 카트에 물건 삭제
 	public void deleteBasket(BasketDTO basketDTO) {
 		sqlSession.delete(namespace+".deleteBasket", basketDTO);

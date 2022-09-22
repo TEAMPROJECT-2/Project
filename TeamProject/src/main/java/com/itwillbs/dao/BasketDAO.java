@@ -12,8 +12,8 @@ public interface BasketDAO {
 
 	List<BasketDTO> getBasketList(BasketDTO basketDTO); // 디비에서 카트물건리스트 갖고오기
 
-	void insertOrder(BasketDTO basketDTO); // 주문 디비에 인서트
-
+//	void insertOrder(BasketDTO basketDTO); // 주문 디비에 인서트
+//
 	void deleteBasket(BasketDTO basketDTO); // 카트에 물건 삭제
 
 	BasketDTO prodCodeCheck(BasketDTO basketDTO); // 중복물건이 담겼는지 검사

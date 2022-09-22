@@ -36,14 +36,17 @@
 var category = "";
 
 function searchProd(comp){
-
+// 		debugger;
 	var pageNum = "1";
 
-	if(comp.classList.contains('page')){ // page 눌럿을때
-		pageNum = comp.getAttribute('data-value');
-	} else { // 카테고리 눌렀을 때
-		category = comp.id;
+	if(comp.tagName == 'A'){
+		if(comp.classList.contains('page')){ // page 눌럿을때
+			pageNum = comp.getAttribute('data-value');
+		} else { // 카테고리 눌렀을 때
+			category = comp.id;
+		}
 	}
+
 	var srhText = $('#srhText').val();
 
 	$.ajax({
@@ -55,7 +58,6 @@ function searchProd(comp){
 			"pageNum":pageNum
 		},
 		dataType: "json",
-// 		async: false,
 		success:function( data ) {
 // 			debugger;
 			// 상품 뿌려주기
@@ -74,8 +76,7 @@ function printProdList(data){
 	$('#prodContainer').empty();
 	data.forEach((e, i) => {
 // 		debugger;
-    // 상품가격의 가독성을 높이기 위해 숫자 3자리마다 콤마(,)를 찍어주도록 처리함 -->
-
+    // 상품가격의 가독성을 높이기 위해 숫자 3자리마다 콤마(,)를 찍어주도록 처리함
 	var prodLPrice = e.prodLPrice;
 	var price = prodLPrice.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
 	    $('#prodContainer').append(
@@ -91,23 +92,22 @@ function printProdList(data){
     		+ 		   '</ul>'
     		+ 		'</div>'
     		+ 		'<div class="product__item__text">'
-    		+ 		   '<h7>'+ e.prodLProdnm +'</h7><br>'
+    		+ 		   '<h7>'+ e.prodLProdnm +'</h7>'
     		+ 		   '<h5>'
     		+ 			price
-    		+ 			'원</h5><br>'
+    		+ 			'원</h5>'
     		+ 			'<div class="rating">'
-    		+ 				'<i class="fa fa-star-o"></i>'
-    		+ 				'<i class="fa fa-star-o"></i>'
-    		+ 				'<i class="fa fa-star-o"></i>'
-    		+ 				'<i class="fa fa-star-o"></i>'
-    		+ 				'<i class="fa fa-star-o"></i>'
+    		+ 				'<i class="fa fa-star-o"></i> '
+    		+ 				'<i class="fa fa-star-o"></i> '
+    		+ 				'<i class="fa fa-star-o"></i> '
+    		+ 				'<i class="fa fa-star-o"></i> '
+    		+ 				'<i class="fa fa-star-o"></i> '
     		+ 			'</div>'
     		+ 		'</div>'
     		+ 	'</div>'
     		+ '</div>'
 	    );
 	});
-
 }
 
 // 페이징 처리
@@ -116,7 +116,7 @@ function printPaging(dto){
 	$('#product__pagination').empty();
 	var context = '${pageContext.request.contextPath }';
 
-	// <<
+	// << (첫 페이지로 가기)
 	if(dto.startPage > dto.pageBlock) {
 		var pageNum = dto.startPage - dto.pageBlock
 		$('#product__pagination').append('<a class="search page" data-value="' + pageNum + '"  href="#">&lt; &lt;</a> ')
@@ -129,7 +129,7 @@ function printPaging(dto){
 		);
 	}
 
-	// >>
+	// >> (끝 페이지로 가기)
 	if(dto.endPage < dto.pageCount) {
 		var pageNum = dto.startPage + dto.pageBlock
 		$('#product__pagination').append('<a class="search page" data-value="' + pageNum + '"  href="#">&gt; &gt;</a> ')
@@ -142,19 +142,30 @@ function printPaging(dto){
 }
 
 <!-- 이벤트 시작 -->
-// 검색창 클릭 이벤트
+// 검색창 이벤트
 $(document).ready(function(){
-
 	$('.search').click(function(){
 		searchProd(this);
 	});
-
+	// 검색창 엔터키 이벤트
+	$('#srhText').on("keyup", function(key) {
+		if(key.keyCode == 13){
+			if($("#srhText").val().length==''){
+				alert("검색어를 입력해주세요.");
+				$("#srhText").focus();
+				return;
+			}
+			searchProd(this);
+		}
+	});
+	// 검색창 클릭 이벤트
 	$('#submit').click(function() {
 		if($("#srhText").val().length==''){
 			alert("검색어를 입력해주세요.");
 			$("#srhText").focus();
-			return false;
+			return;
 		}
+		searchProd(this);
 	});
 });
 
@@ -237,7 +248,6 @@ $(document).ready(function(){
 <%--                 	<form action="${pageContext.request.contextPath }/product/shop"> --%>
                     <div class="shop__sidebar">
                         <div class="shop__sidebar__search">
-
                                 <input type="text" id="srhText" name="srhText">
                                 <button type="submit" id="submit" class="search">
                                 <span class="icon_search"></span></button>

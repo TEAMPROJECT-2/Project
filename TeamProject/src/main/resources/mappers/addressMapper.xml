@@ -27,12 +27,12 @@
 	
 	<select id="updateAddress" resultType="com.itwillbs.domain.AddressDTO">
 		UPDATE ADDRESS
-		   SET ADDRESS_ZIPCODE	=#{addressZipcode}
-		      ,ADDRESS			=#{Address}
-		      ,ADDRESS_DETAILS	=#{addressDetails}
+		   SET ADDRESS_ZIPCODE		=#{addressZipcode}
+		      ,ADDRESS				=#{Address}
+		      ,ADDRESS_DETAILS		=#{addressDetails}
 		 	   ,ADDRESS_GET_NM		=#{addressGetNm}
 		       ,ADDRESS_GET_PHONE	=#{addressGetPhone}			
-	 	 WHERE USER_ID			=#{userId}
+	 	 WHERE USER_ID				=#{userId}
 		   
 	</select>
 	
