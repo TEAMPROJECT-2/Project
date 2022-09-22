@@ -68,30 +68,30 @@
 	</select>
 
 <!-- 	주문리스트테이블에 상품 넣기 -->
-	<insert id="insertOrder">
-		INSERT INTO  ORDER_LIST(
-					  ORD_NUM
-					 ,ORD_L_CODE
-					 ,ORD_L_USER
-					 ,ORD_L_QUANTITY
-					 ,ORD_L_PRICE
-					 ,ORD_L_DATE
-					 ,ORD_L_COUNUMCOUDC
-				   )
-			VALUES(
-				  (SELECT ORD_NUM
-		       		 FROM   (SELECT IFNULL(MAX(CAST(ORD_NUM AS UNSIGNED)), 0) + 1 AS ORD_NUM
-				 	   	       FROM ORDER_LIST) A)
-				   ,#{sbProdCode}
-				   ,#{sbUser}
-				   ,#{sbCount}
-				   ,#{sbProdPrice}
-				   ,#{shoppingBasketDate}
-				   ,#{ordLCounumcoudc}
-				    )
+<!-- 	<insert id="insertOrder"> -->
+<!-- 		INSERT INTO  ORDER_LIST( -->
+<!-- 					  ORD_NUM -->
+<!-- 					 ,ORD_L_CODE -->
+<!-- 					 ,ORD_L_USER -->
+<!-- 					 ,ORD_L_QUANTITY -->
+<!-- 					 ,ORD_L_PRICE -->
+<!-- 					 ,ORD_L_DATE -->
+<!-- 					 ,ORD_L_COUNUMCOUDC -->
+<!-- 				   ) -->
+<!-- 			VALUES( -->
+<!-- 				  (SELECT ORD_NUM -->
+<!-- 		       		 FROM   (SELECT IFNULL(MAX(CAST(ORD_NUM AS UNSIGNED)), 0) + 1 AS ORD_NUM -->
+<!-- 				 	   	       FROM ORDER_LIST) A) -->
+<!-- 				   ,#{sbProdCode} -->
+<!-- 				   ,#{sbUser} -->
+<!-- 				   ,#{sbCount} -->
+<!-- 				   ,#{sbProdPrice} -->
+<!-- 				   ,#{shoppingBasketDate} -->
+<!-- 				   ,#{ordLCounumcoudc} -->
+<!-- 				    ) -->
 
-	</insert>
-<!-- 	주문보드로 물건 이동후 장바구니 물건은 삭제 -->
+<!-- 	</insert> -->
+<!-- 	장바구니 물건 삭제 -->
 	<delete id="deleteBasket">
 	   DELETE FROM  SHOPPING_BASKET
 	   	     WHERE  SB_PROD_CODE=#{sbProdCode}

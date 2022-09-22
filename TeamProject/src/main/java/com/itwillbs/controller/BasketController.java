@@ -75,7 +75,7 @@ public class BasketController {
 					basketDTO.setSbProdPrice(Integer.parseInt(sbProdPrice[i]));
 					basketDTO.setSbUser(userId);
 					basketDTO.setOrdLCounumcoudc(couNumCouDc);
-					basketService.insertOrder(basketDTO);   // order DB로 넘김
+//					basketService.insertOrder(basketDTO);   // order DB로 넘김
 //					basketService.deleteBasket(basketDTO);  // basket DB 데이터 삭제 -------------> 주문시 삭제 하기위애 주석처리
 				}
 				} else {

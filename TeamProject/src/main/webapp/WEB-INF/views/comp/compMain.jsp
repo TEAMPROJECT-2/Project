@@ -151,7 +151,7 @@
                          			<span class="d-block">주소</span>
                          		</th>
                          		<td>
-                         			<span class="d-block">${compDTO1.compAddress} ${compDTO1.compDetaddress} ${compDTO1.compExtaddress}</span>
+                         			<span class="d-block">${compDTO1.compAddress} ${compDTO1.compDetaddress}</span>
                          		</td>
                          	</tr>
                          </table>

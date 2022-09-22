@@ -15,7 +15,6 @@ public class CompDTO {
 	private String compZipcode;
 	private String compAddress;
 	private String compDetaddress;
-	private String compExtaddress;
 
 
 	public String getCompZipcode() {
@@ -30,12 +29,7 @@ public class CompDTO {
 	public void setCompDetaddress(String compDetaddress) {
 		this.compDetaddress = compDetaddress;
 	}
-	public String getCompExtaddress() {
-		return compExtaddress;
-	}
-	public void setCompExtaddress(String compExtaddress) {
-		this.compExtaddress = compExtaddress;
-	}
+
 	public String getCompAddress() {
 		return compAddress;
 	}
