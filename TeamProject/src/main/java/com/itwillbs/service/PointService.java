@@ -14,9 +14,6 @@ public interface PointService {
 	//포인트(아이디) 수 조회
 	int getPointCount(String userId);
 
-	//포인트 리스트 조회
-	List<PointDTO> getPointList(PageDTO pageDTO);
-
 	//포인트 DB 저장
 	void insertMember(PointDTO pointDTO);
 

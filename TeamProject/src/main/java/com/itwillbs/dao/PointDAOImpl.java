@@ -27,12 +27,7 @@ public class PointDAOImpl implements PointDAO {
 	//포인트(아이디) 수 조회
 	@Override
 	public int getPointCount(String userId) {
-		return sqlSession.selectOne(namespace+".getPointCount");
-	}
-	//포인트 리스트 조회 
-	@Override
-	public List<PointDTO> getPointList(PageDTO pageDTO) {
-		return sqlSession.selectList(namespace+".getPointList",pageDTO);
+		return sqlSession.selectOne(namespace+".getPointCount", userId);
 	}
 	//포인트DB POINT_NUM 조회
 	@Override
