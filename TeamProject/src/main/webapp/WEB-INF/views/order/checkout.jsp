@@ -18,6 +18,12 @@
 </head>
 <body>
 
+<script>
+	function point(v){
+		document.getElementById('usePoint2').innerHTML=v+"원";
+		document.getElementById('total2').innerHTML=(${total}-v)+"원"; 		
+	}
+</script>
 
 <script>
 // 포인트사용
@@ -41,48 +47,49 @@ function pointUseAll(){
 	<script>
 	
 	function iamport(){
-        var amount = '${total}';
-        //- '${prePayment}' - $('#usePoint').val();
+        var amount = '${total}'-$('#textUsePoint').val();
+        var discount = "";
+        discount += $('#textUsePoint').val();
+        var nowPoint = '${pointDTO2.pointNow}' - $('#textUsePoint').val();
         //가맹점 식별코드
         IMP.init('imp27865884');
         IMP.request_pay({
             pg : 'html5_inicis',
             pay_method : 'card',
-            merchant_uid : '${basketDTO.sbBasketNum}' + new Date().getTime(),
+            merchant_uid : '${memberDTO.userId}' + new Date().getTime(),
             name : '핏티드' , //결제창에서 보여질 이름
             amount : amount, //실제 결제되는 가격
-            buyer_email : '${memberDTO.userEmail}',
-            buyer_name : '${memberDTO.userNm}',
-            buyer_tel : '${memberDTO.userPhone}',
         }, function(rsp) {
            console.log(rsp);
            
            
             if (rsp.success) {
                 var msg = '결제가 완료되었습니다.';
-                console.log(reservation);
+                var add = "";
+                add += '${addressDTO.address }' + ", " +'${addressDTO.addressDetails }';
+				
                 alert(msg);
               
                 $.ajax({
                     url: "orderComplete",
                    type: "POST",
-                   data: { 'user_id'    :'${sessionScope.user_id}',
-	                       'user_type'    :'${sessionScope.user_type}',
-	                       'pen_id'    :'${businessDTO.PEN_ID }',
-	                       'room_id'    :'${param.room_id}',
-	                       'rm_name'    :'${businessDTO.RM_NAME }',
-	                       'check_in_d' :'${rm_checkin}',
-	                       'check_out_d':'${rm_checkout}',
-	                       'check_in_t' :'${businessDTO.RM_CHECKIN }',
-	                       'check_out_t':'${businessDTO.RM_CHECKOUT }',
-	                        'rm_price'    :'${total }',
-	                        'res_status' :'1'
+                   data: { 'ordUser'    		:'${memberDTO.userId}',
+	                       'ordGetNm'   		:'${addressDTO.addressGetNm}',
+	                       'ordGetAddress' 	   	: add,
+	                       'ordGetPhone'    	:'${addressDTO.addressGetPhone }',
+	                       'ordDeliveryMessage' : $('#ordDeliveryMessage').val(),
+	                       'ordTotalPrice'		:'${total}',
+// 	                       'ordNum' 			: merchant_uid,
+	                       'ordCouponDc'		: discount,
+	                       'pointNow'			: nowPoint,
+	                       'pointUsed'			: $('#textUsePoint').val(),
+	                       'ordFinalPrice'		: amount,
                        },
 
                    dataType:"json",
                 })
               
-                location.href = '${pageContext.request.contextPath}/mypage/order';
+                location.href = '${pageContext.request.contextPath}/main/main';
             } else {
               var msg = rsp.error_msg;
               alert(msg);
@@ -90,52 +97,52 @@ function pointUseAll(){
         });
      }
   </script>
-  <script>
-     var point = '${pointDTO2.pointNow}';
-     var prePayment = '${prePayment}';
-     $(function() {
-        $('#point').val((point * 1).toLocaleString());
-        $('#usePoint').keyup(function() {
-           if($('#usePoint').val() - $('#point').val() > 0) {
-              alert('사용 가능 포인트를 초과하였습니다.')
-              $('#point').val(point.toLocaleString());
-              $('#usePoint').val(point);
-              $('#discount').html('0 원');
-              $('#payment').text(prePayment + ' 원');
-           }
-           else {
-              if(prePayment - $('#usePoint').val() < 1000) {
-                 alert('최소 결제 금액은 1,000입니다.')
-                 $('#usePoint').val((prePayment - 1000));
-                 $('#point').val((point - prePayment - 1000).toLocaleString());
-                 $('#discount').html('- ' + (prePayment -1000 * 1).toLocaleString() + ' 원');
-                 $('#payment').text('1,000 원');
-              }
-              else {
-                 $('#point').val((point - $('#usePoint').val()).toLocaleString());
-                 $('#discount').html('- ' + $('#usePoint').val() + ' 원');
-                 $('#payment').text((prePayment - $('#usePoint').val()).toLocaleString() + ' 원');
-              }
-           }
-        })
-     })
-  </script>
+<!--   <script> -->
+<%-- //      var point = '${pointDTO2.pointNow}'; --%>
+<%-- //      var prePayment = '${prePayment}'; --%>
+<!-- //      $(function() { -->
+<!-- //         $('#point').val((point * 1).toLocaleString()); -->
+<!-- //         $('#textUsePoint').onblur(function() { -->
+<!-- //            if($('#textUsePoint').val() - $('#point').val() > 0) { -->
+<!-- //               alert('사용 가능 포인트를 초과하였습니다.') -->
+<!-- //               $('#point').val(point.toLocaleString()); -->
+<!-- //               $('#textUsePoint').val(point); -->
+<!-- //               $('#discount').html('0 원'); -->
+<!-- //               $('#payment').text(prePayment + ' 원'); -->
+<!-- //            } -->
+<!-- //            else { -->
+<!-- //               if(prePayment - $('#usePoint').val() < 1000) { -->
+<!-- //                  alert('최소 결제 금액은 1,000입니다.') -->
+<!-- //                  $('#usePoint').val((prePayment - 1000)); -->
+<!-- //                  $('#point').val((point - prePayment - 1000).toLocaleString()); -->
+<!-- //                  $('#discount').html('- ' + (prePayment -1000 * 1).toLocaleString() + ' 원'); -->
+<!-- //                  $('#payment').text('1,000 원'); -->
+<!-- //               } -->
+<!-- //               else { -->
+<!-- //                  $('#point').val((point - $('#usePoint').val()).toLocaleString()); -->
+<!-- //                  $('#discount').html('- ' + $('#usePoint').val() + ' 원'); -->
+<!-- //                  $('#payment').text((prePayment - $('#usePoint').val()).toLocaleString() + ' 원'); -->
+<!-- //               } -->
+<!-- //            } -->
+<!-- //         }) -->
+<!-- //      }) -->
+<!--   </script> -->
 
-<script>
+<!-- <script> -->
  
-            function itemSum() {
-                var str = "";
-                var sum = 0;
-                for (var i = 0; i < count; i++) {
-                    if ($(".chkbox")[i].checked == true) {
-                        sum += parseInt($(".chkbox")[i].value);
-                    }
-                }
-                $("#total_sum").html(sum + " 원");
-                $("#amount").val(sum);
-            }
+<!-- //             function itemSum() { -->
+<!-- //                 var str = ""; -->
+<!-- //                 var sum = 0; -->
+<!-- //                 for (var i = 0; i < count; i++) { -->
+<!-- //                     if ($(".chkbox")[i].checked == true) { -->
+<!-- //                         sum += parseInt($(".chkbox")[i].value); -->
+<!-- //                     } -->
+<!-- //                 } -->
+<!-- //                 $("#total_sum").html(sum + " 원"); -->
+<!-- //                 $("#amount").val(sum); -->
+<!-- //             } -->
  
-        </script>
+<!--         </script> -->
 
 	<!-- 메뉴단 -->
 	<jsp:include page="../inc/menu.jsp" />
@@ -278,7 +285,7 @@ function pointUseAll(){
 																	<input type="number" title=""
 																		class="input-text ui-point-input" id="textUsePoint"
 																		name="textUsePoint" placeholder="1,000P부터 사용가능"
-																		min='1000' max="${pointDTO2.pointNow}" >
+																		min='1000' max="${pointDTO2.pointNow}" onblur="point(value)">
 <!-- 																		onKeyPress="return checkNum(event)" -->
 <!-- 																		onkeyup="removeChar(event)" onblur="fnUsePoint()" -->
 																	<span class="input-group-btn">
@@ -361,8 +368,8 @@ function pointUseAll(){
 									</c:forEach>
 									
 									<ul class="checkout__total__all">
-										<li>할인 금액<span>원</span></li>
-										<li>Total <span>${total}원</span></li>
+										<li>할인 금액<span id="usePoint2">0원</span></li>
+										<li>Total <span id="total2" >${total }원</span></li>
 									</ul>
 									
 <!-- 									<div class="checkout__input__checkbox"> -->

@@ -23,11 +23,11 @@ import com.itwillbs.domain.OrderDTO;
 import com.itwillbs.domain.OrderListDTO;
 import com.itwillbs.domain.PointDTO;
 import com.itwillbs.domain.ProdDTO;
-import com.itwillbs.domain.ProdStockDTO;
 import com.itwillbs.function.FunctionClass;
 import com.itwillbs.service.AddressService;
 import com.itwillbs.service.BasketService;
 import com.itwillbs.service.MemberService;
+import com.itwillbs.service.OrderService;
 import com.itwillbs.service.PointService;
 import com.siot.IamportRestClient.IamportClient;
 
@@ -47,6 +47,10 @@ public class OrderController {
 	@Inject
 	private PointService pointService;
 	
+	@Inject
+	private OrderService orderService;
+	
+	
 	private IamportClient api;
 	
 	public OrderController() {
@@ -65,7 +69,8 @@ public class OrderController {
 		MemberDTO memberDTO = memberService.getMember(userId);
 		List<BasketDTO> basketList=basketService.getBasketList(basketDTO);
 		PointDTO pointDTO2 = pointService.getMember(userId);	
-		
+		List<ProdDTO> quantityList = orderService.getQuantityList(prodDTO2);
+//		basketDTO = orderService.getItemCode(userId);
 		
 		// 상품 가격 총합
 		int total = 0;
@@ -79,18 +84,59 @@ public class OrderController {
 		model.addAttribute("basketList", basketList);
 		model.addAttribute("total", total);
 		model.addAttribute("pointDTO2", pointDTO2);
+		model.addAttribute("quantityList", quantityList);
+		
 		return "order/checkout";
 	}
 	
+	// 결제완료
 	 @ResponseBody
 	   @RequestMapping(value="/order/orderComplete", method = RequestMethod.POST)
-	   public String paymenByImpUid (HttpSession session, HttpServletRequest request, @RequestParam Map<String, Object> para){
+	   public String paymenByImpUid (HttpSession session, HttpServletRequest request, @RequestParam Map<String, Object> para, BasketDTO basketDTO){
 	      Map<String, Object> sMap = para;
 	      sMap.put("userId", (String)session.getAttribute("userId"));
-	      sMap.put("ordGetNm", request.getParameter("pointType"));
 	      sMap.put("ordDate", new FunctionClass().nowTime("yyyy-MM-dd HH:mm:ss"));
+	      sMap.put("ordDeliveryMessage", request.getParameter("ordDeliveryMessage"));
+	      
+	      sMap.put("pointDate", new FunctionClass().nowTime("yyyy-MM-dd HH:mm:ss"));
+
+	      sMap.put("pointNow", request.getParameter("pointNow"));
+	      sMap.put("pointUsed", request.getParameter("pointUsed"));
+	      
 	      System.out.println(sMap);
-	      pointService.insertChargePoint(sMap);
+	      orderService.insertOrder(sMap);
+//	      pointService.insertUsePoint(sMap);
+	      basketDTO.setSbUser((String)session.getAttribute("userId"));
+	      List<BasketDTO> basketList=basketService.getBasketList(basketDTO);
+	      
+//	      System.out.println(session.getAttribute("userId"));
+//	      System.out.println(basketList.size());
+	      for(int i=0; i<basketList.size(); i++) {
+	    	  basketDTO = basketList.get(i);
+//	    	  System.out.println(basketDTO.getSbUser());
+//	    	  System.out.println(basketDTO.getSbProdCode());
+//	    	  OrderListDTO orderListDTO = new OrderListDTO();
+//	    	  orderListDTO.setOrdLUser(basketDTO.getSbUser());
+//	    	  orderListDTO.setOrdLCode(basketDTO.getSbProdCode());
+//	    	  orderListDTO.setOrdLQuantity(basketDTO.getProdLQuantity());
+//	    	  orderListDTO.setOrdLPrice(basketDTO.getSbProdPrice());
+	    	  
+	    	  sMap.put("ordLUser", basketDTO.getSbUser());
+	    	  sMap.put("ordLCode", basketDTO.getSbProdCode());
+	    	  sMap.put("ordLQuantity", basketDTO.getSbCount());
+	    	  sMap.put("ordLPrice", basketDTO.getSbProdPrice());
+	    	  
+	    	  sMap.put("prodLCode", basketDTO.getSbProdCode());
+//	    	  sMap.put("prodLQuantity", basketDTO.getProdLQuantity());
+	    	  
+	    	  
+//	    	  orderService.insertUsePoint(sMap);
+	    	  orderService.isertOrderList(sMap);
+	    	  orderService.updateQuantity(sMap);
+	    	  
+	      }
+	      	 orderService.insertUsePoint(sMap);
+	      	 orderService.removeItemBasket(sMap);
 	      
 	      return "redirect:/main/main";
 	 }

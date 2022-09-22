@@ -4,49 +4,107 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.itwillbs.mappers.orderMapper">
-
-
-<!-- 	<select id="insertOrder" allowMultiQueries=true> -->
-
-<!-- 			INSERT INTO ORDER_BOARD( -->
-<!-- 					ORD_USER -->
-<!-- 				   ,ORD_GET_NM -->
-<!-- 				   ,ORD_GET_ADDRESS -->
-<!-- 				   ,ORD_GET_PHONE -->
-<!-- 				   ,ORD_DELIVERY_MESSAGE -->
-<!-- 				   ,ORD_DATE -->
-<!-- 				   ,ORD_PAYMENT -->
-<!-- 				   ,ORD_TOTAL_PRICE -->
+	
+	<insert id="insertOrder" >
+	
+			INSERT INTO ORDER_BOARD(
+					USER_ID
+				   ,ORD_GET_NM
+				   ,ORD_GET_ADDRESS
+				   ,ORD_GET_PHONE
+				   ,ORD_DELIVERY_MESSAGE
+				   ,ORD_DATE
+				   ,ORD_TOTAL_PRICE
 <!-- 				   ,ORD_SAVEDPOINT -->
-<!-- 				   ,ORD_COUPONDDC -->
+				   ,ORD_COUPONDC
 <!-- 				   ,ORD_USE_POINT -->
-<!-- 				   ,ORD_FINALPRICE -->
-<!-- 				   ,ORD_PURCHASESTATUS -->
+				   ,ORD_FINALPRICE
 <!-- 				   ,ORD_DELIVERY_PRICE -->
-<!-- 				   ) -->
-<!-- 			VALUES( -->
-<!-- 					#{ordUser} -->
-<!-- 				   ,#{ordGetNm} -->
-<!-- 				   ,#{ordGetAddress} -->
-<!-- 				   ,#{ordGetPhone} -->
-<!-- 				   ,#{ordDeliveryMessage} -->
-<!-- 				   ,#{ordDate} -->
-<!-- 				   ,#{ordPayment} -->
-<!-- 				   ,#{ordTotalPrice} -->
+				   )
+			VALUES(
+					#{userId}
+				   ,#{ordGetNm}
+				   ,#{ordGetAddress}
+				   ,#{ordGetPhone}
+				   ,#{ordDeliveryMessage}
+				   ,#{ordDate}
+				   ,#{ordTotalPrice}
 <!-- 				   ,#{ordSavedpoint} -->
-<!-- 				   ,#{ordCouponDc} -->
+				   ,#{ordCouponDc}
 <!-- 				   ,#{ordUsepoint} -->
-<!-- 				   ,#{ordFinalPrice} -->
-<!-- 				   ,#{ordPurchaseStatus} -->
+				   ,#{ordFinalPrice}
 <!-- 				   ,#{ordDeliveryPrice} -->
-<!-- 				    ) -->
+				    )
+	</insert>
+	
+<!--  결제시 결제 리스트에 값 넣기	 -->
 
-<!-- 			UPDATE PRODDTO -->
-<!-- 				SET PROD_L_QUANTITY=#{prodLQuantity - basketDTO.sbCount} -->
-<!-- 			WHERE SB_PROD_CODE -->
-
-<!-- 	</select> -->
-
-
+	<insert id="isertOrderList">
+			INSERT INTO ORDER_LIST(
+				 ORD_NUM
+			 	,ORD_L_USER
+			 	,ORD_L_CODE 
+			 	,ORD_L_QUANTITY
+			 	,ORD_L_PRICE
+			 	,ORD_DELIVERY_STATUS
+				,ORD_PURCHASESTATUS
+				)
+			VALUE(
+				  (SELECT ORD_NUM
+                    FROM   (SELECT IFNULL(MAX(CAST(ORD_NUM AS UNSIGNED)), 0) + 1 AS ORD_NUM
+                             FROM ORDER_LIST) A)
+				 ,#{ordLUser}
+				 ,#{ordLCode}
+				 ,#{ordLQuantity}
+				 ,#{ordLPrice}
+				 ,"0"
+				 ,"Y"
+			)
+	</insert>
+	
+<!-- 결제시 재고 수량 변경 --> 
+	<update id="updateQuantity">
+		UPDATE PRODUCT_LIST 
+			SET PROD_L_QUANTITY = PROD_L_QUANTITY - #{ordLQuantity}
+		 	WHERE PROD_L_CODE		=#{prodLCode}
+	</update>
+	
+	
+<!-- 결제시 장바구니 초기화 -->
+	<delete id="removeItemBasket">
+		DELETE FROM SHOPPING_BASKET 
+			WHERE SB_USER=#{userId}
+	</delete>
+	
+<!-- 제품 수량 가져오기 -->
+	<select id="getQuantityList" resultType="com.itwillbs.domain.ProdDTO">
+		SELECT * FROM PRODUCT_LIST
+			WHERE PROD_L_CODE		=#{prodLCode}
+	</select>	
+	
+<!--  사용한 포인트 입력 -->
+	<insert id="insertUsePoint">
+		INSERT INTO POINT(
+			POINT_NUM
+		   ,USER_ID
+		   ,POINT_DATE
+		   ,POINT_TYPE
+		   ,POINT_NOW
+		   ,POINT_USED
+		   ,POINT_CHARGE
+			)
+		VALUES(
+			 (SELECT A.POINTNUM
+			    FROM (SELECT MAX(POINT_NUM) + 1 AS POINTNUM
+			    	    FROM POINT) A)
+			,#{userId}
+			,#{pointDate}
+			,"포인트 사용"
+			,#{pointNow}
+			,#{pointUsed}
+			,0
+			)
+	</insert>
+	
 
 </mapper>
