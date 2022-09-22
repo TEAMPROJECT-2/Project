@@ -2,13 +2,13 @@ package com.itwillbs.domain;
 
 import java.sql.Timestamp;
 
-public class ProdReplyDTO {
+public class ProdReplyDTO extends ProdDTO {
 
 	private int replyNum;
 	private int prodLNum;
 	private String userId;
 	private String content;
-	private double rating;
+	private int rating;
 	private Timestamp replyDate;
 
 	public int getReplyNum() {
@@ -35,10 +35,10 @@ public class ProdReplyDTO {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public double getRating() {
+	public int getRating() {
 		return rating;
 	}
-	public void setRating(double rating) {
+	public void setRating(int rating) {
 		this.rating = rating;
 	}
 	public Timestamp getReplyDate() {
