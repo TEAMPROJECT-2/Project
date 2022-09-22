@@ -6,30 +6,33 @@
 <mapper namespace="com.itwillbs.mappers.prodMapper">
 
 	<select id="selectProdList" parameterType="com.itwillbs.domain.ProdDTO" resultType="com.itwillbs.domain.ProdDTO">
-		SELECT PROD.* FROM
-		(
-		SELECT PR.PROD_L_NUM
-              ,PR.PROD_L_CODE
-              ,PR.PROD_L_OPTION1
-              ,PR.PROD_L_OPTION2
-              ,PR.PROD_L_OPTION3
-              ,PR.PROD_L_OPTION4
-              ,PR.PROD_L_OPTION5
-              ,(SELECT CC.CD_OPT_NM FROM COMMON_CODE CC WHERE CC.USE_YN = 'Y' AND CC.CD_OPT = PR.PROD_L_OPTION1) AS nm1
-              ,(SELECT CC.CD_OPT_NM FROM COMMON_CODE CC WHERE CC.USE_YN = 'Y' AND CC.CD_OPT = PR.PROD_L_OPTION2) AS nm2
-              ,(SELECT CC.CD_OPT_NM FROM COMMON_CODE CC WHERE CC.USE_YN = 'Y' AND CC.CD_OPT = PR.PROD_L_OPTION3) AS nm3
-              ,(SELECT CC.CD_OPT_NM FROM COMMON_CODE CC WHERE CC.USE_YN = 'Y' AND CC.CD_OPT = PR.PROD_L_OPTION4) AS nm4
-              ,(SELECT CC.CD_OPT_NM FROM COMMON_CODE CC WHERE CC.USE_YN = 'Y' AND CC.CD_OPT = PR.PROD_L_OPTION5) AS nm5
-              ,PR.PROD_L_PRODNM
-              ,PR.PROD_L_PRICE
-              ,PR.PROD_L_UPLOADDATE
-              ,PR.PROD_L_COMPNM
-              ,PR.PROD_L_MAINIMG
-              ,PR.PROD_L_SUBIMG
-              ,PR.PROD_L_DETAIL
-              ,PR.PROD_L_QUANTITY
-		  FROM projectdb.PRODUCT_LIST PR
-		 WHERE 1=1
+		SELECT PROD.*
+		  FROM (
+			SELECT PR.*
+			  FROM (
+					SELECT PR.PROD_L_NUM
+			              ,PR.PROD_L_CODE
+			              ,PR.PROD_L_OPTION1
+			              ,PR.PROD_L_OPTION2
+			              ,PR.PROD_L_OPTION3
+			              ,PR.PROD_L_OPTION4
+			              ,PR.PROD_L_OPTION5
+			              ,(SELECT CC.CD_OPT_NM FROM COMMON_CODE CC WHERE CC.USE_YN = 'Y' AND CC.CD_OPT = PR.PROD_L_OPTION1) AS nm1
+			              ,(SELECT CC.CD_OPT_NM FROM COMMON_CODE CC WHERE CC.USE_YN = 'Y' AND CC.CD_OPT = PR.PROD_L_OPTION2) AS nm2
+			              ,(SELECT CC.CD_OPT_NM FROM COMMON_CODE CC WHERE CC.USE_YN = 'Y' AND CC.CD_OPT = PR.PROD_L_OPTION3) AS nm3
+			              ,(SELECT CC.CD_OPT_NM FROM COMMON_CODE CC WHERE CC.USE_YN = 'Y' AND CC.CD_OPT = PR.PROD_L_OPTION4) AS nm4
+			              ,(SELECT CC.CD_OPT_NM FROM COMMON_CODE CC WHERE CC.USE_YN = 'Y' AND CC.CD_OPT = PR.PROD_L_OPTION5) AS nm5
+			              ,PR.PROD_L_PRODNM
+			              ,PR.PROD_L_PRICE
+			              ,PR.PROD_L_UPLOADDATE
+			              ,PR.PROD_L_COMPNM
+			              ,PR.PROD_L_MAINIMG
+			              ,PR.PROD_L_SUBIMG
+			              ,PR.PROD_L_DETAIL
+			              ,PR.PROD_L_QUANTITY
+					  FROM projectdb.PRODUCT_LIST PR
+			  ) PR
+		  WHERE 1=1
 		 <!-- 검색 기능 -->
 		 <if test="srhText != null and srhText != ''">
 		 	AND (
@@ -110,8 +113,6 @@
 		 <if test="category != null and category != ''">
 		 	AND PROD_L_OPTION3 = #{category}
 		 </if>
-		 <!-- 카테고리 기능 -->
-<!-- 		 ORDER BY PROD.PROD_L_NUM DESC LIMIT #{startRow}, #{pageSize} -->
 	</select>
 
 	<select id="selectProdDetail" parameterType="com.itwillbs.domain.ProdDTO" resultType="com.itwillbs.domain.ProdDTO">
@@ -135,7 +136,7 @@
 	</select>
 
 	<!-- '리뷰 등록(팝업창)' 뷰로 보내줄 정보 (prodLNum값을 통해 prodLProdnm값을 반환) -->
-	<select id="getProdNumName" resultType="com.itwillbs.domain.ProdDTO">
+	<select id="getProdNumName" parameterType="com.itwillbs.domain.ProdDTO" resultType="com.itwillbs.domain.ProdDTO">
 		SELECT R.REPLY_NUM
 		      ,L.PROD_L_NUM
 		      ,U.USER_ID
@@ -145,7 +146,7 @@
 	      FROM PRODUCT_REPLY R
 	      LEFT OUTER JOIN PRODUCT_LIST L ON R.PROD_L_NUM = L.PROD_L_NUM
 	      LEFT OUTER JOIN USER_INFO U ON R.USER_ID = U.USER_ID
-	     WHERE 1=1;
+	     WHERE L.PROD_L_NUM = #{prodLNum}
 	</select>
 
 
