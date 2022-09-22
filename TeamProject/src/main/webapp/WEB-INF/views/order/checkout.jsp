@@ -4,7 +4,7 @@
 <%@page import="com.itwillbs.domain.OrderDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	<script src="https://code.jquery.com/jquery-3.3.1.min.js" ></script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script type="text/javascript"
 	src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <script type="text/javascript"
@@ -18,14 +18,44 @@
 </head>
 <body>
 
-<script>
+	<script>
+function myCoupon(){
+ var sbUser = "${memberDTO.userId}";
+ $('.nice-select').hide();
+ $('#myCouponList').show();
+//  var myCouponDC =document.getElementById('myCouponList');
+//  var myCouponDC1 = myCouponDC.options[myCouponDC.selectedIndex].value.split('_')[1]; // 옵션 value값
+	$.ajax({
+        	url: "myCoupon",
+			type: "post",
+			data : {'couUserNm':sbUser},
+			dataType: "json",
+			async: false,
+			success:function( data ) {
+				if(data.code=="S") {
+					$('#myCouponList').append("<option value='0_0'>" + "선택" + "</option>");
+					var codeList = data.couponList;
+				      for(var i = 0; i < codeList.length ; i++){
+				        var option = "<option value='" + codeList[i].couNumCouDc + "'>" + codeList[i].couNm + "</option>";
+				        $('#myCouponList').append(option);
+				      }
+				} else {
+					alert("ERROR : Common Code");
+				}
+			}
+		}); // ajax
+}
+</script>
+
+
+	<script>
 	function point(v){
 		document.getElementById('usePoint2').innerHTML=v+"원";
 		document.getElementById('total2').innerHTML=(${total}-v)+"원"; 		
 	}
 </script>
 
-<script>
+	<script>
 // 포인트사용
 function pointUseAll(){
 	document.getElementById('textUsePoint').value = ${pointDTO2.pointNow};
@@ -41,7 +71,7 @@ function pointUseAll(){
 
 		});
 
-	</script> 
+	</script>
 
 
 	<script>
@@ -97,7 +127,7 @@ function pointUseAll(){
         });
      }
   </script>
-<!--   <script> -->
+<!-- 	<script> -->
 <%-- //      var point = '${pointDTO2.pointNow}'; --%>
 <%-- //      var prePayment = '${prePayment}'; --%>
 <!-- //      $(function() { -->
@@ -126,23 +156,24 @@ function pointUseAll(){
 <!-- //            } -->
 <!-- //         }) -->
 <!-- //      }) -->
-<!--   </script> -->
+<!--   </script>
+	-->
 
-<!-- <script> -->
- 
-<!-- //             function itemSum() { -->
-<!-- //                 var str = ""; -->
-<!-- //                 var sum = 0; -->
-<!-- //                 for (var i = 0; i < count; i++) { -->
-<!-- //                     if ($(".chkbox")[i].checked == true) { -->
-<!-- //                         sum += parseInt($(".chkbox")[i].value); -->
-<!-- //                     } -->
-<!-- //                 } -->
-<!-- //                 $("#total_sum").html(sum + " 원"); -->
-<!-- //                 $("#amount").val(sum); -->
-<!-- //             } -->
- 
-<!--         </script> -->
+	<!-- <script> -->
+
+	<!-- //             function itemSum() { -->
+	<!-- //                 var str = ""; -->
+	<!-- //                 var sum = 0; -->
+	<!-- //                 for (var i = 0; i < count; i++) { -->
+	<!-- //                     if ($(".chkbox")[i].checked == true) { -->
+	<!-- //                         sum += parseInt($(".chkbox")[i].value); -->
+	<!-- //                     } -->
+	<!-- //                 } -->
+	<!-- //                 $("#total_sum").html(sum + " 원"); -->
+	<!-- //                 $("#amount").val(sum); -->
+	<!-- //             } -->
+
+	<!--         </script> -->
 
 	<!-- 메뉴단 -->
 	<jsp:include page="../inc/menu.jsp" />
@@ -171,94 +202,111 @@ function pointUseAll(){
 	<section class="checkout spad">
 		<div class="container">
 			<div class="checkout__form">
-<!-- 				<form action="#"> -->
-					<div class="row">
-						<div class="col-lg-8 col-md-6">
+				<!-- 				<form action="#"> -->
+				<div class="row">
+					<div class="col-lg-8 col-md-6">
 
 
 
-							<div class="checkout__input">
+						<div class="checkout__input">
 
-								<div class="order-info" id="orderUserInfo">
-									<div class="list-head">
-										<h3 class="title-list">주문자 정보</h3>
+							<div class="order-info" id="orderUserInfo">
+								<div class="list-head">
+									<h3 class="title-list">주문자 정보</h3>
+								</div>
+								<!--// list-head -->
+
+
+
+
+								<script type="text/javascript"
+									src="${pageContext.request.contextPath }/resources/js/jquery-3.6.0.js"></script>
+								<!-- 회원일때 -->
+								<div class="order-address">
+									<ul class="info-txt">
+									
+										
+										<li>아이디 :${sessionScope.userId }</li>
+										<li>성함 :${memberDTO.userNm }</li>
+										<li>이메일 :${memberDTO.userEmail}</li>
+									</ul>
+									<button type="button" class="btn btn-outline-primary">
+										<a href="/web/mypage/modify" class="text-primary"><span>주문자
+												정보변경</span><i class="ico-arr-right"></i></a>
+									</button>
+								</div>
+								<!--// 회원일때 -->
+
+
+								<div class="list-head-sub">
+
+									<h3 class="title-list">배송지 정보</h3>
+
+									<c:if test="${addressDTO.address ne null }">
+										<form name="updateAddressPro2" class=form-update
+											action="${pageContext.request.contextPath }/order/updateAddressPro2"
+											method="post">
+									</c:if>
+
+									<c:if test="${addressDTO.address eq null }">
+										<form name="insertAddress2"
+											action="${pageContext.request.contextPath }/order/insertAddress2"
+											method="post">
+									</c:if>
+									<div class="row">
+										<div class="mb-3 col-md-6">
+											<label for="userNm" class="form-label">받는 분</label> <input
+												class="form-control form-control-lg" type="text"
+												name="addressGetNm" id="addressGetNm"
+												value="${addressDTO.addressGetNm}" />
+										</div>
+										<div class="mb-3 col-md-6">
+											<label for="userPhone" class="form-label">연락처</label> <input
+												class="form-control form-control-lg" type="text"
+												name="addressGetPhone" id="addressGetPhone" maxlength="11"
+												value="${addressDTO.addressGetPhone}" />
+										</div>
+										<div class="mb-3 col-md-3">
+											<label for="userNicknm" class="form-label">우편번호</label> <input
+												class="form-control form-control-lg" type="text"
+												name="addressZipcode" id="addressZipcode"
+												value="${addressDTO.addressZipcode}" readonly />
+										</div>
+										<div class="mb-3 col-md-7">
+											<label for="userNicknm" class="form-label">주소</label> <input
+												class="form-control form-control-lg" type="text"
+												name="address" id="address" value="${addressDTO.address}"
+												readonly />
+										</div>
+										<div class="mb-3 col-md-2">
+											<button type="button" class="btn btn-outline-primary me-2"
+												onclick="sample6_execDaumPostcode();"
+												style="margin-top: 1.8rem; height: 60%">주소 검색</button>
+										</div>
+										<div class="mb-3 col-md-12">
+											<label for="userNicknm" class="form-label">상세주소</label> <input
+												class="form-control form-control-lg" type="text"
+												name="addressDetails" id="addressDetails"
+												value="${addressDTO.addressDetails}" />
+										</div>
 									</div>
-									<!--// list-head -->
 
-
-
-
-									<script type="text/javascript"
-										src="${pageContext.request.contextPath }/resources/js/jquery-3.6.0.js"></script>
-									<!-- 회원일때 -->
-									<div class="order-address">
-										<ul class="info-txt">
-											<li>아이디 : ${sessionScope.userId }</li>
-											<li>성함 :${memberDTO.userNm }</li>
-											<li>이메일 :${memberDTO.userEmail}</li>
-										</ul>
-										<button type="button" class="btn btn-outline-primary">
-											<a href="/web/mypage/modify" class="text-primary"><span>주문자
-													정보변경</span><i class="ico-arr-right"></i></a>
-										</button>
+									<div class="mt-3" id="mt-3" name="mt-3">
+										<c:if test="${addressDTO.address ne null }">
+											<button type="submit" class="btn btn-primary me-2">배송지
+												저장</button>
+											<button type="reset" class="btn btn-outline-secondary">취소</button>
+											</form>
+										</c:if>
+										<c:if test="${addressDTO.address eq null }">
+											<button type="submit" class="btn btn-primary me-2">배송지
+												저장</button>
+											<button type="reset" class="btn btn-outline-secondary">취소</button>
+											</form>
+										</c:if>
 									</div>
-									<!--// 회원일때 -->
 
-
-										<div class="list-head-sub">
-
-											<h3 class="title-list">배송지 정보</h3>
-
-					<c:if test="${addressDTO.address ne null }">
-										<form name="updateAddressPro2"
-						class=form-update
-							action="${pageContext.request.contextPath }/order/updateAddressPro2"
-							method="post" >
-					</c:if>
-                    
-                       <c:if test="${addressDTO.address eq null }">
-						<form name="insertAddress2" action="${pageContext.request.contextPath }/order/insertAddress2" method="post">
-						</c:if>
-                        <div class="row">
-                          <div class="mb-3 col-md-6">
-                            <label for="userNm" class="form-label">받는 분</label>
-                            <input class="form-control form-control-lg" type="text" name="addressGetNm" id="addressGetNm" value="${addressDTO.addressGetNm}"/>
-                          </div>
-                          <div class="mb-3 col-md-6">
-                            <label for="userPhone" class="form-label" >연락처</label>
-                            <input class="form-control form-control-lg" type="text" name="addressGetPhone" id="addressGetPhone" maxlength="11" value="${addressDTO.addressGetPhone}" />
-                          </div>
-                          <div class="mb-3 col-md-3">
-                            <label for="userNicknm" class="form-label">우편번호</label>
-                            <input class="form-control form-control-lg" type="text" name="addressZipcode" id="addressZipcode"  value="${addressDTO.addressZipcode}" readonly/>
-                          </div>
-                          <div class="mb-3 col-md-7">
-                            <label for="userNicknm" class="form-label">주소</label>
-                            <input class="form-control form-control-lg" type="text" name="address" id="address"  value="${addressDTO.address}" readonly/>
-                          </div>
-                          <div class="mb-3 col-md-2">
-                          	<button type="button" class="btn btn-outline-primary me-2" onclick="sample6_execDaumPostcode();" style="margin-top: 1.8rem; height:60%">주소 검색</button>
-                          </div>
-                          <div class="mb-3 col-md-12">
-                            <label for="userNicknm" class="form-label">상세주소</label>
-                            <input class="form-control form-control-lg" type="text" name="addressDetails" id="addressDetails"  value="${addressDTO.addressDetails}"/>
-                          </div>
-                        </div>
-                        
-                        <div class="mt-3" id="mt-3" name="mt-3">
-                         <c:if test="${addressDTO.address ne null }">
-                          <button type="submit" class="btn btn-primary me-2">배송지 저장</button>
-                          <button type="reset" class="btn btn-outline-secondary">취소</button>
-                      </form>
-                      </c:if>
-                      <c:if test="${addressDTO.address eq null }">
-                          <button type="submit" class="btn btn-primary me-2">배송지 저장</button>
-                          <button type="reset" class="btn btn-outline-secondary">취소</button>
-                      </form>
-                      </c:if>
-                        </div>
-                      
-                    </div>
+								</div>
 
 								<div class="order-info">
 									<div class="list-head">
@@ -285,12 +333,14 @@ function pointUseAll(){
 																	<input type="number" title=""
 																		class="input-text ui-point-input" id="textUsePoint"
 																		name="textUsePoint" placeholder="1,000P부터 사용가능"
-																		min='1000' max="${pointDTO2.pointNow}" onblur="point(value)">
-<!-- 																		onKeyPress="return checkNum(event)" -->
-<!-- 																		onkeyup="removeChar(event)" onblur="fnUsePoint()" -->
+																		min='1000' max="${pointDTO2.pointNow}"
+																		onblur="point(value)">
+																	<!-- 																		onKeyPress="return checkNum(event)" -->
+																	<!-- 																		onkeyup="removeChar(event)" onblur="fnUsePoint()" -->
 																	<span class="input-group-btn">
 																		<button type="reset" class="btn-x-xs btn-input-del"
-																			title=""><span>삭제</span>
+																			title="">
+																			<span>삭제</span>
 																		</button>
 																		<button type="button" class="btn-ex-grey"
 																			onclick="pointUseAll();">
@@ -310,28 +360,12 @@ function pointUseAll(){
 												<tr>
 													<th scope="row"><span class="tit">쿠폰 사용</span></th>
 													<td>
-														<div class="order-point">
-															<div class="input-group-wrap box-type">
-																<div class="input-group">
-																	<input type="text" title="" class="input-text"
-																		id="text_use_coupon" readonly=""> <input
-																		type="hidden" name="cartCouponid"> <input
-																		type="hidden" name="orderCouponOwnid"> <input
-																		type="hidden" name="orderCouponCd"> <input
-																		type="hidden" name="deliveryCouponOwnid"> <input
-																		type="hidden" name="deliveryCouponCd"> <span
-																		class="input-group-btn"> <a
-																		href="#popup-coupon"
-																		class="btn-ex-grey cpn_select_btn"><span>쿠폰선택</span></a>
-																	</span>
-																</div>
-																<!--// input-group -->
+														<div class="cart__discount">
+															<div class="col-3 mb-3">
+																<select id="myCouponList"
+																	class="form-select form-control-lg" name="myCouponList">
+																</select>
 															</div>
-															<!--// input-group-wrap -->
-															<p class="point-guide">
-																사용 가능한 쿠폰 <em class="text-num-bold" id="userCouponCount">0</em>개
-															</p>
-														</div> <!--// order-point -->
 													</td>
 												</tr>
 											</tbody>
@@ -345,7 +379,8 @@ function pointUseAll(){
 									<p>
 										배송시 요구사항<span>*</span>
 									</p>
-									<input type="checkbo x" id="ordDeliveryMessage" name="ordDeliveryMessage" placeholder="메세지를 입력하세요."> 
+									<input type="checkbo x" id="ordDeliveryMessage"
+										name="ordDeliveryMessage" placeholder="메세지를 입력하세요.">
 								</div>
 							</div>
 
@@ -366,39 +401,39 @@ function pointUseAll(){
 											<li>${basketDTO.sbProdPrice *basketDTO.sbCount }원</li>
 										</ul>
 									</c:forEach>
-									
+
 									<ul class="checkout__total__all">
 										<li>할인 금액<span id="usePoint2">0원</span></li>
-										<li>Total <span id="total2" >${total }원</span></li>
+										<li>Total <span id="total2">${total }원</span></li>
 									</ul>
-									
-<!-- 									<div class="checkout__input__checkbox"> -->
-<!-- 										<label for="payment"> 신용카드/무통장입금 사항 선택해도 되고 <input -->
-<!-- 											type="checkbox" id="payment"> <span class="checkmark"></span> -->
-<!-- 										</label> -->
-<!-- 									</div> -->
-<!-- 									<div class="checkout__input__checkbox"> -->
-<!-- 										<label for="paypal"> 개인정보 어쩌구에 동의하는지 해도 될듯 <input -->
-<!-- 											type="checkbox" id="paypal"> <span class="checkmark"></span> -->
-<!-- 										</label> -->
-<!-- 									</div> -->
-<!-- 									<button type="submit" class="site-btn">결제</button> -->
+
+									<!-- 									<div class="checkout__input__checkbox"> -->
+									<!-- 										<label for="payment"> 신용카드/무통장입금 사항 선택해도 되고 <input -->
+									<!-- 											type="checkbox" id="payment"> <span class="checkmark"></span> -->
+									<!-- 										</label> -->
+									<!-- 									</div> -->
+									<!-- 									<div class="checkout__input__checkbox"> -->
+									<!-- 										<label for="paypal"> 개인정보 어쩌구에 동의하는지 해도 될듯 <input -->
+									<!-- 											type="checkbox" id="paypal"> <span class="checkmark"></span> -->
+									<!-- 										</label> -->
+									<!-- 									</div> -->
+									<!-- 									<button type="submit" class="site-btn">결제</button> -->
 									<button type="button" onclick="iamport();">결제하기</button>
-									</div>
 								</div>
 							</div>
 						</div>
-				</form>
+					</div>
+					</form>
+				</div>
 			</div>
-		</div>
 	</section>
 	<!-- Footer Section Begin -->
 	<jsp:include page="../inc/footer.jsp" />
 </body>
 
-	<script
-		src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-	<script>
+<script
+	src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script>
 		function sample6_execDaumPostcode() {
 			new daum.Postcode(
 					{

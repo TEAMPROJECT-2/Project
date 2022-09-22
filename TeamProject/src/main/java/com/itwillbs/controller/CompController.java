@@ -161,6 +161,7 @@ public class CompController {
 		pageDTO.setSearchKeyWord(request.getParameter("searchKeyWord")); // 검색 키워드 갖고오기
 		pageDTO.setStatus(request.getParameter("status")); // 검색 양호,품절 상태 갖고오기
 		List<ProdDTO> prodList = compService.getProdList(pageDTO); // 물건 리스트 갖고오기
+
 		int count = compService.getProdCount(pageDTO); // 업체 전체 물건 리스트 갯수
 		// 페이징
 		int pageBlock = 10;

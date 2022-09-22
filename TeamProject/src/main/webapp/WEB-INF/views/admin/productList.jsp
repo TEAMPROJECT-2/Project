@@ -27,23 +27,23 @@
           <div class="content-wrapper">
             <!-- Content -->
             <div class="container-xxl flex-grow-1 container-p-y">
-              <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">업체 /</span> 업체 관리</h4>
+              <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">업체 /</span> 상품 관리</h4>
 
               <div class="row">
                 <div class="col-md-12">
                   <ul class="nav nav-pills flex-column flex-md-row mb-3">
                     <li class="nav-item">
-                      <a class="nav-link active" href="${pageContext.request.contextPath }/admin/comp">
+                      <a class="nav-link" href="${pageContext.request.contextPath }/admin/comp">
                       <i class="bx bx-buildings me-1"></i> 업체 관리</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="${pageContext.request.contextPath }/mypage/addr">
+                      <a class="nav-link active" href="${pageContext.request.contextPath }/mypage/addr">
                       <i class="bx bx-buildings me-1"></i> 상품 관리</a>
                     </li>
                   </ul>
 
                  <div class="card">
-                <h5 class="card-header">업체 관리</h5>
+                <h5 class="card-header">상품 관리</h5>
                 <hr class="my-0" />
                 <div class="card-body">
                 <div class="table-responsive text-nowrap">
@@ -60,12 +60,11 @@
                     <tbody class="table-border-bottom-0">
                      <c:forEach var="prodDTO" items="${productList}" >
                       <tr>
-                        <td>${prodDTO.prodLCode}</td>
-                        <td><img src="${pageContext.request.contextPath }/resources/img/product/${prodDTO.prodLMainimg}" width="200"/></td>
-                        <td>${prodDTO.prodLCompnm}</td>
-                        <td>${prodDTO.prodLProdnm}</td>
-                        <td>${prodDTO.prodLOption1}</td>
-                        <td>
+                        <td style="vertical-align: middle">${prodDTO.prodLCode}</td>
+                        <td><img src="${pageContext.request.contextPath }/resources/img/product/${prodDTO.prodLMainimg}" width="150"/></td>
+                        <td style="vertical-align: middle">${prodDTO.prodLCompnm}</td>
+                        <td style="vertical-align: middle">${prodDTO.prodLProdnm}</td>
+                        <td style="vertical-align: middle">${prodDTO.prodLOption1}</td>
                       </tr>
 					 </c:forEach>
                     </tbody>

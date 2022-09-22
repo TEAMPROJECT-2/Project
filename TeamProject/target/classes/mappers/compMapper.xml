@@ -138,7 +138,6 @@
 		   SET	  COMP_ZIPCODE		=#{compZipcode}
 			   	 ,COMP_ADDRESS		=#{compAddress}
 			   	 ,COMP_DETADDRESS	=#{compDetaddress}
-			   	 ,COMP_EXTADDRESS	=#{compExtaddress}
 				 ,COMP_PHONE		=#{compPhone}
 		 WHERE    COMP_ID			=#{compId}
 	</update>

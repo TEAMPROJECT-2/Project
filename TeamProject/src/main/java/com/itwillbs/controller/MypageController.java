@@ -127,6 +127,11 @@ public class MypageController {
 		return "mypage/userConnection";
 	}
 
+	// 마이페이지 - 주문 정보
+	@RequestMapping(value = "/mypage/order", method = RequestMethod.GET)
+	public String order() {
+		return "mypage/orderList";
+	}
 
 	// 마이페이지 - 포인트
 	@RequestMapping(value = "/mypage/point", method = RequestMethod.GET)
@@ -150,7 +155,7 @@ public class MypageController {
 		pageDTO.setCurrentPage(currentPage);
 		pageDTO.setUserId(userId);
 		pageDTO.setStartDate(startDate);
-		pageDTO.setEndDate(endDate); 
+		pageDTO.setEndDate(endDate);
 		List<PointDTO> pointList=pointService.getPointList(pageDTO);
 
 		// pageBlock  startPage endPage count pageCount

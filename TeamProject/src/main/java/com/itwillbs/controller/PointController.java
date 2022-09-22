@@ -39,21 +39,21 @@ public class PointController {
 //	public IamportResponse<Payment> verifyIamportPOST(@PathVariable(value = "imp_uid") String imp_uid) throws IamportResponseException, IOException {
 //	    return client.paymentByImpUid(imp_uid);
 //	}
-	
+
 	@Inject
 	private PointService pointService;
-	
-	private PointDAO pointDAO; 
-	
+
+	private PointDAO pointDAO;
+
 	@Inject
 	private MemberService memberService;
-	
+
 	private IamportClient api;
 	public PointController() {
 	      // REST API 키와 REST API secret 입력
 	      this.api = new IamportClient("6077548071335284", "dCktE2HC7a2YUwzkDWeeqfuZvZdDen3Sm66vMQja5xQTpoAsMz9YUPZ42kuSyxReMbEXbvtEvOjllVjQ");
-	}   
-	
+	}
+
 	// 포인트 충전 DB저장
 	 @ResponseBody
 	   @RequestMapping(value="/point/insertChargePoint", method = RequestMethod.POST)
@@ -64,7 +64,7 @@ public class PointController {
 	      sMap.put("pointDate", new FunctionClass().nowTime("yyyy-MM-dd HH:mm:ss"));
 	      System.out.println(sMap);
 	      pointService.insertChargePoint(sMap);
-	      
+
 	      return "redirect:/main/main";
 	 }
 
@@ -91,7 +91,7 @@ public class PointController {
 		pageDTO.setCurrentPage(currentPage);
 		pageDTO.setUserId(userId);
 		pageDTO.setStartDate(startDate);
-		pageDTO.setEndDate(endDate); 
+		pageDTO.setEndDate(endDate);
 
 		List<PointDTO> pointList=pointService.getPointCheckList(pageDTO);
 
@@ -114,5 +114,5 @@ public class PointController {
 		model.addAttribute("pageDTO", pageDTO);
 		return "mypage/userPoint";
 	}
-	
+
 }

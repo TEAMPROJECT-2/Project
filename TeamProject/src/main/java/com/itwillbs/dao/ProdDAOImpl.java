@@ -21,15 +21,15 @@ public class ProdDAOImpl implements ProdDAO{
 	public List<ProdDTO> selectProdList(ProdDTO prodDTO) {
 		return sqlSession.selectList(namespace+".selectProdList",prodDTO);
 	}
-	
+
 	@Override
 	public int selectProdListCnt(ProdDTO prodDTO) {
 		return sqlSession.selectOne(namespace+".selectProdListCnt",prodDTO);
 	}
-	
+
 	@Override
 	public ProdDTO selectProdDetail(ProdDTO prodDTO) {
 		return (ProdDTO) sqlSession.selectOne(namespace+".selectProdDetail",prodDTO);
 	}
-	
+
 }
