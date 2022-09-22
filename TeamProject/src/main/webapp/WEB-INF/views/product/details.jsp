@@ -10,14 +10,14 @@
 <script src="http://code.jquery.com/jquery-3.6.0.js"></script>
 <script type="text/javascript">
 
-<!-- 리뷰쓰기 -->
+// 리뷰쓰기
 $(document).ready(function(){
 	$(".reply_button_wrap").on("click", function(e){
-// 		alert("1");
-	e.preventDefault();
+		debugger;
+		e.preventDefault();
 
-	const userId = '${userInfo.userId}';
-	const prodLNum = '${productList.prodLNum}';
+	const userId = '${memberDTO.userId}';
+	const prodLNum = '${prodDTO.prodLNum}';
 
 	let popUrl = "/replyEnroll/" + userId + "?prodLNum=" + prodLNum;
 	console.log(popUrl);
@@ -28,16 +28,16 @@ $(document).ready(function(){
 });
 
 // 관련 상품 뿌려주기
-// function printProdList(data){
-// 	$('#detailsContainer').empty();
-// 	data.forEach((e, i) => {
-// 		var prodLPrice = e.prodLPrice;
-// 		var price = prodLPrice.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
-// 		$('#prodContainer').append(
+function printProdList(data){
+	$('#detailsContainer').empty();
+	data.forEach((e, i) => {
+		var prodLPrice = e.prodLPrice;
+		var price = prodLPrice.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+		$('#prodContainer').append(
 
-// 		);
-// 	});
-// }
+		);
+	});
+}
 </script>
 
 
@@ -226,14 +226,14 @@ $(document).ready(function(){
             <div class="col-lg-6">
               <div class="review_box">
                 <div class="reply_subject">
-					<br><br><h2>리뷰</h2>
+					<br><h2>리뷰</h2>
 				</div>
 
 				<!-- 이 리뷰 버튼은 로그인한 회원에게만 보이도록함 -->
 <%-- 				<c:if test="${userId != null}"> --%>
-				<div class="reply_button_wrap">
-					<br><button>리뷰 쓰기</button>
-				</div>
+					<div class="reply_button_wrap">
+						<br><button>리뷰 쓰기</button>
+					</div>
 <%-- 				</c:if> --%>
 				<!-- 이 리뷰 버튼은 로그인한 회원에게만 보이도록함 -->
 
