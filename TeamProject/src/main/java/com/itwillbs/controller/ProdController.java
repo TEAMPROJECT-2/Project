@@ -10,6 +10,7 @@ import javax.annotation.Resource;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,8 +27,10 @@ import com.itwillbs.domain.ProdDTO;
 import com.itwillbs.domain.ProdReplyDTO;
 import com.itwillbs.domain.BoardDTO;
 import com.itwillbs.domain.CommonDTO;
+import com.itwillbs.domain.MemberDTO;
 import com.itwillbs.domain.PageDTO;
 import com.itwillbs.service.CommonService;
+import com.itwillbs.service.MemberService;
 import com.itwillbs.service.ProdReplyService;
 import com.itwillbs.service.ProdService;
 
@@ -41,7 +44,8 @@ public class ProdController {
 	private CommonService commonService;
 	@Inject
 	private ProdReplyService prodReplyService;
-
+	@Inject
+	private MemberService memberService;
 
 
 	//업로드 경로 servlet-context.mxl upload폴더 경로 이름
@@ -160,8 +164,12 @@ public class ProdController {
 			ModelAndView mv = new ModelAndView();
 
 			ProdDTO details = prodService.selectProdDetail(prodDTO);
+			// 추천꺼 LIST
+//			List<ProdDTO> prodList = prodService.selectProdList(prodDTO);
+
 
 			mv.addObject("details", details);
+			// 추천 꺼 만들기
 			mv.addObject("prodDTO", prodDTO);
 			mv.setViewName("product/details");
 
@@ -174,32 +182,23 @@ public class ProdController {
 	}
 
 	/* 리뷰 쓰기 */
-//	@GetMapping("/replyEnroll/{memberId}")
-//	public String replyEnrollWindowGET(@PathVariable("memberId")String memberId, int bookId, Model model) {
-//		BookVO book = bookService.getBookIdName(bookId);
-//		model.addAttribute("bookInfo", book); // prodLNum
-//		model.addAttribute("memberId", memberId); // userId
-//
-//		return "/replyEnroll";
-//	}
-
-	/* 리뷰 쓰기 */
-	@RequestMapping(value = "/replyEnroll", method = RequestMethod.GET)
-	public String replyEnrollWindowGET(HttpServletRequest request, Model model, ProdReplyDTO dto) throws Exception  {
+	@RequestMapping(value = "product/replyEnroll", method = RequestMethod.GET)
+	public String replyEnrollWindow(HttpServletRequest req, HttpSession session, Model model) throws Exception  {
 //		System.out.println(dto.getProdLNum());
 //		System.out.println(dto.getUserId());
 		// 파라미터 가져오기
-		int prodLNum=Integer.parseInt(request.getParameter("prodLNum"));
-		// 디비에서 조회
-		dto.getProdLNum();
-		// model에 데이터 저장
-		prodReplyService.enrollReply(dto);
-		ProdDTO prod = prodService.getProdNumName(prodLNum);
-
-		model.addAttribute("productList", prodLNum);
-//		model.addAttribute("userInfo", user);
-
-		return "/replyEnroll";
+		int prodLNum=Integer.parseInt(req.getParameter("prodLNum"));
+		String userId = (String)session.getAttribute("userId");
+		System.out.println("====");
+		if(userId==null) {
+			return "/product/msg";
+		} else {
+			ProdDTO prodDTO = prodService.getProdNumName(prodLNum);
+			MemberDTO memberDTO = memberService.getMember(userId);
+			model.addAttribute("prodDTO", prodDTO); // prodLNum
+			model.addAttribute("memberDTO", memberDTO); // userId
+			return "product/replyEnroll";
+		}
 	}
 
 }
