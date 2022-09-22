@@ -43,7 +43,7 @@
 		SELECT * 
 		  FROM POINT
  		 WHERE USER_ID= #{userId} 
-	  ORDER BY POINT_NUM DESC LIMIT #{startRow}, #{pageSize}
+	  ORDER BY POINT_DATE DESC LIMIT #{startRow}, #{pageSize}
 	</select>
 
 <!-- 포인트 충전 DB 저장 -->
@@ -68,37 +68,13 @@
 			)
 	</insert>
 	
-<!-- 포인트 사용 DB 저장 -->
-	<insert id="insertUsePoint">
-			INSERT INTO POINT(
-			 POINT_NUM
-			,USER_ID
-			,POINT_DATE
-			,POINT_TYPE
-			,POINT_NOW
-			,POINT_USED
-			,POINT_CHARGE
-			) 
-		values(
-			 (SELECT A.POINTNUM
-			    FROM (SELECT MAX(POINT_NUM) + 1 AS POINTNUM
-			    	    FROM POINT) A)
-			,#{userId}
-			,#{pointDate}
-			,#{pointType}
-			,#{pointNow}
-			,#{pointUsed}
-			,0
-			)
-	</insert>
-	
 	<!-- 포인트 날짜 리스트 조회 -->
 	<select id="getPointCheckList" resultType="com.itwillbs.domain.PointDTO">
 		SELECT * 
 		  FROM POINT
  		 WHERE USER_ID= #{userId}
  		   AND date_format(POINT_DATE, '%Y-%m-%d') BETWEEN #{startDate} AND #{endDate}
-	  ORDER BY POINT_NUM DESC LIMIT #{startRow}, #{pageSize}
+	  ORDER BY POINT_DATE DESC LIMIT #{startRow}, #{pageSize}
 	</select>
 	
 </mapper>

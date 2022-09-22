@@ -1,13 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<script type="text/javascript"
-src="${pageContext.request.contextPath }/resources/js/jquery-3.6.0.js"></script>
-<script type="text/javascript">
-let startDate = $('#startDate').val();
-let endDate = $('#endDate').val();
-</script>
-
+<script type="text/javascript" src="${pageContext.request.contextPath }/resources/js/jquery-3.6.0.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath }/resources/js/date.js"></script>
 <!DOCTYPE html>
 <html
   lang="en"
@@ -37,14 +32,14 @@ let endDate = $('#endDate').val();
 
                 <div class="mb-3 row">
                   <div class="col-md-10">
-                    <form action="${pageContext.request.contextPath }/point/pointCheck" method="get" onsubmit="return datecheck()">  
+                    <form action="${pageContext.request.contextPath }/mypage/pointCheck" method="get" onsubmit="return datecheck()">  
                     <input class="form-control" type="date" id="startDate" name="startDate" value="${pageDTO.startDate }" required/>
                     <input class="form-control" type="date" id="endDate" name="endDate" value="${pageDTO.endDate }" required/>
 								<br>
-								<input type="button" value="1개월" class="btn btn-outline-info" onclick="location.href='?">
-								<input type="button" value="3개월" class="btn btn-outline-info" onclick="location.href='?">  
-								<input type="button" value="6개월" class="btn btn-outline-info" onclick="location.href='?">
-								<input type="submit" value="조회하기" class="btn btn-info" id="searchPoint">
+						<input type="button" value="1개월" id="searchMonth1" class="btn btn-outline-info" > 
+						<input type="button" value="3개월" id="searchMonth3" class="btn btn-outline-info" >  
+						<input type="button" value="6개월" id="searchMonth6" class="btn btn-outline-info" >
+						<input type="submit" value="조회하기" class="btn btn-info" id="searchPoint">
 					</form>
                   </div>
                 </div>
@@ -77,29 +72,39 @@ let endDate = $('#endDate').val();
 					 </c:forEach>					
                     </tbody>
                   </table>
+        		<!-- 페이지 -->
+                  <div class="bd-example-snippet bd-code-snippet mt-5 mb-3"><div class="bd-example " >
+			        <nav aria-label="Standard pagination example">
+			          <ul class="pagination" style="margin-left: 45%; margin-rightt: 55%;">
+			            <li class="page-item">
+                            <c:if test="${pageDTO.startPage > pageDTO.pageBlock }">
+								<a class="page-link" href="${pageContext.request.contextPath }
+							/mypage/point?pageNum=${pageDTO.startPage - pageDTO.pageBlock}" aria-label="Previous">
+								<span aria-hidden="true">&laquo;</span>
+							</a>
+							</c:if>
+						 </li>
+							<c:forEach var="i" begin="${pageDTO.startPage }" end="${pageDTO.endPage }" step="1">
+						 <li class="page-item">
+						 		<a class="page-link" href="${pageContext.request.contextPath }/mypage/point?pageNum=${i}">${i}</a>
+						 </li>
+							</c:forEach>
+
+						 <li class="page-item">
+							<c:if test="${pageDTO.endPage < pageDTO.pageCount }">
+								<a class="page-link" href="${pageContext.request.contextPath }/mypage/point?pageNum=${pageDTO.startPage + pageDTO.pageBlock}" aria-label="Next">
+									<span aria-hidden="true">&raquo;</span>
+								</a>
+							</c:if>
+			            </li>
+			          </ul>
+			        </nav>
+			        </div></div>
                 </div>
               </div>
               <!--/ Basic Bootstrap Table -->
-               	  <div class="row">
-                        <div class="col-lg-12">
-                            <div class="product__pagination">
-								<c:if test="${pageDTO.startPage > pageDTO.pageBlock }">
-								<a href="${pageContext.request.contextPath }
-								/mypage/point?pageNum=${pageDTO.startPage - pageDTO.pageBlock}">Prev</a>
-								</c:if>
-								
-								<c:forEach var="i" begin="${pageDTO.startPage }" end="${pageDTO.endPage }" step="1">
-								<a href="${pageContext.request.contextPath }/mypage/point?pageNum=${i}">${i}</a>  
-								</c:forEach>
-								
-								<c:if test="${pageDTO.endPage < pageDTO.pageCount }">
-								<a href="${pageContext.request.contextPath }
-								/mypage/point?pageNum=${pageDTO.startPage + pageDTO.pageBlock}">Next</a>
-								</c:if>                               
-                           	</div>
-                       	 </div>
-                   	</div>
-              
+
+			        
               
 			</div>
 
@@ -176,14 +181,21 @@ let endDate = $('#endDate').val();
 </html>
 <script type="text/javascript">
 function datecheck(){
-	
-	var today = new Date();
+	function dateFormat(){
+		var date=new Date();
+		var yyyy=date.getFullYear();
+		var mm=date.getMonth()+1;
+		mm = mm >=10 ? mm : '0'+mm;
+		var dd=date.getDate();
+		dd = dd>=10 ? dd : '0'+dd;
+		return yyyy+'-'+mm+'-'+dd;
+	}
 	var startdate = $('#startDate').val();
 	var enddate = $('#endDate').val();
 	if(startdate > enddate){
 		alert('검색 종료일을 검색 시작일 보다 늦은 날짜로 지정해주세요.');
 		return false;
-	}else if(startdate > today || enddate > today){
+	} else if(startdate > dateFormat() || enddate > dateFormat()){
 		alert('오늘 이전의 날짜만 검색이 가능합니다.');
 		return false;
 	}
