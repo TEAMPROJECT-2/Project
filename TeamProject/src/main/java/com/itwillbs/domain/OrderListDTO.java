@@ -2,7 +2,7 @@ package com.itwillbs.domain;
 
 import java.sql.Timestamp;
 
-public class OrderListDTO {
+public class OrderListDTO extends OrderDTO{
 	private int trnum;
 	private int num          ;
 	private String ordLCode        ;

@@ -7,6 +7,7 @@ import com.itwillbs.domain.LikeDTO;
 import com.itwillbs.domain.MemberDTO;
 import com.itwillbs.domain.PageDTO;
 import com.itwillbs.domain.ReplyDTO;
+import com.itwillbs.domain.SearchDTO;
 import com.itwillbs.domain.ViewDTO;
 
 public interface BoardDAO {
@@ -40,6 +41,8 @@ public interface BoardDAO {
 	void rCountsub(int boardNum);
 
 	void rCount(int boardNum);
+
+	List<BoardDTO> searchBoard(BoardDTO boardDTO);
 
 	
 

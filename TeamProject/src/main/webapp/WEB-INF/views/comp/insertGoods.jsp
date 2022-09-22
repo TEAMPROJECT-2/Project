@@ -106,7 +106,7 @@
 
 													<div class="mb-3 col-4">
 														<label class="form-label" for="basic-default-company">가격</label>
-														<input type="text" class="form-control form-control-lg" id="basic-default-company" name="prodLPrice" oninput="formatPrice(this)" style="text-align:right;" placeholder="원" />
+														<input type="text" class="form-control form-control-lg" id="basic-default-company" name="prodLPrice" oninp ut="formatPrice(this)" style="text-align:right;" placeholder="원" />
 													</div>
 													<div class="mb-3 col-4">
 														<label class="form-label" for="basic-default-company">수량</label>

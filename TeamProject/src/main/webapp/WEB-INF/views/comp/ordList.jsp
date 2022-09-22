@@ -68,7 +68,7 @@
                     </thead>
                     <tbody class="table-border-bottom-0">
 					  <c:forEach var="orderListDTO" items="${ordList }" varStatus="status">
-                      <tr >
+                      <tr onClick="location.href='${pageContext.request.contextPath }/comp/ordListDet?CheckRow=${orderListDTO.ordLCode }'" style="cursor:pointer;">
 
                         <td><fmt:formatDate pattern="yy-MM-dd" value="${orderListDTO.ordLDate }"/></td>
                         <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>${orderListDTO.num }</strong></td>
@@ -82,7 +82,7 @@
                           ${orderListDTO.ordFinalprice }
                         </td>
 
-                        <td colspan="2">
+                        <td colspan="2" onclick="event.cancelBubble=true">
 					  		<form action="${pageContext.request.contextPath }/comp/delivNumberInsert" method="post">
                       			<input type="hidden" value="${orderListDTO.ordLCode }" name="ordLCode" id="ordLCode">
                       			<input type="hidden" value="${orderListDTO.ordLUser }" name="ordLUser" id="ordLUser">
@@ -116,7 +116,7 @@
 
 			        <div class="bd-example-snippet bd-code-snippet"><div class="bd-example " >
 			        <nav aria-label="Standard pagination example">
-			          <ul class="pagination">
+			          <ul class="pagination" style="margin-left: 35%; margin-rightt: 65%;">
 			            <li class="page-item">
 			              <c:if test="${pageDTO.startPage > pageDTO.pageBlock }">
 			              <a class="page-link" href="${pageContext.request.contextPath }

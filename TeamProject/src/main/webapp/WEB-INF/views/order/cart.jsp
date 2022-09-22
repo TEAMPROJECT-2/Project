@@ -38,8 +38,8 @@
 					<div class="shopping__cart__table">
 						<table>
 							<thead>
-								<tr>
-									<th>&nbsp;&nbsp;&nbsp;&nbsp;상품</th>
+								<tr><th>상품</th>
+									<th>가격</th>
 									<th>수량</th>
 									<th>Total</th>
 									<th></th>
@@ -48,7 +48,9 @@
 							<tbody>
 								<form action="${pageContext.request.contextPath }/order/insertOrder" method="post">
 									<c:forEach items="${basketList }" var="basketDTO" varStatus="status">
-										<tr>
+										<tr><td class="product__cart__item">
+										<img src="${pageContext.request.contextPath }/resources/img/product/${basketDTO.prodMainimg }" width="200"  /></td>
+
 											<td class="product__cart__item">
 												<div class="product__cart__item__pic">
 													<img src="img/shopping-cart/cart-1.jpg" alt="">
@@ -56,7 +58,6 @@
 												<div class="product__cart__item__text">
 													<h6>${basketDTO.sbProdNm }</h6>
 													<h5><fmt:formatNumber value="${basketDTO.sbProdPrice }" pattern="₩###,###,###"/></h5>
-<%-- 													<h5>${basketDTO.sbProdPrice }원</h5> --%>
 												</div>
 											</td>
 											<td class="quantity__item">

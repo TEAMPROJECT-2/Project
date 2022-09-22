@@ -55,5 +55,6 @@ public interface CompService {
 	//	품절,품절임박, 양호 상품 갯수
 //	public List<OrderListDTO> getProdAmount (OrderListDTO orderListDTO);
 	public OrderListDTO getProdAmount(OrderListDTO orderListDTO);
-
+	// 주문 상세 정보
+	public OrderListDTO getOrdListDet(OrderListDTO orderDTO1);
 }

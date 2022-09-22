@@ -132,6 +132,11 @@ public class CompDAOImpl implements CompDAO {
 	public OrderListDTO getProdAmount(OrderListDTO orderListDTO) {
 		return sqlSession.selectOne(namespace + ".getProdAmount", orderListDTO);
 	}
+	// 주문상세정보
+	@Override
+	public OrderListDTO getOrdListDet(OrderListDTO orderDTO1) {
+		return sqlSession.selectOne(namespace+".getOrdListDet",orderDTO1);
+	}
 
 
 

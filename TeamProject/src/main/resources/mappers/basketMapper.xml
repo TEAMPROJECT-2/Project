@@ -46,6 +46,9 @@
 					  FROM PRODUCT_LIST
 					  WHERE PROD_L_CODE=SB_PROD_CODE
 					  ) as prodLQuantity
+					 ,(SELECT PROD_L_MAINIMG
+                       from PRODUCT_LIST
+                       WHERE PROD_L_CODE=SB_PROD_CODE) as prodMainimg
 		     FROM   SHOPPING_BASKET
 		    WHERE   (@rownum:=0)=0
 		      AND   SB_USER=#{sbUser}

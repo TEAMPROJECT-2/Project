@@ -479,4 +479,27 @@ public class CompController {
 			return mv;
 		}
 	}
+	// 주문 목록 클릭시 주문 상세 페이지
+	@RequestMapping(value = "/comp/ordListDet", method = RequestMethod.GET)
+	public String ordListDet(HttpServletRequest request, Model model) {
+		// 파라미터 가져오기
+		String prodLCode = request.getParameter("CheckRow");
+
+		// 디비에서 조회
+		OrderListDTO orderDTO1 = new OrderListDTO();
+		orderDTO1.setOrdLUser(prodLCode);
+		orderDTO1.setOrdLCode(prodLCode);
+		OrderListDTO orderDTO = compService.getOrdListDet(orderDTO1);
+
+		// model에 데이터 저장
+		model.addAttribute("orderDTO", orderDTO);
+
+		// 주소변경없이 이동
+		// WEB-INF/views/board/updateForm.jsp 이동
+		return "/comp/ordListDet";
+	}
+
+
+
+
 } // 마지막 괄호

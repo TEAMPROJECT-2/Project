@@ -7,6 +7,7 @@ import com.itwillbs.domain.LikeDTO;
 import com.itwillbs.domain.MemberDTO;
 import com.itwillbs.domain.PageDTO;
 import com.itwillbs.domain.ReplyDTO;
+import com.itwillbs.domain.SearchDTO;
 import com.itwillbs.domain.ViewDTO;
 
 public interface BoardService {
@@ -40,6 +41,10 @@ public interface BoardService {
 	void rCountsub(int boardNum);
 
 	void rCount(int boardNum);
+
+	List<BoardDTO> searchBoard(BoardDTO boardDTO);
+
+//	List<BoardDTO> searchBoard(SearchDTO boardDTO);
 
 
 	

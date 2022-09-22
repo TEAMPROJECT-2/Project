@@ -12,7 +12,7 @@
 >
   <head>
   <script src="http://code.jquery.com/jquery-3.6.0.js"></script>
-  <script src="${pageContext.request.contextPath }/resources/jsPro/deleteProd.js?testNum=2"></script>
+  <script src="${pageContext.request.contextPath }/resources/jsPro/deleteProd.js"></script>
 <!--   전체선택, 선택삭제 자바스크립트 -->
 
 
@@ -139,7 +139,7 @@
 
 			        <div class="bd-example-snippet bd-code-snippet"><div class="bd-example " >
 			        <nav aria-label="Standard pagination example">
-			          <ul class="pagination">
+			          <ul class="pagination" style="margin-left: 45%; margin-rightt: 55%;">
 			            <li class="page-item">
 			               <c:if test="${pageDTO.startPage > pageDTO.pageBlock }">
 			              <a class="page-link" href="${pageContext.request.contextPath }

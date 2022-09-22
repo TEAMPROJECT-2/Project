@@ -12,6 +12,7 @@ import com.itwillbs.domain.BoardDTO;
 import com.itwillbs.domain.LikeDTO;
 import com.itwillbs.domain.MemberDTO;
 import com.itwillbs.domain.PageDTO;
+import com.itwillbs.domain.SearchDTO;
 import com.itwillbs.domain.ViewDTO;
 
 @Service
@@ -119,6 +120,22 @@ public class BoardServiceImpl implements BoardService{
 	public void rCount(int boardNum) {
 		boardDAO.rCount(boardNum);		
 	}
+
+	
+
+//	@Override
+//	public List<BoardDTO> searchBoard(SearchDTO boardDTO) {
+//		// TODO Auto-generated method stub
+//		return boardDAO.searchBoard(boardDTO);
+//	}
+
+	@Override
+	public List<BoardDTO> searchBoard(BoardDTO boardDTO) {
+		// TODO Auto-generated method stub
+		return boardDAO.searchBoard(boardDTO);
+	}
+
+	
 
 	
 

@@ -41,10 +41,10 @@
 				  	<a href="${pageContext.request.contextPath }/board/content?boardNum=0">공지사항</a>
 				    </li>
 				    </ul>
-                  
+                    
 	             <div class="shop__sidebar__search">
-	              <form action="${pageContext.request.contextPath }/board/searchBoard" method="get">
-	                  <input type="text"  name="boardSubject" class="text-center" style="border:none; border-bottom:1px solid"
+	              <form action="#">
+	                  <input type="text" class="text-center" style="border:none; border-bottom:1px solid"
 	                  		placeholder="검색할 키워드를 적어주세요">
 	                  <button type="submit"><span class="icon_search"></span></button>
 	              </form>
@@ -76,7 +76,7 @@
             </tr>
           </thead>
           <tbody>
-            <c:forEach var="boardDTO"  items="${boardList}" >
+            <c:forEach var="boardDTO"  items="${boardList2}" >
             <c:set var="notice" target="request" value="${boardDTO.boardNum}" />
 
 				<tr>
@@ -96,13 +96,6 @@
           </tbody>
 			
         </table>
-        <c:set var="userId" scope="session" value="${sessionScope.userId}"/>
-        <c:if test="${userId != null}">
-        
-        	<div align="right">
-			<a href="${pageContext.request.contextPath }/board/fwrite"><button type="button" class="btn btn-primary" >게시글 작성하기</button></a>
-			</div>
-        </c:if>
        
       </div>
   </div>
