@@ -54,20 +54,6 @@ public class PointController {
 	      this.api = new IamportClient("6077548071335284", "dCktE2HC7a2YUwzkDWeeqfuZvZdDen3Sm66vMQja5xQTpoAsMz9YUPZ42kuSyxReMbEXbvtEvOjllVjQ");
 	}   
 	
-	// 포인트 충전
-	@RequestMapping(value = "/point/char1ge", method = RequestMethod.GET)
-	public String charge(HttpSession session, Model model) {
-		String userId = (String)session.getAttribute("userId");
-		if(userId==null) {
-			return "/member/msg";
-		} else {
-		PointDTO pointDTO = pointService.getMember(userId);	
-		MemberDTO memberDTO = memberService.getMember(userId);
-		model.addAttribute("memberDTO", memberDTO);
-		model.addAttribute("pointDTO", pointDTO);
-		return "point/charge";
-		}
-	}
 	// 포인트 충전 DB저장
 	 @ResponseBody
 	   @RequestMapping(value="/point/insertChargePoint", method = RequestMethod.POST)
@@ -81,21 +67,9 @@ public class PointController {
 	      
 	      return "redirect:/main/main";
 	 }
-	 // 포인트 사용 후 DB저장
-	 @ResponseBody
-	   @RequestMapping(value="/point/insertUsePoint", method = RequestMethod.POST)
-	   public String insertUsePoint (HttpSession session, HttpServletRequest request, @RequestParam Map<String, Object> para){
-	      Map<String, Object> sMap = para;
-	      sMap.put("userId", (String)session.getAttribute("userId"));
-	      sMap.put("pointType", request.getParameter("pointType"));
-	      sMap.put("pointDate", new FunctionClass().nowTime("yyyy-MM-dd HH:mm:ss"));
-	      System.out.println(sMap);
-	      pointService.insertUsePoint(sMap);
-	      
-	      return "redirect:/main/main";
-	 }
+
 	 // 포인트 기간별 조회
-	@RequestMapping(value = "/point/pointCheck", method = RequestMethod.GET)
+	@RequestMapping(value = "/mypage/pointCheck", method = RequestMethod.GET)
 	public String pointCheck(HttpSession session, HttpServletRequest request, Model model)  {
 		String userId=(String)session.getAttribute("userId");
 		// 한화면에 보여줄 글개수
@@ -140,4 +114,5 @@ public class PointController {
 		model.addAttribute("pageDTO", pageDTO);
 		return "mypage/userPoint";
 	}
+	
 }

@@ -49,11 +49,6 @@ public class PointDAOImpl implements PointDAO {
 	public void insertChargePoint(Map<String, Object> sMap) {
 		sqlSession.insert(namespace+".insertChargePoint", sMap);
 	}
-	//포인트 사용 DB 저장
-	@Override
-	public void insertUsePoint(Map<String, Object> sMap) {
-		sqlSession.insert(namespace+".insertUsePoint", sMap);
-	}
 	//포인트 날짜 리스트조회
 	@Override
 	public List<PointDTO> getPointCheckList(PageDTO pageDTO) {

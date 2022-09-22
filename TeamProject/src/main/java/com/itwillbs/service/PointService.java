@@ -23,9 +23,6 @@ public interface PointService {
 	//포인트 충전 DB 저장
 	void insertChargePoint(Map<String, Object> sMap);
 	
-	//포인트 사용 DB 저장
-	void insertUsePoint(Map<String, Object> sMap);
-	
 	//포인트 날짜 리스트조회
 	List<PointDTO> getPointCheckList(PageDTO pageDTO);
 
