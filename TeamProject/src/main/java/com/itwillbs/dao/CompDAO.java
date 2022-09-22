@@ -58,4 +58,7 @@ public interface CompDAO {
 	public int getTotalsum(OrderListDTO orderListDTO);
 	// 상품 임박
 	public OrderListDTO getProdAmount(OrderListDTO orderListDTO);
+
+	// 주문 상세 정보
+	public OrderListDTO getOrdListDet(OrderListDTO orderDTO1);
 }

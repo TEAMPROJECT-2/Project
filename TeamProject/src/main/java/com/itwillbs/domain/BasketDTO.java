@@ -14,6 +14,7 @@ public class BasketDTO {
 	private String sbProdNm;
 	private String ordLCounumcoudc;
 	private Timestamp shoppingBasketDate;
+	private String prodMainimg;
 
 
 	public int getNum() {
@@ -87,6 +88,12 @@ public class BasketDTO {
 
 
 
+	public String getProdMainimg() {
+		return prodMainimg;
+	}
+	public void setProdMainimg(String prodMainimg) {
+		this.prodMainimg = prodMainimg;
+	}
 	@Override
 	public String toString() {
 		return "BasketDTO [sbBasketNum=" + sbBasketNum + ", sbUser=" + sbUser + ", sbProdCode=" + sbProdCode

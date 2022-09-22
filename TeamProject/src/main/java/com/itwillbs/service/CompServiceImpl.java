@@ -172,6 +172,13 @@ public class CompServiceImpl implements CompService {
 
 	}
 
+	// 주문 상세 정보
+	@Override
+	public OrderListDTO getOrdListDet(OrderListDTO orderDTO1) {
+
+		return compDAO.getOrdListDet(orderDTO1);
+	}
+
 
 
 
