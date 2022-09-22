@@ -32,4 +32,9 @@ public class ProdDAOImpl implements ProdDAO{
 		return (ProdDTO) sqlSession.selectOne(namespace+".selectProdDetail",prodDTO);
 	}
 
+	@Override
+	public ProdDTO getProdNumName(int prodLNum) {
+		return (ProdDTO) sqlSession.selectOne(namespace+".getProdNumName",prodLNum);
+	}
+
 }
