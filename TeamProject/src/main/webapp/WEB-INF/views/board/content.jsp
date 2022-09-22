@@ -76,18 +76,8 @@
                     </table>
                     <form action="${pageContext.request.contextPath }/board/likeinset">
                     <input type="hidden" name="boardNum" value="${boardDTO.boardNum}"></input>
-
-                   	<c:set var="userId" scope="session" value="${sessionScope.userId}"/>
-                   	<c:set var="lId" target="${likeList}" value="${likeDTO.userId}" />
-
-	                   	<c:choose>
-	                   		<c:when test="${userId!=likeList}">
-	                   			<input type="image" id="pic" src="${pageContext.request.contextPath }/resources/img/icon/redhart.png" value="추천">
-	                   		</c:when>
-	                   		<c:when test="${userId==likeList}">
 	                   			<input type="image" id="pic" src="${pageContext.request.contextPath }/resources/img/icon/heart.png" value="추천">
-	                   		</c:when>
-	                   	</c:choose>
+	                  
 
         			<%-- <c:if test="${userId == lId}">
 

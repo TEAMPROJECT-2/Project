@@ -12,6 +12,7 @@ import com.itwillbs.domain.LikeDTO;
 import com.itwillbs.domain.MemberDTO;
 import com.itwillbs.domain.PageDTO;
 import com.itwillbs.domain.ReplyDTO;
+import com.itwillbs.domain.SearchDTO;
 import com.itwillbs.domain.ViewDTO;
 
 @Repository
@@ -103,6 +104,18 @@ public class BoardDAOImpl implements BoardDAO{
 	public void rCount(int boardNum) {
 		sqlSession.update(namespace+".rCount", boardNum);		
 	}
+
+//
+//	@Override
+//	public List<BoardDTO> searchBoard(SearchDTO boardDTO) {
+//		return sqlSession.selectList(namespace+".searchBoard",boardDTO);
+//	}
+
+	@Override
+	public List<BoardDTO> searchBoard(BoardDTO boardDTO) {
+		return sqlSession.selectList(namespace+".searchBoard",boardDTO);
+	}
+
 
 
 

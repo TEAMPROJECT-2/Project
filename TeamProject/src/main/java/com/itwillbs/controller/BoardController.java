@@ -23,6 +23,7 @@ import com.itwillbs.domain.MemberDTO;
 import com.itwillbs.domain.MypageDTO;
 import com.itwillbs.domain.PageDTO;
 import com.itwillbs.domain.ReplyDTO;
+import com.itwillbs.domain.SearchDTO;
 import com.itwillbs.domain.ViewDTO;
 import com.itwillbs.service.BoardService;
 import com.itwillbs.service.LikeService;
@@ -61,7 +62,7 @@ public class BoardController {
 		int pageSize=10;
 		//현페이지 번호
 		String pageNum=request.getParameter("pageNum");
-		if(pageNum==null) {
+		if(pageNum==null) { 
 			pageNum="1";
 		}
 		//현페이지 번호를 정수형으로 변경
@@ -312,6 +313,60 @@ public class BoardController {
 	
 	
 	}
+	@RequestMapping(value = "/board/searchBoard", method = RequestMethod.GET)
+	public String searchBoard(HttpServletRequest request, HttpSession session, Model model) {
+		
+		
+//		String Keyword = request.getParameter("keyword");
+		String boardSubject = request.getParameter("boardSubject");
+//		SearchDTO boardDTO=new SearchDTO();
+//		boardDTO.setBoardSubject(boardSubject);
+//		boardDTO.setKeyword(Keyword);
+//		
+		BoardDTO boardDTO = new BoardDTO();
+		boardDTO.setBoardSubject(boardSubject);
+		
+		// 한화면에 보여줄 글개수
+				int pageSize=10;
+				//현페이지 번호
+				String pageNum=request.getParameter("pageNum");
+				if(pageNum==null) { 
+					pageNum="1";
+				}
+				//현페이지 번호를 정수형으로 변경
+				int currentPage=Integer.parseInt(pageNum);
+				// PageDTO 객체생성
+				PageDTO pageDTO=new PageDTO();
+				pageDTO.setPageSize(pageSize);
+				pageDTO.setPageNum(pageNum);
+				pageDTO.setCurrentPage(currentPage);
+				
+				List<BoardDTO> boardList2=boardService.searchBoard(boardDTO);
+				
+				// pageBlock  startPage endPage count pageCount
+				int count=boardService.getBoardCount();
+				int pageBlock=10;
+				int startPage=(currentPage-1)/pageBlock*pageBlock+1;
+				int endPage=startPage+pageBlock-1;
+				int pageCount=count / pageSize +(count % pageSize==0?0:1);
+				if(endPage > pageCount){
+					endPage = pageCount;
+				}
+				
+				pageDTO.setCount(count);
+				pageDTO.setPageBlock(pageBlock);
+				pageDTO.setStartPage(startPage);
+				pageDTO.setEndPage(endPage);
+				pageDTO.setPageCount(pageCount);
+				model.addAttribute("boardList2", boardList2);
+				model.addAttribute("pageDTO", pageDTO);
+		return "/board/search";
+	
+	}
+	
+	
+	
+	
 //	@RequestMapping(value = "/board/viewPro", method = RequestMethod.GET)
 //	public String viewPro(HttpServletRequest request) {
 //		//num pass 일치 확인
