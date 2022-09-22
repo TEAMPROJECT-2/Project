@@ -26,10 +26,6 @@ public class ProdServiceImpl implements ProdService{
 		prodDTO.setStartRow(startRow-1);
 		prodDTO.setEndRow(endRow);
 
-		PageDTO test = (PageDTO)prodDTO;
-		System.out.println("=============================");
-		System.out.println(test);
-
 		return prodDAO.selectProdList(prodDTO);
 	}
 

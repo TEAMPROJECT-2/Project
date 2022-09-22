@@ -13,6 +13,6 @@ public interface ProdService {
 	public ProdDTO selectProdDetail(ProdDTO prodDTO);
 
 	/* 상품 id 이름 */
-	public ProdDTO getProdNumName(int bookId);
+	public ProdDTO getProdNumName(int prodLNum);
 
 }
