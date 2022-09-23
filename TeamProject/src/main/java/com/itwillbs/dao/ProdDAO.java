@@ -14,5 +14,12 @@ public interface ProdDAO {
 	public ProdDTO selectProdDetail(ProdDTO prodDTO);
 
 	/* 상품 id 이름 */
-	public ProdDTO getProdNumName(int prodLNum);
+	public ProdDTO getProdNumName(ProdDTO prodDTO);
+
+	/* 댓글 등록 */
+	public void enrollReply(ProdDTO prodDTO);
+
+	/* 댓글 존재 체크 */
+	public int checkReply(ProdDTO prodDTO);
+
 }

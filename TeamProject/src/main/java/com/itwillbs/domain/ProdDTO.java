@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 
 public class ProdDTO extends PageDTO {
 
+	// 상품
 	private int prodLNum;
 	private String prodLCode;
 	private String prodLOption1;
@@ -19,9 +20,17 @@ public class ProdDTO extends PageDTO {
 	private String prodLSubimg;
 	private String prodLDetail;
 	private int prodLQuantity;
+
+	// 검색, 카테고리 기능
 	private String srhText;
 	private String category;
 
+	// 리뷰 관련
+	private String userId;
+	private int replyNum;
+	private String content;
+	private int rating;
+	private Timestamp replyDate;
 
 	public int getProdLNum() {
 		return prodLNum;
@@ -125,6 +134,42 @@ public class ProdDTO extends PageDTO {
 	}
 	public void setCategory(String category) {
 		this.category = category;
+	}
+	public String getUserId() {
+		return userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+	public int getReplyNum() {
+		return replyNum;
+	}
+	public void setReplyNum(int replyNum) {
+		this.replyNum = replyNum;
+	}
+	public String getContent() {
+		return content;
+	}
+	public void setContent(String content) {
+		this.content = content;
+	}
+	public int getRating() {
+		return rating;
+	}
+	public void setRating(int rating) {
+		this.rating = rating;
+	}
+	public Timestamp getReplyDate() {
+		return replyDate;
+	}
+	public void setReplyDate(Timestamp replyDate) {
+		this.replyDate = replyDate;
+	}
+
+	@Override
+	public String toString() {
+		return "ProdReplyDTO [replyNum=" + replyNum + ", prodLNum=" + prodLNum + ", userId=" + userId + ", content="
+				+ content + ", rating=" + rating + ", replyDate=" + replyDate + "]";
 	}
 
 }

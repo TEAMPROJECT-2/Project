@@ -36,7 +36,7 @@
 var category = "";
 
 function searchProd(comp){
-// 		debugger;
+		debugger;
 	var pageNum = "1";
 
 	if(comp.tagName == 'A'){
@@ -47,6 +47,7 @@ function searchProd(comp){
 		}
 	}
 
+	// 검색창
 	var srhText = $('#srhText').val();
 
 	$.ajax({
@@ -302,16 +303,16 @@ $(document).ready(function(){
                                                 <ul class="nice-scroll">
                                                 	<li><a href="#" id="supplement" class="supplement">보충제</a>
                                                			<ul class="sub4" style="display: none">
-                                               				<li><a href="#" id="protein">ㅡ　프로틴</a></li>
-                                               				<li><a href="#" id="booster">ㅡ　부스터</a></li>
-                                               				<li><a href="#" id="nutritive">ㅡ　영양제</a></li>
+                                               				<li><a href="#" id="protein" id="F0101">ㅡ　프로틴</a></li>
+                                               				<li><a href="#" id="booster" id="F0102">ㅡ　부스터</a></li>
+                                               				<li><a href="#" id="nutritive" id="F0103">ㅡ　영양제</a></li>
                                                			</ul>
                                                		</li>
                                                		<li><a href="#" id="meal" class="meal">식단</a>
                                                			<ul class="sub5" style="display: none">
-                                               				<li><a href="#" id="chicken">ㅡ　닭가슴살</a></li>
-                                               				<li><a href="#" id="salad">ㅡ　샐러드</a></li>
-                                               				<li><a href="#" id="lunchbox">ㅡ　도시락</a></li>
+                                               				<li><a href="#" id="chicken" id="F0201">ㅡ　닭가슴살</a></li>
+                                               				<li><a href="#" id="salad" id="F0202">ㅡ　샐러드</a></li>
+                                               				<li><a href="#" id="lunchbox" id="F0203">ㅡ　도시락</a></li>
                                                			</ul>
                                                		</li>
                                                 </ul>

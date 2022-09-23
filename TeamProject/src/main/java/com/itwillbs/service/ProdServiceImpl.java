@@ -47,8 +47,20 @@ public class ProdServiceImpl implements ProdService{
 
 	/* 상품 id 이름 */
 	@Override
-	public ProdDTO getProdNumName(int prodLNum) {
-		return prodDAO.getProdNumName(prodLNum);
+	public ProdDTO getProdNumName(ProdDTO prodDTO) {
+		return prodDAO.getProdNumName(prodDTO);
+	}
+
+	/* 댓글 등록 */
+	@Override
+	public void enrollReply(ProdDTO prodDTO) {
+		prodDAO.enrollReply(prodDTO);
+	}
+
+	/* 댓글 존재 체크 */
+	@Override
+	public int checkReply(ProdDTO prodDTO) {
+		return prodDAO.checkReply(prodDTO);
 	}
 
 }
