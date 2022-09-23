@@ -193,10 +193,6 @@ public class MemberController {
 		return "redirect:/main/main";
 	}
 
-	@RequestMapping(value = "/order/c", method = RequestMethod.GET)
-	public String c() {
-		return "order/checkout2";
-	}
 
 	@RequestMapping(value = "/basic/basic-badge-button", method = RequestMethod.GET)
 	public String basicBasicBadgeButton() {
@@ -211,9 +207,9 @@ public class MemberController {
 		return "basic/basic-menu-table";
 	}
 
-	@RequestMapping(value = "/order/c2", method = RequestMethod.GET)
+	@RequestMapping(value = "/main/main", method = RequestMethod.GET)
 	public String indexMain() {
-		return "order/cart2";
+		return "main/main";
 	}
 
 	@RequestMapping(value = "/member/cards-basic", method = RequestMethod.GET)

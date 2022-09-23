@@ -38,14 +38,6 @@
    		 WHERE USER_ID= #{userId}
 	</select>
 
-<!-- 포인트 리스트 조회 -->
-	<select id="getPointList" resultType="com.itwillbs.domain.PointDTO">
-		SELECT * 
-		  FROM POINT
- 		 WHERE USER_ID= #{userId} 
-	  ORDER BY POINT_DATE DESC LIMIT #{startRow}, #{pageSize}
-	</select>
-
 <!-- 포인트 충전 DB 저장 -->
 	<insert id="insertChargePoint">
 			INSERT INTO POINT(
