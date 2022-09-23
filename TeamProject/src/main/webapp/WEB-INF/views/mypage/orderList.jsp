@@ -57,29 +57,23 @@
                     <thead>
                       <tr>
                         <th>num</th>
-                        <th>주문 코드</th>
+                        <th>주문번호</th>
                         <th>주문자</th>
                         <th>업체명</th>
-                        <th>상품명</th>
-                        <th>가격</th>
                         <th>할인가</th>
                         <th>최종 가격</th>
-                        <th>수량</th>
                         <th>주문일</th>
                       </tr>
                     </thead>
                     <tbody class="table-border-bottom-0">
                      <c:forEach var="orderListDTO" items="${orderList}" >
                       <tr>
-                        <td>${orderListDTO.num}</td>
+                        <td>${orderListDTO.trnum}</td>
                         <td>${orderListDTO.ordLCode}</td>
                         <td>${orderListDTO.ordLUser}</td>
-                        <td>${orderListDTO.compId}</td>
-                        <td>${orderListDTO.compId}</td>
-                        <td>${orderListDTO.ordLPrice}</td>
-                        <td>${orderListDTO.ordLCouponnum}</td>
+                        <td>${orderListDTO.compNm}</td>
+                        <td>${orderListDTO.ordCouponDc}</td>
                         <td>${orderListDTO.ordFinalprice}</td>
-                        <td>${orderListDTO.ordLQuantity}</td>
                         <td>${orderListDTO.ordLDate}</td>
                         <td>
                       </tr>
