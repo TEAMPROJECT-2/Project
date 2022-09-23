@@ -1,11 +1,13 @@
 package com.itwillbs.controller;
 
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.itwillbs.domain.AddressDTO;
 import com.itwillbs.domain.BasketDTO;
+import com.itwillbs.domain.CouponDTO;
 import com.itwillbs.domain.MemberDTO;
 import com.itwillbs.domain.OrderDTO;
 import com.itwillbs.domain.OrderListDTO;
@@ -95,7 +98,7 @@ public class OrderController {
 	   public String paymenByImpUid (HttpSession session, HttpServletRequest request, @RequestParam Map<String, Object> para, BasketDTO basketDTO){
 	      Map<String, Object> sMap = para;
 	      sMap.put("userId", (String)session.getAttribute("userId"));
-	      sMap.put("ordDate", new FunctionClass().nowTime("yyyy-MM-dd HH:mm:ss"));
+//	      sMap.put("ordDate", new FunctionClass().nowTime("yyyy-MM-dd HH:mm:ss"));
 	      sMap.put("ordDeliveryMessage", request.getParameter("ordDeliveryMessage"));
 	      
 	      sMap.put("pointDate", new FunctionClass().nowTime("yyyy-MM-dd HH:mm:ss"));
@@ -140,5 +143,14 @@ public class OrderController {
 	      
 	      return "redirect:/main/main";
 	 }
-		
+
+	 // 마이페이지 주문목록
+		@RequestMapping(value = "/mypage/order", method = RequestMethod.POST)
+		public String insertAddress(AddressDTO addressDTO, HttpSession session) {
+			String userId = (String) session.getAttribute("userId");
+			addressDTO.setUserId(userId);
+			addressService.insertAddress(addressDTO);
+			return "redirect:/mypage/order";
+		}
+	 
 }

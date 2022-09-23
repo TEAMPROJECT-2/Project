@@ -1,17 +1,15 @@
 package com.itwillbs.domain;
 
-import java.sql.Timestamp;
 
 public class OrderDTO {
 	private int num;
-
+	
 	private String ordUser;
 	private String ordGetNm;
-	private String ordGetZipcode;
 	private String ordGetAddress;
+	private String ordGetZipcode;
 	private String ordGetPhone;
 	private String ordDeliveryMessage;
-	private Timestamp ordDate;
 	private String ordPayment;
 	private int ordTotalPrice;
 	private int ordSavedpoint;
@@ -20,9 +18,16 @@ public class OrderDTO {
 	private int ordFinalPrice;
 	private String ordPurchaseStatus;
 	private int ordDeliveryPrice;
+	
 
-
-
+	
+	
+	public String getOrdGetZipcode() {
+		return ordGetZipcode;
+	}
+	public void setOrdGetZipcode(String ordGetZipcode) {
+		this.ordGetZipcode = ordGetZipcode;
+	}
 	public String getOrdUser() {
 		return ordUser;
 	}
@@ -47,7 +52,7 @@ public class OrderDTO {
 	public void setOrdGetAddress(String ordGetAddress) {
 		this.ordGetAddress = ordGetAddress;
 	}
-
+	
 	public String getOrdGetPhone() {
 		return ordGetPhone;
 	}
@@ -60,12 +65,7 @@ public class OrderDTO {
 	public void setOrdDeliveryMessage(String ordDeliveryMessage) {
 		this.ordDeliveryMessage = ordDeliveryMessage;
 	}
-	public Timestamp getOrdDate() {
-		return ordDate;
-	}
-	public void setOrdDate(Timestamp ordDate) {
-		this.ordDate = ordDate;
-	}
+
 	public String getOrdPayment() {
 		return ordPayment;
 	}
@@ -114,32 +114,27 @@ public class OrderDTO {
 	public void setOrdDeliveryPrice(int ordDeliveryPrice) {
 		this.ordDeliveryPrice = ordDeliveryPrice;
 	}
-
-
-	public String getOrdGetZipcode() {
-		return ordGetZipcode;
-	}
-	public void setOrdGetZipcode(String ordGetZipcode) {
-		this.ordGetZipcode = ordGetZipcode;
-	}
+	
 	@Override
 	public String toString() {
 		return "OrderDTO [num=" + num + ", ordUser=" + ordUser + ", ordGetNm=" + ordGetNm + ", ordGetAddress="
-				+ ordGetAddress + ", ordGetPhone=" + ordGetPhone + ", ordDeliveryMessage=" + ordDeliveryMessage
-				+ ", ordDate=" + ordDate + ", ordPayment=" + ordPayment + ", ordTotalPrice=" + ordTotalPrice
-				+ ", ordSavedpoint=" + ordSavedpoint + ", ordCouponDc=" + ordCouponDc
-				+ ", ordUsepoint=" + ordUsepoint + ", ordFinalPrice=" + ordFinalPrice + ", ordPurchaseStatus="
-				+ ordPurchaseStatus + ", ordDeliveryPrice=" + ordDeliveryPrice + "]";
+				+ ordGetAddress + ", ordGetZipcode=" + ordGetZipcode + ", ordGetPhone=" + ordGetPhone
+				+ ", ordDeliveryMessage=" + ordDeliveryMessage + ", ordPayment=" + ordPayment
+				+ ", ordTotalPrice=" + ordTotalPrice + ", ordSavedpoint=" + ordSavedpoint + ", ordCouponDc="
+				+ ordCouponDc + ", ordUsepoint=" + ordUsepoint + ", ordFinalPrice=" + ordFinalPrice
+				+ ", ordPurchaseStatus=" + ordPurchaseStatus + ", ordDeliveryPrice=" + ordDeliveryPrice + "]";
 	}
+	
+	
 
+	
 
+	
+	
+	
+	
+	
 
-
-
-
-
-
-
-
-
+	
+	
 }

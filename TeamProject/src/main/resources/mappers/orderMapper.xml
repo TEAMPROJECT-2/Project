@@ -10,30 +10,24 @@
 			INSERT INTO ORDER_BOARD(
 					USER_ID
 				   ,ORD_GET_NM
+				   ,ORD_GET_ZIPCODE
 				   ,ORD_GET_ADDRESS
 				   ,ORD_GET_PHONE
 				   ,ORD_DELIVERY_MESSAGE
-				   ,ORD_DATE
 				   ,ORD_TOTAL_PRICE
-<!-- 				   ,ORD_SAVEDPOINT -->
 				   ,ORD_COUPONDC
-<!-- 				   ,ORD_USE_POINT -->
 				   ,ORD_FINALPRICE
-<!-- 				   ,ORD_DELIVERY_PRICE -->
 				   )
 			VALUES(
 					#{userId}
 				   ,#{ordGetNm}
+				   ,#{ordGetZipcode}
 				   ,#{ordGetAddress}
 				   ,#{ordGetPhone}
 				   ,#{ordDeliveryMessage}
-				   ,#{ordDate}
 				   ,#{ordTotalPrice}
-<!-- 				   ,#{ordSavedpoint} -->
 				   ,#{ordCouponDc}
-<!-- 				   ,#{ordUsepoint} -->
 				   ,#{ordFinalPrice}
-<!-- 				   ,#{ordDeliveryPrice} -->
 				    )
 	</insert>
 	
@@ -105,6 +99,19 @@
 			,0
 			)
 	</insert>
+	
+<!-- 		<select  id="selectCouponList" resultType="com.itwillbs.domain.CouponDTO" parameterType="com.itwillbs.domain.CouponDTO"> -->
+<!-- 			SELECT 	  NUM -->
+<!-- 					 ,COU_USER_NM -->
+<!-- 					 ,COU_NUM -->
+<!-- 					 ,COU_NM -->
+<!-- 					 ,COU_DC -->
+<!-- 					 ,COU_YN -->
+<!-- 					 ,COU_DATE -->
+<!-- 					 ,CONCAT(COU_NUM,'_',COU_DC) as couNumCouDc -->
+<!-- 			  FROM 	 COUPON -->
+<!-- 			 WHERE 	 COU_USER_NM =#{couUserNm} -->
+<!-- 	</select> -->
 	
 
 </mapper>
