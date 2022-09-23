@@ -161,6 +161,7 @@ public class CompController {
 		pageDTO.setSearchKeyWord(request.getParameter("searchKeyWord")); // 검색 키워드 갖고오기
 		pageDTO.setStatus(request.getParameter("status")); // 검색 양호,품절 상태 갖고오기
 		List<ProdDTO> prodList = compService.getProdList(pageDTO); // 물건 리스트 갖고오기
+
 		int count = compService.getProdCount(pageDTO); // 업체 전체 물건 리스트 갯수
 		// 페이징
 		int pageBlock = 10;
@@ -401,6 +402,10 @@ public class CompController {
 		pageDTO.setStartPage(startPage);
 		pageDTO.setEndPage(endPage);
 		pageDTO.setPageCount(pageCount);
+		System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!"+ordList.get(1).getOrdLCouponnum());
+		System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!"+ordList.get(1).getOrdPurchasestatus());
+		System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!"+ordList.get(0).getOrdDeliveryStatus());
+
 		// 데이터 담아서 list.jsp 이동
 		model.addAttribute("ordList", ordList);
 		model.addAttribute("pageDTO", pageDTO);
@@ -412,9 +417,12 @@ public class CompController {
 
 	// 송장번호 입력과 배송중으로 바꿈
 	@RequestMapping(value = { "/comp/delivNumberInsert" }, method = { RequestMethod.POST })
-	public String delivNumberInsert(OrderListDTO orderListDTO) throws Exception {
+	public String delivNumberInsert(OrderListDTO orderListDTO,HttpServletRequest request) throws Exception {
+		String ordLDelivNumber = request.getParameter("ordLDelivComp");
+		ordLDelivNumber += ","+request.getParameter("ordLDelivNum");
+		orderListDTO.setOrdLDelivNumber(ordLDelivNumber);
 		compService.delivNumberInsert(orderListDTO); // 송장번호 입력
-		orderListDTO.setOrdDeliveryStatus("2"); // 배송중으로 셋팅
+		orderListDTO.setOrdDeliveryStatus("1"); // 배송중으로 셋팅
 		compService.delivNumberUpdate(orderListDTO); // 배송중으로 셋팅
 
 		return "redirect:/comp/ordList";
@@ -478,4 +486,29 @@ public class CompController {
 			return mv;
 		}
 	}
+	// 주문 목록 클릭시 주문 상세 페이지
+	@RequestMapping(value = "/comp/ordListDet", method = RequestMethod.GET)
+	public String ordListDet(HttpServletRequest request, Model model) {
+		// 파라미터 가져오기
+		String prodLCodeUser = request.getParameter("CheckRow");
+		 String prodLCode = prodLCodeUser.split(",")[0];
+		 String ordUser = prodLCodeUser.split(",")[1];
+
+		// 디비에서 조회
+		OrderListDTO orderListDTO1 = new OrderListDTO();
+		orderListDTO1.setOrdLUser(ordUser);
+		orderListDTO1.setOrdLCode(prodLCode);
+		OrderListDTO orderListDTO = compService.getOrdListDet(orderListDTO1);
+
+		// model에 데이터 저장
+		model.addAttribute("orderListDTO", orderListDTO);
+
+		// 주소변경없이 이동
+		// WEB-INF/views/board/updateForm.jsp 이동
+		return "/comp/ordListDet";
+	}
+
+
+
+
 } // 마지막 괄호
