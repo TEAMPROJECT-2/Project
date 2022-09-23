@@ -2,7 +2,7 @@ package com.itwillbs.domain;
 
 import java.sql.Timestamp;
 
-public class BoardDTO {
+public class BoardDTO extends PageDTO {
 	
 	private int boardNum;
 	private String userNicknm;
@@ -13,13 +13,42 @@ public class BoardDTO {
 	private int boardReadcount;
 	private int boardRcount;
 	private Timestamp boardDate;
+	private String boardFile;
+	private String boardNotice;
+	
+	
+	public String getBoardNotice() {
+		return boardNotice;
+	}
+	public void setBoardNotice(String boardNotice) {
+		this.boardNotice = boardNotice;
+	}
+	
+	private String srhText;
+	private String category;
+	
+	
+	
+	public String getSrhText() {
+		return srhText;
+	}
+	public void setSrhText(String srhText) {
+		this.srhText = srhText;
+	}
+	public String getCategory() {
+		return category;
+	}
+	public void setCategory(String category) {
+		this.category = category;
+	}
+	
+	
 	public int getBoardRcount() {
 		return boardRcount;
 	}
 	public void setBoardRcount(int boardRcount) {
 		this.boardRcount = boardRcount;
 	}
-	private String boardFile;
 	public int getBoardNum() {
 		return boardNum;
 	}

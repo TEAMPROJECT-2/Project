@@ -35,13 +35,13 @@ public class BoardDAOImpl implements BoardDAO{
 	}
 
 	@Override
-	public List<BoardDTO> getBoardList(PageDTO pageDTO) {
-		return sqlSession.selectList(namespace+".getBoardList",pageDTO);
+	public List<BoardDTO> getBoardList(BoardDTO boardDTO) {
+		return sqlSession.selectList(namespace+".getBoardList",boardDTO);
 	}
 
 	@Override
-	public int getBoardCount() {
-		return sqlSession.selectOne(namespace+".getBoardCount");
+	public int getBoardCount(BoardDTO boardDTO) {
+		return sqlSession.selectOne(namespace+".getBoardCount", boardDTO);
 	}
 	@Override
 	public BoardDTO getBoard(int boardNum) {
@@ -105,16 +105,7 @@ public class BoardDAOImpl implements BoardDAO{
 		sqlSession.update(namespace+".rCount", boardNum);		
 	}
 
-//
-//	@Override
-//	public List<BoardDTO> searchBoard(SearchDTO boardDTO) {
-//		return sqlSession.selectList(namespace+".searchBoard",boardDTO);
-//	}
-
-	@Override
-	public List<BoardDTO> searchBoard(BoardDTO boardDTO) {
-		return sqlSession.selectList(namespace+".searchBoard",boardDTO);
-	}
+	
 
 
 

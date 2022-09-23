@@ -42,23 +42,23 @@ public class BoardServiceImpl implements BoardService{
 	}
 
 	@Override
-	public List<BoardDTO> getBoardList(PageDTO pageDTO) {
+	public List<BoardDTO> getBoardList(BoardDTO boardDTO) {
 		// pageSize  pageNum  currentPage
-		int startRow=(pageDTO.getCurrentPage()-1)*pageDTO.getPageSize()+1;
-		int endRow=startRow+pageDTO.getPageSize()-1;
+		int startRow=(boardDTO.getCurrentPage()-1)*boardDTO.getPageSize()+1;
+		int endRow=startRow+boardDTO.getPageSize()-1;
 		
 		// sql => limit #{startRow -1}, #{pageSize}
 		
-		pageDTO.setStartRow(startRow-1);
-		pageDTO.setEndRow(endRow);
+		boardDTO.setStartRow(startRow-1);
+		boardDTO.setEndRow(endRow);
 		
-		return boardDAO.getBoardList(pageDTO);
+		return boardDAO.getBoardList(boardDTO);
 		
 	}
 
 	@Override
-	public int getBoardCount() {
-		return boardDAO.getBoardCount();
+	public int getBoardCount(BoardDTO boardDTO) {
+		return boardDAO.getBoardCount(boardDTO);
 	}
 	@Override
 	public BoardDTO getBoard(int boardNum) {
@@ -123,17 +123,8 @@ public class BoardServiceImpl implements BoardService{
 
 	
 
-//	@Override
-//	public List<BoardDTO> searchBoard(SearchDTO boardDTO) {
-//		// TODO Auto-generated method stub
-//		return boardDAO.searchBoard(boardDTO);
-//	}
+	
 
-	@Override
-	public List<BoardDTO> searchBoard(BoardDTO boardDTO) {
-		// TODO Auto-generated method stub
-		return boardDAO.searchBoard(boardDTO);
-	}
 
 	
 

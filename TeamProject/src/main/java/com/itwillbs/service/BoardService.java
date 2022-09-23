@@ -14,9 +14,9 @@ public interface BoardService {
 	//추상메서드
 	void insertBoard(BoardDTO boardDTO);
 
-	List<BoardDTO> getBoardList(PageDTO pageDTO);
+	List<BoardDTO> getBoardList(BoardDTO boardDTO);
 
-	int getBoardCount();
+	int getBoardCount(BoardDTO boardDTO);
 	
 	BoardDTO getBoard(int boardNum);
 	
@@ -42,11 +42,7 @@ public interface BoardService {
 
 	void rCount(int boardNum);
 
-	List<BoardDTO> searchBoard(BoardDTO boardDTO);
-
-//	List<BoardDTO> searchBoard(SearchDTO boardDTO);
-
-
+	
 	
 
 }

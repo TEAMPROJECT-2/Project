@@ -1,27 +1,34 @@
 package com.itwillbs.controller;
 
 import java.io.File;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.annotation.Resource;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.itwillbs.domain.BoardDTO;
 import com.itwillbs.domain.LikeDTO;
 import com.itwillbs.domain.MemberDTO;
 import com.itwillbs.domain.MypageDTO;
 import com.itwillbs.domain.PageDTO;
+import com.itwillbs.domain.ProdDTO;
 import com.itwillbs.domain.ReplyDTO;
 import com.itwillbs.domain.SearchDTO;
 import com.itwillbs.domain.ViewDTO;
@@ -57,26 +64,23 @@ public class BoardController {
 	//	가상주소 시작점 http://localhost:8080/myweb2/board/list
     //	가상주소 시작점 http://localhost:8080/myweb2/board/list?pageNum=2 
 	@RequestMapping(value = "/board/list", method = RequestMethod.GET)
-	public String list(HttpServletRequest request, Model model) {
+	public String list(HttpServletRequest request, Model model,  @ModelAttribute BoardDTO boardDTO) {
 		// 한화면에 보여줄 글개수
 		int pageSize=10;
 		//현페이지 번호
-		String pageNum=request.getParameter("pageNum");
+		String pageNum=boardDTO.getPageNum();
 		if(pageNum==null) { 
 			pageNum="1";
 		}
 		//현페이지 번호를 정수형으로 변경
 		int currentPage=Integer.parseInt(pageNum);
-		// PageDTO 객체생성
-		PageDTO pageDTO=new PageDTO();
-		pageDTO.setPageSize(pageSize);
-		pageDTO.setPageNum(pageNum);
-		pageDTO.setCurrentPage(currentPage);
 		
-		List<BoardDTO> boardList=boardService.getBoardList(pageDTO);
-		
+		boardDTO.setPageSize(pageSize);
+		boardDTO.setPageNum(pageNum);
+		boardDTO.setCurrentPage(currentPage);
+		List<BoardDTO> boardList=boardService.getBoardList(boardDTO);
 		// pageBlock  startPage endPage count pageCount
-		int count=boardService.getBoardCount();
+		int count = boardService.getBoardCount(boardDTO);
 		int pageBlock=10;
 		int startPage=(currentPage-1)/pageBlock*pageBlock+1;
 		int endPage=startPage+pageBlock-1;
@@ -85,13 +89,13 @@ public class BoardController {
 			endPage = pageCount;
 		}
 		
-		pageDTO.setCount(count);
-		pageDTO.setPageBlock(pageBlock);
-		pageDTO.setStartPage(startPage);
-		pageDTO.setEndPage(endPage);
-		pageDTO.setPageCount(pageCount);
+		boardDTO.setCount(count);
+		boardDTO.setPageBlock(pageBlock);
+		boardDTO.setStartPage(startPage);
+		boardDTO.setEndPage(endPage);
+		boardDTO.setPageCount(pageCount);
 		model.addAttribute("boardList", boardList);
-		model.addAttribute("pageDTO", pageDTO);
+		model.addAttribute("boardDTO", boardDTO);
 		
 		// 주소변경없이 이동
 		// WEB-INF/views/board/list.jsp 이동
@@ -117,6 +121,8 @@ public class BoardController {
 		
 		FileCopyUtils.copy(file.getBytes(), uploadFile);
 		
+		String notice = request.getParameter("boardNotice");
+		
 		BoardDTO boardDTO=new BoardDTO();
 		boardDTO.setUserNicknm(request.getParameter("userNicknm"));
 		boardDTO.setBoardPass(request.getParameter("boardPass"));
@@ -128,10 +134,12 @@ public class BoardController {
 		mypageDTO.setUserId((String)session.getAttribute("userId"));
 		
 		
+		boardService.insertBoard(boardDTO);
+	
 		
 		
 		mypageService.boardCount(mypageDTO);
-		boardService.insertBoard(boardDTO);
+		
 		
 		// 주소변경하면서 이동 /board/list 이동
 		return "redirect:/board/list";
@@ -313,56 +321,54 @@ public class BoardController {
 	
 	
 	}
-	@RequestMapping(value = "/board/searchBoard", method = RequestMethod.GET)
-	public String searchBoard(HttpServletRequest request, HttpSession session, Model model) {
-		
-		
-//		String Keyword = request.getParameter("keyword");
-		String boardSubject = request.getParameter("boardSubject");
-//		SearchDTO boardDTO=new SearchDTO();
-//		boardDTO.setBoardSubject(boardSubject);
-//		boardDTO.setKeyword(Keyword);
-//		
-		BoardDTO boardDTO = new BoardDTO();
-		boardDTO.setBoardSubject(boardSubject);
-		
-		// 한화면에 보여줄 글개수
-				int pageSize=10;
-				//현페이지 번호
-				String pageNum=request.getParameter("pageNum");
-				if(pageNum==null) { 
-					pageNum="1";
-				}
-				//현페이지 번호를 정수형으로 변경
-				int currentPage=Integer.parseInt(pageNum);
-				// PageDTO 객체생성
-				PageDTO pageDTO=new PageDTO();
-				pageDTO.setPageSize(pageSize);
-				pageDTO.setPageNum(pageNum);
-				pageDTO.setCurrentPage(currentPage);
-				
-				List<BoardDTO> boardList2=boardService.searchBoard(boardDTO);
-				
-				// pageBlock  startPage endPage count pageCount
-				int count=boardService.getBoardCount();
-				int pageBlock=10;
-				int startPage=(currentPage-1)/pageBlock*pageBlock+1;
-				int endPage=startPage+pageBlock-1;
-				int pageCount=count / pageSize +(count % pageSize==0?0:1);
-				if(endPage > pageCount){
-					endPage = pageCount;
-				}
-				
-				pageDTO.setCount(count);
-				pageDTO.setPageBlock(pageBlock);
-				pageDTO.setStartPage(startPage);
-				pageDTO.setEndPage(endPage);
-				pageDTO.setPageCount(pageCount);
-				model.addAttribute("boardList2", boardList2);
-				model.addAttribute("pageDTO", pageDTO);
-		return "/board/search";
 	
+	@RequestMapping(value = "/board/shopAjax", method = RequestMethod.POST)
+	public @ResponseBody Map<String, Object> listAjax(HttpServletRequest req, HttpServletResponse res, @ModelAttribute BoardDTO boardDTO) {
+		Map<String, Object> map = new HashMap<>();
+		String category = req.getParameter("category");
+		String srhText = req.getParameter("srhText");
+		String pageNum = req.getParameter("pageNum");
+
+		if(pageNum == null) {
+			pageNum = "1";
+		}
+		int currentPage=Integer.parseInt(pageNum);
+
+		boardDTO.setCurrentPage(currentPage);
+		boardDTO.setPageSize(9);
+		// ---------------- 페이징 처리(Ajax) 시작
+		int pageSize = 9;
+		int count = boardService.getBoardCount(boardDTO);
+		int pageBlock = 3;
+		int startPage = (currentPage-1)/pageBlock*pageBlock+1;
+		int endPage=startPage+pageBlock-1;
+		int pageCount=count / pageSize +(count % pageSize==0?0:1);
+		if(endPage > pageCount){
+			endPage = pageCount;
+		}
+
+		boardDTO.setCurrentPage(currentPage);
+		boardDTO.setPageSize(9);
+		boardDTO.setCount(count);
+		boardDTO.setPageBlock(pageBlock);
+		boardDTO.setStartPage(startPage);
+		boardDTO.setEndPage(endPage);
+		boardDTO.setPageCount(pageCount);
+
+		boardDTO.setCategory(category);
+		boardDTO.setSrhText(srhText);
+
+		// ---------------- 페이징 처리(Ajax) 끝
+
+		List<BoardDTO> boardList = boardService.getBoardList(boardDTO);
+
+		map.put("boardList", boardList);
+		map.put("boardDTO", boardDTO);
+
+		return map;
 	}
+
+	
 	
 	
 	

@@ -16,9 +16,9 @@ public interface BoardDAO {
 	
 	Integer getMaxNum();
 
-	List<BoardDTO> getBoardList(PageDTO pageDTO);
+	List<BoardDTO> getBoardList(BoardDTO boardDTO);
 
-	int getBoardCount();
+	int getBoardCount(BoardDTO boardDTO);
 	
 	BoardDTO getBoard(int boardNum);
 
@@ -42,7 +42,6 @@ public interface BoardDAO {
 
 	void rCount(int boardNum);
 
-	List<BoardDTO> searchBoard(BoardDTO boardDTO);
 
 	
 

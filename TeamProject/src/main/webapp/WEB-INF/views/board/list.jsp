@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 </head>
 <body>
 <!-- 메뉴단 -->
@@ -29,6 +30,7 @@
     <input type="hidden" name="userId" value="${sessionScope.userId}" >
     </form>
    
+	
     <!-- 사이드 메뉴(inc로 빼도 됨) -->
     <section class="shop spad">
         <div class="container">
@@ -36,18 +38,8 @@
             <div class="row">
                 <div class="col-lg-12">
                  <ul class="filter__controls mt-3 mb-5">
-				    <li class="active">
-					<h3>공지사항</h3>
-				  	<a href="${pageContext.request.contextPath }/board/content?boardNum=0">공지사항</a>
-				    </li>
 				    </ul>
-                  
 	             <div class="shop__sidebar__search">
-	              <form action="${pageContext.request.contextPath }/board/searchBoard" method="get">
-	                  <input type="text"  name="boardSubject" class="text-center" style="border:none; border-bottom:1px solid"
-	                  		placeholder="검색할 키워드를 적어주세요">
-	                  <button type="submit"><span class="icon_search"></span></button>
-	              </form>
 	          	</div>
                 </div>
             </div>
@@ -59,9 +51,10 @@
 	<!--     테이블2 table-hover -->
       <div class="table-responsive">
      	    <div class="shop__sidebar__search mb-2 col-3">
-              <form action="#">
-                  <input type="text" placeholder="Search...">
-                  <button type="submit"><span class="icon_search"></span></button>
+            <form action="${pageContext.request.contextPath }/board/list">
+	             <input type="text" id="srhText" name="srhText" placeholder="글제목,글쓴이을 입력하시오">
+                 <button type="submit" id="submit" class="search">
+                 <span class="icon_search"></span></button>
               </form>
           	</div>
         <table class="table table-hover table">
@@ -77,11 +70,7 @@
           </thead>
           <tbody>
             <c:forEach var="boardDTO"  items="${boardList}" >
-            <c:set var="notice" target="request" value="${boardDTO.boardNum}" />
-
 				<tr>
-				<c:if test="${notice > 0 }">
-				<input type="hidden" value="${sessionScope.userId}">
 					<td>${boardDTO.boardNum }</td>
 					<td>${boardDTO.userNicknm}</td>
 					<td><a href="${pageContext.request.contextPath }/board/content?boardNum=${boardDTO.boardNum }&userId=${sessionScope.userId}">
@@ -89,7 +78,6 @@
 					<td>${boardDTO.boardDate }</td>
 					<td>${boardDTO.boardReadcount }</td>
 					<td>${boardDTO.boardLikecount }</td>
-				</c:if>
 				</tr>
 				
 			</c:forEach>
@@ -107,22 +95,23 @@
       </div>
   </div>
 
-
+ 					
+ 					
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="product__pagination">
-                               <c:if test="${pageDTO.startPage > pageDTO.pageBlock }">
+                               <c:if test="${boardDTO.startPage > boardDTO.pageBlock }">
 									<a href="${pageContext.request.contextPath }
-									/board/list?pageNum=${pageDTO.startPage - pageDTO.pageBlock}">Prev</a>
+									/board/list?pageNum=${boardDTO.startPage - boardDTO.pageBlock}">Prev</a>
 									</c:if>
 									
-									<c:forEach var="i" begin="${pageDTO.startPage }" end="${pageDTO.endPage }" step="1">
+									<c:forEach var="i" begin="${boardDTO.startPage}" end="${boardDTO.endPage }" step="1">
 									<a href="${pageContext.request.contextPath }/board/list?pageNum=${i}">${i}</a>  
 									</c:forEach>
 									
-									<c:if test="${pageDTO.endPage < pageDTO.pageCount }">
+									<c:if test="${boardDTO.endPage < boardDTO.pageCount }">
 									<a href="${pageContext.request.contextPath }
-									/board/list?pageNum=${pageDTO.startPage + pageDTO.pageBlock}">Next</a>
+									/board/list?pageNum=${boardDTO.startPage + boardDTO.pageBlock}">Next</a>
 									</c:if>
 									
 									

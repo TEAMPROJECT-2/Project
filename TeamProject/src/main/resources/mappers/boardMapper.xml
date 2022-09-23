@@ -25,21 +25,36 @@
 	
 	
 	
-	
-	<select id="searchBoard" resultType="com.itwillbs.domain.BoardDTO">
-		select * from BOARD where BOARD_SUBJECT LIKE '%'#{boardSubject}'%'
-	</select>
-	
 	<select id="getMaxNum" resultType="java.lang.Integer">
 		SELECT MAX(BOARD_NUM) FROM BOARD
 	</select>
 	   
 	<select id="getBoardList" resultType="com.itwillbs.domain.BoardDTO">
-		SELECT * FROM BOARD ORDER BY BOARD_NUM DESC LIMIT #{startRow}, #{pageSize}
+		SELECT * 
+		  FROM BOARD 
+		 where 1 = 1 
+		 <if test="srhText != null and srhText != ''">
+			AND(
+				USER_NICKNM LIKE '%${srhText}%'
+				
+				
+				
+				OR BOARD_SUBJECT LIKE '%${srhText}%'
+				)
+		</if>
+		 ORDER BY BOARD_NOTICE desc, BOARD_NUM DESC 
+		 LIMIT #{startRow}, #{pageSize}
+		 
 	</select>
 	
-	<select id="getBoardCount" resultType="java.lang.Integer">
-		select count(*) from BOARD
+	<select id="getBoardCount" parameterType="com.itwillbs.domain.BoardDTO" resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM BOARD where 1=1
+		<if test="srhText != null and srhText != ''">
+			AND(
+				USER_NICKNM LIKE '%${srhText}%'
+				OR BOARD_SUBJECT LIKE '%${srhText}%'
+				)
+		</if>
 	</select>
 	
 	<select id="getBoard" resultType="com.itwillbs.domain.BoardDTO">
@@ -78,6 +93,26 @@
 		where BOARD_NUM=#{boardNum}
 	</update>
 	
+	<!-- 검색기능  -->
+	<sql id="criteria">
+		<trim prefix="where (" suffix=")" prefixOverrides="OR">
+			<foreach collection="typeArr" item="type">
+				<trim prefix="OR">
+					<choose>
+						<when test="type == 'S'.toString()">
+							BOARD_SUBJECT like concat('%',#{keyword},'%') 
+						</when>
+						<when test="type == 'C'.toString()">
+							BOARD_CONTENT like concat('%',#{keyword},'%') 
+						</when>
+						<when test="type == 'N'.toString()">
+							USER_NICKNM like concat('%',#{keyword},'%' )
+						</when>
+					</choose>
+				</trim>
+			</foreach>
+		</trim>
+	</sql>
 	
 	
 
