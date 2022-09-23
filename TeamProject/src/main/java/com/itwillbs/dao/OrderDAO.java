@@ -22,6 +22,8 @@ public interface OrderDAO {
 	public void isertOrderList(Map<String, Object> sMap);
 	
 	List<ProdDTO> getQuantityList(ProdDTO proDTO); 
+	
+	public void updateCoupon(Map<String, Object> sMap);
 }
 
 

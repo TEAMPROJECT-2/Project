@@ -26,4 +26,5 @@ public interface OrderService {
 
 	public void insertUsePoint(Map<String, Object> sMap);
 	
+	public void updateCoupon(Map<String, Object> sMap);
 }

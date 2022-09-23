@@ -72,6 +72,12 @@ public class OrderServiceImpl implements OrderService {
 		
 	}
 
+	@Override
+	public void updateCoupon(Map<String, Object> sMap) {
+		orderDAO.updateCoupon(sMap);	
+	}
+
+	
 	
 	
 	

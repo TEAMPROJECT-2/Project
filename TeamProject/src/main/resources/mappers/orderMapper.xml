@@ -100,6 +100,13 @@
 			)
 	</insert>
 	
+	
+	<update id="updateCoupon">
+		UPDATE COUPON
+			SET COU_YN = "N"
+			WHERE COU_NUM =#{couNum} 
+	</update>
+	
 <!-- 		<select  id="selectCouponList" resultType="com.itwillbs.domain.CouponDTO" parameterType="com.itwillbs.domain.CouponDTO"> -->
 <!-- 			SELECT 	  NUM -->
 <!-- 					 ,COU_USER_NM -->

@@ -70,6 +70,12 @@ public class OrderDAOImpl implements OrderDAO {
 		sqlSession.delete(namespace + ".isertOrderList", sMap);
 		
 	}
+
+	@Override
+	public void updateCoupon(Map<String, Object> sMap) {
+		sqlSession.update(namespace + ".updateCoupon", sMap);
+	}
+	
 	
 	
 
