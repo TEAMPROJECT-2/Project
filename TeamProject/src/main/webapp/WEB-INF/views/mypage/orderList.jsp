@@ -26,22 +26,18 @@
           <div class="content-wrapper">
             <!-- Content -->
             <div class="container-xxl flex-grow-1 container-p-y">
-              <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">회원 /</span> 주문 관리</h4>
+              <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">주문 /</span> 주문 목록</h4>
 
               <div class="row">
                 <div class="col-md-12">
                   <ul class="nav nav-pills flex-column flex-md-row mb-3">
                     <li class="nav-item">
-                      <a class="nav-link" href="${pageContext.request.contextPath }/admin/user">
-                      <i class="bx bx-buildings me-1"></i> 회원 관리</a>
+                      <a class="nav-link" href="${pageContext.request.contextPath }/mypage/addr">
+                      <i class="bx bx-buildings me-1"></i> 배송지 관리</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link active" href="${pageContext.request.contextPath }/admin/order">
-                      <i class="bx bx-buildings me-1"></i> 주문 관리</a>
-                    </li>
-                     <li class="nav-item">
-                      <a class="nav-link" href="${pageContext.request.contextPath }/admin/addr">
-                      <i class="bx bx-buildings me-1"></i> 배송 관리</a>
+                      <a class="nav-link active" href="${pageContext.request.contextPath }/mypage/order">
+                      <i class="bx bx-buildings me-1"></i> 주문 목록</a>
                     </li>
                   </ul>
 
@@ -58,7 +54,6 @@
                       <tr>
                         <th>num</th>
                         <th>주문 코드</th>
-                        <th>주문자</th>
                         <th>업체명</th>
                         <th>가격</th>
                         <th>할인가</th>
@@ -72,7 +67,6 @@
                       <tr>
                         <td>${orderListDTO.num}</td>
                         <td>${orderListDTO.ordLCode}</td>
-                        <td>${orderListDTO.ordLUser}</td>
                         <td>${orderListDTO.compId}</td>
                         <td>${orderListDTO.ordLPrice}</td>
                         <td>${orderListDTO.ordLCouponnum}</td>

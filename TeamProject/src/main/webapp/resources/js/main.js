@@ -220,10 +220,10 @@
 			itemDC=totalSum - totalSum * myCouponDC1;
 			totalSum=totalSum * myCouponDC1;
 		}
-		var totalSum = new Intl.NumberFormat('ko-KR', { style: 'currency', currency: 'KRW' }).format(totalSum); // 원으로 바꾸기
-		var itemDC = new Intl.NumberFormat('ko-KR', { style: 'currency', currency: 'KRW' }).format(itemDC); // 원으로 바꾸기
-		$("#itemTotalPrice").html(totalSum); //화면에 총합 표시
-		$("#itemDcPrice").html(itemDC); // 할인가격 표시
+		var totalSum = new Intl.NumberFormat().format(totalSum); // 원으로 바꾸기
+		var itemDC = new Intl.NumberFormat().format(itemDC); // 원으로 바꾸기
+		$("#itemTotalPrice").html(totalSum+" 원"); //화면에 총합 표시
+		$("#itemDcPrice").html(itemDC+" 원"); // 할인가격 표시
 		updateValue(index); // 수량 디비에 넣기
 	});
 

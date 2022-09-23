@@ -43,7 +43,7 @@ function myCoupon(){
 			async: false,
 			success:function( data ) {
 				if(data.code=="S") {
-					$('#myCouponList').append("<option value='0_0'>" + "선택" + "</option>");
+					$('#myCouponList').append("<option value='0_0'>" + "쿠폰 선택" + "</option>");
 					var codeList = data.couponList;
 				      for(var i = 0; i < codeList.length ; i++){
 				        var option = "<option value='" + codeList[i].couNumCouDc + "'>" + codeList[i].couNm + "</option>";
@@ -76,10 +76,10 @@ function itemTotal() {
 	  }
 
 	}
-	var sum = new Intl.NumberFormat('ko-KR', { style: 'currency', currency: 'KRW' }).format(sum);
-	var itemDC = new Intl.NumberFormat('ko-KR', { style: 'currency', currency: 'KRW' }).format(itemDC);
-	$("#itemTotalPrice").html(sum); // 총합표시
-	$("#itemDcPrice").html(itemDC); // 할인가격 표시
+	var sum = new Intl.NumberFormat().format(sum);
+	var itemDC = new Intl.NumberFormat().format(itemDC);
+	$("#itemTotalPrice").html(sum+" 원"); // 총합표시
+	$("#itemDcPrice").html(itemDC+" 원"); // 할인가격 표시
 
 
 

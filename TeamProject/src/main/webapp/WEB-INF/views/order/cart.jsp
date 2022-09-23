@@ -34,14 +34,14 @@
 	<section class="shopping-cart spad">
 		<div class="container">
 			<div class="row">
-				<div class="col-lg-8">
+				<div class="col-lg-8" style="padding-right:30px">
 					<div class="shopping__cart__table">
 						<table>
 							<thead>
-								<tr><th>상품</th>
-									<th>가격</th>
-									<th>수량</th>
-									<th>Total</th>
+								<tr>
+									<th colspan=2 style="text-align:center">상품 정보</th>
+									<th>&nbsp; &nbsp; &nbsp;수량</th>
+									<th>&nbsp; &nbsp; &nbsp; &nbsp;합계</th>
 									<th></th>
 								</tr>
 							</thead>
@@ -57,7 +57,7 @@
 												</div>
 												<div class="product__cart__item__text">
 													<h6>${basketDTO.sbProdNm }</h6>
-													<h5><fmt:formatNumber value="${basketDTO.sbProdPrice }" pattern="₩###,###,###"/></h5>
+													<h5><fmt:formatNumber value="${basketDTO.sbProdPrice }" pattern="###,###,###"/>원</h5>
 												</div>
 											</td>
 											<td class="quantity__item">
@@ -76,11 +76,11 @@
 											<td class="cart__price">
 												<input type="hidden" id="price_${basketDTO.num}" value="${basketDTO.sbProdPrice }">
 <!-- 												수량증가시 증가버튼 누른 가격만 갖고오기 -->
-												<div id="total_${basketDTO.num}" class="total"><fmt:formatNumber value="${basketDTO.sbTotalPrice }" pattern="₩###,###,###"/></div>
+												<div id="total_${basketDTO.num}" class="total"><fmt:formatNumber value="${basketDTO.sbTotalPrice }" pattern="###,###,###"/>원</div>
 											</td>
 <!-- 											삭제 구현 -->
 											<td class="cart__close" id="delProd_${basketDTO.num}">
-											<a onclick="cartDelete();" title="Remove"><i class="fa fa-close"></i></a></td>
+											<a onclick="cartDelete();" title="Remove"><i class="fa fa-close" style="cursor:pointer"></i></a></td>
 										</tr>
 
 										<input type="hidden" name="sbProdCode_" value="${basketDTO.sbProdCode}" id="sbProdCode_${basketDTO.num}">
@@ -102,31 +102,29 @@
 								<a href="${pageContext.request.contextPath }/product/shop">쇼핑 계속하기</a>
 							</div>
 						</div>
-						<div class="col-lg-6 col-md-6 col-sm-6">
-
-
-						</div>
 					</div>
 				</div>
-				<div class="col-lg-4">
+
+
+				<div class="col-lg-4" style="padding-left:30px">
 					<div class="cart__discount">
-						<h6>쿠폰 적용</h6>
-							<div class="col-3 mb-3">
-						<select id="myCouponList" class="form-select form-control-lg" name="myCouponList" >
-						</select>
+						<h6>쿠폰</h6>
+						<div class="mb-3" style="padding:15px">
+							<select id="myCouponList" class="form-select form-control" name="myCouponList"></select>
+						</div>
 					</div>
 
-					</div>
-
-					<div class="cart__total">
+              <div class="checkout__order">
+				<h4 class="order__title">장바구니 정보</h4>
 <!-- 						<h6>결제</h6> -->
-						<ul>
-							<li>상품 할인 <span id="itemDcPrice"></span></li>
+						<ul class="checkout__total__all" style="border:none; padding:0;">
+							<li>할인가 <span id="itemDcPrice"></span></li>
 							<li>주문 합계 <span id="itemTotalPrice"></span></li>
 						</ul>
-						<button type="submit" id="orderChk" name="orderChk" >주문하기</button>
+						<button type="submit" class="site-btn" id="orderChk" name="orderChk" >주문하기</button>
 					</form>
 					</div>
+				</div>
 				</div>
 			</div>
 		</div>

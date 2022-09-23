@@ -131,7 +131,7 @@ public class MypageController {
 
 	// 마이페이지 - 주문 정보
 	@RequestMapping(value = "/mypage/order", method = RequestMethod.GET)
-	public String order() {
+	public String order(HttpServletRequest request, Model model, HttpSession session) throws Exception {
 		return "mypage/orderList";
 	}
 
