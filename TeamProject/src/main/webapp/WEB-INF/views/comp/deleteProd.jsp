@@ -13,12 +13,10 @@
   <head>
   <script src="http://code.jquery.com/jquery-3.6.0.js"></script>
   <script src="${pageContext.request.contextPath }/resources/jsPro/deleteProd.js"></script>
-<!--   전체선택, 선택삭제 자바스크립트 -->
 
+</head>
 
-  </head>
-
-  <body>
+<body>
   <!-- 메뉴단 -->
 <jsp:include page="../inc/menu.jsp"/>
     <!-- Layout wrapper -->
@@ -28,7 +26,6 @@
 <!-- 		큰화면 버티컬 시작-->
 		<jsp:include page="../inc/comp-menu.jsp"/>
 <!-- 		큰화면 버티컬 끝 -->
-
 
 			<!-- Content wrapper -->
 			<div class="content-wrapper">
@@ -55,6 +52,8 @@
 
                 <div class="card">
                 <h5 class="card-header">상품목록</h5>
+                <hr class="my-0" />
+                <div class="card-body">
                 <form>
                 <table class="table table-borderless">
                  <tbody class="table-border-bottom-0">
@@ -89,17 +88,19 @@
 
                 <div class="table-responsive text-nowrap" id="Context">
                  <form>
-                  <button type="submit" class="btn btn-primary " onclick="deleteValue();">선택 삭제</button>
+	                <div class="mt-3" style="padding:1rem;">
+	                 	<button type="submit" class="btn btn-outline-primary" onclick="deleteValue();">선택 삭제</button>
+	                </div>
                   <table class="table table-striped" >
                     <thead>
                       <tr>
-                        <th>&nbsp;&nbsp;<input class="form-check-input" type="checkbox" id="allCheck" name="allCheck" />&nbsp;&nbsp;&nbsp;전체선택 </th>
+                        <th>&nbsp;&nbsp;&nbsp;&nbsp;<input class="form-check-input" type="checkbox" id="allCheck" name="allCheck" />전체선택 </th>
                         <th>번호</th>
-                        <th>상품코드</th>
-                        <th>상품이름</th>
+                        <th>상품 코드</th>
+                        <th>상품명</th>
                         <th>가격</th>
-                        <th>재고수량</th>
-                        <th>재고상태</th>
+                        <th>재고 수량</th>
+                        <th>재고 상태</th>
                       </tr>
                     </thead>
                     <tbody class="table-border-bottom-0">
@@ -137,9 +138,9 @@
                     </tbody>
                   </table>
 
-			        <div class="bd-example-snippet bd-code-snippet"><div class="bd-example " >
+                  <div class="bd-example-snippet bd-code-snippet mt-5 mb-3"><div class="bd-example " >
 			        <nav aria-label="Standard pagination example">
-			          <ul class="pagination" style="margin-left: 45%; margin-rightt: 55%;">
+			          <ul class="pagination" style="margin-left: 45%; margin-right: 55%;">
 			            <li class="page-item">
 			               <c:if test="${pageDTO.startPage > pageDTO.pageBlock }">
 			              <a class="page-link" href="${pageContext.request.contextPath }
@@ -157,19 +158,15 @@
 						 /comp/deleteProd?pageNum=${pageDTO.startPage + pageDTO.pageBlock}&status=${pageDTO.status }&searchCol=${pageDTO.columnNm }&searchKeyWord=${pageDTO.searchKeyWord }" aria-label="Next">
 			                <span aria-hidden="true">&raquo;</span>
 			              </a>
-			              </c:if>
+							</c:if>
 			            </li>
 			          </ul>
 			        </nav>
 			        </div></div>
-
-                 </form>
+ 				</div>
+                </div>
                 </div>
               </div>
-
-
-
-
                 </div>
               </div>
             </div>
@@ -179,30 +176,8 @@
             <footer class="content-footer footer bg-footer-theme">
               <div class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
                 <div class="mb-2 mb-md-0">
-                  ©
-                  <script>
-                    document.write(new Date().getFullYear());
-                  </script>
-                  , made with ❤️ by
-                  <a href="https://themeselection.com" target="_blank" class="footer-link fw-bolder">ThemeSelection</a>
                 </div>
                 <div>
-                  <a href="https://themeselection.com/license/" class="footer-link me-4" target="_blank">License</a>
-                  <a href="https://themeselection.com/" target="_blank" class="footer-link me-4">More Themes</a>
-
-                  <a
-                    href="https://themeselection.com/demo/sneat-bootstrap-html-admin-template/documentation/"
-                    target="_blank"
-                    class="footer-link me-4"
-                    >Documentation</a
-                  >
-
-                  <a
-                    href="https://github.com/themeselection/sneat-html-admin-template-free/issues"
-                    target="_blank"
-                    class="footer-link me-4"
-                    >Support</a
-                  >
                 </div>
               </div>
             </footer>
@@ -210,9 +185,9 @@
 
             <div class="content-backdrop fade"></div>
           </div>
-          <!-- 화면 줄였을때 Content wrapper -->
+         <!-- 화면 줄였을때 Content wrapper -->
         </div>
-        <!-- / Layout page -->
+       <!-- / Layout page -->
       </div>
 
       <!-- Overlay -->

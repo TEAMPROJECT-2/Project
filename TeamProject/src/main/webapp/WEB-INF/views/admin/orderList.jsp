@@ -50,9 +50,9 @@
                 <hr class="my-0" />
                 <div class="card-body">
                 <div class="table-responsive text-nowrap">
-                <div style="padding:1rem;">
-                 <button type="submit" class="btn btn-outline-primary" onclick="deleteValue();">선택 삭제</button>
-                </div>
+	                <div style="padding:1rem;">
+	                 <button type="submit" class="btn btn-outline-primary" onclick="deleteValue();">선택 삭제</button>
+	                </div>
                   <table class="table table-striped">
                     <thead>
                       <tr>

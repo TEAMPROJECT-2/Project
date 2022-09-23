@@ -30,40 +30,35 @@
 		<jsp:include page="../inc/comp-menu.jsp"/>
 <!-- 		큰화면 버티컬 끝 -->
 
-
-			<!-- Content wrapper -->
-			<div class="content-wrapper">
-				<!-- Content -->
-				<!-- 화면줄였을때 버티컬 메뉴 및 큰화면에서는 시작 -->
+          <!-- Content wrapper -->
+          <div class="content-wrapper">
+            <!-- Content -->
             <div class="container-xxl flex-grow-1 container-p-y">
-              <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">주문 관리 </span> </h4>
+              <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">주문 /</span> 주문 목록</h4>
 
-			<div class="row">
+              <div class="row">
                 <div class="col-md-12">
                   <ul class="nav nav-pills flex-column flex-md-row mb-3">
                     <li class="nav-item">
-                      <a class="nav-link" href="${pageContext.request.contextPath }/comp/ordList">
-                      <i class="bx bx-user me-1"></i> 주문 목록</a>
+                      <a class="nav-link active" href="${pageContext.request.contextPath }/comp/ordList">
+                      <i class="bx bx-buildings me-1 active"></i> 주문 목록</a>
                     </li>
-
                   </ul>
-<!--  화면줄였을때 버티컬 및 큰화면에서는 시작 매뉴끝                  -->
-
-
 
                 <div class="card">
-                <h5 class="card-header">주문목록</h5>
+                <h5 class="card-header">주문 목록</h5>
+                <hr class="my-0" />
+                <div class="card-body">
 
                   <table class="table table-striped" >
                     <thead>
                       <tr>
                         <th>주문일</th>
-                        <th>주문번호</th>
-                        <th>주문물품</th>
+                        <th>주문 번호</th>
+                        <th>주문 상품</th>
                         <th>주문자</th>
-                        <th>총금액</th>
-                        <th>배송</th>
-                        <th></th>
+                        <th>총 금액</th>
+                        <th style="width:30%">배송</th>
                       </tr>
                     </thead>
                     <tbody class="table-border-bottom-0">
@@ -90,9 +85,9 @@
                      	  		<c:set var="num" value="${orderListDTO.ordDeliveryStatus }" />
                          		<c:choose>
 						 			<c:when test="${num eq '1'}">
-						  				물품준비중&nbsp;&nbsp;
-                       					<button class="btn btn-primary" id="delivNumberAdd_btn_${orderListDTO.trnum}" type="button">
-                       					송장번호입력
+						  				상품준비중&nbsp;&nbsp;
+                       					<button class="btn btn-outline-primary" id="delivNumberAdd_btn_${orderListDTO.trnum}" type="button">
+                       					배송준비
                        					</button>
                        					<div></div>
 						 			</c:when>
@@ -110,13 +105,12 @@
                       </tr>
                       </c:forEach>
 
-
                     </tbody>
                   </table>
 
-			        <div class="bd-example-snippet bd-code-snippet"><div class="bd-example " >
+                  <div class="bd-example-snippet bd-code-snippet mt-5 mb-3"><div class="bd-example " >
 			        <nav aria-label="Standard pagination example">
-			          <ul class="pagination" style="margin-left: 35%; margin-rightt: 65%;">
+			          <ul class="pagination" style="margin-left: 45%; margin-right: 55%;">
 			            <li class="page-item">
 			              <c:if test="${pageDTO.startPage > pageDTO.pageBlock }">
 			              <a class="page-link" href="${pageContext.request.contextPath }
@@ -141,6 +135,8 @@
 			          </ul>
 			        </nav>
 			        </div></div>
+
+                </div>
                 </div>
               </div>
                 </div>
@@ -152,30 +148,8 @@
             <footer class="content-footer footer bg-footer-theme">
               <div class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
                 <div class="mb-2 mb-md-0">
-                  ©
-                  <script>
-                    document.write(new Date().getFullYear());
-                  </script>
-                  , made with ❤️ by
-                  <a href="https://themeselection.com" target="_blank" class="footer-link fw-bolder">ThemeSelection</a>
                 </div>
                 <div>
-                  <a href="https://themeselection.com/license/" class="footer-link me-4" target="_blank">License</a>
-                  <a href="https://themeselection.com/" target="_blank" class="footer-link me-4">More Themes</a>
-
-                  <a
-                    href="https://themeselection.com/demo/sneat-bootstrap-html-admin-template/documentation/"
-                    target="_blank"
-                    class="footer-link me-4"
-                    >Documentation</a
-                  >
-
-                  <a
-                    href="https://github.com/themeselection/sneat-html-admin-template-free/issues"
-                    target="_blank"
-                    class="footer-link me-4"
-                    >Support</a
-                  >
                 </div>
               </div>
             </footer>
@@ -183,15 +157,14 @@
 
             <div class="content-backdrop fade"></div>
           </div>
-          <!-- 화면 줄였을때 Content wrapper -->
+         <!-- 화면 줄였을때 Content wrapper -->
         </div>
-        <!-- / Layout page -->
+       <!-- / Layout page -->
       </div>
 
       <!-- Overlay -->
       <div class="layout-overlay layout-menu-toggle"></div>
     </div>
-
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
     <script src="${pageContext.request.contextPath }/resources/assets/vendor/libs/jquery/jquery.js"></script>
