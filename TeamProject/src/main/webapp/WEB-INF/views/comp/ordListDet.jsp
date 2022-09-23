@@ -92,7 +92,7 @@
                          			<span class="d-block">우편번호</span>
                          		</th>
                          		 <td>
-                         			<span class="d-block">우편번호입력되면</span>
+                         			<span class="d-block">${orderListDTO.ordGetZipcode}</span>
                          		</td>
                          		<th>
                          			<span class="d-block">주소</span>

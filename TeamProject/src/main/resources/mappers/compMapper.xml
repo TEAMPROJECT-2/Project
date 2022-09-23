@@ -269,6 +269,7 @@
 				,ol.ORD_PURCHASESTATUS   as ordPurchasestatus
 				,ol.ORD_L_DATE           as ordLDate
 				,ob.ORD_GET_ADDRESS      as ordGetAddress
+				,ob.ORD_GET_ZIPCODE      as ordGetZipcode
 				,ob.ORD_DELIVERY_MESSAGE as ordDeliveryMessage
 				,ob.ORD_TOTAL_PRICE      as ordTotalPrice
 				,ob.ORD_COUPONDC         as ordCouponDc
