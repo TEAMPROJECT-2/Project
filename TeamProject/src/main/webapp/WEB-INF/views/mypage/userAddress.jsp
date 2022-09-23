@@ -92,7 +92,7 @@
                       <i class="bx bx-buildings me-1"></i> 배송지 관리</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="${pageContext.request.contextPath }/mypage/passMod">
+                      <a class="nav-link" href="${pageContext.request.contextPath }/mypage/order">
                       <i class="bx bx-detail me-1"></i> 주문 목록</a>
                     </li>
                   </ul>
@@ -115,26 +115,26 @@
 						</c:if>
                         <div class="row">
                           <div class="mb-3 col-md-6">
-                            <label for="userNm" class="form-label">받는 분</label>
+                            <label for="addressGetNm" class="form-label" >받는 분</label>
                             <input class="form-control form-control-lg" type="text" name="addressGetNm" id="addressGetNm" value="${addressDTO.addressGetNm}"/>
                           </div>
                           <div class="mb-3 col-md-6">
-                            <label for="userPhone" class="form-label" >연락처</label>
+                            <label for="addressGetPhone" class="form-label"  >연락처</label>
                             <input class="form-control form-control-lg" type="text" name="addressGetPhone" id="addressGetPhone" maxlength="11" value="${addressDTO.addressGetPhone}" />
                           </div>
                           <div class="mb-3 col-md-3">
-                            <label for="userNicknm" class="form-label">우편번호</label>
+                            <label for="addressZipcode" class="form-label">우편번호</label>
                             <input class="form-control form-control-lg" type="text" name="addressZipcode" id="addressZipcode"  value="${addressDTO.addressZipcode}" readonly/>
                           </div>
                           <div class="mb-3 col-md-7">
-                            <label for="userNicknm" class="form-label">주소</label>
+                            <label for="address" class="form-label">주소</label>
                             <input class="form-control form-control-lg" type="text" name="address" id="address"  value="${addressDTO.address}" readonly/>
                           </div>
                           <div class="mb-3 col-md-2">
                           	<button type="button" class="btn btn-outline-primary me-2" onclick="sample6_execDaumPostcode();" style="margin-top: 1.8rem; height:60%">주소 검색</button>
                           </div>
                           <div class="mb-3 col-md-12">
-                            <label for="userNicknm" class="form-label">상세주소</label>
+                            <label for="addressDetails" class="form-label">상세주소</label>
                             <input class="form-control form-control-lg" type="text" name="addressDetails" id="addressDetails"  value="${addressDTO.addressDetails}"/>
                           </div>
                         </div>

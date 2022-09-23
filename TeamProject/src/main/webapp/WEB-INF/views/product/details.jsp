@@ -12,22 +12,39 @@
 
 // 리뷰쓰기
 $(document).ready(function(){
-	$(".reply_button_wrap").on("click", function(e){
+	$(".primary-btn").on("click", function(e){
 		debugger;
 		e.preventDefault();
 
-	const userId = '${memberDTO.userId}';
-	const prodLNum = '${prodDTO.prodLNum}';
+		const userId = '${prodDTO.userId}';
+		const prodLNum = '${prodDTO.prodLNum}';
+		const prodLProdnm = '${details.prodLProdnm}';
 
-	let popUrl = "/replyEnroll/" + userId + "?prodLNum=" + prodLNum;
-	console.log(popUrl);
-	let popOption = "width = 490px, height=490px, top=300px, left=300px, scrollbars=yes";
+		$.ajax({
+			data : {
+				prodLNum : prodLNum,
+				userId : userId
+			},
+			url : '${pageContext.request.contextPath }/product/check',
+			type : 'POST',
+			success : function(result){
+				// 댓글 등록 전 회원이 이전에 등록한 댓글이 있는지 확인하는 기능
+				// 존재 : S /  존재x : F
+				if(result.code === 'S'){
+					let popUrl = "${pageContext.request.contextPath }/product/replyEnroll?userId=" + userId + "&prodLNum=" + prodLNum + "&prodLProdnm=" + prodLProdnm;
+					console.log(popUrl);
+					let popOption = "width = 490px, height=490px, top=300px, left=300px, scrollbars=yes";
+					window.open(popUrl,"리뷰 쓰기",popOption);
+				} else{
+					alert("이미 등록된 리뷰가 존재 합니다.");
+				}
+			}
+		});
 
-	window.open(popUrl,"리뷰 쓰기",popOption);
 	});
 });
 
-// 관련 상품 뿌려주기
+// Related Product 관련 상품 뿌려주기
 function printProdList(data){
 	$('#detailsContainer').empty();
 	data.forEach((e, i) => {
@@ -150,7 +167,7 @@ function printProdList(data){
             <div class="col-lg-6">
               <div class="row total_rate">
                 <div class="col-6">
-                  <div class="box_total">
+                  <div class="box_total"><br>
                     <h5>별점 평균</h5>
                     <h4>4.0</h4>
                     <h6>(03 Reviews)</h6>
@@ -223,53 +240,20 @@ function printProdList(data){
                 </div>
               </div>
             </div>
+            <!-- 리뷰 쓰기 시작 -->
             <div class="col-lg-6">
               <div class="review_box">
                 <div class="reply_subject">
 					<br><h2>리뷰</h2>
 				</div>
-
-				<!-- 이 리뷰 버튼은 로그인한 회원에게만 보이도록함 -->
-<%-- 				<c:if test="${userId != null}"> --%>
 					<div class="reply_button_wrap">
-						<br><button>리뷰 쓰기</button>
+						<br><button type="submit" class="primary-btn" value="submit">리뷰 쓰기</button>
 					</div>
-<%-- 				</c:if> --%>
-				<!-- 이 리뷰 버튼은 로그인한 회원에게만 보이도록함 -->
-
-                <br><p>별점 :</p>
-                <ul class="list">
-                  <li>
-                    <a href="#">
-                      <i class="fa fa-star"></i>
-                    </a>
-                  </li>
-                </ul>
-                <form class="row contact_form" action="contact_process.php" method="post" novalidate="novalidate">
-                  <div class="col-md-12">
-                    <div class="form-group">
-                      <input type="text" class="form-control" name="name" placeholder="이름, 날짜 정보 등" />
-                    </div>
-                  </div>
-                  <div class="col-md-12">
-                    <div class="form-group">
-                      <input type="text" class="form-control" name="number" placeholder="상품명" />
-                    </div>
-                  </div>
-                  <div class="col-md-12">
-                    <div class="form-group">
-                      <textarea class="form-control" name="message" rows="1" placeholder="상품평"></textarea>
-                    </div>
-                  </div>
-                  <div class="col-md-12 text-right">
-                    <button type="submit" class="primary-btn" value="submit">상품평 등록</button>
-                  </div>
-                </form>
               </div>
             </div>
+            <!-- 상품 후기 부분 끝 -->
           </div>
         </div>
-        <!-- 상품 후기 부분 끝 -->
       </div>
     </div>
   </section>
@@ -284,7 +268,7 @@ function printProdList(data){
             </div>
             <div class="row">
 
-            	<!-- 관련상품 뿌려주는 곳 시작 -->
+            	<!-- Related Product 관련상품 뿌려주는 곳 시작 -->
             	<div class="row" id="detailsContainer">
 <%--                    	<c:forEach var="details" items="${details}"> --%>
 	                   	<div class="col-lg-3 col-md-6 col-sm-6 col-sm-6">
@@ -318,7 +302,7 @@ function printProdList(data){
 	                	</div>
 <%-- 	            	</c:forEach> --%>
 	            </div>
-            	<!-- 관련상품 뿌려주는 곳 끝 -->
+            	<!-- Related Product 관련상품 뿌려주는 곳 끝 -->
 
 
                 <div class="col-lg-3 col-md-6 col-sm-6 col-sm-6">

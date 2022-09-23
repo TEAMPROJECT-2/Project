@@ -24,14 +24,12 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.itwillbs.domain.ProdDTO;
-import com.itwillbs.domain.ProdReplyDTO;
 import com.itwillbs.domain.BoardDTO;
 import com.itwillbs.domain.CommonDTO;
 import com.itwillbs.domain.MemberDTO;
 import com.itwillbs.domain.PageDTO;
 import com.itwillbs.service.CommonService;
 import com.itwillbs.service.MemberService;
-import com.itwillbs.service.ProdReplyService;
 import com.itwillbs.service.ProdService;
 
 @Controller
@@ -42,16 +40,12 @@ public class ProdController {
 	private ProdService prodService;
 	@Inject
 	private CommonService commonService;
-	@Inject
-	private ProdReplyService prodReplyService;
-	@Inject
-	private MemberService memberService;
-
 
 	//업로드 경로 servlet-context.mxl upload폴더 경로 이름
 	@Resource(name = "uploadPath")
 	private String uploadPath;
 
+	// 상품페이지
 	@RequestMapping(value = "/product/shop", method = RequestMethod.GET)
 	public ModelAndView list(HttpServletRequest req, HttpServletResponse res, @ModelAttribute ProdDTO prodDTO) throws Exception {
 		try {
@@ -111,6 +105,7 @@ public class ProdController {
 
 	}
 
+	// 상품페이지 Ajax
 	@RequestMapping(value = "/product/shopAjax", method = RequestMethod.POST)
 	public @ResponseBody Map<String, Object> listAjax(HttpServletRequest req, HttpServletResponse res, @ModelAttribute ProdDTO prodDTO) {
 		Map<String, Object> map = new HashMap<>();
@@ -159,14 +154,16 @@ public class ProdController {
 
 	// 상세화면
 	@RequestMapping(value = "/product/details", method = RequestMethod.GET)
-	public ModelAndView details(HttpServletRequest req, HttpServletResponse res, @ModelAttribute ProdDTO prodDTO) throws Exception {
+	public ModelAndView details(HttpServletRequest req, HttpServletResponse res,HttpSession session, @ModelAttribute ProdDTO prodDTO) throws Exception {
 		try {
 			ModelAndView mv = new ModelAndView();
 
 			ProdDTO details = prodService.selectProdDetail(prodDTO);
+			String userId = (String)session.getAttribute("userId");
+			prodDTO.setUserId(userId);
+
 			// 추천꺼 LIST
 //			List<ProdDTO> prodList = prodService.selectProdList(prodDTO);
-
 
 			mv.addObject("details", details);
 			// 추천 꺼 만들기
@@ -181,24 +178,63 @@ public class ProdController {
 
 	}
 
-	/* 리뷰 쓰기 */
-	@RequestMapping(value = "product/replyEnroll", method = RequestMethod.GET)
-	public String replyEnrollWindow(HttpServletRequest req, HttpSession session, Model model) throws Exception  {
-//		System.out.println(dto.getProdLNum());
-//		System.out.println(dto.getUserId());
-		// 파라미터 가져오기
-		int prodLNum=Integer.parseInt(req.getParameter("prodLNum"));
-		String userId = (String)session.getAttribute("userId");
-		System.out.println("====");
-		if(userId==null) {
-			return "/product/msg";
-		} else {
-			ProdDTO prodDTO = prodService.getProdNumName(prodLNum);
-			MemberDTO memberDTO = memberService.getMember(userId);
-			model.addAttribute("prodDTO", prodDTO); // prodLNum
-			model.addAttribute("memberDTO", memberDTO); // userId
-			return "product/replyEnroll";
+	// 리뷰창
+	@RequestMapping(value = "/product/replyEnroll", method = RequestMethod.GET)
+	public ModelAndView replyEnrollWindow(HttpServletRequest req, HttpServletResponse res,HttpSession session, @ModelAttribute ProdDTO prodDTO) throws Exception {
+		try {
+			ModelAndView mv = new ModelAndView();
+			String userId = (String)session.getAttribute("userId");
+
+			if(!"".equals(userId) && userId !=null) {
+				mv.addObject("prodDTO", prodDTO);
+				mv.setViewName("product/replyEnroll");
+			}else {
+				mv.setViewName("product/msg");
+			}
+
+			return mv;
+
+		}catch(Exception e) {
+			e.printStackTrace();
 		}
+		return null;
+
+	}
+
+	// 댓글 등록 전 회원이 이전에 등록한 댓글이 있는지 확인하는 기능
+	// 존재 : 1  /  존재x : 0
+	@RequestMapping(value = "/product/check", method = RequestMethod.POST)
+	public @ResponseBody Map<String, Object> replyCheck(HttpServletRequest req, HttpServletResponse res, ProdDTO prodDTO) {
+		Map<String, Object> map = new HashMap<>();
+
+		int check = prodService.checkReply(prodDTO);
+		// 댓글 등록 전 회원이 이전에 등록한 댓글이 있는지 확인하는 기능
+		if(check > 0) {
+			map.put("code", "F"); // 이미 리뷰 쓴 경우
+		}else {
+			map.put("code", "S");
+		}
+		map.put("prodDTO", prodDTO);
+		return map;
+	}
+
+	// 리뷰 등록
+	@RequestMapping(value = "/product/enroll", method = RequestMethod.POST)
+	public @ResponseBody Map<String, Object> enrollReply(HttpServletRequest req, HttpServletResponse res, ProdDTO prodDTO) {
+		Map<String, Object> map = new HashMap<>();
+
+		int check = prodService.checkReply(prodDTO);
+		// 댓글 등록 전 회원이 이전에 등록한 댓글이 있는지 확인하는 기능
+		if(check > 0) {
+			map.put("check", "F"); // 이미 리뷰 쓴 경우
+		}else {
+			prodService.enrollReply(prodDTO); //insert
+			ProdDTO reply =  prodService.getProdNumName(prodDTO);
+			map.put("reply", reply);
+			map.put("code", "S");
+		}
+		map.put("prodDTO", prodDTO);
+		return map;
 	}
 
 }

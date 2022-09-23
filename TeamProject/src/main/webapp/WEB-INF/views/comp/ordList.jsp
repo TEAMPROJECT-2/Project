@@ -63,7 +63,7 @@
                     </thead>
                     <tbody class="table-border-bottom-0">
 					  <c:forEach var="orderListDTO" items="${ordList }" varStatus="status">
-                      <tr onClick="location.href='${pageContext.request.contextPath }/comp/ordListDet?CheckRow=${orderListDTO.ordLCode }'" style="cursor:pointer;">
+                      <tr onClick="location.href='${pageContext.request.contextPath }/comp/ordListDet?CheckRow=${orderListDTO.ordLCode },${orderListDTO.ordLUser }'" style="cursor:pointer;">
 
                         <td><fmt:formatDate pattern="yy-MM-dd" value="${orderListDTO.ordLDate }"/></td>
                         <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>${orderListDTO.num }</strong></td>

@@ -53,25 +53,33 @@
                     <thead>
                       <tr>
                         <th>num</th>
+<<<<<<< HEAD
                         <th>주문 코드</th>
+=======
+                        <th>주문번호</th>
+                        <th>주문자</th>
+>>>>>>> refs/remotes/origin/main
                         <th>업체명</th>
-                        <th>가격</th>
                         <th>할인가</th>
                         <th>최종 가격</th>
-                        <th>수량</th>
                         <th>주문일</th>
                       </tr>
                     </thead>
                     <tbody class="table-border-bottom-0">
                      <c:forEach var="orderListDTO" items="${orderList}" >
                       <tr>
-                        <td>${orderListDTO.num}</td>
+                        <td>${orderListDTO.trnum}</td>
                         <td>${orderListDTO.ordLCode}</td>
+<<<<<<< HEAD
                         <td>${orderListDTO.compId}</td>
                         <td>${orderListDTO.ordLPrice}</td>
                         <td>${orderListDTO.ordLCouponnum}</td>
+=======
+                        <td>${orderListDTO.ordLUser}</td>
+                        <td>${orderListDTO.compNm}</td>
+                        <td>${orderListDTO.ordCouponDc}</td>
+>>>>>>> refs/remotes/origin/main
                         <td>${orderListDTO.ordFinalprice}</td>
-                        <td>${orderListDTO.ordLQuantity}</td>
                         <td>${orderListDTO.ordLDate}</td>
                         <td>
                       </tr>

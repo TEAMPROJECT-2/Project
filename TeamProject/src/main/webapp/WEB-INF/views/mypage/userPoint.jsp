@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
 <!DOCTYPE html>
 <html
   lang="en"
@@ -35,8 +36,8 @@
                 <div class="mb-3 row">
                   <div class="col-md-10">
                     <form action="${pageContext.request.contextPath }/mypage/point" method="get" onsubmit="return datecheck()">
-                    <input class="form-control" type="date" id="startDate" name="startDate" max="${pageDTO.endDate }"  required/>
-                    <input class="form-control" type="date" id="endDate" name="endDate"  required/>
+                    <input class="form-control" type="date" id="startDate" name="startDate"  required />
+                    <input class="form-control" type="date" id="endDate" name="endDate" required />
 								<br>
 						<input type="button" value="1개월" id="searchMonth1" class="btn btn-outline-info" >
 						<input type="button" value="3개월" id="searchMonth3" class="btn btn-outline-info" >
@@ -49,7 +50,7 @@
 
               <!-- Basic Bootstrap Table -->
                <div class="card">
-                <h5 class="card-header">포인트 조회 </h5>
+                <h5 class="card-header">포인트 조회  </h5>
                 <hr class="my-0" />
                 <div class="card-body">
                 <div class="table-responsive text-nowrap">
@@ -65,7 +66,7 @@
                     <tbody class="table-border-bottom-0">
                      <c:forEach var="pointDTO" items="${pointList }">
                       <tr>
-                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> ${pointDTO.pointDate }</td>
+                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> ${fn:substring(pointDTO.pointDate,0,16)}  </td>
                         <td>${pointDTO.pointType }</td>
                         <c:if test="${ pointDTO.pointUsed ne 0}">
                         <td><span class="badge bg-danger">-${pointDTO.pointUsed }</span></td>

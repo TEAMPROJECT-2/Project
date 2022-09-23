@@ -148,6 +148,19 @@
 	      LEFT OUTER JOIN USER_INFO U ON R.USER_ID = U.USER_ID
 	     WHERE L.PROD_L_NUM = #{prodLNum}
 	</select>
+	<!-- 댓글등록 -->
+  	<insert id="enrollReply" parameterType="com.itwillbs.domain.ProdDTO">
+  		INSERT INTO PRODUCT_REPLY(PROD_L_NUM, USER_ID, CONTENT, RATING)
+  		VALUES (#{prodLNum}, #{userId}, #{content}, #{rating})
+  	</insert>
+
+	<!-- 댓글 등록 전 회원이 이전에 등록한 댓글이 있는지 확인하는 기능 -->
+	<select id="checkReply" parameterType="com.itwillbs.domain.ProdDTO" resultType="integer">
+		SELECT COUNT(REPLY_NUM)
+		  FROM PRODUCT_REPLY
+		 WHERE USER_ID = #{userId}
+		   AND PROD_L_NUM = #{prodLNum}
+	</select>
 
 
 </mapper>

@@ -4,22 +4,26 @@ import java.sql.Timestamp;
 
 public class OrderListDTO extends OrderDTO{
 	private int trnum;
-	private int num          ;
-	private String ordLCode        ;
-	private String ordLUser;
-	private int ordLQuantity;
-	private int ordLPrice;
+	private int ordNum          ;
+	private String ordLCode        ; // 상품코드
+	private String ordLProdnm        ; // 상품이름
+	private String ordLUser; // 주문자 아이디
+	private String ordLUserNm; // 주문자 이름
+	private String compNm; // 회사 이름
+
+	private int ordLQuantity; // 주문수량
+	private int ordLPrice;    // 개별가격
 	private Timestamp ordLDate;
-	private String compId;
-	private String ordDeliveryStatus;
+	private String compId;  // 회사아이디
+	private String ordDeliveryStatus; // 배송상태
 	private int ordFinalprice;
-	private String ordLDelivNumber;
+	private String ordLDelivNumber;   //운송장 번호
 	private int count;
 	private String ordPurchasestatus;
 
-	private String ge50Count;
-	private String ne50Count;
-	private String eq50Couunt;
+	private String ge50Count; //50개이상 상품수량
+	private String ne50Count; //50개 미만 상품수량
+	private String eq50Couunt; // 0개 상품 수량
 	private String ordLCouponnum; //사용 쿠폰 넘버
 
 
@@ -30,10 +34,10 @@ public class OrderListDTO extends OrderDTO{
 		this.trnum = trnum;
 	}
 	public int getNum() {
-		return num;
+		return ordNum;
 	}
 	public void setNum(int num) {
-		this.num = num;
+		this.ordNum = num;
 	}
 	public String getOrdLCode() {
 		return ordLCode;
@@ -131,6 +135,31 @@ public class OrderListDTO extends OrderDTO{
 	}
 	public void setOrdLCouponnum(String ordLCouponnum) {
 		this.ordLCouponnum = ordLCouponnum;
+	}
+	public String getOrdLUserNm() {
+		return ordLUserNm;
+	}
+	public void setOrdLUserNm(String ordLUserNm) {
+		this.ordLUserNm = ordLUserNm;
+	}
+	public int getOrdNum() {
+		return ordNum;
+	}
+	public void setOrdNum(int ordNum) {
+		this.ordNum = ordNum;
+	}
+
+	public String getOrdLProdnm() {
+		return ordLProdnm;
+	}
+	public void setOrdLProdnm(String ordLProdnm) {
+		this.ordLProdnm = ordLProdnm;
+	}
+	public String getCompNm() {
+		return compNm;
+	}
+	public void setCompNm(String compNm) {
+		this.compNm = compNm;
 	}
 
 

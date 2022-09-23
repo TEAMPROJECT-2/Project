@@ -16,6 +16,10 @@
 	src="${pageContext.request.contextPath }/resources/jsPro/basketListPro.js"></script>
 </head>
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> refs/remotes/origin/main
 <script>
 function myCoupon(){
  var sbUser = "${memberDTO.userId}";
@@ -353,6 +357,7 @@ function pointUseAll(){
 	<!-- Footer Sect
 	<!-- Footer Section Begin -->
 	<jsp:include page="../inc/footer.jsp" />
+	
 </body>
 
 <script
@@ -428,6 +433,7 @@ function pointUseAll(){
 	  });
 	});
   </script>
+
 
 <!-- jQuery -->
 <script type="text/javascript"
