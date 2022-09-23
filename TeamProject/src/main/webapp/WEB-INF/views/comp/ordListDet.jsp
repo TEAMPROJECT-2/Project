@@ -31,14 +31,18 @@
             <!-- Content -->
 
             <div class="container-xxl flex-grow-1 container-p-y">
-              <h4 class="fw-bold py-3 mb-4">주문 정보 </h4>
+              <h4 class="fw-bold py-3 mb-4">주문 정보 <span class="text-muted fw-light"> /상품 목록 </span>  </h4>
 
               <div class="row">
                 <div class="col-md-12">
                   <ul class="nav nav-pills flex-column flex-md-row mb-3">
                     <li class="nav-item">
-                      <a class="nav-link active" href="${pageContext.request.contextPath }/comp/modify">
+                      <a class="nav-link active" href="${pageContext.request.contextPath }/comp/ordListDet">
                       <i class="bx bx-user me-1"></i> 주문 정보</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" href="${pageContext.request.contextPath }/comp/ordList">
+                      <i class="bx bx-user me-1"></i> 상품 목록</a>
                     </li>
                   </ul>
 
@@ -52,81 +56,76 @@
                         <table class="table table">
                              <tr>
                          		<th>
-                         			<span class="d-block">주문자ID</span>
+                         			<span class="d-block">주문자 ID</span>
                          		</th>
                          		 <td>
-                         			<span class="d-block">${compDTO1.compId}</span>
+                         			<span class="d-block">${orderListDTO.ordLUser} </span>
                          		</td>
-                         		<th>
-                         			<span class="d-block">주문자성함</span>
+                         		<th >
+                         			<span class="d-block">주문자 이름</span>
                          		</th>
-                         		<td>
-                         			<span class="d-block">${compDTO1.compNm}</span>
+                         		<td >
+                         			<span class="d-block">${orderListDTO.ordLUserNm}</span>
                          		</td>
+
                          	</tr>
+
+
                          	<tr>
                          		<th>
-                         			<span class="d-block">메일</span>
+                         			<span class="d-block">받는 분</span>
                          		</th>
                          		 <td>
-                         			<span class="d-block">${compDTO1.compEmail}</span>
+                         			<span class="d-block">${orderListDTO.ordGetNm}</span>
                          		</td>
                          		<th>
-                         			<span class="d-block">연락처</span>
+                         			<span class="d-block">받는 분 연락처</span>
                          		</th>
                          		<td>
-                         			<span class="d-block">${compDTO1.compPhone}</span>
+                         			<span class="d-block">${orderListDTO.ordGetPhone}</span>
                          		</td>
                          	</tr>
+
+
                          	<tr>
                          		<th>
                          			<span class="d-block">우편번호</span>
                          		</th>
                          		 <td>
-                         			<span class="d-block">${compDTO1.compEmail}</span>
+                         			<span class="d-block">우편번호입력되면</span>
                          		</td>
                          		<th>
                          			<span class="d-block">주소</span>
                          		</th>
                          		<td>
-                         			<span class="d-block">${compDTO1.compPhone}</span>
+                         			<span class="d-block">${orderListDTO.ordGetAddress}</span>
                          		</td>
                          	</tr>
+
                          	<tr>
                          		<th>
                          			<span class="d-block">배송시 요구사항</span>
                          		</th>
                          		<td>
-                         			<span class="d-block">${compDTO1.compPhone}</span>
+                         			<span class="d-block">${orderListDTO.ordDeliveryMessage}</span>
                          		</td>
                          	</tr>
 
                          	<tr>
                          		<th>
-                         			<span class="d-block">상품코드</span>
+                         			<span class="d-block">상품 코드</span>
                          		</th>
                          		 <td>
-                         			<span class="d-block">${compDTO1.compZipcode} </span>
+                         			<span class="d-block">${orderListDTO.ordLCode} </span>
                          		</td>
                          		<th>
-                         			<span class="d-block">수량</span>
+                         			<span class="d-block">주문 수량</span>
                          		</th>
                          		<td>
-                         			<span class="d-block">${compDTO1.compAddress} ${compDTO1.compDetaddress}</span>
+                         			<span class="d-block"> ${orderListDTO.ordLQuantity}</span>
                          		</td>
                          	</tr>
                          </table>
-
-
-
-
-
-
-
-
-                        <div class="mt-2">
-                          <button type="submit" class="btn btn-primary me-2" >목록으로</button>
-                        </div>
                     </div>
                     <!-- /Account -->
 

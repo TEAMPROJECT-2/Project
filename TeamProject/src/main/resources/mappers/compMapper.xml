@@ -259,27 +259,29 @@
 <!-- 	주문 상세정보  -->
 	<select id="getOrdListDet" resultType="com.itwillbs.domain.OrderListDTO">
 		SELECT
-				,ol.ORD_L_CODE
-				,ol.ORD_L_USER
-				,ol.ORD_L_QUANTITY
-				,ol.ORD_L_PRICE
-				,ol.ORD_L_COUPONNUM
-				,ol.ORD_DELIVERY_STATUS
-				,ol.ORD_L_DELIV_NUMBER
-				,ol.ORD_PURCHASESTATUS
-				,ol.ORD_L_DATE
-				,ob.ORD_GET_ADDRESS
-				,ob.ORD_DELIVERY_MESSAGE
-				,ob.ORD_TOTAL_PRICE
-				,ob.ORD_COUPONDC
-				,ob.ORD_FINALPRICE
-				,ob.ORD_GET_NM
-				,ob.ORD_GET_PHONE
-				,ob.ORD_DELIVERY_PRICE
-		 FROM   ORDER_LIST AS OL JOIN ORDER_BOARD AS OB
+				 ol.ORD_L_CODE			 as ordLCode
+				,ol.ORD_L_USER           as ordLUser
+				,ol.ORD_L_QUANTITY       as ordLQuantity
+				,ol.ORD_L_PRICE          as ordLPrice
+				,ol.ORD_L_COUPONNUM      as ordLCouponnum
+				,ol.ORD_DELIVERY_STATUS  as ordDeliveryStatus
+				,ol.ORD_L_DELIV_NUMBER   as ordLDelivNumber
+				,ol.ORD_PURCHASESTATUS   as ordPurchasestatus
+				,ol.ORD_L_DATE           as ordLDate
+				,ob.ORD_GET_ADDRESS      as ordGetAddress
+				,ob.ORD_DELIVERY_MESSAGE as ordDeliveryMessage
+				,ob.ORD_TOTAL_PRICE      as ordTotalPrice
+				,ob.ORD_COUPONDC         as ordCouponDc
+				,ob.ORD_FINALPRICE       as ordFinalPrice
+				,ob.ORD_GET_NM           as ordGetNm
+				,ob.ORD_GET_PHONE        as ordGetPhone
+				,(SELECT USER_NM
+    			    FROM USER_INFO
+  				   WHERE USER_ID=#{ordLUser}) as ordLUserNm
+		 FROM   ORDER_LIST as ol JOIN ORDER_BOARD as ob
 		   ON   (ol.ORD_L_USER=ob.USER_ID)
-		WHERE   ORD_L_USER='SIM'
-		  AND   ol.ORD_L_CODE = 'PF220906032';
+		WHERE   ORD_L_USER=#{ordLUser}
+		  AND   ol.ORD_L_CODE = #{ordLCode};
 
 	</select>
 

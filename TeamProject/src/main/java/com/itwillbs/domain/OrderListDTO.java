@@ -7,13 +7,15 @@ public class OrderListDTO extends OrderDTO{
 	private int num          ;
 	private String ordLCode        ;
 	private String ordLUser;
+	private String ordLUserNm;
+
 	private int ordLQuantity;
 	private int ordLPrice;
 	private Timestamp ordLDate;
 	private String compId;
-	private String ordDeliveryStatus;
+	private String ordDeliveryStatus; // 배송상태
 	private int ordFinalprice;
-	private String ordLDelivNumber;
+	private String ordLDelivNumber;   //운송장 번호
 	private int count;
 	private String ordPurchasestatus;
 
@@ -131,6 +133,12 @@ public class OrderListDTO extends OrderDTO{
 	}
 	public void setOrdLCouponnum(String ordLCouponnum) {
 		this.ordLCouponnum = ordLCouponnum;
+	}
+	public String getOrdLUserNm() {
+		return ordLUserNm;
+	}
+	public void setOrdLUserNm(String ordLUserNm) {
+		this.ordLUserNm = ordLUserNm;
 	}
 
 
