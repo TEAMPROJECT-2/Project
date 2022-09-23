@@ -133,9 +133,6 @@ public class MypageController {
 
 	// 마이페이지 - 주문 정보
 	@RequestMapping(value = "/mypage/order", method = RequestMethod.GET)
-<<<<<<< HEAD
-	public String order(HttpServletRequest request, Model model, HttpSession session) throws Exception {
-=======
 	public String order(HttpServletRequest request, Model model, HttpSession session,
 			@ModelAttribute OrderListDTO orderListDTO) {
 		// 한화면에 보여줄 글개수
@@ -173,11 +170,12 @@ public class MypageController {
 				pageDTO.setEndPage(endPage);
 				pageDTO.setPageCount(pageCount);
 				// 데이터 담아서 list.jsp 이동
+//				System.out.println(ordList.toString());
+				
 				model.addAttribute("ordList", ordList);
 				model.addAttribute("pageDTO", pageDTO);
 
 
->>>>>>> refs/remotes/origin/main
 		return "mypage/orderList";
 	}
 

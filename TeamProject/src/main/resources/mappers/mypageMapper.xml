@@ -72,9 +72,8 @@
 		   ON	(ol.ORD_L_CODE=pl.PROD_L_CODE)
 		WHERE   (@rownum:=0)=0
 		  AND   ol.ORD_L_USER=#{userId}
-<!-- 	 ORDER BY   ol.ORD_L_CODE -->
-   DESC LIMIT   #{startRow}
-                ,#{pageSize}
+	 ORDER BY   ol.ORD_L_CODE
+   DESC LIMIT   #{startRow}, #{pageSize}
 	</select>
 	<select id="getMyOrdListCount" resultType="java.lang.Integer">
 
