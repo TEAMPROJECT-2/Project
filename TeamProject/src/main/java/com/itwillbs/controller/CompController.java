@@ -57,7 +57,6 @@ public class CompController {
 
 	@RequestMapping(value = "/comp/insertGoods", method = RequestMethod.GET)
 	public String compInsertProd() {
-		System.out.println("comp/insertGoods");
 		return "comp/insertGoods";
 	}
 
@@ -97,7 +96,7 @@ public class CompController {
 			prodDTO.setProdLCode(prodLCode);
 		}
 
-		// ProdDTO prodDTO,
+
 		// 로그인후 세션값, 업체 아이디 갖고옴
 
 		// 파일 이름 => 랜덤문자_파일이름
@@ -402,9 +401,6 @@ public class CompController {
 		pageDTO.setStartPage(startPage);
 		pageDTO.setEndPage(endPage);
 		pageDTO.setPageCount(pageCount);
-		System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!"+ordList.get(1).getOrdLCouponnum());
-		System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!"+ordList.get(1).getOrdPurchasestatus());
-		System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!"+ordList.get(0).getOrdDeliveryStatus());
 
 		// 데이터 담아서 list.jsp 이동
 		model.addAttribute("ordList", ordList);
@@ -427,6 +423,18 @@ public class CompController {
 
 		return "redirect:/comp/ordList";
 	}
+	// 송장번호 입력과 배송중으로 바꿈
+	@RequestMapping(value = { "/comp/refund" }, method = { RequestMethod.POST })
+	public String refund(OrderListDTO orderListDTO,HttpServletRequest request) throws Exception {
+		orderListDTO.setOrdDeliveryStatus("3"); //배송취소로 셋팅
+		orderListDTO.setOrdRefund("12"); // 환불완료로 셋팅
+		compService.refundDeliveryStatusUpdate(orderListDTO); // 배송취소, 환불완료로 디비수정
+		compService.couponUpdate(orderListDTO); // 쿠폰 돌려주기
+		compService.prodquantityUpdate(orderListDTO); // 물품수량 되돌리기
+		return "redirect:/comp/ordList";
+	}
+
+
 
 //		 업체 페이지 메인화면
 	@RequestMapping(value = "/comp/compMain", method = RequestMethod.GET)
